@@ -1,0 +1,198 @@
+[
+ {
+  "id": "514e7e3e-b3b4-4a67-af60-be20f139198b",
+  "title": "PUA - AdFind.EXE Execution",
+  "category": "process_creation",
+  "reference_urls": [
+   "https://www.joeware.net/freetools/tools/adfind/",
+   "https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1087.002/T1087.002.md"
+  ]
+ },
+ {
+  "id": "1af57a4b-460a-4738-9034-db68b880c665",
+  "title": "PowerShell SAM Copy",
+  "category": "process_creation",
+  "reference_urls": [
+   "https://twitter.com/splinter_code/status/1420546784250769408"
+  ]
+ },
+ {
+  "id": "455b9d50-15a1-4b99-853f-8d37655a4c1b",
+  "title": "PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE",
+  "category": "process_creation",
+  "reference_urls": [
+   "https://www.joeware.net/freetools/tools/adfind/",
+   "https://social.technet.microsoft.com/wiki/contents/articles/7535.adfind-command-examples.aspx",
+   "https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1087.002/T1087.002.md"
+  ]
+ },
+ {
+  "id": "5b80a791-ad9b-4b75-bcc1-ad4e1e89c200",
+  "title": "File With Suspicious Extension Downloaded Via Bitsadmin",
+  "category": "process_creation",
+  "reference_urls": [
+   "https://blog.netspi.com/15-ways-to-download-a-file/#bitsadmin",
+   "https://isc.sans.edu/diary/22264",
+   "https://lolbas-project.github.io/lolbas/Binaries/Bitsadmin/"
+  ]
+ },
+ {
+  "id": "5b768e71-86f2-4879-b448-81061cbae951",
+  "title": "Suspicious Manipulation Of Default Accounts Via Net.EXE",
+  "category": "process_creation",
+  "reference_urls": [
+   "https://www.trellix.com/en-sg/about/newsroom/stories/threat-labs/lockergoga-ransomware-family-used-in-targeted-attacks.html",
+   "https://redacted.com/blog/bianlian-ransomware-gang-gives-it-a-go/",
+   "https://www.microsoft.com/security/blog/2022/09/07/profiling-dev-0270-phosphorus-ransomware-operations/"
+  ]
+ },
+ {
+  "id": "c3a99af4-35a9-4668-879e-c09aeb4f2bdf",
+  "title": "Rundll32 Execution With Uncommon DLL Extension",
+  "category": "process_creation",
+  "reference_urls": [
+   "https://twitter.com/mrd0x/status/1481630810495139841?s=12"
+  ]
+ },
+ {
+  "id": "39b31e81-5f5f-4898-9c0e-2160cfc0f9bf",
+  "title": "HackTool - Hashcat Password Cracker Execution",
+  "category": "process_creation",
+  "reference_urls": [
+   "https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1110.002/T1110.002.md#atomic-test-1---password-cracking-with-hashcat",
+   "https://hashcat.net/wiki/doku.php?id=hashcat"
+  ]
+ },
+ {
+  "id": "7124aebe-4cd7-4ccb-8df0-6d6b93c96795",
+  "title": "Suspicious Kernel Dump Using Dtrace",
+  "category": "process_creation",
+  "reference_urls": [
+   "https://twitter.com/0gtweet/status/1474899714290208777?s=12",
+   "https://learn.microsoft.com/en-us/windows-hardware/drivers/devtest/dtrace"
+  ]
+ },
+ {
+  "id": "0e0255bf-2548-47b8-9582-c0955c9283f5",
+  "title": "Suspicious Reg Add BitLocker",
+  "category": "process_creation",
+  "reference_urls": [
+   "https://thedfirreport.com/2021/11/15/exchange-exploit-leads-to-domain-wide-ransomware/"
+  ]
+ },
+ {
+  "id": "0e8cfe08-02c9-4815-a2f8-0d157b7ed33e",
+  "title": "File Download with Headless Browser",
+  "category": "process_creation",
+  "reference_urls": [
+   "https://twitter.com/mrd0x/status/1478234484881436672?s=12",
+   "https://www.trendmicro.com/en_us/research/23/e/managed-xdr-investigation-of-ducktail-in-trend-micro-vision-one.html"
+  ]
+ },
+ {
+  "id": "e4b6d2a7-d8a4-4f19-acbd-943c16d90647",
+  "title": "Potentially Suspicious PowerShell Child Processes",
+  "category": "process_creation",
+  "reference_urls": [
+   "https://twitter.com/ankit_anubhav/status/1518835408502620162"
+  ]
+ },
+ {
+  "id": "c73124a7-3e89-44a3-bdc1-25fe4df754b1",
+  "title": "Copy From VolumeShadowCopy Via Cmd.EXE",
+  "category": "process_creation",
+  "reference_urls": [
+   "https://twitter.com/vxunderground/status/1423336151860002816?s=20",
+   "https://www.virustotal.com/gui/file/03e9b8c2e86d6db450e5eceec057d7e369ee2389b9daecaf06331a95410aa5f8/detection",
+   "https://pentestlab.blog/2018/07/04/dumping-domain-password-hashes/"
+  ]
+ },
+ {
+  "id": "164eda96-11b2-430b-85ff-6a265c15bf32",
+  "title": "Local Groups Reconnaissance Via Wmic.EXE",
+  "category": "process_creation",
+  "reference_urls": [
+   "https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1069.001/T1069.001.md"
+  ]
+ },
+ {
+  "id": "28ac00d6-22d9-4a3c-927f-bbd770104573",
+  "title": "RestrictedAdminMode Registry Value Tampering - ProcCreation",
+  "category": "process_creation",
+  "reference_urls": [
+   "https://github.com/redcanaryco/atomic-red-team/blob/a8e3cf63e97b973a25903d3df9fd55da6252e564/atomics/T1112/T1112.md",
+   "https://social.technet.microsoft.com/wiki/contents/articles/32905.remote-desktop-services-enable-restricted-admin-mode.aspx",
+   "https://thedfirreport.com/2022/05/09/seo-poisoning-a-gootloader-story/"
+  ]
+ },
+ {
+  "id": "c6438007-e081-42ce-9483-b067fbef33c3",
+  "title": "Powershell Timestomp",
+  "category": "ps_script",
+  "reference_urls": [
+   "https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1070.006/T1070.006.md",
+   "https://www.offensive-security.com/metasploit-unleashed/timestomp/"
+  ]
+ },
+ {
+  "id": "89819aa4-bbd6-46bc-88ec-c7f7fe30efa6",
+  "title": "Malicious PowerShell Commandlets - ScriptBlock",
+  "category": "ps_script",
+  "reference_urls": [
+   "https://adsecurity.org/?p=2921",
+   "https://github.com/S3cur3Th1sSh1t/PowerSharpPack/tree/master/PowerSharpBinaries",
+   "https://github.com/BC-SECURITY/Invoke-ZeroLogon/blob/111d17c7fec486d9bb23387e2e828b09a26075e4/Invoke-ZeroLogon.ps1",
+   "https://github.com/xorrior/RandomPS-Scripts/blob/848c919bfce4e2d67b626cbcf4404341cfe3d3b6/Get-DXWebcamVideo.ps1",
+   "https://github.com/rvrsh3ll/Misc-Powershell-Scripts/blob/6f23bb41f9675d7e2d32bacccff75e931ae00554/OfficeMemScraper.ps1",
+   "https://github.com/dafthack/DomainPasswordSpray/blob/b13d64a5834694aa73fd2aea9911a83027c465a7/DomainPasswordSpray.ps1",
+   "https://unit42.paloaltonetworks.com/threat-assessment-black-basta-ransomware/",
+   "https://research.nccgroup.com/2022/06/06/shining-the-light-on-black-basta/",
+   "https://github.com/calebstewart/CVE-2021-1675",
+   "https://github.com/BloodHoundAD/BloodHound/blob/0927441f67161cc6dc08a53c63ceb8e333f55874/Collectors/AzureHound.ps1",
+   "https://bloodhound.readthedocs.io/en/latest/data-collection/azurehound.html",
+   "https://github.com/HarmJ0y/DAMP",
+   "https://github.com/samratashok/nishang",
+   "https://github.com/DarkCoderSc/PowerRunAsSystem/",
+   "https://github.com/besimorhino/powercat",
+   "https://github.com/Kevin-Robertson/Powermad",
+   "https://github.com/adrecon/ADRecon",
+   "https://github.com/adrecon/AzureADRecon",
+   "https://github.com/The-Viper-One/Invoke-PowerDPAPI/",
+   "https://github.com/Arno0x/DNSExfiltrator/"
+  ]
+ },
+ {
+  "id": "ddcd88cb-7f62-4ce5-86f9-1704190feb0a",
+  "title": "Potential In-Memory Execution Using Reflection.Assembly",
+  "category": "ps_script",
+  "reference_urls": [
+   "https://speakerdeck.com/heirhabarov/hunting-for-powershell-abuse?slide=50"
+  ]
+ },
+ {
+  "id": "5de03871-5d46-4539-a82d-3aa992a69a83",
+  "title": "Registry Disable System Restore",
+  "category": "registry_set",
+  "reference_urls": [
+   "https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1490/T1490.md#atomic-test-9---disable-system-restore-through-registry"
+  ]
+ },
+ {
+  "id": "724ea201-6514-4f38-9739-e5973c34f49a",
+  "title": "Bypass UAC Using SilentCleanup Task",
+  "category": "registry_set",
+  "reference_urls": [
+   "https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1548.002/T1548.002.md#atomic-test-9---bypass-uac-using-silentcleanup-task",
+   "https://www.reddit.com/r/hacking/comments/ajtrws/bypassing_highest_uac_level_windows_810/",
+   "https://www.fortinet.com/blog/threat-research/enter-the-darkgate-new-cryptocurrency-mining-and-ransomware-campaign"
+  ]
+ },
+ {
+  "id": "974515da-6cc5-4c95-ae65-f97f9150ec7f",
+  "title": "Disable Microsoft Defender Firewall via Registry",
+  "category": "registry_set",
+  "reference_urls": [
+   "https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1562.004/T1562.004.md#atomic-test-2---disable-microsoft-defender-firewall-via-registry"
+  ]
+ }
+]

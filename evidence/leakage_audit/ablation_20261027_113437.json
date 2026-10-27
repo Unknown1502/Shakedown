@@ -1,0 +1,1675 @@
+{
+ "started": "2026-10-27T11:34:37.429775+00:00",
+ "finished": "2026-10-27T11:51:24.856564+00:00",
+ "model": "nvidia/nemotron-3-super-120b-a12b",
+ "scenario": "514e7e3e-b3b4-4a67-af60-be20f139198b",
+ "seed": 20261027,
+ "reps": 3,
+ "snapshots": {
+  "primary_clean_chars": 12782,
+  "primary_raw_chars": 16167,
+  "snippets": [
+   [
+    "https://sigmaquery.com/rule.php?id=93",
+    1447
+   ],
+   [
+    "https://detection.fyi/sigmahq/sigma/windows/process_creation/proc_creation_win_pua_adfind_execution",
+    1241
+   ],
+   [
+    "https://research.splunk.com/endpoint/bd3b0187-189b-46c0-be45-f52da2bae67f",
+    498
+   ]
+  ]
+ },
+ "evaluator": {
+  "kind": "token-factory-sandbox",
+  "image_tag": "shakedown-eval:v1",
+  "image_uuid": "ed2169ef-219f-4c57-a9a1-3ca6f4a1f9fb",
+  "network": "disabled (networking.enabled=false)",
+  "isolation": "Contree microVM, disposable"
+ },
+ "runs": [
+  {
+   "arm": "no-search",
+   "primary": "clean",
+   "rep": 0,
+   "policy": "flag",
+   "errored": null,
+   "success": false,
+   "stop_reason": "repair budget exhausted",
+   "attempts": 4,
+   "first_attempt": {
+    "valid": false,
+    "attack_detected": null,
+    "benign_dev_hits": null
+   },
+   "best_attempt": {
+    "index": 1,
+    "valid": true,
+    "attack_detected": 0,
+    "attack_total": 1,
+    "benign_dev_hits": 4,
+    "rule_text": "title: Potential Domain Account Enumeration Commands\nid: f437285f-c73e-4018-a680-d16df8518686\nstatus: experimental\ndescription: Detects execution of commands used to enumerate domain accounts as seen in Atomic Red Team tests for T1087.002.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.t1087.002\n- attack.discovery\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  sel1:\n    CommandLine|contains: net user net group\n  sel2:\n    CommandLine|contains: /get-localgroupmember -get-aduser -*\n  sel3:\n    CommandLine|contains: query\n  condition: 1 of sel*\nfalsepositives:\n- Legitimate administrative use of net user, net group, query, or PowerShell scripts for account management.\nlevel: medium\n"
+   },
+   "heldout_hits": 1,
+   "tokens": 26359,
+   "seconds": 168.5,
+   "model_calls": 10,
+   "search_results_requested": 3,
+   "input_sha256": "5125dcf4713c6409004fc988fa5dec0cc3ea6155ea858993be8178d5b1ca6786",
+   "input_chars": 6293,
+   "corroboration_urls": [],
+   "screening": [
+    {
+     "url": "https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1087.002/T1087.002.md",
+     "role": "primary",
+     "status": "included",
+     "reasons": []
+    }
+   ],
+   "probes": {
+    "514e7e3e": true,
+    "sigmaquery": false,
+    "detection.fyi": false,
+    "IMPHASH": true,
+    "OriginalFileName": true,
+    "Hashes": true,
+    "AdFind.exe": true,
+    "Adfind.exe": false
+   },
+   "rule_features": {
+    "parsable": true,
+    "fields": [
+     "CommandLine"
+    ],
+    "values": [
+     "net user net group",
+     "/get-localgroupmember -get-aduser -*",
+     "query"
+    ],
+    "values_shared_with_reference": [],
+    "uses_original_filename_or_hashes": false
+   },
+   "spec_observables": [
+    [
+     "CommandLine",
+     "net user net group"
+    ],
+    [
+     "CommandLine",
+     "/get-localgroupmember -get-aduser -*"
+    ],
+    [
+     "CommandLine",
+     "query"
+    ]
+   ]
+  },
+  {
+   "arm": "excluded",
+   "primary": "raw",
+   "rep": 1,
+   "policy": "exclude",
+   "errored": null,
+   "success": true,
+   "stop_reason": "acceptance criteria passed",
+   "attempts": 1,
+   "first_attempt": {
+    "valid": true,
+    "attack_detected": 1,
+    "benign_dev_hits": 0
+   },
+   "best_attempt": {
+    "index": 0,
+    "valid": true,
+    "attack_detected": 1,
+    "attack_total": 1,
+    "benign_dev_hits": 0,
+    "rule_text": "title: Adfind Execution\nid: 27a5ec99-2ef8-4473-a622-04680d2cb904\nstatus: experimental\ndescription: Detects execution of adfind.exe, a tool commonly used for Active Directory reconnaissance.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.t1087.002\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  selection_adfind_image:\n    OriginalFileName: adfind.exe\n  selection_adfind_commandline:\n    CommandLine|contains: adfind.exe\n  condition: (selection_adfind_image or selection_adfind_commandline)\nfalsepositives:\n- Legitimate use of adfind.exe by administrators for authorized Active Directory queries.\nlevel: high\n"
+   },
+   "heldout_hits": 0,
+   "tokens": 17897,
+   "seconds": 140.1,
+   "model_calls": 6,
+   "search_results_requested": 8,
+   "input_sha256": "9d121acd4fa44260fe4fe3a3fc179430620c03add5524e6eb8f858a32d2d7017",
+   "input_chars": 7044,
+   "corroboration_urls": [
+    "https://research.splunk.com/endpoint/bd3b0187-189b-46c0-be45-f52da2bae67f"
+   ],
+   "screening": [
+    {
+     "url": "https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1087.002/T1087.002.md",
+     "role": "primary",
+     "status": "included",
+     "reasons": []
+    },
+    {
+     "url": "https://sigmaquery.com/rule.php?id=93",
+     "role": "corroboration",
+     "status": "excluded",
+     "reasons": [
+      "sigma_mirror",
+      "sigma_rule_text",
+      "target_rule_id",
+      "target_rule_title"
+     ]
+    },
+    {
+     "url": "https://detection.fyi/sigmahq/sigma/windows/process_creation/proc_creation_win_pua_adfind_execution",
+     "role": "corroboration",
+     "status": "excluded",
+     "reasons": [
+      "sigma_mirror",
+      "sigma_rule_text",
+      "target_rule_id",
+      "target_rule_title"
+     ]
+    },
+    {
+     "url": "https://research.splunk.com/endpoint/bd3b0187-189b-46c0-be45-f52da2bae67f",
+     "role": "corroboration",
+     "status": "included",
+     "reasons": []
+    }
+   ],
+   "probes": {
+    "514e7e3e": false,
+    "sigmaquery": false,
+    "detection.fyi": false,
+    "IMPHASH": false,
+    "OriginalFileName": true,
+    "Hashes": false,
+    "AdFind.exe": false,
+    "Adfind.exe": false
+   },
+   "rule_features": {
+    "parsable": true,
+    "fields": [
+     "CommandLine",
+     "OriginalFileName"
+    ],
+    "values": [
+     "adfind.exe",
+     "adfind.exe"
+    ],
+    "values_shared_with_reference": [
+     "adfind.exe",
+     "adfind.exe"
+    ],
+    "uses_original_filename_or_hashes": true
+   },
+   "spec_observables": []
+  },
+  {
+   "arm": "recorded",
+   "primary": "raw",
+   "rep": 2,
+   "policy": "flag",
+   "errored": null,
+   "success": true,
+   "stop_reason": "acceptance criteria passed",
+   "attempts": 2,
+   "first_attempt": {
+    "valid": false,
+    "attack_detected": null,
+    "benign_dev_hits": null
+   },
+   "best_attempt": {
+    "index": 1,
+    "valid": true,
+    "attack_detected": 1,
+    "attack_total": 1,
+    "benign_dev_hits": 0,
+    "rule_text": "title: PUA - AdFind.EXE Execution\nid: c49e412d-4ab5-470c-b968-45ba06796dba\nstatus: experimental\ndescription: Detects execution of Adfind.exe utility, which can be used for reconnaissance in an Active Directory environment\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.discovery\n- attack.t1087.002\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  selection:\n    Image|contains: adfind.exe\n    OriginalFileName: adfind.exe\n  condition: selection\nfalsepositives:\n- Unknown\nlevel: medium\n"
+   },
+   "heldout_hits": 0,
+   "tokens": 14105,
+   "seconds": 122.5,
+   "model_calls": 5,
+   "search_results_requested": 3,
+   "input_sha256": "1c86ebb6d3361aa8e57e0321e69d5c4cb9e4b9e6a405445c858e39e574ed4daa",
+   "input_chars": 10228,
+   "corroboration_urls": [
+    "https://sigmaquery.com/rule.php?id=93",
+    "https://detection.fyi/sigmahq/sigma/windows/process_creation/proc_creation_win_pua_adfind_execution",
+    "https://research.splunk.com/endpoint/bd3b0187-189b-46c0-be45-f52da2bae67f"
+   ],
+   "screening": [
+    {
+     "url": "https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1087.002/T1087.002.md",
+     "role": "primary",
+     "status": "included",
+     "reasons": []
+    },
+    {
+     "url": "https://sigmaquery.com/rule.php?id=93",
+     "role": "corroboration",
+     "status": "flagged",
+     "reasons": [
+      "sigma_mirror",
+      "sigma_rule_text",
+      "target_rule_id",
+      "target_rule_title"
+     ]
+    },
+    {
+     "url": "https://detection.fyi/sigmahq/sigma/windows/process_creation/proc_creation_win_pua_adfind_execution",
+     "role": "corroboration",
+     "status": "flagged",
+     "reasons": [
+      "sigma_mirror",
+      "sigma_rule_text",
+      "target_rule_id",
+      "target_rule_title"
+     ]
+    },
+    {
+     "url": "https://research.splunk.com/endpoint/bd3b0187-189b-46c0-be45-f52da2bae67f",
+     "role": "corroboration",
+     "status": "included",
+     "reasons": []
+    }
+   ],
+   "probes": {
+    "514e7e3e": true,
+    "sigmaquery": true,
+    "detection.fyi": true,
+    "IMPHASH": false,
+    "OriginalFileName": true,
+    "Hashes": false,
+    "AdFind.exe": false,
+    "Adfind.exe": true
+   },
+   "rule_features": {
+    "parsable": true,
+    "fields": [
+     "Image",
+     "OriginalFileName"
+    ],
+    "values": [
+     "adfind.exe",
+     "adfind.exe"
+    ],
+    "values_shared_with_reference": [
+     "adfind.exe",
+     "adfind.exe"
+    ],
+    "uses_original_filename_or_hashes": true
+   },
+   "spec_observables": []
+  },
+  {
+   "arm": "excluded",
+   "primary": "clean",
+   "rep": 1,
+   "policy": "exclude",
+   "errored": null,
+   "success": false,
+   "stop_reason": "repair budget exhausted",
+   "attempts": 4,
+   "first_attempt": {
+    "valid": false,
+    "attack_detected": null,
+    "benign_dev_hits": null
+   },
+   "best_attempt": {
+    "index": 0,
+    "valid": false,
+    "attack_detected": null,
+    "attack_total": null,
+    "benign_dev_hits": null,
+    "rule_text": "{\n \"title\": \"Potential Domain Reconnaissance Using Net or Query Commands\",\n \"description\": \"Detects execution of net user, net group, or query commands which are commonly used for domain account enumeration as seen in Atomic Red Team tests T1087.002.\",\n \"tags\": [\n  \"attack.t1087.002\",\n  \"attack.discovery\"\n ],\n \"logsource_category\": \"process_creation\",\n \"groups\": [\n  {\n   \"name\": \"selection_net_user_domain\",\n   \"fields\": [\n    {\n     \"field\": \"CommandLine\",\n     \"modifier\": \"contains\",\n     \"values\": [\n      \"net user\"\n     ]\n    },\n    {\n     \"field\": \"CommandLine\",\n     \"modifier\": \"contains\",\n     \"values\": [\n      \"/domain\"\n     ]\n    }\n   ]\n  },\n  {\n   \"name\": \"selection_net_group_domain\",\n   \"fields\": [\n    {\n     \"field\": \"CommandLine\",\n     \"modifier\": \"contains\",\n     \"values\": [\n      \"net group\"\n     ]\n    },\n    {\n     \"field\": \"CommandLine\",\n     \"modifier\": \"contains\",\n     \"values\": [\n      \"/domain\"\n     ]\n    }\n   ]\n  },\n  {\n   \"name\": \"selection_query_logged_on_users\",\n   \"fields\": [\n    {\n     \"field\": \"CommandLine\",\n     \"modifier\": \"exact\",\n     \"values\": [\n      \"query\"\n     ]\n    }\n   ]\n  }\n ],\n \"condition\": \"(selection_net_user_domain or selection_net_group_domain or selection_query_logged_on_users)\",\n \"falsepositives\": [\n  \"Legitimate administrative use of net or query commands for system management.\"\n ],\n \"level\": \"medium\"\n}"
+   },
+   "heldout_hits": 0,
+   "tokens": 26079,
+   "seconds": 144.8,
+   "model_calls": 12,
+   "search_results_requested": 8,
+   "input_sha256": "9867c1d2abedad7f8fc34a1fe7bfa0463f71d4107f1a513af0a6c6daafd26aa7",
+   "input_chars": 7044,
+   "corroboration_urls": [
+    "https://research.splunk.com/endpoint/bd3b0187-189b-46c0-be45-f52da2bae67f"
+   ],
+   "screening": [
+    {
+     "url": "https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1087.002/T1087.002.md",
+     "role": "primary",
+     "status": "included",
+     "reasons": []
+    },
+    {
+     "url": "https://sigmaquery.com/rule.php?id=93",
+     "role": "corroboration",
+     "status": "excluded",
+     "reasons": [
+      "sigma_mirror",
+      "sigma_rule_text",
+      "target_rule_id",
+      "target_rule_title"
+     ]
+    },
+    {
+     "url": "https://detection.fyi/sigmahq/sigma/windows/process_creation/proc_creation_win_pua_adfind_execution",
+     "role": "corroboration",
+     "status": "excluded",
+     "reasons": [
+      "sigma_mirror",
+      "sigma_rule_text",
+      "target_rule_id",
+      "target_rule_title"
+     ]
+    },
+    {
+     "url": "https://research.splunk.com/endpoint/bd3b0187-189b-46c0-be45-f52da2bae67f",
+     "role": "corroboration",
+     "status": "included",
+     "reasons": []
+    }
+   ],
+   "probes": {
+    "514e7e3e": false,
+    "sigmaquery": false,
+    "detection.fyi": false,
+    "IMPHASH": false,
+    "OriginalFileName": true,
+    "Hashes": false,
+    "AdFind.exe": true,
+    "Adfind.exe": false
+   },
+   "rule_features": {
+    "parsable": false
+   },
+   "spec_observables": []
+  },
+  {
+   "arm": "no-search",
+   "primary": "raw",
+   "rep": 0,
+   "policy": "flag",
+   "errored": null,
+   "success": false,
+   "stop_reason": "repair budget exhausted",
+   "attempts": 4,
+   "first_attempt": {
+    "valid": true,
+    "attack_detected": 0,
+    "benign_dev_hits": 0
+   },
+   "best_attempt": {
+    "index": 0,
+    "valid": true,
+    "attack_detected": 0,
+    "attack_total": 1,
+    "benign_dev_hits": 0,
+    "rule_text": "title: Potential Domain Account Enumeration via Network Connection\nid: 3e493f1c-ab33-4225-a9c7-1598d3c45b41\nstatus: experimental\ndescription: Detects suspicious network connections associated with domain account enumeration techniques using tools like\n  net, dsquery, ldapsearch, or dscacheutil.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.t1087.002\nlogsource:\n  category: network_connection\n  product: windows\ndetection:\n  selection_suspicious_image:\n    Image|contains|all:\n    - \\net.exe\n    - \\dsquery.exe\n    - \\ldapsearch\n    - \\dscacheutil\n  selection_domain_port:\n    DestinationPort:\n    - '>389'\n    - '>636'\n    - '>3268'\n    - '>3269'\n  condition: selection_suspicious_image and selection_domain_port\nfalsepositives:\n- Legitimate administrative use of directory services tools by authorized personnel.\nlevel: high\n"
+   },
+   "heldout_hits": 0,
+   "tokens": 56894,
+   "seconds": 338.9,
+   "model_calls": 21,
+   "search_results_requested": 3,
+   "input_sha256": "38fea2c34eecba04cd199025a1494bd7845b99088eb056e1310bce6b7599dd1f",
+   "input_chars": 6293,
+   "corroboration_urls": [],
+   "screening": [
+    {
+     "url": "https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1087.002/T1087.002.md",
+     "role": "primary",
+     "status": "included",
+     "reasons": []
+    }
+   ],
+   "probes": {
+    "514e7e3e": true,
+    "sigmaquery": false,
+    "detection.fyi": false,
+    "IMPHASH": true,
+    "OriginalFileName": true,
+    "Hashes": true,
+    "AdFind.exe": true,
+    "Adfind.exe": false
+   },
+   "rule_features": {
+    "parsable": true,
+    "fields": [
+     "DestinationPort",
+     "Image"
+    ],
+    "values": [
+     "\\net.exe",
+     "\\dsquery.exe",
+     "\\ldapsearch",
+     "\\dscacheutil",
+     ">389",
+     ">636",
+     ">3268",
+     ">3269"
+    ],
+    "values_shared_with_reference": [],
+    "uses_original_filename_or_hashes": false
+   },
+   "spec_observables": []
+  },
+  {
+   "arm": "no-search",
+   "primary": "raw",
+   "rep": 1,
+   "policy": "flag",
+   "errored": null,
+   "success": true,
+   "stop_reason": "acceptance criteria passed",
+   "attempts": 1,
+   "first_attempt": {
+    "valid": true,
+    "attack_detected": 1,
+    "benign_dev_hits": 0
+   },
+   "best_attempt": {
+    "index": 0,
+    "valid": true,
+    "attack_detected": 1,
+    "attack_total": 1,
+    "benign_dev_hits": 0,
+    "rule_text": "title: Domain Account Enumeration Attempts\nid: ed9367d2-4cb4-4c9d-b604-667630dbcfd8\nstatus: experimental\ndescription: Detects command-line indicators of domain account enumeration techniques (T1087.002) such as net user/group /domain,\n  query user/session/process, PowerShell AD enumeration, and adfind.exe usage.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.t1087.002\n- attack.discovery\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  selection_net:\n    CommandLine|contains:\n    - net user /domain\n    - net group /domain\n  selection_query:\n    CommandLine|contains:\n    - query user\n    - query session\n    - query process\n  selection_ps:\n    CommandLine|contains:\n    - Get-ADUser\n    - Get-LocalGroupMember\n  selection_adfind:\n    Image|endswith: adfind.exe\n  condition: selection_net or selection_query or selection_ps or selection_adfind\nfalsepositives:\n- Legitimate administrative use of net user/group, query, or PowerShell AD modules by authorized personnel.\nlevel: high\n"
+   },
+   "heldout_hits": 0,
+   "tokens": 4410,
+   "seconds": 122.5,
+   "model_calls": 2,
+   "search_results_requested": 3,
+   "input_sha256": "38fea2c34eecba04cd199025a1494bd7845b99088eb056e1310bce6b7599dd1f",
+   "input_chars": 6293,
+   "corroboration_urls": [],
+   "screening": [
+    {
+     "url": "https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1087.002/T1087.002.md",
+     "role": "primary",
+     "status": "included",
+     "reasons": []
+    }
+   ],
+   "probes": {
+    "514e7e3e": false,
+    "sigmaquery": false,
+    "detection.fyi": false,
+    "IMPHASH": false,
+    "OriginalFileName": true,
+    "Hashes": false,
+    "AdFind.exe": false,
+    "Adfind.exe": false
+   },
+   "rule_features": {
+    "parsable": true,
+    "fields": [
+     "CommandLine",
+     "Image"
+    ],
+    "values": [
+     "net user /domain",
+     "net group /domain",
+     "query user",
+     "query session",
+     "query process",
+     "Get-ADUser",
+     "Get-LocalGroupMember",
+     "adfind.exe"
+    ],
+    "values_shared_with_reference": [
+     "adfind.exe"
+    ],
+    "uses_original_filename_or_hashes": false
+   },
+   "spec_observables": []
+  },
+  {
+   "arm": "excluded",
+   "primary": "clean",
+   "rep": 2,
+   "policy": "exclude",
+   "errored": null,
+   "success": true,
+   "stop_reason": "acceptance criteria passed",
+   "attempts": 2,
+   "first_attempt": {
+    "valid": true,
+    "attack_detected": 0,
+    "benign_dev_hits": 0
+   },
+   "best_attempt": {
+    "index": 1,
+    "valid": true,
+    "attack_detected": 1,
+    "attack_total": 1,
+    "benign_dev_hits": 0,
+    "rule_text": "title: Potential Domain Account Enumeration via ADFind or Net/PowerShell\nid: eab1703a-3966-4385-b9b2-12b690f58bf5\nstatus: experimental\ndescription: \"Detects execution of adfind.exe with common reconnaissance command-line arguments, or usage of net user/group\\n\\\n  \\  /domain, or PowerShell cmdlets for AD enumeration, indicative of T1087.002.\"\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.t1087.002\n- attack.discovery\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  selection_adfind:\n    Image|endswith: \\adfind.exe\n    CommandLine|contains:\n    - lockoutduration\n    - admincountdmp\n    - (objectcategory=\n  selection_net:\n    Image|endswith: \\net.exe\n    CommandLine|contains:\n    - user /domain\n    - group /domain\n  selection_ps:\n    Image|endswith: \\powershell.exe\n    CommandLine|contains:\n    - get-aduser\n    - get-localgroupmember\n  condition: 1 of selection_*\nfalsepositives:\n- Unknown\nlevel: high\n"
+   },
+   "heldout_hits": 0,
+   "tokens": 27904,
+   "seconds": 200.1,
+   "model_calls": 10,
+   "search_results_requested": 8,
+   "input_sha256": "9867c1d2abedad7f8fc34a1fe7bfa0463f71d4107f1a513af0a6c6daafd26aa7",
+   "input_chars": 7044,
+   "corroboration_urls": [
+    "https://research.splunk.com/endpoint/bd3b0187-189b-46c0-be45-f52da2bae67f"
+   ],
+   "screening": [
+    {
+     "url": "https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1087.002/T1087.002.md",
+     "role": "primary",
+     "status": "included",
+     "reasons": []
+    },
+    {
+     "url": "https://sigmaquery.com/rule.php?id=93",
+     "role": "corroboration",
+     "status": "excluded",
+     "reasons": [
+      "sigma_mirror",
+      "sigma_rule_text",
+      "target_rule_id",
+      "target_rule_title"
+     ]
+    },
+    {
+     "url": "https://detection.fyi/sigmahq/sigma/windows/process_creation/proc_creation_win_pua_adfind_execution",
+     "role": "corroboration",
+     "status": "excluded",
+     "reasons": [
+      "sigma_mirror",
+      "sigma_rule_text",
+      "target_rule_id",
+      "target_rule_title"
+     ]
+    },
+    {
+     "url": "https://research.splunk.com/endpoint/bd3b0187-189b-46c0-be45-f52da2bae67f",
+     "role": "corroboration",
+     "status": "included",
+     "reasons": []
+    }
+   ],
+   "probes": {
+    "514e7e3e": true,
+    "sigmaquery": false,
+    "detection.fyi": false,
+    "IMPHASH": true,
+    "OriginalFileName": true,
+    "Hashes": true,
+    "AdFind.exe": true,
+    "Adfind.exe": false
+   },
+   "rule_features": {
+    "parsable": true,
+    "fields": [
+     "CommandLine",
+     "Image"
+    ],
+    "values": [
+     "\\adfind.exe",
+     "lockoutduration",
+     "admincountdmp",
+     "(objectcategory=",
+     "\\net.exe",
+     "user /domain",
+     "group /domain",
+     "\\powershell.exe",
+     "get-aduser",
+     "get-localgroupmember"
+    ],
+    "values_shared_with_reference": [
+     "\\adfind.exe"
+    ],
+    "uses_original_filename_or_hashes": false
+   },
+   "spec_observables": []
+  },
+  {
+   "arm": "no-search",
+   "primary": "clean",
+   "rep": 1,
+   "policy": "flag",
+   "errored": null,
+   "success": false,
+   "stop_reason": "repair budget exhausted",
+   "attempts": 4,
+   "first_attempt": {
+    "valid": true,
+    "attack_detected": 0,
+    "benign_dev_hits": 0
+   },
+   "best_attempt": {
+    "index": 0,
+    "valid": true,
+    "attack_detected": 0,
+    "attack_total": 1,
+    "benign_dev_hits": 0,
+    "rule_text": "title: Potential Domain Reconnaissance Activity\nid: 0a4d208b-6f8a-4521-82a1-934cd10df8c3\nstatus: experimental\ndescription: Detects command-line tools commonly used for Active Directory reconnaissance, such as net, adfind, or powershell\n  scripts querying domain information.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.t1087.002\nlogsource:\n  category: network_connection\n  product: windows\ndetection:\n  selection_recon_tools:\n    Image|contains:\n    - net.exe\n    - adfind.exe\n  selection_ps_suspicious:\n    Image|endswith: powershell.exe\n    Initiated|contains:\n    - get-aduser\n    - get-localgroupmember\n    - Invoke-Expression\n    - Invoke-WebRequest\n  condition: selection_recon_tools or selection_ps_suspicious\nfalsepositives:\n- Legitimate administrative use of net.exe or PowerShell for domain queries.\nlevel: high\n"
+   },
+   "heldout_hits": 1,
+   "tokens": 44391,
+   "seconds": 266.1,
+   "model_calls": 21,
+   "search_results_requested": 3,
+   "input_sha256": "5125dcf4713c6409004fc988fa5dec0cc3ea6155ea858993be8178d5b1ca6786",
+   "input_chars": 6293,
+   "corroboration_urls": [],
+   "screening": [
+    {
+     "url": "https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1087.002/T1087.002.md",
+     "role": "primary",
+     "status": "included",
+     "reasons": []
+    }
+   ],
+   "probes": {
+    "514e7e3e": true,
+    "sigmaquery": false,
+    "detection.fyi": false,
+    "IMPHASH": true,
+    "OriginalFileName": true,
+    "Hashes": true,
+    "AdFind.exe": true,
+    "Adfind.exe": false
+   },
+   "rule_features": {
+    "parsable": true,
+    "fields": [
+     "Image",
+     "Initiated"
+    ],
+    "values": [
+     "net.exe",
+     "adfind.exe",
+     "powershell.exe",
+     "get-aduser",
+     "get-localgroupmember",
+     "Invoke-Expression",
+     "Invoke-WebRequest"
+    ],
+    "values_shared_with_reference": [
+     "adfind.exe"
+    ],
+    "uses_original_filename_or_hashes": false
+   },
+   "spec_observables": []
+  },
+  {
+   "arm": "recorded",
+   "primary": "clean",
+   "rep": 0,
+   "policy": "flag",
+   "errored": null,
+   "success": true,
+   "stop_reason": "acceptance criteria passed",
+   "attempts": 2,
+   "first_attempt": {
+    "valid": true,
+    "attack_detected": 0,
+    "benign_dev_hits": 0
+   },
+   "best_attempt": {
+    "index": 1,
+    "valid": true,
+    "attack_detected": 1,
+    "attack_total": 1,
+    "benign_dev_hits": 0,
+    "rule_text": "title: Detection of AdFind.exe Usage for Active Directory Reconnaissance\nid: 6f4e405d-ae2a-4548-8e99-41d84a0f6950\nstatus: experimental\ndescription: \"Detects execution of Adfind.exe utility with command-line arguments indicative of Active Directory reconnaissance\\n\\\n  \\  activities such as enumerating admin accounts or querying password policy.\"\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.discovery\n- attack.t1087.002\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  selection_image:\n    OriginalFileName: AdFind.exe\n  selection_cmd_admincount:\n    CommandLine|contains: -sc admincountdmp\n  selection_cmd_password_policy:\n    CommandLine|contains: -default -s base lockoutduration lockoutthreshold lockoutobservationwindow maxpwdage minpwdage minpwdlength\n      pwdhistorylength pwdproperties\n  selection_cmd_ldapfilter:\n    CommandLine|contains: -f (\n  condition: (selection_image and (selection_cmd_admincount or selection_cmd_password_policy or selection_cmd_ldapfilter))\nfalsepositives:\n- Legitimate use of AdFind.exe by administrators for authorized Active Directory audits.\nlevel: high\n"
+   },
+   "heldout_hits": 0,
+   "tokens": 24218,
+   "seconds": 191.9,
+   "model_calls": 7,
+   "search_results_requested": 3,
+   "input_sha256": "52bd5e0fffd078f97b656189aad5f4bb8cd1c1d2e23930adf500b79b5c49c1be",
+   "input_chars": 10228,
+   "corroboration_urls": [
+    "https://sigmaquery.com/rule.php?id=93",
+    "https://detection.fyi/sigmahq/sigma/windows/process_creation/proc_creation_win_pua_adfind_execution",
+    "https://research.splunk.com/endpoint/bd3b0187-189b-46c0-be45-f52da2bae67f"
+   ],
+   "screening": [
+    {
+     "url": "https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1087.002/T1087.002.md",
+     "role": "primary",
+     "status": "included",
+     "reasons": []
+    },
+    {
+     "url": "https://sigmaquery.com/rule.php?id=93",
+     "role": "corroboration",
+     "status": "flagged",
+     "reasons": [
+      "sigma_mirror",
+      "sigma_rule_text",
+      "target_rule_id",
+      "target_rule_title"
+     ]
+    },
+    {
+     "url": "https://detection.fyi/sigmahq/sigma/windows/process_creation/proc_creation_win_pua_adfind_execution",
+     "role": "corroboration",
+     "status": "flagged",
+     "reasons": [
+      "sigma_mirror",
+      "sigma_rule_text",
+      "target_rule_id",
+      "target_rule_title"
+     ]
+    },
+    {
+     "url": "https://research.splunk.com/endpoint/bd3b0187-189b-46c0-be45-f52da2bae67f",
+     "role": "corroboration",
+     "status": "included",
+     "reasons": []
+    }
+   ],
+   "probes": {
+    "514e7e3e": true,
+    "sigmaquery": true,
+    "detection.fyi": true,
+    "IMPHASH": true,
+    "OriginalFileName": true,
+    "Hashes": true,
+    "AdFind.exe": true,
+    "Adfind.exe": true
+   },
+   "rule_features": {
+    "parsable": true,
+    "fields": [
+     "CommandLine",
+     "OriginalFileName"
+    ],
+    "values": [
+     "AdFind.exe",
+     "-sc admincountdmp",
+     "-default -s base lockoutduration lockoutthreshold lockoutobservationwindow maxpwdage minpwdage minpwdlength pwdhistorylength pwdproperties",
+     "-f ("
+    ],
+    "values_shared_with_reference": [
+     "AdFind.exe"
+    ],
+    "uses_original_filename_or_hashes": true
+   },
+   "spec_observables": [
+    [
+     "CommandLine",
+     "-sc admincountdmp"
+    ],
+    [
+     "CommandLine",
+     "-default -s base lockoutduration lockoutthreshold lockoutobservationwindow maxpwdage minpwdage minpwdlength pwdhistorylength pwdproperties"
+    ]
+   ]
+  },
+  {
+   "arm": "recorded",
+   "primary": "clean",
+   "rep": 2,
+   "policy": "flag",
+   "errored": null,
+   "success": true,
+   "stop_reason": "acceptance criteria passed",
+   "attempts": 1,
+   "first_attempt": {
+    "valid": true,
+    "attack_detected": 1,
+    "benign_dev_hits": 0
+   },
+   "best_attempt": {
+    "index": 0,
+    "valid": true,
+    "attack_detected": 1,
+    "attack_total": 1,
+    "benign_dev_hits": 0,
+    "rule_text": "title: Detection of AdFind.exe Execution\nid: 6e5905be-bdce-472b-a67c-fe763288309b\nstatus: experimental\ndescription: Detects execution of Adfind.exe utility, which can be used for reconnaissance in an Active Directory environment.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.discovery\n- attack.t1087.002\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  selection_image:\n    OriginalFileName|contains: adfind.exe\n  selection_commandline:\n    CommandLine|contains: adfind.exe\n  condition: selection_image or selection_commandline\nfalsepositives:\n- Legitimate use of AdFind.exe by administrators for authorized Active Directory management tasks.\nlevel: high\n"
+   },
+   "heldout_hits": 0,
+   "tokens": 21055,
+   "seconds": 164.8,
+   "model_calls": 6,
+   "search_results_requested": 3,
+   "input_sha256": "52bd5e0fffd078f97b656189aad5f4bb8cd1c1d2e23930adf500b79b5c49c1be",
+   "input_chars": 10228,
+   "corroboration_urls": [
+    "https://sigmaquery.com/rule.php?id=93",
+    "https://detection.fyi/sigmahq/sigma/windows/process_creation/proc_creation_win_pua_adfind_execution",
+    "https://research.splunk.com/endpoint/bd3b0187-189b-46c0-be45-f52da2bae67f"
+   ],
+   "screening": [
+    {
+     "url": "https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1087.002/T1087.002.md",
+     "role": "primary",
+     "status": "included",
+     "reasons": []
+    },
+    {
+     "url": "https://sigmaquery.com/rule.php?id=93",
+     "role": "corroboration",
+     "status": "flagged",
+     "reasons": [
+      "sigma_mirror",
+      "sigma_rule_text",
+      "target_rule_id",
+      "target_rule_title"
+     ]
+    },
+    {
+     "url": "https://detection.fyi/sigmahq/sigma/windows/process_creation/proc_creation_win_pua_adfind_execution",
+     "role": "corroboration",
+     "status": "flagged",
+     "reasons": [
+      "sigma_mirror",
+      "sigma_rule_text",
+      "target_rule_id",
+      "target_rule_title"
+     ]
+    },
+    {
+     "url": "https://research.splunk.com/endpoint/bd3b0187-189b-46c0-be45-f52da2bae67f",
+     "role": "corroboration",
+     "status": "included",
+     "reasons": []
+    }
+   ],
+   "probes": {
+    "514e7e3e": true,
+    "sigmaquery": true,
+    "detection.fyi": true,
+    "IMPHASH": false,
+    "OriginalFileName": true,
+    "Hashes": false,
+    "AdFind.exe": true,
+    "Adfind.exe": true
+   },
+   "rule_features": {
+    "parsable": true,
+    "fields": [
+     "CommandLine",
+     "OriginalFileName"
+    ],
+    "values": [
+     "adfind.exe",
+     "adfind.exe"
+    ],
+    "values_shared_with_reference": [
+     "adfind.exe",
+     "adfind.exe"
+    ],
+    "uses_original_filename_or_hashes": true
+   },
+   "spec_observables": []
+  },
+  {
+   "arm": "excluded",
+   "primary": "raw",
+   "rep": 2,
+   "policy": "exclude",
+   "errored": null,
+   "success": true,
+   "stop_reason": "acceptance criteria passed",
+   "attempts": 4,
+   "first_attempt": {
+    "valid": false,
+    "attack_detected": null,
+    "benign_dev_hits": null
+   },
+   "best_attempt": {
+    "index": 3,
+    "valid": true,
+    "attack_detected": 1,
+    "attack_total": 1,
+    "benign_dev_hits": 0,
+    "rule_text": "title: Potential Domain Account Enumeration Activity\nid: 93cb1ed4-06c3-47ad-af41-e9a258031d7a\nstatus: experimental\ndescription: Detects commands used to enumerate domain accounts as per T1087.002, including net user/net group, dscacheutil,\n  ldapsearch, adfind, ADRecon, and query.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.t1087.002\n- attack.discovery\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  sel_net_user_domain:\n    CommandLine|contains|contains: net user /domain\n  sel_net_group_domain:\n    CommandLine|contains|contains: net group /domain\n  sel_dscacheutil_q_group:\n    CommandLine|contains|contains: dscacheutil -q group\n  sel_ldapsearch:\n    CommandLine|contains|contains: ldapsearch\n  sel_atomic_test1:\n    CommandLine|contains|contains: net user net group\n  sel_atomic_test2:\n    CommandLine|contains|contains: /get-localgroupmember -get-aduser -*\n  sel_query_cmd:\n    CommandLine|contains|contains: query\n  sel_adrecon_path:\n    CommandLine|contains|contains: $env:TEMP\\\\ADRecon.ps1\n  sel_invoke_expression:\n    CommandLine|contains|contains: Invoke-Expression#{adrecon_path}\n  sel_remove_item:\n    CommandLine|contains|contains: Remove-Item#{adrecon_path}\n  sel_adfind_image:\n    Image|endswith|endswith: adfind.exe\n  filter_reg_query:\n    Image|endswith|endswith: reg.exe\n    CommandLine|contains|contains: QUERY\n  condition: (sel_net_user_domain or sel_net_group_domain or sel_dscacheutil_q_group or sel_ldapsearch or sel_atomic_test1\n    or sel_atomic_test2 or sel_query_cmd or sel_adrecon_path or sel_invoke_expression or sel_remove_item or sel_adfind_image)\n    and not filter_reg_query\nfalsepositives:\n- Unknown\nlevel: high\n"
+   },
+   "heldout_hits": 1,
+   "tokens": 12208,
+   "seconds": 157.0,
+   "model_calls": 5,
+   "search_results_requested": 8,
+   "input_sha256": "9d121acd4fa44260fe4fe3a3fc179430620c03add5524e6eb8f858a32d2d7017",
+   "input_chars": 7044,
+   "corroboration_urls": [
+    "https://research.splunk.com/endpoint/bd3b0187-189b-46c0-be45-f52da2bae67f"
+   ],
+   "screening": [
+    {
+     "url": "https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1087.002/T1087.002.md",
+     "role": "primary",
+     "status": "included",
+     "reasons": []
+    },
+    {
+     "url": "https://sigmaquery.com/rule.php?id=93",
+     "role": "corroboration",
+     "status": "excluded",
+     "reasons": [
+      "sigma_mirror",
+      "sigma_rule_text",
+      "target_rule_id",
+      "target_rule_title"
+     ]
+    },
+    {
+     "url": "https://detection.fyi/sigmahq/sigma/windows/process_creation/proc_creation_win_pua_adfind_execution",
+     "role": "corroboration",
+     "status": "excluded",
+     "reasons": [
+      "sigma_mirror",
+      "sigma_rule_text",
+      "target_rule_id",
+      "target_rule_title"
+     ]
+    },
+    {
+     "url": "https://research.splunk.com/endpoint/bd3b0187-189b-46c0-be45-f52da2bae67f",
+     "role": "corroboration",
+     "status": "included",
+     "reasons": []
+    }
+   ],
+   "probes": {
+    "514e7e3e": false,
+    "sigmaquery": false,
+    "detection.fyi": false,
+    "IMPHASH": false,
+    "OriginalFileName": true,
+    "Hashes": false,
+    "AdFind.exe": false,
+    "Adfind.exe": false
+   },
+   "rule_features": {
+    "parsable": true,
+    "fields": [
+     "CommandLine",
+     "Image"
+    ],
+    "values": [
+     "net user /domain",
+     "net group /domain",
+     "dscacheutil -q group",
+     "ldapsearch",
+     "net user net group",
+     "/get-localgroupmember -get-aduser -*",
+     "query",
+     "$env:TEMP\\\\ADRecon.ps1",
+     "Invoke-Expression#{adrecon_path}",
+     "Remove-Item#{adrecon_path}",
+     "adfind.exe",
+     "reg.exe",
+     "QUERY"
+    ],
+    "values_shared_with_reference": [
+     "adfind.exe"
+    ],
+    "uses_original_filename_or_hashes": false
+   },
+   "spec_observables": [
+    [
+     "CommandLine",
+     "net user /domain"
+    ],
+    [
+     "CommandLine",
+     "net group /domain"
+    ],
+    [
+     "CommandLine",
+     "dscacheutil -q group"
+    ],
+    [
+     "CommandLine",
+     "ldapsearch"
+    ],
+    [
+     "CommandLine",
+     "net user net group"
+    ],
+    [
+     "CommandLine",
+     "/get-localgroupmember -get-aduser -*"
+    ],
+    [
+     "CommandLine",
+     "query"
+    ],
+    [
+     "CommandLine",
+     "$env:TEMP\\ADRecon.ps1"
+    ],
+    [
+     "CommandLine",
+     "Invoke-Expression#{adrecon_path}"
+    ],
+    [
+     "CommandLine",
+     "Remove-Item#{adrecon_path}"
+    ],
+    [
+     "Image",
+     "adfind.exe"
+    ]
+   ]
+  },
+  {
+   "arm": "recorded",
+   "primary": "clean",
+   "rep": 1,
+   "policy": "flag",
+   "errored": null,
+   "success": false,
+   "stop_reason": "repair budget exhausted",
+   "attempts": 4,
+   "first_attempt": {
+    "valid": true,
+    "attack_detected": 0,
+    "benign_dev_hits": 0
+   },
+   "best_attempt": {
+    "index": 0,
+    "valid": true,
+    "attack_detected": 0,
+    "attack_total": 1,
+    "benign_dev_hits": 0,
+    "rule_text": "title: Potential Domain Account Enumeration via Various Tools\nid: 41bfdb41-e064-4443-9d2e-2baad6d3478c\nstatus: experimental\ndescription: Detects command-line patterns associated with domain account discovery techniques such as net user/net group,\n  PowerShell enumeration, query, ADRecon usage, and AdFind executions.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.t1087.002\n- attack.discovery\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  sel_net_user_net_group:\n    CommandLine: net user net group\n  sel_ps_get_localgroupmember:\n    CommandLine|contains: /get-localgroupmember -get-aduser -*\n  sel_query:\n    CommandLine: query\n  sel_adrecon_invoke:\n    CommandLine|contains: Invoke-Expression#{adrecon_path}\n  sel_adrecon_remove:\n    CommandLine|contains: Remove-Item#{adrecon_path}\n  sel_adrecon_check:\n    CommandLine|contains: ifTest-Path#{adrecon_path})\n  sel_adfind_lockout:\n    CommandLine|contains: '#{adfind_path} -default -s base lockoutduration lockoutthreshold lockoutobservationwindow maxpwdage\n      minpwdage minpwdlength pwdhistorylength pwdproperties'\n  sel_adfind_check:\n    CommandLine|contains: ifTest-Path#{adfind_path})\n  sel_adfind_admincount:\n    CommandLine|contains: '#{adfind_path} -sc admincountdmp'\n  sel_adfind_id:\n    CommandLine|contains: 514e7e3e-b3b4-4a67-af60-be20f139198b\n  condition: 1 of sel_*\nfalsepositives:\n- Legitimate administrative use of net, query, PowerShell modules, ADRecon, or AdFind tools.\nlevel: medium\n"
+   },
+   "heldout_hits": 0,
+   "tokens": 20758,
+   "seconds": 176.2,
+   "model_calls": 7,
+   "search_results_requested": 3,
+   "input_sha256": "52bd5e0fffd078f97b656189aad5f4bb8cd1c1d2e23930adf500b79b5c49c1be",
+   "input_chars": 10228,
+   "corroboration_urls": [
+    "https://sigmaquery.com/rule.php?id=93",
+    "https://detection.fyi/sigmahq/sigma/windows/process_creation/proc_creation_win_pua_adfind_execution",
+    "https://research.splunk.com/endpoint/bd3b0187-189b-46c0-be45-f52da2bae67f"
+   ],
+   "screening": [
+    {
+     "url": "https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1087.002/T1087.002.md",
+     "role": "primary",
+     "status": "included",
+     "reasons": []
+    },
+    {
+     "url": "https://sigmaquery.com/rule.php?id=93",
+     "role": "corroboration",
+     "status": "flagged",
+     "reasons": [
+      "sigma_mirror",
+      "sigma_rule_text",
+      "target_rule_id",
+      "target_rule_title"
+     ]
+    },
+    {
+     "url": "https://detection.fyi/sigmahq/sigma/windows/process_creation/proc_creation_win_pua_adfind_execution",
+     "role": "corroboration",
+     "status": "flagged",
+     "reasons": [
+      "sigma_mirror",
+      "sigma_rule_text",
+      "target_rule_id",
+      "target_rule_title"
+     ]
+    },
+    {
+     "url": "https://research.splunk.com/endpoint/bd3b0187-189b-46c0-be45-f52da2bae67f",
+     "role": "corroboration",
+     "status": "included",
+     "reasons": []
+    }
+   ],
+   "probes": {
+    "514e7e3e": true,
+    "sigmaquery": true,
+    "detection.fyi": true,
+    "IMPHASH": true,
+    "OriginalFileName": true,
+    "Hashes": true,
+    "AdFind.exe": true,
+    "Adfind.exe": true
+   },
+   "rule_features": {
+    "parsable": true,
+    "fields": [
+     "CommandLine"
+    ],
+    "values": [
+     "net user net group",
+     "/get-localgroupmember -get-aduser -*",
+     "query",
+     "Invoke-Expression#{adrecon_path}",
+     "Remove-Item#{adrecon_path}",
+     "ifTest-Path#{adrecon_path})",
+     "#{adfind_path} -default -s base lockoutduration lockoutthreshold lockoutobservationwindow maxpwdage minpwdage minpwdlength pwdhistorylength pwdproperties",
+     "ifTest-Path#{adfind_path})",
+     "#{adfind_path} -sc admincountdmp",
+     "514e7e3e-b3b4-4a67-af60-be20f139198b"
+    ],
+    "values_shared_with_reference": [],
+    "uses_original_filename_or_hashes": false
+   },
+   "spec_observables": [
+    [
+     "CommandLine",
+     "net user net group"
+    ],
+    [
+     "CommandLine",
+     "/get-localgroupmember -get-aduser -*"
+    ],
+    [
+     "CommandLine",
+     "query"
+    ],
+    [
+     "CommandLine",
+     "Invoke-Expression#{adrecon_path}"
+    ],
+    [
+     "CommandLine",
+     "Remove-Item#{adrecon_path}"
+    ],
+    [
+     "CommandLine",
+     "ifTest-Path#{adrecon_path})"
+    ],
+    [
+     "CommandLine",
+     "#{adfind_path} -default -s base lockoutduration lockoutthreshold lockoutobservationwindow maxpwdage minpwdage minpwdlength pwdhistorylength pwdproperties"
+    ],
+    [
+     "CommandLine",
+     "ifTest-Path#{adfind_path})"
+    ],
+    [
+     "CommandLine",
+     "#{adfind_path} -sc admincountdmp"
+    ],
+    [
+     "CommandLine",
+     "514e7e3e-b3b4-4a67-af60-be20f139198b"
+    ]
+   ]
+  },
+  {
+   "arm": "no-search",
+   "primary": "clean",
+   "rep": 2,
+   "policy": "flag",
+   "errored": "NoJSONError: model returned non-JSON content: ''",
+   "seconds": 59.9,
+   "probes": {
+    "514e7e3e": false,
+    "sigmaquery": false,
+    "detection.fyi": false,
+    "IMPHASH": false,
+    "OriginalFileName": false,
+    "Hashes": false,
+    "AdFind.exe": true,
+    "Adfind.exe": false
+   }
+  },
+  {
+   "arm": "recorded",
+   "primary": "raw",
+   "rep": 1,
+   "policy": "flag",
+   "errored": null,
+   "success": true,
+   "stop_reason": "acceptance criteria passed",
+   "attempts": 2,
+   "first_attempt": {
+    "valid": false,
+    "attack_detected": null,
+    "benign_dev_hits": null
+   },
+   "best_attempt": {
+    "index": 1,
+    "valid": true,
+    "attack_detected": 1,
+    "attack_total": 1,
+    "benign_dev_hits": 0,
+    "rule_text": "title: PUA - AdFind.EXE Execution\nid: 9535527e-e960-4f6f-a5ca-43601d4e883d\nstatus: experimental\ndescription: Detects execution of Adfind.exe utility, which can be used for reconnaissance in an Active Directory environment\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.discovery\n- attack.t1087.002\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  selection:\n    Image|endswith: \\\\adfind.exe\n  condition: selection\nfalsepositives:\n- Unknown\nlevel: medium\n"
+   },
+   "heldout_hits": 0,
+   "tokens": 5152,
+   "seconds": 115.4,
+   "model_calls": 3,
+   "search_results_requested": 3,
+   "input_sha256": "1c86ebb6d3361aa8e57e0321e69d5c4cb9e4b9e6a405445c858e39e574ed4daa",
+   "input_chars": 10228,
+   "corroboration_urls": [
+    "https://sigmaquery.com/rule.php?id=93",
+    "https://detection.fyi/sigmahq/sigma/windows/process_creation/proc_creation_win_pua_adfind_execution",
+    "https://research.splunk.com/endpoint/bd3b0187-189b-46c0-be45-f52da2bae67f"
+   ],
+   "screening": [
+    {
+     "url": "https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1087.002/T1087.002.md",
+     "role": "primary",
+     "status": "included",
+     "reasons": []
+    },
+    {
+     "url": "https://sigmaquery.com/rule.php?id=93",
+     "role": "corroboration",
+     "status": "flagged",
+     "reasons": [
+      "sigma_mirror",
+      "sigma_rule_text",
+      "target_rule_id",
+      "target_rule_title"
+     ]
+    },
+    {
+     "url": "https://detection.fyi/sigmahq/sigma/windows/process_creation/proc_creation_win_pua_adfind_execution",
+     "role": "corroboration",
+     "status": "flagged",
+     "reasons": [
+      "sigma_mirror",
+      "sigma_rule_text",
+      "target_rule_id",
+      "target_rule_title"
+     ]
+    },
+    {
+     "url": "https://research.splunk.com/endpoint/bd3b0187-189b-46c0-be45-f52da2bae67f",
+     "role": "corroboration",
+     "status": "included",
+     "reasons": []
+    }
+   ],
+   "probes": {
+    "514e7e3e": true,
+    "sigmaquery": true,
+    "detection.fyi": true,
+    "IMPHASH": false,
+    "OriginalFileName": true,
+    "Hashes": false,
+    "AdFind.exe": false,
+    "Adfind.exe": true
+   },
+   "rule_features": {
+    "parsable": true,
+    "fields": [
+     "Image"
+    ],
+    "values": [
+     "\\\\adfind.exe"
+    ],
+    "values_shared_with_reference": [
+     "\\\\adfind.exe"
+    ],
+    "uses_original_filename_or_hashes": false
+   },
+   "spec_observables": []
+  },
+  {
+   "arm": "recorded",
+   "primary": "raw",
+   "rep": 0,
+   "policy": "flag",
+   "errored": null,
+   "success": true,
+   "stop_reason": "acceptance criteria passed",
+   "attempts": 1,
+   "first_attempt": {
+    "valid": true,
+    "attack_detected": 1,
+    "benign_dev_hits": 0
+   },
+   "best_attempt": {
+    "index": 0,
+    "valid": true,
+    "attack_detected": 1,
+    "attack_total": 1,
+    "benign_dev_hits": 0,
+    "rule_text": "title: PUA - AdFind.EXE Execution\nid: 954b96f3-c77f-48b2-b49f-31e932d16d1f\nstatus: experimental\ndescription: Detects execution of Adfind.exe utility, which can be used for reconnaissance in an Active Directory environment\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.discovery\n- attack.t1087.002\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  selection_image:\n    Image|endswith: \\adfind.exe\n  selection_original:\n    OriginalFileName: adfind.exe\n  condition: selection_image or selection_original\nfalsepositives:\n- Legitimate administrative use of AdFind.exe\nlevel: medium\n"
+   },
+   "heldout_hits": 0,
+   "tokens": 13209,
+   "seconds": 118.9,
+   "model_calls": 4,
+   "search_results_requested": 3,
+   "input_sha256": "1c86ebb6d3361aa8e57e0321e69d5c4cb9e4b9e6a405445c858e39e574ed4daa",
+   "input_chars": 10228,
+   "corroboration_urls": [
+    "https://sigmaquery.com/rule.php?id=93",
+    "https://detection.fyi/sigmahq/sigma/windows/process_creation/proc_creation_win_pua_adfind_execution",
+    "https://research.splunk.com/endpoint/bd3b0187-189b-46c0-be45-f52da2bae67f"
+   ],
+   "screening": [
+    {
+     "url": "https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1087.002/T1087.002.md",
+     "role": "primary",
+     "status": "included",
+     "reasons": []
+    },
+    {
+     "url": "https://sigmaquery.com/rule.php?id=93",
+     "role": "corroboration",
+     "status": "flagged",
+     "reasons": [
+      "sigma_mirror",
+      "sigma_rule_text",
+      "target_rule_id",
+      "target_rule_title"
+     ]
+    },
+    {
+     "url": "https://detection.fyi/sigmahq/sigma/windows/process_creation/proc_creation_win_pua_adfind_execution",
+     "role": "corroboration",
+     "status": "flagged",
+     "reasons": [
+      "sigma_mirror",
+      "sigma_rule_text",
+      "target_rule_id",
+      "target_rule_title"
+     ]
+    },
+    {
+     "url": "https://research.splunk.com/endpoint/bd3b0187-189b-46c0-be45-f52da2bae67f",
+     "role": "corroboration",
+     "status": "included",
+     "reasons": []
+    }
+   ],
+   "probes": {
+    "514e7e3e": true,
+    "sigmaquery": true,
+    "detection.fyi": true,
+    "IMPHASH": false,
+    "OriginalFileName": true,
+    "Hashes": false,
+    "AdFind.exe": false,
+    "Adfind.exe": true
+   },
+   "rule_features": {
+    "parsable": true,
+    "fields": [
+     "Image",
+     "OriginalFileName"
+    ],
+    "values": [
+     "\\adfind.exe",
+     "adfind.exe"
+    ],
+    "values_shared_with_reference": [
+     "\\adfind.exe",
+     "adfind.exe"
+    ],
+    "uses_original_filename_or_hashes": true
+   },
+   "spec_observables": []
+  },
+  {
+   "arm": "no-search",
+   "primary": "raw",
+   "rep": 2,
+   "policy": "flag",
+   "errored": null,
+   "success": true,
+   "stop_reason": "acceptance criteria passed",
+   "attempts": 3,
+   "first_attempt": {
+    "valid": true,
+    "attack_detected": 0,
+    "benign_dev_hits": 0
+   },
+   "best_attempt": {
+    "index": 2,
+    "valid": true,
+    "attack_detected": 1,
+    "attack_total": 1,
+    "benign_dev_hits": 0,
+    "rule_text": "title: Potential Domain Account Enumeration via Net.exe\nid: c9a586d5-3239-48c1-969e-4f6cc95ac948\nstatus: experimental\ndescription: Detects use of net.exe to enumerate domain user and group accounts, indicative of T1087.002.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.t1087.002\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  selection_net_user_domain:\n    Image|endswith: \\net.exe\n    CommandLine|contains: user /domain\n  selection_net_group_domain:\n    Image|endswith: \\net.exe\n    CommandLine|contains: group /domain\n  selection_adfind_enumerate:\n    Image|endswith: \\AdFind.exe\n    CommandLine|contains|all:\n    - -f\n    - (objectcategory=\n  condition: (selection_net_user_domain or selection_net_group_domain or selection_adfind_enumerate)\nfalsepositives:\n- Legitimate administrative use of net.exe for domain user/group queries by authorized personnel.\nlevel: medium\n"
+   },
+   "heldout_hits": 0,
+   "tokens": 19848,
+   "seconds": 187.5,
+   "model_calls": 8,
+   "search_results_requested": 3,
+   "input_sha256": "38fea2c34eecba04cd199025a1494bd7845b99088eb056e1310bce6b7599dd1f",
+   "input_chars": 6293,
+   "corroboration_urls": [],
+   "screening": [
+    {
+     "url": "https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1087.002/T1087.002.md",
+     "role": "primary",
+     "status": "included",
+     "reasons": []
+    }
+   ],
+   "probes": {
+    "514e7e3e": true,
+    "sigmaquery": false,
+    "detection.fyi": false,
+    "IMPHASH": true,
+    "OriginalFileName": true,
+    "Hashes": true,
+    "AdFind.exe": true,
+    "Adfind.exe": false
+   },
+   "rule_features": {
+    "parsable": true,
+    "fields": [
+     "CommandLine",
+     "Image"
+    ],
+    "values": [
+     "\\net.exe",
+     "user /domain",
+     "\\net.exe",
+     "group /domain",
+     "\\AdFind.exe",
+     "-f",
+     "(objectcategory="
+    ],
+    "values_shared_with_reference": [
+     "\\AdFind.exe"
+    ],
+    "uses_original_filename_or_hashes": false
+   },
+   "spec_observables": []
+  },
+  {
+   "arm": "excluded",
+   "primary": "clean",
+   "rep": 0,
+   "policy": "exclude",
+   "errored": null,
+   "success": false,
+   "stop_reason": "repair budget exhausted",
+   "attempts": 4,
+   "first_attempt": {
+    "valid": true,
+    "attack_detected": 0,
+    "benign_dev_hits": 0
+   },
+   "best_attempt": {
+    "index": 0,
+    "valid": true,
+    "attack_detected": 0,
+    "attack_total": 1,
+    "benign_dev_hits": 0,
+    "rule_text": "title: Potential Domain Reconnaissance Using Net Command\nid: 82bc6b97-9249-4f95-8c91-059eeec4059e\nstatus: experimental\ndescription: Detects usage of net user/net group commands to enumerate domain accounts, indicative of T1087.002.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.t1087.002\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  selection_net_user_domain:\n    Image|endswith: \\net.exe\n    CommandLine|contains:\n    - 'user '\n    - /domain\n  selection_net_group_domain:\n    Image|endswith: \\net.exe\n    CommandLine|contains:\n    - 'group '\n    - /domain\n  condition: (selection_net_user_domain or selection_net_group_domain)\nfalsepositives:\n- Legitimate administrative use of net commands for domain user/group management.\nlevel: medium\n"
+   },
+   "heldout_hits": 0,
+   "tokens": 21564,
+   "seconds": 155.0,
+   "model_calls": 9,
+   "search_results_requested": 8,
+   "input_sha256": "9867c1d2abedad7f8fc34a1fe7bfa0463f71d4107f1a513af0a6c6daafd26aa7",
+   "input_chars": 7044,
+   "corroboration_urls": [
+    "https://research.splunk.com/endpoint/bd3b0187-189b-46c0-be45-f52da2bae67f"
+   ],
+   "screening": [
+    {
+     "url": "https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1087.002/T1087.002.md",
+     "role": "primary",
+     "status": "included",
+     "reasons": []
+    },
+    {
+     "url": "https://sigmaquery.com/rule.php?id=93",
+     "role": "corroboration",
+     "status": "excluded",
+     "reasons": [
+      "sigma_mirror",
+      "sigma_rule_text",
+      "target_rule_id",
+      "target_rule_title"
+     ]
+    },
+    {
+     "url": "https://detection.fyi/sigmahq/sigma/windows/process_creation/proc_creation_win_pua_adfind_execution",
+     "role": "corroboration",
+     "status": "excluded",
+     "reasons": [
+      "sigma_mirror",
+      "sigma_rule_text",
+      "target_rule_id",
+      "target_rule_title"
+     ]
+    },
+    {
+     "url": "https://research.splunk.com/endpoint/bd3b0187-189b-46c0-be45-f52da2bae67f",
+     "role": "corroboration",
+     "status": "included",
+     "reasons": []
+    }
+   ],
+   "probes": {
+    "514e7e3e": true,
+    "sigmaquery": false,
+    "detection.fyi": false,
+    "IMPHASH": true,
+    "OriginalFileName": true,
+    "Hashes": true,
+    "AdFind.exe": true,
+    "Adfind.exe": false
+   },
+   "rule_features": {
+    "parsable": true,
+    "fields": [
+     "CommandLine",
+     "Image"
+    ],
+    "values": [
+     "\\net.exe",
+     "user ",
+     "/domain",
+     "\\net.exe",
+     "group ",
+     "/domain"
+    ],
+    "values_shared_with_reference": [],
+    "uses_original_filename_or_hashes": false
+   },
+   "spec_observables": []
+  },
+  {
+   "arm": "excluded",
+   "primary": "raw",
+   "rep": 0,
+   "policy": "exclude",
+   "errored": null,
+   "success": true,
+   "stop_reason": "acceptance criteria passed",
+   "attempts": 1,
+   "first_attempt": {
+    "valid": true,
+    "attack_detected": 1,
+    "benign_dev_hits": 0
+   },
+   "best_attempt": {
+    "index": 0,
+    "valid": true,
+    "attack_detected": 1,
+    "attack_total": 1,
+    "benign_dev_hits": 0,
+    "rule_text": "title: AdFind Execution\nid: 1bb33324-6fbf-4411-acf3-ede2e5d3df29\nstatus: experimental\ndescription: Detects execution of adfind.exe, a tool commonly used for Active Directory reconnaissance.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.t1087.002\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  selection_adfind_image:\n    OriginalFileName: adfind.exe\n  selection_adfind_commandline:\n    CommandLine|contains: adfind.exe\n  condition: (selection_adfind_image or selection_adfind_commandline)\nfalsepositives:\n- Legitimate use of adfind.exe by administrators for authorized AD queries.\nlevel: high\n"
+   },
+   "heldout_hits": 0,
+   "tokens": 16086,
+   "seconds": 137.8,
+   "model_calls": 6,
+   "search_results_requested": 8,
+   "input_sha256": "9d121acd4fa44260fe4fe3a3fc179430620c03add5524e6eb8f858a32d2d7017",
+   "input_chars": 7044,
+   "corroboration_urls": [
+    "https://research.splunk.com/endpoint/bd3b0187-189b-46c0-be45-f52da2bae67f"
+   ],
+   "screening": [
+    {
+     "url": "https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1087.002/T1087.002.md",
+     "role": "primary",
+     "status": "included",
+     "reasons": []
+    },
+    {
+     "url": "https://sigmaquery.com/rule.php?id=93",
+     "role": "corroboration",
+     "status": "excluded",
+     "reasons": [
+      "sigma_mirror",
+      "sigma_rule_text",
+      "target_rule_id",
+      "target_rule_title"
+     ]
+    },
+    {
+     "url": "https://detection.fyi/sigmahq/sigma/windows/process_creation/proc_creation_win_pua_adfind_execution",
+     "role": "corroboration",
+     "status": "excluded",
+     "reasons": [
+      "sigma_mirror",
+      "sigma_rule_text",
+      "target_rule_id",
+      "target_rule_title"
+     ]
+    },
+    {
+     "url": "https://research.splunk.com/endpoint/bd3b0187-189b-46c0-be45-f52da2bae67f",
+     "role": "corroboration",
+     "status": "included",
+     "reasons": []
+    }
+   ],
+   "probes": {
+    "514e7e3e": false,
+    "sigmaquery": false,
+    "detection.fyi": false,
+    "IMPHASH": false,
+    "OriginalFileName": true,
+    "Hashes": false,
+    "AdFind.exe": false,
+    "Adfind.exe": false
+   },
+   "rule_features": {
+    "parsable": true,
+    "fields": [
+     "CommandLine",
+     "OriginalFileName"
+    ],
+    "values": [
+     "adfind.exe",
+     "adfind.exe"
+    ],
+    "values_shared_with_reference": [
+     "adfind.exe",
+     "adfind.exe"
+    ],
+    "uses_original_filename_or_hashes": true
+   },
+   "spec_observables": []
+  }
+ ]
+}

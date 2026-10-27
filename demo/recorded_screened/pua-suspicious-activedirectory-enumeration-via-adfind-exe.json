@@ -1,0 +1,639 @@
+{
+ "created_at": "2026-10-27T12:00:53.620254+00:00",
+ "model": "nvidia/nemotron-3-super-120b-a12b",
+ "rule_format": "structured",
+ "thinking": true,
+ "evaluator": {
+  "kind": "token-factory-sandbox",
+  "image_tag": "shakedown-eval:v1",
+  "image_uuid": "ed2169ef-219f-4c57-a9a1-3ca6f4a1f9fb",
+  "network": "disabled (networking.enabled=false)",
+  "isolation": "Contree microVM, disposable"
+ },
+ "scenario": {
+  "id": "455b9d50-15a1-4b99-853f-8d37655a4c1b",
+  "title": "PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE",
+  "category": "process_creation"
+ },
+ "input": {
+  "kind": "url",
+  "url": "https://www.joeware.net/freetools/tools/adfind/",
+  "chars": 6217,
+  "sha256": "53a107ac459a1aefcd2cd6a6ca979bbb144c895fae391d2445539fb9bf450a14"
+ },
+ "research": {
+  "primary": {
+   "url": "https://www.joeware.net/freetools/tools/adfind/",
+   "title": "https://www.joeware.net/freetools/tools/adfind/",
+   "retrieved_at": "2026-10-27T11:58:32Z",
+   "via": "extract",
+   "score": null,
+   "chars": 29903
+  },
+  "corroboration": [],
+  "error": null,
+  "screening": {
+   "policy": "exclude",
+   "target": {
+    "id": "455b9d50-15a1-4b99-853f-8d37655a4c1b",
+    "title": "PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE"
+   },
+   "sources": [
+    {
+     "url": "https://www.joeware.net/freetools/tools/adfind/",
+     "role": "primary",
+     "via": "extract",
+     "retrieved_at": "2026-10-27T11:58:32Z",
+     "chars": 29903,
+     "sha256": "5bfe8b83a51741487685b5c785d90fe9d0782093791b21bdbb325226ed18c27e",
+     "status": "included",
+     "reasons": []
+    },
+    {
+     "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/windows/process_creation/proc_creation_win_pua_adfind_enumeration.yml",
+     "role": "corroboration",
+     "via": "search",
+     "retrieved_at": "2026-10-27T11:58:35Z",
+     "chars": 1301,
+     "sha256": "a76fa906df2ffcf9401f955b6d088e4cda51294acad9c6ad76f22c89c2692d0e",
+     "status": "excluded",
+     "reasons": [
+      "sigma_mirror",
+      "sigma_rule_text",
+      "target_rule_id"
+     ],
+     "content": "38\n\n39\n\n40\n\n41\n\n42\n\ntitle: PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE\n\nid: 455b9d50-15a1-4b99-853f-8d37655a4c1b\n\nrelated:\n\n- id: 9a132afa-654e-11eb-ae93-0242ac130002\n\ntype: similar\n\n- id: 514e7e3e-b3b4-4a67-af60-be20f139198b\n\ntype: similar\n\nstatus: test\n\ndescription: Detects active directory enumeration activity using known AdFind CLI flags\n\nreferences:\n\n- \n\n- \n\n- \n\nauthor: frack113\n\ndate: 2021-12-13\n\nmodified: 2023-03-05\n\ntags:\n\n- attack.discovery\n\n- attack.t1087.002 [...] - attack.t1087.002\n\nlogsource:\n\nproduct: windows\n\ncategory: process\\_creation\n\ndetection:\n\nselection\\_password: # Listing password policy\n\nCommandLine|contains:\n\n- lockoutduration\n\n- lockoutthreshold\n\n- lockoutobservationwindow\n\n- maxpwdage\n\n- minpwdage\n\n- minpwdlength\n\n- pwdhistorylength\n\n- pwdproperties\n\nselection\\_enum\\_ad: # Enumerate Active Directory Admins\n\nCommandLine|contains: '-sc admincountdmp'\n\nselection\\_enum\\_exchange: # Enumerate Active Directory Exchange AD Objects [...] CommandLine|contains: '-sc exchaddresses'\n\ncondition: 1 of selection\\_\\\n\nfalsepositives:\n\n- Authorized administrative activity\n\nlevel: high\n\nregression\\_tests\\_path: regression\\_data/rules/windows/process\\_creation/proc\\_creation\\_win\\_pua\\_adfind\\_enumeration/info.yml\n\nYou can\u2019t perform that action at this time."
+    },
+    {
+     "url": "https://github.com/SigmaHQ/sigma/blob/master/rules/windows/process_creation/proc_creation_win_pua_adfind_enumeration.yml",
+     "role": "corroboration",
+     "via": "search",
+     "retrieved_at": "2026-10-27T11:58:35Z",
+     "chars": 1301,
+     "sha256": "a76fa906df2ffcf9401f955b6d088e4cda51294acad9c6ad76f22c89c2692d0e",
+     "status": "excluded",
+     "reasons": [
+      "sigma_mirror",
+      "sigma_rule_text",
+      "target_rule_id"
+     ],
+     "content": "38\n\n39\n\n40\n\n41\n\n42\n\ntitle: PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE\n\nid: 455b9d50-15a1-4b99-853f-8d37655a4c1b\n\nrelated:\n\n- id: 9a132afa-654e-11eb-ae93-0242ac130002\n\ntype: similar\n\n- id: 514e7e3e-b3b4-4a67-af60-be20f139198b\n\ntype: similar\n\nstatus: test\n\ndescription: Detects active directory enumeration activity using known AdFind CLI flags\n\nreferences:\n\n- \n\n- \n\n- \n\nauthor: frack113\n\ndate: 2021-12-13\n\nmodified: 2023-03-05\n\ntags:\n\n- attack.discovery\n\n- attack.t1087.002 [...] - attack.t1087.002\n\nlogsource:\n\nproduct: windows\n\ncategory: process\\_creation\n\ndetection:\n\nselection\\_password: # Listing password policy\n\nCommandLine|contains:\n\n- lockoutduration\n\n- lockoutthreshold\n\n- lockoutobservationwindow\n\n- maxpwdage\n\n- minpwdage\n\n- minpwdlength\n\n- pwdhistorylength\n\n- pwdproperties\n\nselection\\_enum\\_ad: # Enumerate Active Directory Admins\n\nCommandLine|contains: '-sc admincountdmp'\n\nselection\\_enum\\_exchange: # Enumerate Active Directory Exchange AD Objects [...] CommandLine|contains: '-sc exchaddresses'\n\ncondition: 1 of selection\\_\\\n\nfalsepositives:\n\n- Authorized administrative activity\n\nlevel: high\n\nregression\\_tests\\_path: regression\\_data/rules/windows/process\\_creation/proc\\_creation\\_win\\_pua\\_adfind\\_enumeration/info.yml\n\nYou can\u2019t perform that action at this time."
+    },
+    {
+     "url": "https://filestore.fortinet.com/docs.fortinet.com/fsiem/Public_Resource_Access/7_6_0/rules/PH_RULE_Suspicious_AdFind_Enumerate.htm",
+     "role": "corroboration",
+     "via": "search",
+     "retrieved_at": "2026-10-27T11:58:35Z",
+     "chars": 1211,
+     "sha256": "72da4a656dd144ed1c3787c01ecae5d162a44e654dd1567a131b431b62244579",
+     "status": "excluded",
+     "reasons": [
+      "target_rule_title"
+     ],
+     "content": "fsm-logo\n\n# FortiSIEM Rules\n\n# Windows: PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE\n\n## Rule ID\n\n## Default Status\n\nEnabled\n\n## Description\n\nDetects active directory enumeration activity using known AdFind CLI flags. This rule is adapted from \n\n## Severity\n\n7\n\n## Category\n\nSecurity\n\n## Detection Technology\n\nCorrelation\n\n## Rule Mode\n\nStreaming\n\n## MITRE ATT&CK\u00ae Tactics\n\nDiscovery [...] This is the query logic that matches incoming events\n\n```\neventType=\"Win-Sysmon-1-Create-Process\" AND (command REGEXP \".lockoutduration.|.lockoutobservationwindow.|.lockoutthreshold.|.maxpwdage.|.minpwdage.|.minpwdlength.|.pwdhistorylength.|.pwdproperties.\" OR command REGEXP \".-sc admincountdmp.\" OR command REGEXP \".-sc exchaddresses.\")\n```\n\n### Group by Attributes [...] ## MITRE ATT&CK\u00ae Techniques\n\n  \n\nT1087.002\n\nAccount Discovery: Domain Account\n\nAdversaries may attempt to get a listing of domain accounts. This information can help adversaries determine which domain accounts exist to aid in follow-on behavior.\n\n## Impacts\n\nServer\n\n## Data Source\n\nMicrosoft Windows Sysmon via Windows Collector\n\n## Detection\n\nCorrelation\n\n## Remediation Guidance\n\nNo remediation guidance specified\n\n## Time Window"
+    },
+    {
+     "url": "https://sigma.nasbench.dev/rules/455b9d50-15a1-4b99-853f-8d37655a4c1b",
+     "role": "corroboration",
+     "via": "search",
+     "retrieved_at": "2026-10-27T11:58:35Z",
+     "chars": 1421,
+     "sha256": "39c6968ff331c094d34fae0b67ef7cd549519a97ed43499201eb31e819bcc750",
+     "status": "excluded",
+     "reasons": [
+      "sigma_mirror",
+      "target_rule_id",
+      "target_rule_title"
+     ],
+     "content": "Sigma IntelligenceBeta\n\nSearch Rules\n\nBack to Rules\n\nDetectionhightest\n\n# PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE\n\nDetects active directory enumeration activity using known AdFind CLI flags\n\nConvert In Phoenix Studio\n\nOpen this Sigma rule in the converter with the YAML preloaded and ready for backend selection.\n\nLaunch\n\nFran\u00e7ois HubautCreated Mon Dec 13Updated Sun Mar 05455b9d50-15a1-4b99-853f-8d37655a4c1bwindows\n\nLog Source\n\nWindowsProcess Creation [...] PUA - AdFind.EXE Execution\n\nDetects execution of Adfind.exe utility, which can be used for reconnaissance in an Active Directory environment\n\nDetects similar activity. Both rules may fire on overlapping events.\n\nRule Metadata\n\nRule ID\n\n455b9d50-15a1-4b99-853f-8d37655a4c1b\n\nStatus\n\ntest\n\nLevel\n\nhigh\n\nType\n\nDetection\n\nCreated\n\nMon Dec 13\n\nModified\n\nSun Mar 05\n\nAuthor\n\nFran\u00e7ois Hubaut\n\nPath\n\nRaw Tags\n\nattack.discoveryattack.t1087.002\n\nView on GitHub [...] ```\ndetection selection_password # Listing password policy CommandLine|contains | contains selection_enum_ad # Enumerate Active Directory Admins CommandLine|contains | contains'-sc admincountdmp' selection_enum_exchange # Enumerate Active Directory Exchange AD Objects CommandLine|contains | contains'-sc exchaddresses' condition 1\n```\n\nFalse Positives\n\nAuthorized administrative activity\n\nReferences\n\n1\n\nResolving title\u2026\n\njoeware.net2\n\nResolving title\u2026\n\nsocial.technet.microsoft.com3"
+    },
+    {
+     "url": "https://detection.fyi/sigmahq/sigma/windows/process_creation/proc_creation_win_pua_adfind_enumeration",
+     "role": "corroboration",
+     "via": "search",
+     "retrieved_at": "2026-10-27T11:58:35Z",
+     "chars": 1198,
+     "sha256": "e34493b9b8e73bf02e42eaa84f847056c0679a183a2cba25691ec45bc53aa7d5",
+     "status": "excluded",
+     "reasons": [
+      "sigma_mirror",
+      "sigma_rule_text",
+      "target_rule_id",
+      "target_rule_title"
+     ],
+     "content": "# PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE\n\nNov 26, 2025 \u00b7 attack.discovery attack.t1087.002    \u00b7\n\nShare on:\n\nDetects active directory enumeration activity using known AdFind CLI flags\n\n## Sigma rule (View on GitHub) [...] using known AdFind CLI flags  description:  Detects active directory enumeration activity using known AdFind CLI flags  10references: 10references:  references:  11 -  11 -     12 -  12 -     13 -  13 -     14author: frack113 14author: frack113  author:  frack113  15date: 2021-12-13 15date: 2021-12-13  date:  2021-12-13  16modified: 2023-03-05 16modified: 2023-03-05  modified:  2023-03-05  17tags: 17tags:  tags:  18 - attack.discovery 18 - attack.discovery  attack.discovery  19 - [...] 1title: PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE  1title: PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE title:  PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE   2id: 455b9d50-15a1-4b99-853f-8d37655a4c1b  2id: 455b9d50-15a1-4b99-853f-8d37655a4c1b  id:  455b9d50-15a1-4b99-853f-8d37655a4c1b   3related:  3related:  related:   4 - id: 9a132afa-654e-11eb-ae93-0242ac130002  4 - id: 9a132afa-654e-11eb-ae93-0242ac130002  id:"
+    },
+    {
+     "url": "https://www.manageengine.com/log-management/detection-rules/pua-suspicious-activedirectory-enumeration-via-adfind-exe.html",
+     "role": "corroboration",
+     "via": "search",
+     "retrieved_at": "2026-10-27T11:58:35Z",
+     "chars": 1334,
+     "sha256": "34710104520a7577afd0690a29bbb8e97eb8c8665e3291887c1449f329a15ec7",
+     "status": "excluded",
+     "reasons": [
+      "target_rule_title"
+     ],
+     "content": "Detects use of the AdFind tool performing Active Directory enumeration with CLI flags targeting sensitive domain attributes and account policies, potentially indicating reconnaissance activity by attackers.\n\n### Severity\n\nTrouble\n\n## Rule journey\n\n### Attack chain scenario\n\nDiscovery: Account Discovery - Domain Account (T1087.002)\n\n### Impact [...] ## Detection\n\n### Execution Mode\n\nrealtime\n\n### Log Sources\n\nActive Directory\n\n### MITRE ATT&CK\n\nT1087.002: Account Discovery - Domain Account\n\n### Security Standards\n\n Configure Operating System to prevent enumeration of administrator accounts during elevation (disable registry key HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\CredUI\\EnumerateAdministrators).\n Implement Group Policy to disable enumeration of admin accounts on elevation.\n\n### Author\n\n## Future actions [...] 1. Open GPMC (gpmc.msc).\n2. Edit/Create GPO > Go to:  \n   Computer Configuration > Policies > Windows Settings > Security Settings > Advanced Audit Policy Configuration > Audit Policies > Detailed Tracking\n3. Enable:\n    Audit Process Creation \u2192 Success\n    Audit Process Termination \u2192 Success\n4. For command-line tracking:  \n   Computer Configuration > Administrative Templates > System > Audit Process Creation  \n   Enable Include command line in process creation events.\n5. Add registry key:"
+    },
+    {
+     "url": "https://sigmaquery.com/rule.php?id=93",
+     "role": "corroboration",
+     "via": "search",
+     "retrieved_at": "2026-10-27T11:58:35Z",
+     "chars": 1447,
+     "sha256": "2574851f28022711a3acecb880eb264ae42d0aa2267a76803dbc8c21a1ac202b",
+     "status": "excluded",
+     "reasons": [
+      "sigma_mirror",
+      "sigma_rule_text",
+      "target_rule_id"
+     ],
+     "content": "### Detection Logic Flowchart\n\n### Version History\n\nLoading history\u2026\n\n### Community Comments\n\nLoading comments\u2026\n\n### \u26a1 Convert to SIEM Format\n\n### Related Rules\n\nmedium\n\nPotential AD User Enumeration From Non-Machine Account medium\n\nPotential Active Directory Reconnaissance/Enumeration Via LDAP high\n\nAD Privileged Users or Groups Reconnaissance high\n\nReconnaissance Activity high\n\nPUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE high\n\nMalicious PowerShell Commandlets - ScriptBlock [...] title: PUA - AdFind.EXE Execution id: 514e7e3e-b3b4-4a67-af60-be20f139198b related: - id: 455b9d50-15a1-4b99-853f-8d37655a4c1b type: similar status: experimental description: Detects execution of Adfind.exe utility, which can be used for reconnaissance in an Active Directory environment references: -  -  author: Swachchhanda Shrawan Poudel (Nextron Systems) date: 2025-02-26 tags: - attack.discovery - attack.t1087.002 logsource: product: windows category: process_creation detection: selection: - [...] > Rule Detail\n\n## PUA - AdFind.EXE Execution\n\n\ud83d\udc41 45\n\nLevel medium\n\nStatus experimental\n\n|  |  |\n --- |\n| ID | 514e7e3e-b3b4-4a67-af60-be20f139198b  \ud83d\udd17 View on GitHub |\n| Author | Swachchhanda Shrawan Poudel (Nextron Systems) |\n| Date | 2025-05-21 |\n| Logsource | windows / process\\_creation |\n\nDetects execution of Adfind.exe utility, which can be used for reconnaissance in an Active Directory environment\n\nT1087.002\u2197\n\nCondition `selection`"
+    },
+    {
+     "url": "https://detection.fyi/sigmahq/sigma/windows/process_creation/proc_creation_win_pua_adfind_execution",
+     "role": "corroboration",
+     "via": "search",
+     "retrieved_at": "2026-10-27T11:58:35Z",
+     "chars": 1285,
+     "sha256": "174f7866fe533f5e545c1d4cacd56da8516ad2f3e7e6a07de4328d26e8f6d0a7",
+     "status": "excluded",
+     "reasons": [
+      "sigma_mirror"
+     ],
+     "content": "## References\n\n ### \n\n  \n\n  Read More\n ### \n\n  \n\n  Read More\n\n## Related rules\n\n PUA - AdFind Suspicious Execution\n PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE\n Renamed AdFind Execution\n ADExplorer Writing Complete AD Snapshot Into .dat File\n Active Directory Database Snapshot Via ADExplorer [...] 6status: experimental  status:  experimental   7description: Detects execution of Adfind.exe utility, which can be used for reconnaissance in an Active Directory environment  7description: Detects execution of Adfind.exe utility, which can be used for reconnaissance in an Active Directory environment  description:  Detects execution of Adfind.exe utility, which can be used for reconnaissance in an Active Directory environment   8references:  8references:  references:   9 -   9 -     10 -  10 - [...] product:  windows  18 category: process_creation 18 category: process_creation  category:  process_creation  19detection: 19detection:  detection:  20 selection: 20 selection:  selection:  21 - Image|endswith: '\\AdFind.exe' 21 - Image|endswith: '\\AdFind.exe'  Image|endswith:  '\\AdFind.exe'  22 - OriginalFileName: 'AdFind.exe' 22 - OriginalFileName: 'AdFind.exe'  OriginalFileName:  'AdFind.exe'  23 - Hashes|contains: 23 - Hashes|contains:  Hashes|contains:  24 -"
+    }
+   ]
+  }
+ },
+ "spec": {
+  "behavior": "",
+  "logsource_category": "process_creation",
+  "observables": [],
+  "techniques": []
+ },
+ "spec_dropped": [
+  {
+   "kind": "observable",
+   "item": {
+    "field": "",
+    "match": "contains",
+    "value": "adfind.exe",
+    "quote": "AdFind"
+   },
+   "reason": "value not contained in its quote"
+  }
+ ],
+ "iterations": [
+  {
+   "index": 0,
+   "action": "generate",
+   "resamples": 2,
+   "thinking_fallback": false,
+   "rule_text": "title: AdFind Command Line Usage\nid: 8b0cbd31-5fc9-44b1-afd2-b595fd3e100a\nstatus: experimental\ndescription: Detects execution of AdFind with common reconnaissance switches indicative of Active Directory enumeration.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.discovery\n- attack.t1087.002\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  sel_img:\n    Image|endswith: adfind.exe\n  sel_cmd:\n    CommandLine|contains:\n    - -kdsrootkeys\n    - -csvbreakcount\n    - -onlygroup\n    - -whoami\n    - -decattid\n    - -enccurrentutcgt\n    - -encutcgt\n    - -outputcurrentint8\n    - -outputcurrentgt\n    - -jwdsinit\n    - -jwdsstd\n    - -jwdsstdro\n    - -parentrdn\n    - -objrdn\n    - -dechextosid\n    - -encguidtoiid\n    - -sdna\n    - -nosacl\n    - -showdel\n    - stats\n    - stats+\n    - statsonly\n    - stats+only\n  condition: sel_img and sel_cmd\nfalsepositives:\n- Legitimate administrative scripts that use AdFind for benign purposes.\nlevel: high\n",
+   "sha256": "0a2323931e681d1dbe58401ccbd6ecbfc9b20853abfbb7e97e46bfdebee6bb50",
+   "validation": {
+    "ok": true,
+    "errors": [],
+    "sigma_output": "\n=== Summary ===\nFound 0 errors, 0 condition errors and 0 issues.\nNo rule errors found.\nNo condition errors found.\nNo validation issues found.\nParsing Sigma rules\nChecking Sigma rules\n"
+   },
+   "evaluator_error": null,
+   "tokens": 9181,
+   "latency_s": 19.56,
+   "evaluation": {
+    "attack_total": 1,
+    "attack_detected": 0,
+    "attack_missed": [
+     "455b9d50-15a1-4b99-853f-8d37655a4c1b.evtx"
+    ],
+    "attack_events_hit": 0,
+    "benign": {
+     "benign_dev_win7": {
+      "files_total": 129,
+      "files_with_hits": 0,
+      "hits": 0,
+      "examples": []
+     }
+    },
+    "attack_events": [
+     {
+      "EventID": 1,
+      "Channel": "Microsoft-Windows-Sysmon/Operational",
+      "RuleName": "-",
+      "UtcTime": "2025-10-23 09:37:40.972",
+      "ProcessGuid": "{14207d89-f764-68f9-2410-000000003f02}",
+      "ProcessId": "4316",
+      "Image": "C:\\Users\\SwachchhandaP\\Downloads\\AdFind\\AdFind.exe",
+      "FileVersion": "1.62.0.6172",
+      "Description": "-",
+      "Product": "AdFind",
+      "Company": "www.joeware.net",
+      "OriginalFileName": "AdFind.exe",
+      "CommandLine": "AdFind.exe   -default -s base lockoutduration lockoutthreshold lockoutobservationwindow maxpwdage minpwdage minpwdlength pwdhistorylength pwdproperties",
+      "CurrentDirectory": "C:\\Users\\SwachchhandaP\\Downloads\\AdFind\\",
+      "User": "MIDGARDNET\\SwachchhandaP",
+      "LogonGuid": "{14207d89-91e6-68f9-0f94-460000000000}",
+      "LogonId": "0x000000000046940f",
+      "TerminalSessionId": "2",
+      "IntegrityLevel": "Medium",
+      "Hashes": "MD5=B0C4A9C1D8C4641A161B3DBF111454DF,SHA256=484DD00E85C033FBFD506B956AC0ACD29B30F239755ED753A2788A842425B384,IMPHASH=680DAD9E300346E05A85023965867201",
+      "ParentProcessGuid": "{14207d89-f57c-68f9-d70f-000000003f02}",
+      "ParentProcessId": "6488",
+      "ParentImage": "C:\\Windows\\System32\\cmd.exe",
+      "ParentCommandLine": "\"C:\\Windows\\System32\\cmd.exe\" ",
+      "ParentUser": "MIDGARDNET\\SwachchhandaP"
+     }
+    ],
+    "seconds": 10.38
+   }
+  },
+  {
+   "index": 1,
+   "action": "repair",
+   "resamples": 0,
+   "thinking_fallback": false,
+   "rule_text": "title: AdFind Command Line Usage\nid: 8b0cbd31-5fc9-44b1-afd2-b595fd3e100a\nstatus: experimental\ndescription: Detects execution of AdFind with common reconnaissance switches indicative of Active Directory enumeration.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.discovery\n- attack.t1087.002\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  sel_img:\n    Image|endswith: adfind.exe\n  sel_cmd:\n    CommandLine|contains:\n    - -kdsrootkeys\n    - -csvbreakcount\n    - -onlygroup\n    - -whoami\n    - -decattid\n    - -enccurrentutcgt\n    - -encutcgt\n    - -outputcurrentint8\n    - -outputcurrentgt\n    - -jwdsinit\n    - -jwdsstd\n    - -jwdsstdro\n    - -parentrdn\n    - -objrdn\n    - -dechextosid\n    - -encguidtoiid\n    - -sdna\n    - -nosacl\n    - -showdel\n    - stats\n    - stats+\n    - statsonly\n    - stats+only\n    - -default\n    - -s\n    - lockoutduration\n    - lockoutthreshold\n    - lockoutobservationwindow\n    - maxpwdage\n    - minpwdage\n    - minpwdlength\n    - pwdhistorylength\n    - pwdproperties\n  condition: sel_img and sel_cmd\nfalsepositives:\n- Legitimate administrative scripts that use AdFind for benign purposes.\nlevel: high\n",
+   "sha256": "fd9f846f218ac92615c9d69575edca550b2d7471a1b3f2aa71880cc99c7906e0",
+   "validation": {
+    "ok": true,
+    "errors": [],
+    "sigma_output": "\n=== Summary ===\nFound 0 errors, 0 condition errors and 0 issues.\nNo rule errors found.\nNo condition errors found.\nNo validation issues found.\nParsing Sigma rules\nChecking Sigma rules\n"
+   },
+   "evaluator_error": null,
+   "tokens": 2179,
+   "latency_s": 5.52,
+   "evaluation": {
+    "attack_total": 1,
+    "attack_detected": 1,
+    "attack_missed": [],
+    "attack_events_hit": 1,
+    "benign": {
+     "benign_dev_win7": {
+      "files_total": 129,
+      "files_with_hits": 0,
+      "hits": 0,
+      "examples": []
+     }
+    },
+    "attack_events": [],
+    "seconds": 11.05
+   }
+  }
+ ],
+ "best_index": 1,
+ "success": true,
+ "stop_reason": "acceptance criteria passed",
+ "heldout": {
+  "benign_heldout_win10": {
+   "files_total": 352,
+   "files_with_hits": 0,
+   "hits": 0,
+   "examples": []
+  }
+ },
+ "expert": {
+  "dev": {
+   "attack_total": 1,
+   "attack_detected": 1,
+   "attack_missed": [],
+   "attack_events_hit": 1,
+   "benign": {
+    "benign_dev_win7": {
+     "files_total": 129,
+     "files_with_hits": 0,
+     "hits": 0,
+     "examples": []
+    }
+   },
+   "attack_events": [],
+   "seconds": 9.72
+  },
+  "heldout": {
+   "benign_heldout_win10": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   }
+  },
+  "rule_text": "title: PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE\nid: 455b9d50-15a1-4b99-853f-8d37655a4c1b\nrelated:\n    - id: 9a132afa-654e-11eb-ae93-0242ac130002\n      type: similar\n    - id: 514e7e3e-b3b4-4a67-af60-be20f139198b\n      type: similar\nstatus: test\ndescription: Detects active directory enumeration activity using known AdFind CLI flags\nreferences:\n    - https://www.joeware.net/freetools/tools/adfind/\n    - https://social.technet.microsoft.com/wiki/contents/articles/7535.adfind-command-examples.aspx\n    - https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1087.002/T1087.002.md\nauthor: frack113\ndate: 2021-12-13\nmodified: 2023-03-05\ntags:\n    - attack.discovery\n    - attack.t1087.002\nlogsource:\n    product: windows\n    category: process_creation\ndetection:\n    selection_password: # Listing password policy\n        CommandLine|contains:\n            - lockoutduration\n            - lockoutthreshold\n            - lockoutobservationwindow\n            - maxpwdage\n            - minpwdage\n            - minpwdlength\n            - pwdhistorylength\n            - pwdproperties\n    selection_enum_ad: # Enumerate Active Directory Admins\n        CommandLine|contains: '-sc admincountdmp'\n    selection_enum_exchange: # Enumerate Active Directory Exchange AD Objects\n        CommandLine|contains: '-sc exchaddresses'\n    condition: 1 of selection_*\nfalsepositives:\n    - Authorized administrative activity\nlevel: high\nregression_tests_path: regression_data/rules/windows/process_creation/proc_creation_win_pua_adfind_enumeration/info.yml\n"
+ },
+ "totals": {
+  "tokens": 11360,
+  "seconds": 142.1
+ },
+ "events": [
+  {
+   "type": "start",
+   "t": 0.0,
+   "data": {
+    "scenario": "455b9d50-15a1-4b99-853f-8d37655a4c1b",
+    "title": "PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE",
+    "model": "nvidia/nemotron-3-super-120b-a12b"
+   }
+  },
+  {
+   "type": "research",
+   "t": 4.17,
+   "data": {
+    "primary": {
+     "url": "https://www.joeware.net/freetools/tools/adfind/",
+     "title": "https://www.joeware.net/freetools/tools/adfind/",
+     "retrieved_at": "2026-10-27T11:58:32Z",
+     "via": "extract",
+     "score": null,
+     "chars": 29903
+    },
+    "corroboration": [],
+    "error": null,
+    "screening": {
+     "policy": "exclude",
+     "target": {
+      "id": "455b9d50-15a1-4b99-853f-8d37655a4c1b",
+      "title": "PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE"
+     },
+     "sources": [
+      {
+       "url": "https://www.joeware.net/freetools/tools/adfind/",
+       "role": "primary",
+       "via": "extract",
+       "retrieved_at": "2026-10-27T11:58:32Z",
+       "chars": 29903,
+       "sha256": "5bfe8b83a51741487685b5c785d90fe9d0782093791b21bdbb325226ed18c27e",
+       "status": "included",
+       "reasons": []
+      },
+      {
+       "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/windows/process_creation/proc_creation_win_pua_adfind_enumeration.yml",
+       "role": "corroboration",
+       "via": "search",
+       "retrieved_at": "2026-10-27T11:58:35Z",
+       "chars": 1301,
+       "sha256": "a76fa906df2ffcf9401f955b6d088e4cda51294acad9c6ad76f22c89c2692d0e",
+       "status": "excluded",
+       "reasons": [
+        "sigma_mirror",
+        "sigma_rule_text",
+        "target_rule_id"
+       ],
+       "content": "38\n\n39\n\n40\n\n41\n\n42\n\ntitle: PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE\n\nid: 455b9d50-15a1-4b99-853f-8d37655a4c1b\n\nrelated:\n\n- id: 9a132afa-654e-11eb-ae93-0242ac130002\n\ntype: similar\n\n- id: 514e7e3e-b3b4-4a67-af60-be20f139198b\n\ntype: similar\n\nstatus: test\n\ndescription: Detects active directory enumeration activity using known AdFind CLI flags\n\nreferences:\n\n- \n\n- \n\n- \n\nauthor: frack113\n\ndate: 2021-12-13\n\nmodified: 2023-03-05\n\ntags:\n\n- attack.discovery\n\n- attack.t1087.002 [...] - attack.t1087.002\n\nlogsource:\n\nproduct: windows\n\ncategory: process\\_creation\n\ndetection:\n\nselection\\_password: # Listing password policy\n\nCommandLine|contains:\n\n- lockoutduration\n\n- lockoutthreshold\n\n- lockoutobservationwindow\n\n- maxpwdage\n\n- minpwdage\n\n- minpwdlength\n\n- pwdhistorylength\n\n- pwdproperties\n\nselection\\_enum\\_ad: # Enumerate Active Directory Admins\n\nCommandLine|contains: '-sc admincountdmp'\n\nselection\\_enum\\_exchange: # Enumerate Active Directory Exchange AD Objects [...] CommandLine|contains: '-sc exchaddresses'\n\ncondition: 1 of selection\\_\\\n\nfalsepositives:\n\n- Authorized administrative activity\n\nlevel: high\n\nregression\\_tests\\_path: regression\\_data/rules/windows/process\\_creation/proc\\_creation\\_win\\_pua\\_adfind\\_enumeration/info.yml\n\nYou can\u2019t perform that action at this time."
+      },
+      {
+       "url": "https://github.com/SigmaHQ/sigma/blob/master/rules/windows/process_creation/proc_creation_win_pua_adfind_enumeration.yml",
+       "role": "corroboration",
+       "via": "search",
+       "retrieved_at": "2026-10-27T11:58:35Z",
+       "chars": 1301,
+       "sha256": "a76fa906df2ffcf9401f955b6d088e4cda51294acad9c6ad76f22c89c2692d0e",
+       "status": "excluded",
+       "reasons": [
+        "sigma_mirror",
+        "sigma_rule_text",
+        "target_rule_id"
+       ],
+       "content": "38\n\n39\n\n40\n\n41\n\n42\n\ntitle: PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE\n\nid: 455b9d50-15a1-4b99-853f-8d37655a4c1b\n\nrelated:\n\n- id: 9a132afa-654e-11eb-ae93-0242ac130002\n\ntype: similar\n\n- id: 514e7e3e-b3b4-4a67-af60-be20f139198b\n\ntype: similar\n\nstatus: test\n\ndescription: Detects active directory enumeration activity using known AdFind CLI flags\n\nreferences:\n\n- \n\n- \n\n- \n\nauthor: frack113\n\ndate: 2021-12-13\n\nmodified: 2023-03-05\n\ntags:\n\n- attack.discovery\n\n- attack.t1087.002 [...] - attack.t1087.002\n\nlogsource:\n\nproduct: windows\n\ncategory: process\\_creation\n\ndetection:\n\nselection\\_password: # Listing password policy\n\nCommandLine|contains:\n\n- lockoutduration\n\n- lockoutthreshold\n\n- lockoutobservationwindow\n\n- maxpwdage\n\n- minpwdage\n\n- minpwdlength\n\n- pwdhistorylength\n\n- pwdproperties\n\nselection\\_enum\\_ad: # Enumerate Active Directory Admins\n\nCommandLine|contains: '-sc admincountdmp'\n\nselection\\_enum\\_exchange: # Enumerate Active Directory Exchange AD Objects [...] CommandLine|contains: '-sc exchaddresses'\n\ncondition: 1 of selection\\_\\\n\nfalsepositives:\n\n- Authorized administrative activity\n\nlevel: high\n\nregression\\_tests\\_path: regression\\_data/rules/windows/process\\_creation/proc\\_creation\\_win\\_pua\\_adfind\\_enumeration/info.yml\n\nYou can\u2019t perform that action at this time."
+      },
+      {
+       "url": "https://filestore.fortinet.com/docs.fortinet.com/fsiem/Public_Resource_Access/7_6_0/rules/PH_RULE_Suspicious_AdFind_Enumerate.htm",
+       "role": "corroboration",
+       "via": "search",
+       "retrieved_at": "2026-10-27T11:58:35Z",
+       "chars": 1211,
+       "sha256": "72da4a656dd144ed1c3787c01ecae5d162a44e654dd1567a131b431b62244579",
+       "status": "excluded",
+       "reasons": [
+        "target_rule_title"
+       ],
+       "content": "fsm-logo\n\n# FortiSIEM Rules\n\n# Windows: PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE\n\n## Rule ID\n\n## Default Status\n\nEnabled\n\n## Description\n\nDetects active directory enumeration activity using known AdFind CLI flags. This rule is adapted from \n\n## Severity\n\n7\n\n## Category\n\nSecurity\n\n## Detection Technology\n\nCorrelation\n\n## Rule Mode\n\nStreaming\n\n## MITRE ATT&CK\u00ae Tactics\n\nDiscovery [...] This is the query logic that matches incoming events\n\n```\neventType=\"Win-Sysmon-1-Create-Process\" AND (command REGEXP \".lockoutduration.|.lockoutobservationwindow.|.lockoutthreshold.|.maxpwdage.|.minpwdage.|.minpwdlength.|.pwdhistorylength.|.pwdproperties.\" OR command REGEXP \".-sc admincountdmp.\" OR command REGEXP \".-sc exchaddresses.\")\n```\n\n### Group by Attributes [...] ## MITRE ATT&CK\u00ae Techniques\n\n  \n\nT1087.002\n\nAccount Discovery: Domain Account\n\nAdversaries may attempt to get a listing of domain accounts. This information can help adversaries determine which domain accounts exist to aid in follow-on behavior.\n\n## Impacts\n\nServer\n\n## Data Source\n\nMicrosoft Windows Sysmon via Windows Collector\n\n## Detection\n\nCorrelation\n\n## Remediation Guidance\n\nNo remediation guidance specified\n\n## Time Window"
+      },
+      {
+       "url": "https://sigma.nasbench.dev/rules/455b9d50-15a1-4b99-853f-8d37655a4c1b",
+       "role": "corroboration",
+       "via": "search",
+       "retrieved_at": "2026-10-27T11:58:35Z",
+       "chars": 1421,
+       "sha256": "39c6968ff331c094d34fae0b67ef7cd549519a97ed43499201eb31e819bcc750",
+       "status": "excluded",
+       "reasons": [
+        "sigma_mirror",
+        "target_rule_id",
+        "target_rule_title"
+       ],
+       "content": "Sigma IntelligenceBeta\n\nSearch Rules\n\nBack to Rules\n\nDetectionhightest\n\n# PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE\n\nDetects active directory enumeration activity using known AdFind CLI flags\n\nConvert In Phoenix Studio\n\nOpen this Sigma rule in the converter with the YAML preloaded and ready for backend selection.\n\nLaunch\n\nFran\u00e7ois HubautCreated Mon Dec 13Updated Sun Mar 05455b9d50-15a1-4b99-853f-8d37655a4c1bwindows\n\nLog Source\n\nWindowsProcess Creation [...] PUA - AdFind.EXE Execution\n\nDetects execution of Adfind.exe utility, which can be used for reconnaissance in an Active Directory environment\n\nDetects similar activity. Both rules may fire on overlapping events.\n\nRule Metadata\n\nRule ID\n\n455b9d50-15a1-4b99-853f-8d37655a4c1b\n\nStatus\n\ntest\n\nLevel\n\nhigh\n\nType\n\nDetection\n\nCreated\n\nMon Dec 13\n\nModified\n\nSun Mar 05\n\nAuthor\n\nFran\u00e7ois Hubaut\n\nPath\n\nRaw Tags\n\nattack.discoveryattack.t1087.002\n\nView on GitHub [...] ```\ndetection selection_password # Listing password policy CommandLine|contains | contains selection_enum_ad # Enumerate Active Directory Admins CommandLine|contains | contains'-sc admincountdmp' selection_enum_exchange # Enumerate Active Directory Exchange AD Objects CommandLine|contains | contains'-sc exchaddresses' condition 1\n```\n\nFalse Positives\n\nAuthorized administrative activity\n\nReferences\n\n1\n\nResolving title\u2026\n\njoeware.net2\n\nResolving title\u2026\n\nsocial.technet.microsoft.com3"
+      },
+      {
+       "url": "https://detection.fyi/sigmahq/sigma/windows/process_creation/proc_creation_win_pua_adfind_enumeration",
+       "role": "corroboration",
+       "via": "search",
+       "retrieved_at": "2026-10-27T11:58:35Z",
+       "chars": 1198,
+       "sha256": "e34493b9b8e73bf02e42eaa84f847056c0679a183a2cba25691ec45bc53aa7d5",
+       "status": "excluded",
+       "reasons": [
+        "sigma_mirror",
+        "sigma_rule_text",
+        "target_rule_id",
+        "target_rule_title"
+       ],
+       "content": "# PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE\n\nNov 26, 2025 \u00b7 attack.discovery attack.t1087.002    \u00b7\n\nShare on:\n\nDetects active directory enumeration activity using known AdFind CLI flags\n\n## Sigma rule (View on GitHub) [...] using known AdFind CLI flags  description:  Detects active directory enumeration activity using known AdFind CLI flags  10references: 10references:  references:  11 -  11 -     12 -  12 -     13 -  13 -     14author: frack113 14author: frack113  author:  frack113  15date: 2021-12-13 15date: 2021-12-13  date:  2021-12-13  16modified: 2023-03-05 16modified: 2023-03-05  modified:  2023-03-05  17tags: 17tags:  tags:  18 - attack.discovery 18 - attack.discovery  attack.discovery  19 - [...] 1title: PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE  1title: PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE title:  PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE   2id: 455b9d50-15a1-4b99-853f-8d37655a4c1b  2id: 455b9d50-15a1-4b99-853f-8d37655a4c1b  id:  455b9d50-15a1-4b99-853f-8d37655a4c1b   3related:  3related:  related:   4 - id: 9a132afa-654e-11eb-ae93-0242ac130002  4 - id: 9a132afa-654e-11eb-ae93-0242ac130002  id:"
+      },
+      {
+       "url": "https://www.manageengine.com/log-management/detection-rules/pua-suspicious-activedirectory-enumeration-via-adfind-exe.html",
+       "role": "corroboration",
+       "via": "search",
+       "retrieved_at": "2026-10-27T11:58:35Z",
+       "chars": 1334,
+       "sha256": "34710104520a7577afd0690a29bbb8e97eb8c8665e3291887c1449f329a15ec7",
+       "status": "excluded",
+       "reasons": [
+        "target_rule_title"
+       ],
+       "content": "Detects use of the AdFind tool performing Active Directory enumeration with CLI flags targeting sensitive domain attributes and account policies, potentially indicating reconnaissance activity by attackers.\n\n### Severity\n\nTrouble\n\n## Rule journey\n\n### Attack chain scenario\n\nDiscovery: Account Discovery - Domain Account (T1087.002)\n\n### Impact [...] ## Detection\n\n### Execution Mode\n\nrealtime\n\n### Log Sources\n\nActive Directory\n\n### MITRE ATT&CK\n\nT1087.002: Account Discovery - Domain Account\n\n### Security Standards\n\n Configure Operating System to prevent enumeration of administrator accounts during elevation (disable registry key HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\CredUI\\EnumerateAdministrators).\n Implement Group Policy to disable enumeration of admin accounts on elevation.\n\n### Author\n\n## Future actions [...] 1. Open GPMC (gpmc.msc).\n2. Edit/Create GPO > Go to:  \n   Computer Configuration > Policies > Windows Settings > Security Settings > Advanced Audit Policy Configuration > Audit Policies > Detailed Tracking\n3. Enable:\n    Audit Process Creation \u2192 Success\n    Audit Process Termination \u2192 Success\n4. For command-line tracking:  \n   Computer Configuration > Administrative Templates > System > Audit Process Creation  \n   Enable Include command line in process creation events.\n5. Add registry key:"
+      },
+      {
+       "url": "https://sigmaquery.com/rule.php?id=93",
+       "role": "corroboration",
+       "via": "search",
+       "retrieved_at": "2026-10-27T11:58:35Z",
+       "chars": 1447,
+       "sha256": "2574851f28022711a3acecb880eb264ae42d0aa2267a76803dbc8c21a1ac202b",
+       "status": "excluded",
+       "reasons": [
+        "sigma_mirror",
+        "sigma_rule_text",
+        "target_rule_id"
+       ],
+       "content": "### Detection Logic Flowchart\n\n### Version History\n\nLoading history\u2026\n\n### Community Comments\n\nLoading comments\u2026\n\n### \u26a1 Convert to SIEM Format\n\n### Related Rules\n\nmedium\n\nPotential AD User Enumeration From Non-Machine Account medium\n\nPotential Active Directory Reconnaissance/Enumeration Via LDAP high\n\nAD Privileged Users or Groups Reconnaissance high\n\nReconnaissance Activity high\n\nPUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE high\n\nMalicious PowerShell Commandlets - ScriptBlock [...] title: PUA - AdFind.EXE Execution id: 514e7e3e-b3b4-4a67-af60-be20f139198b related: - id: 455b9d50-15a1-4b99-853f-8d37655a4c1b type: similar status: experimental description: Detects execution of Adfind.exe utility, which can be used for reconnaissance in an Active Directory environment references: -  -  author: Swachchhanda Shrawan Poudel (Nextron Systems) date: 2025-02-26 tags: - attack.discovery - attack.t1087.002 logsource: product: windows category: process_creation detection: selection: - [...] > Rule Detail\n\n## PUA - AdFind.EXE Execution\n\n\ud83d\udc41 45\n\nLevel medium\n\nStatus experimental\n\n|  |  |\n --- |\n| ID | 514e7e3e-b3b4-4a67-af60-be20f139198b  \ud83d\udd17 View on GitHub |\n| Author | Swachchhanda Shrawan Poudel (Nextron Systems) |\n| Date | 2025-05-21 |\n| Logsource | windows / process\\_creation |\n\nDetects execution of Adfind.exe utility, which can be used for reconnaissance in an Active Directory environment\n\nT1087.002\u2197\n\nCondition `selection`"
+      },
+      {
+       "url": "https://detection.fyi/sigmahq/sigma/windows/process_creation/proc_creation_win_pua_adfind_execution",
+       "role": "corroboration",
+       "via": "search",
+       "retrieved_at": "2026-10-27T11:58:35Z",
+       "chars": 1285,
+       "sha256": "174f7866fe533f5e545c1d4cacd56da8516ad2f3e7e6a07de4328d26e8f6d0a7",
+       "status": "excluded",
+       "reasons": [
+        "sigma_mirror"
+       ],
+       "content": "## References\n\n ### \n\n  \n\n  Read More\n ### \n\n  \n\n  Read More\n\n## Related rules\n\n PUA - AdFind Suspicious Execution\n PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE\n Renamed AdFind Execution\n ADExplorer Writing Complete AD Snapshot Into .dat File\n Active Directory Database Snapshot Via ADExplorer [...] 6status: experimental  status:  experimental   7description: Detects execution of Adfind.exe utility, which can be used for reconnaissance in an Active Directory environment  7description: Detects execution of Adfind.exe utility, which can be used for reconnaissance in an Active Directory environment  description:  Detects execution of Adfind.exe utility, which can be used for reconnaissance in an Active Directory environment   8references:  8references:  references:   9 -   9 -     10 -  10 - [...] product:  windows  18 category: process_creation 18 category: process_creation  category:  process_creation  19detection: 19detection:  detection:  20 selection: 20 selection:  selection:  21 - Image|endswith: '\\AdFind.exe' 21 - Image|endswith: '\\AdFind.exe'  Image|endswith:  '\\AdFind.exe'  22 - OriginalFileName: 'AdFind.exe' 22 - OriginalFileName: 'AdFind.exe'  OriginalFileName:  'AdFind.exe'  23 - Hashes|contains: 23 - Hashes|contains:  Hashes|contains:  24 -"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "type": "spec",
+   "t": 8.81,
+   "data": {
+    "behavior": "",
+    "logsource_category": "process_creation",
+    "observables": [],
+    "techniques": [],
+    "dropped": [
+     {
+      "kind": "observable",
+      "item": {
+       "field": "",
+       "match": "contains",
+       "value": "adfind.exe",
+       "quote": "AdFind"
+      },
+      "reason": "value not contained in its quote"
+     }
+    ]
+   }
+  },
+  {
+   "type": "iteration",
+   "t": 39.56,
+   "data": {
+    "index": 0,
+    "action": "generate",
+    "resamples": 2,
+    "thinking_fallback": false,
+    "rule_text": "title: AdFind Command Line Usage\nid: 8b0cbd31-5fc9-44b1-afd2-b595fd3e100a\nstatus: experimental\ndescription: Detects execution of AdFind with common reconnaissance switches indicative of Active Directory enumeration.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.discovery\n- attack.t1087.002\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  sel_img:\n    Image|endswith: adfind.exe\n  sel_cmd:\n    CommandLine|contains:\n    - -kdsrootkeys\n    - -csvbreakcount\n    - -onlygroup\n    - -whoami\n    - -decattid\n    - -enccurrentutcgt\n    - -encutcgt\n    - -outputcurrentint8\n    - -outputcurrentgt\n    - -jwdsinit\n    - -jwdsstd\n    - -jwdsstdro\n    - -parentrdn\n    - -objrdn\n    - -dechextosid\n    - -encguidtoiid\n    - -sdna\n    - -nosacl\n    - -showdel\n    - stats\n    - stats+\n    - statsonly\n    - stats+only\n  condition: sel_img and sel_cmd\nfalsepositives:\n- Legitimate administrative scripts that use AdFind for benign purposes.\nlevel: high\n",
+    "sha256": "0a2323931e681d1dbe58401ccbd6ecbfc9b20853abfbb7e97e46bfdebee6bb50",
+    "validation": {
+     "ok": true,
+     "errors": [],
+     "sigma_output": "\n=== Summary ===\nFound 0 errors, 0 condition errors and 0 issues.\nNo rule errors found.\nNo condition errors found.\nNo validation issues found.\nParsing Sigma rules\nChecking Sigma rules\n"
+    },
+    "evaluator_error": null,
+    "tokens": 9181,
+    "latency_s": 19.56,
+    "evaluation": {
+     "attack_total": 1,
+     "attack_detected": 0,
+     "attack_missed": [
+      "455b9d50-15a1-4b99-853f-8d37655a4c1b.evtx"
+     ],
+     "attack_events_hit": 0,
+     "benign": {
+      "benign_dev_win7": {
+       "files_total": 129,
+       "files_with_hits": 0,
+       "hits": 0,
+       "examples": []
+      }
+     },
+     "attack_events": [
+      {
+       "EventID": 1,
+       "Channel": "Microsoft-Windows-Sysmon/Operational",
+       "RuleName": "-",
+       "UtcTime": "2025-10-23 09:37:40.972",
+       "ProcessGuid": "{14207d89-f764-68f9-2410-000000003f02}",
+       "ProcessId": "4316",
+       "Image": "C:\\Users\\SwachchhandaP\\Downloads\\AdFind\\AdFind.exe",
+       "FileVersion": "1.62.0.6172",
+       "Description": "-",
+       "Product": "AdFind",
+       "Company": "www.joeware.net",
+       "OriginalFileName": "AdFind.exe",
+       "CommandLine": "AdFind.exe   -default -s base lockoutduration lockoutthreshold lockoutobservationwindow maxpwdage minpwdage minpwdlength pwdhistorylength pwdproperties",
+       "CurrentDirectory": "C:\\Users\\SwachchhandaP\\Downloads\\AdFind\\",
+       "User": "MIDGARDNET\\SwachchhandaP",
+       "LogonGuid": "{14207d89-91e6-68f9-0f94-460000000000}",
+       "LogonId": "0x000000000046940f",
+       "TerminalSessionId": "2",
+       "IntegrityLevel": "Medium",
+       "Hashes": "MD5=B0C4A9C1D8C4641A161B3DBF111454DF,SHA256=484DD00E85C033FBFD506B956AC0ACD29B30F239755ED753A2788A842425B384,IMPHASH=680DAD9E300346E05A85023965867201",
+       "ParentProcessGuid": "{14207d89-f57c-68f9-d70f-000000003f02}",
+       "ParentProcessId": "6488",
+       "ParentImage": "C:\\Windows\\System32\\cmd.exe",
+       "ParentCommandLine": "\"C:\\Windows\\System32\\cmd.exe\" ",
+       "ParentUser": "MIDGARDNET\\SwachchhandaP"
+      }
+     ],
+     "seconds": 10.38
+    }
+   }
+  },
+  {
+   "type": "iteration",
+   "t": 56.92,
+   "data": {
+    "index": 1,
+    "action": "repair",
+    "resamples": 0,
+    "thinking_fallback": false,
+    "rule_text": "title: AdFind Command Line Usage\nid: 8b0cbd31-5fc9-44b1-afd2-b595fd3e100a\nstatus: experimental\ndescription: Detects execution of AdFind with common reconnaissance switches indicative of Active Directory enumeration.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.discovery\n- attack.t1087.002\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  sel_img:\n    Image|endswith: adfind.exe\n  sel_cmd:\n    CommandLine|contains:\n    - -kdsrootkeys\n    - -csvbreakcount\n    - -onlygroup\n    - -whoami\n    - -decattid\n    - -enccurrentutcgt\n    - -encutcgt\n    - -outputcurrentint8\n    - -outputcurrentgt\n    - -jwdsinit\n    - -jwdsstd\n    - -jwdsstdro\n    - -parentrdn\n    - -objrdn\n    - -dechextosid\n    - -encguidtoiid\n    - -sdna\n    - -nosacl\n    - -showdel\n    - stats\n    - stats+\n    - statsonly\n    - stats+only\n    - -default\n    - -s\n    - lockoutduration\n    - lockoutthreshold\n    - lockoutobservationwindow\n    - maxpwdage\n    - minpwdage\n    - minpwdlength\n    - pwdhistorylength\n    - pwdproperties\n  condition: sel_img and sel_cmd\nfalsepositives:\n- Legitimate administrative scripts that use AdFind for benign purposes.\nlevel: high\n",
+    "sha256": "fd9f846f218ac92615c9d69575edca550b2d7471a1b3f2aa71880cc99c7906e0",
+    "validation": {
+     "ok": true,
+     "errors": [],
+     "sigma_output": "\n=== Summary ===\nFound 0 errors, 0 condition errors and 0 issues.\nNo rule errors found.\nNo condition errors found.\nNo validation issues found.\nParsing Sigma rules\nChecking Sigma rules\n"
+    },
+    "evaluator_error": null,
+    "tokens": 2179,
+    "latency_s": 5.52,
+    "evaluation": {
+     "attack_total": 1,
+     "attack_detected": 1,
+     "attack_missed": [],
+     "attack_events_hit": 1,
+     "benign": {
+      "benign_dev_win7": {
+       "files_total": 129,
+       "files_with_hits": 0,
+       "hits": 0,
+       "examples": []
+      }
+     },
+     "attack_events": [],
+     "seconds": 11.05
+    }
+   }
+  },
+  {
+   "type": "heldout",
+   "t": 95.05,
+   "data": {
+    "benign_heldout_win10": {
+     "files_total": 352,
+     "files_with_hits": 0,
+     "hits": 0,
+     "examples": []
+    }
+   }
+  },
+  {
+   "type": "expert",
+   "t": 142.09,
+   "data": {
+    "detected": 1,
+    "total": 1
+   }
+  },
+  {
+   "type": "done",
+   "t": 142.09,
+   "data": {
+    "success": true,
+    "stop_reason": "acceptance criteria passed"
+   }
+  }
+ ]
+}

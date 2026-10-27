@@ -1,0 +1,675 @@
+{
+ "created_at": "2026-10-27T12:03:33.278687+00:00",
+ "model": "nvidia/nemotron-3-super-120b-a12b",
+ "rule_format": "structured",
+ "thinking": true,
+ "evaluator": {
+  "kind": "token-factory-sandbox",
+  "image_tag": "shakedown-eval:v1",
+  "image_uuid": "ed2169ef-219f-4c57-a9a1-3ca6f4a1f9fb",
+  "network": "disabled (networking.enabled=false)",
+  "isolation": "Contree microVM, disposable"
+ },
+ "scenario": {
+  "id": "c73124a7-3e89-44a3-bdc1-25fe4df754b1",
+  "title": "Copy From VolumeShadowCopy Via Cmd.EXE",
+  "category": "process_creation"
+ },
+ "input": {
+  "kind": "url",
+  "url": "https://twitter.com/vxunderground/status/1423336151860002816?s=20",
+  "chars": 8597,
+  "sha256": "e2c4e1dd62ae5488437e361b307f3f38f12339bd34d9dcf089fe53a775c6cfb5"
+ },
+ "research": {
+  "primary": {
+   "url": "https://twitter.com/vxunderground/status/1423336151860002816?s=20",
+   "title": "https://twitter.com/vxunderground/status/1423336151860002816?s=20",
+   "retrieved_at": "2026-10-27T12:00:55Z",
+   "via": "extract",
+   "score": null,
+   "chars": 3675
+  },
+  "corroboration": [
+   {
+    "url": "https://stackoverflow.com/questions/72615568/shadow-copy-disabled-detection-in-powershell",
+    "title": "Shadow copy disabled detection in powershell",
+    "retrieved_at": "2026-10-27T12:00:57Z",
+    "via": "search",
+    "score": 0.3605346,
+    "chars": 1397
+   },
+   {
+    "url": "https://serverfault.com/questions/119120/how-to-use-a-volume-shadow-copy-to-make-backups",
+    "title": "How to use a Volume Shadow Copy to make backups",
+    "retrieved_at": "2026-10-27T12:00:57Z",
+    "via": "search",
+    "score": 0.3454811,
+    "chars": 1049
+   },
+   {
+    "url": "https://www.bleepingcomputer.com/forums/t/609693/vssadminexe-volume-shadow-copy-disabling-procedure-questions",
+    "title": "vssadmin.exe (Volume Shadow Copy) disabling procedure questions - General Security",
+    "retrieved_at": "2026-10-27T12:00:57Z",
+    "via": "search",
+    "score": 0.34151715,
+    "chars": 1415
+   }
+  ],
+  "error": null,
+  "screening": {
+   "policy": "exclude",
+   "target": {
+    "id": "c73124a7-3e89-44a3-bdc1-25fe4df754b1",
+    "title": "Copy From VolumeShadowCopy Via Cmd.EXE"
+   },
+   "sources": [
+    {
+     "url": "https://twitter.com/vxunderground/status/1423336151860002816?s=20",
+     "role": "primary",
+     "via": "extract",
+     "retrieved_at": "2026-10-27T12:00:55Z",
+     "chars": 3675,
+     "sha256": "acb96e997c4223c4937467b17625813566bc5c6cdad19f5063e52411cc142c51",
+     "status": "included",
+     "reasons": []
+    },
+    {
+     "url": "https://www.manageengine.com/log-management/detection-rules/copy-from-volumeshadowcopy-via-cmd-exe.html",
+     "role": "corroboration",
+     "via": "search",
+     "retrieved_at": "2026-10-27T12:00:57Z",
+     "chars": 1476,
+     "sha256": "319f3c4b14a48e26292281dc1baab3c532a2459d619b3df57d60d5160ea9fc7f",
+     "status": "excluded",
+     "reasons": [
+      "target_rule_title"
+     ],
+     "content": "Attackers often leverage Windows' built-in Volume Shadow Copy Service to access backed-up versions of sensitive files such as the SAM, SYSTEM, or SECURITY hives. This rule detects the use of cmd.exe to copy data directly from \\\\?\\GLOBALROOT\\Device\\HarddiskVolumeShadowCopy paths, which may indicate an attempt to exfiltrate credentials or bypass real-time monitoring. Since Volume Shadow Copies are snapshots of the file system, this technique enables threat actors to evade traditional logging or [...] By triggering on file access from Volume Shadow Copy using cmd.exe, this rule allows you to detect stealthy credential access attempts and unauthorized data retrieval.\n\n### Author\n\nMax Altgelt (Nextron Systems), Tobias Michalski (Nextron Systems)\n\n## Future actions\n\n### Known False Positives\n\nThis rule may be triggered during legitimate system maintenance or forensic activities.\n\n### Next Steps\n\nWhen this rule is triggered, the following measures can be implemented: [...] ### Criteria\n\n`Action1: actionname = \"Process started\" AND COMMANDLINE contains \"copy \" AND COMMANDLINE contains \"\\\\?\\GLOBALROOT\\Device\\HarddiskVolumeShadowCopy\" select Action1.HOSTNAME,Action1.MESSAGE,Action1.COMMANDLINE,Action1.FILE_NAME,Action1.PROCESSNAME,Action1.USERNAME,Action1.PARENTPROCESSNAME,Action1.DOMAIN,Action1.ORIGINALFILENAME,Action1.PARENTPROCESSID,Action1.PROCESSID,Action1.PRODUCT_NAME,Action1.SECURITYID`\n\n## Detection\n\n### Execution Mode\n\nrealtime\n\n### Log Sources\n\nWindows"
+    },
+    {
+     "url": "https://stackoverflow.com/questions/72615568/shadow-copy-disabled-detection-in-powershell",
+     "role": "corroboration",
+     "via": "search",
+     "retrieved_at": "2026-10-27T12:00:57Z",
+     "chars": 1397,
+     "sha256": "82cf4dde5d355b7ef0502bb944c0bd08ef220046f2b692f2e89a4036d7a52af9",
+     "status": "included",
+     "reasons": [],
+     "content": "$Enabled = $false;\n      $Triggers = @();\n      $Task = Get-ScheduledTask -TaskName \"ShadowCopyVolume$($VolumeID)\" -ea SilentlyContinue\n      if ($Task -ne $null)\n      {\n        $TaskInfo = $Task | Get-ScheduledTaskInfo\n        $Enabled = $Task.State -ne \"Disabled\";\n        foreach ($Trigger in $Task.Triggers)\n        {\n            $object = New-Object -typeName PSObject\n            $object | Add-Member -Type NoteProperty -Name \"Start\" -Value ([DateTime]::Parse($Trigger.StartBoundary)) [...] > Configure Shadow Copies) you can Disabled or Enabled each volume for shadow copy. You can see in attach images \"Volume\" and \"Next Run time\" (\"Time\" or \"Disabled\" status).\n\nI looking for stript in powerhsell that list information which I can see in GUI?\n\nI have tried `vssadmin list volumes` or `Get-CimInstance Win32_ShadowCopy` but I need detect if VSS on specific Volume is Enabled or Disabled.\n\nPlease, does anybody know this issue?\n\nThank you for you answers and your help! [...] $VSSDriveLetter = $($configuration[$count + 2]).Trim()\n      $VSSDriveLetter = $VSSDriveLetter.Substring($VSSDriveLetter.IndexOf('(') + 1, 2)\n\n      $UsedSpace = $($configuration[$count + 3]).Trim()\n      $UsedSpace = $UsedSpace.Substring($UsedSpace.IndexOf(':') + 2)\n\n      $AllocatedSpace = $($configuration[$count + 4]).Trim()\n      $AllocatedSpace = $AllocatedSpace.Substring($AllocatedSpace.IndexOf(':') + 2)"
+    },
+    {
+     "url": "https://serverfault.com/questions/119120/how-to-use-a-volume-shadow-copy-to-make-backups",
+     "role": "corroboration",
+     "via": "search",
+     "retrieved_at": "2026-10-27T12:00:57Z",
+     "chars": 1049,
+     "sha256": "47e5ff14e72aeb1589387e874de8f67c74c9b80dccc6024a0d2d7a1842d24786",
+     "status": "included",
+     "reasons": [],
+     "content": "If ($Snapshots) {\n    $Null = $Snapshots -Match '(\\{[^}]{36}\\})'\n    $SnapshotID = $Matches\n  } Else {\n    Write-Dbg \"Unable to determine SnapshotID for target $Target\"\n    Exit-Script \"Unable to determine SnapshotID\"\n  }  \n\n  Write-Dbg \"SnapshotID: $SnapshotID\"\n\n  Return $SnapshotID\n}\n\nFunction Run-Command ([String]$Cmd, [Switch]$AsString=$False, [Switch]$AsArray=$False) {\n  Write-Dbg \"Running: $Cmd\" [...] If exitCodeOnly Then\n    Runcommand = process.ExitCode\n  Else\n    RunCommand = output\n  End If\nEnd Function\n\nSub CheckEnvironment\n  Dim argsOk\n\n  If LCase(fso.GetFileName(WScript.FullName)) <> \"cscript.exe\" Then\n    Say \"Please execute me on the command line via cscript.exe!\"\n    Die \"\"\n  End If\n\n  argsOk = args.Exists(\"target\")\n  argsOk = argsOk And (args.Exists(\"volume\") Or args.Exists(\"unmount\")) [...] Function Create-Snapshot {\n  Write-Log \"Creating snapshot...\"\n  Write-Dbg \"Creating snapshot of $Volume\"\n  $Cmd = \"$vshadowExePath -p $Volume\"\n  $CmdResult = Run-Command $Cmd -AsString\n\n  Write-Dbg \"Snapshot created successfully\""
+    },
+    {
+     "url": "https://www.bleepingcomputer.com/forums/t/609693/vssadminexe-volume-shadow-copy-disabling-procedure-questions",
+     "role": "corroboration",
+     "via": "search",
+     "retrieved_at": "2026-10-27T12:00:57Z",
+     "chars": 1415,
+     "sha256": "b855c63c7f4aae51d889ac0b3bcd9f336504a031017fe2046f60d7833491258f",
+     "status": "included",
+     "reasons": [],
+     "content": "in cmd you might try to run a command, after it is renamed, just to see if another verison is running (in cmd set, or simply the command path)\n\nHere you will se details about how your windows is set up.\n\nin cmd with admin rights (elevated rights) , you can run this command.\n\nc:\n\ncd \\\n\ndir c:\\vssadmin.exe /s /a /b\n\nor as you have done\n\ndir c:\\vssadmin.\\ /s /a /b\n\nThen you can find the exact locations.\n\ndir /? gives you help and is similar to help dir. Pretty much all MS-commands supports /? [...] system32 and SysWOW64 are important system folders for windows. I would definitely disabled, renamed or in any other whay disabled those if possible.\n\nWhen you have decided to disable vssadmin. If you do similar stuff to notepad.exe you won't be able to run notepad,\n\nso you could experiment by renaming notepad and se when notepad commands does not happen.\n\nwindows do protect some files especially important dll-files and some exe-files (Application Extension and Applications) [...] Latest News: Microsoft fixes game, app crashes caused by recent Windows update\n\nFeatured Deal: Get lifetime access to 90+ cybersecurity courses for just $52.99\n\nLatest Buyer's Guide: Best VPNs in 2025\n\nPosted 31 March 2016 - 03:35 PM\n\nIt has been discussed that many of the ransomware programs use the vssadmin.exe program that wipes clean all volume shadow copys (restoration copies) to make recovery of your system impossible."
+    },
+    {
+     "url": "https://research.splunk.com/endpoint/19c85f5e-24a5-4355-a430-db9a58d1dc15",
+     "role": "corroboration",
+     "via": "search",
+     "retrieved_at": "2026-10-27T12:00:57Z",
+     "chars": 1486,
+     "sha256": "9d02c207b39b0dc17f6fddff994b3d83b79ad96bab33fcf6657f9d72f6c6e3dd",
+     "status": "not_used",
+     "reasons": [],
+     "content": "GitHub Repo\n\n# Detection: Deleting Shadow Copies\n\nLast Updated: 2025-10-17 ID: 19c85f5e-24a5-4355-a430-db9a58d1dc15 Author: Bhavin Patel, Splunk Type: TTP Product: Splunk User Behavior Analytics\n\n### Description\n\nThe vssadmin.exe utility is used to interact with the Volume Shadow Copy Service. Wmic is an interface to the Windows Management Instrumentation. This search looks for either of these tools being used to delete shadow copies.\n\n### Annotations\n\nNo annotations available. [...] ### Known False Positives\n\nSystem administrators may resize the shadowstorage for valid purposes. Filter as needed.\n\n### Associated Analytic Story\n\n Clop Ransomware\n Ransomware\n\n### Risk Based Analytics (RBA)\n\n| Risk Message | Risk Score | Impact | Confidence |\n ---  --- |\n| An instance of shadow copy was deleted was deleted using command line - $process\\_cmd\\_line$ with process name `vssadmin.exe` or `wmic.exe` on host machine - $device\\_hostname$ by user $actor\\_user\\_name$. | 64 | 80 | 80 | [...] The detection is based on data that originates from Endpoint Detection and Response (EDR) agents. These agents are designed to provide security-related telemetry from the endpoints where the agent is installed. To implement this search, you must ingest logs that contain the process GUID, process name, and parent process. Additionally, you must ingest complete command-line executions. These logs must be processed using the appropriate Splunk Technology Add-ons that are specific to the EDR"
+    },
+    {
+     "url": "https://valinet.ro/2022/08/28/Shadow-copies-under-Windows-10-and-11.html",
+     "role": "corroboration",
+     "via": "search",
+     "retrieved_at": "2026-10-27T12:00:57Z",
+     "chars": 754,
+     "sha256": "3c3c6e017ac418d59ad936650d4c698498f5bb940925085b75e6ac68f3592f55",
+     "status": "not_used",
+     "reasons": [],
+     "content": "vssadmin 1.1 - Volume Shadow Copy Service administrative command-line tool (C) Copyright 2001-2013 Microsoft Corp. ---- Commands Supported ---- Add ShadowStorage - Add a new volume shadow copy storage association Create Shadow - Create a new volume shadow copy Delete Shadows - Delete volume shadow copies Delete ShadowStorage - Delete volume shadow copy storage associations List Providers - List registered volume shadow copy providers List Shadows - List existing volume shadow copies List [...] alarming signs from Microsoft in their latest OS versions. [...] Do note that under Windows 11 22H2-based builds (22621+), this functionality seems to be broken altogether; read more about my investigation regarding this here.\n\n### Restore an entire drive"
+    },
+    {
+     "url": "https://www.experts-exchange.com/questions/21763414/Use-robocopy-with-Volume-Shadow-Copy-Service.html",
+     "role": "corroboration",
+     "via": "search",
+     "retrieved_at": "2026-10-27T12:00:57Z",
+     "chars": 1047,
+     "sha256": "109eee502fa39a752d19b049ba35cc12c3551acef58ce2a9be6adce851193000",
+     "status": "not_used",
+     "reasons": [],
+     "content": "being only a command line tool, can not get access to this. [...] EARN REWARDS FOR ASKING, ANSWERING, AND MORE.\n\nEarn free swag for participating on the platform.\n\nPowerShell  \n\n```\n$s1 = (Get-WmiObject -List Win32_ShadowCopy).Create(\"C:\\\", \"ClientAccessible\") $s2 = Get-WmiObject Win32_ShadowCopy | Where-Object { $_.ID -eq $s1.ShadowID } $d = $s2.DeviceObject + \"\\\" cmd /c mklink /d C:\\ShadowCopy \"$d\" cmd /c robocopy C:\\ShadowCopy\\FolderFrom FolderTo /mir cmd /c rmdir C:\\ShadowCopy $s2.Delete()\n```\n\nOpen in new window\n\nWindows Server 2003\n\nWindows Server 2003 [...] I guess what you are trying to acheive is to have a batch file that would automatically backup the volume tree and copy it to another location ? Like basically you are trying to fully automate the process, without having to do any clicks or any user intervention etc ?   \n   \n If so, you can do two things:  \n 1. Have windows schedule snapshots, and have the snapshot ready just before you run your batch file, then use robocopy to copy this whole snapshot to another location"
+    },
+    {
+     "url": "https://learn.microsoft.com/en-us/windows-server/storage/file-server/volume-shadow-copy-service",
+     "role": "corroboration",
+     "via": "search",
+     "retrieved_at": "2026-10-27T12:00:57Z",
+     "chars": 686,
+     "sha256": "a572aef0cf04191e4c91fe16726eb0cff3016aeeddf161c307a5ebda7e3ed2fc",
+     "status": "not_used",
+     "reasons": [],
+     "content": "One shadow copy provider, the system provider, is supplied in the Windows operating system. Although a default provider is supplied in Windows, other vendors are free to supply implementations that are optimized for their storage hardware and software applications. [...] | Concurrent backup sessions (up to 64) | Windows XP | Windows Server 2003 |\n| Single restore session concurrent with backups | Windows Vista | Windows Server 2003 with SP2 |\n| Up to 8 restore sessions concurrent with backups | Windows 7 | Windows Server 2003 R2 | [...] VSS service: Part of the Windows operating system that ensures the other components can communicate with each other properly and work together."
+    }
+   ]
+  }
+ },
+ "spec": {
+  "behavior": "complete",
+  "logsource_category": "network_connection",
+  "observables": [],
+  "techniques": []
+ },
+ "spec_dropped": [],
+ "iterations": [
+  {
+   "index": 0,
+   "action": "generate",
+   "resamples": 3,
+   "thinking_fallback": false,
+   "rule_text": "{\n \"title\": \"Potential C2 to Leaked Conti Pentester Infrastructure\",\n \"description\": \"Detects network connections to hostnames associated with the leaked Conti pentester infrastructure (vxug.fakedoma[.]in) on common web ports.\",\n \"tags\": [\n  \"attack.command_and_control\",\n  \"attack.t1071\"\n ],\n \"logsource_category\": \"network_connection\",\n \"groups\": [\n  {\n   \"name\": \"selection\",\n   \"fields\": [\n    {\n     \"field\": \"DestinationIp\",\n     \"modifier\": \"contains\",\n     \"values\": []\n    },\n    {\n     \"field\": \"DestinationPort\",\n     \"modifier\": \"exact\",\n     \"values\": []\n    }\n   ]\n  },\n  {\n   \"name\": \"selection\",\n   \"fields\": [\n    {\n     \"field\": \"DestinationHostname\",\n     \"modifier\": \"contains\",\n     \"values\": [\n      \"vxug\"\n     ]\n    },\n    {\n     \"field\": \"DestinationPort\",\n     \"modifier\": \"exact\",\n     \"values\": []\n    }\n   ]\n  }\n ],\n \"condition\": \"selection and not filter\",\n \"falsepositives\": [],\n \"level\": \"high\"\n}",
+   "sha256": "5e66326616525b9ecf1d625cde8de64b134a11afe9023bd3cdae443ddd49d2ad",
+   "validation": {
+    "ok": false,
+    "errors": [
+     "rule could not be built: group 'selection': field 'DestinationIp' has no values"
+    ],
+    "sigma_output": ""
+   },
+   "evaluator_error": null,
+   "tokens": 16171,
+   "latency_s": 22.88,
+   "evaluation": null
+  },
+  {
+   "index": 1,
+   "action": "repair",
+   "resamples": 0,
+   "thinking_fallback": false,
+   "rule_text": "{\n \"title\": \"Potential C2 to Leaked Conti Pentester Infrastructure\",\n \"description\": \"Detects network connections to hostnames associated with the leaked Conti pentester infrastructure (vxug.fakedoma[.]in) on common web ports.\",\n \"tags\": [\n  \"attack.command_and_control\",\n  \"attack.t1071\"\n ],\n \"logsource_category\": \"network_connection\",\n \"groups\": [\n  {\n   \"name\": \"selection\",\n   \"fields\": [\n    {\n     \"field\": \"DestinationHostname\",\n     \"modifier\": \"contains\",\n     \"values\": [\n      \"vxug\"\n     ]\n    },\n    {\n     \"field\": \"DestinationPort\",\n     \"modifier\": \"exact\",\n     \"values\": []\n    }\n   ]\n  },\n  {\n   \"name\": \"filter\",\n   \"fields\": []\n  }\n ],\n \"condition\": \"selection and not filter\",\n \"falsepositives\": [],\n \"level\": \"high\"\n}",
+   "sha256": "90b55f51259265288de5047fe2f2e8e78f38cc6485747c5942614976a546c9eb",
+   "validation": {
+    "ok": false,
+    "errors": [
+     "rule could not be built: group 'selection': field 'DestinationPort' has no values"
+    ],
+    "sigma_output": ""
+   },
+   "evaluator_error": null,
+   "tokens": 1159,
+   "latency_s": 6.2,
+   "evaluation": null
+  },
+  {
+   "index": 2,
+   "action": "repair",
+   "resamples": 0,
+   "thinking_fallback": false,
+   "rule_text": "{\n \"title\": \"Potential C2 to Leaked Conti Pentester Infrastructure\",\n \"description\": \"Detects network connections to hostnames associated with the leaked Conti pentester infrastructure (vxug.fakedoma[.]in) on common web ports.\",\n \"tags\": [\n  \"attack.command_and_control\",\n  \"attack.t1071\"\n ],\n \"logsource_category\": \"network_connection\",\n \"groups\": [\n  {\n   \"name\": \"selection\",\n   \"fields\": [\n    {\n     \"field\": \"DestinationHostname\",\n     \"modifier\": \"contains\",\n     \"values\": [\n      \"vxug\"\n     ]\n    }\n   ]\n  },\n  {\n   \"name\": \"filter\",\n   \"fields\": []\n  }\n ],\n \"condition\": \"selection and not filter\",\n \"falsepositives\": [],\n \"level\": \"high\"\n}",
+   "sha256": "aa3650c029ed272ba674252ba4d7b55c72c173fbae14fced8d1557ee6799da4c",
+   "validation": {
+    "ok": false,
+    "errors": [
+     "rule could not be built: group 'filter' has no fields"
+    ],
+    "sigma_output": ""
+   },
+   "evaluator_error": null,
+   "tokens": 1069,
+   "latency_s": 5.78,
+   "evaluation": null
+  },
+  {
+   "index": 3,
+   "action": "repair",
+   "resamples": 0,
+   "thinking_fallback": false,
+   "rule_text": "title: Potential C2 to Leaked Conti Pentester Infrastructure\nid: ecbb4627-0572-4db0-8c23-0008fac3e76b\nstatus: experimental\ndescription: Detects network connections to hostnames associated with the leaked Conti pentester infrastructure (vxug.fakedoma[.]in)\n  on common web ports.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.command_and_control\n- attack.t1071\nlogsource:\n  category: network_connection\n  product: windows\ndetection:\n  selection:\n    DestinationHostname|contains: vxug\n  condition: selection\nfalsepositives:\n- Unknown\nlevel: high\n",
+   "sha256": "fbfb25bbc4358fa023c9f6cbdee7b0515ff2d973bf7448dd6146c3e690837b16",
+   "validation": {
+    "ok": true,
+    "errors": [],
+    "sigma_output": "=== Issues ===\nissue=InvalidATTACKTagIssue severity=medium description=Invalid MITRE ATT&CK tagging rule=<tmp>\\proc_creation_win_shakedown_candidate.yml tag=attack.command_and_control\n\n=== Summary ===\nFound 0 errors, 0 condition errors and 1 issues.\nNo rule errors found.\nNo condition errors found.\n\nValidation issue summary:\n+-------+-----------------------+----------+------------------------------+\n| Count | Issue                 | Severity | Description                  |\n+-------+-----------------------+----------+------------------------------+\n| 1     | InvalidATTACKTagIssue | MEDIUM   | Invalid MITRE ATT&CK tagging |\n+-------+-----------------------+----------+------------------------------+\nParsing Sigma rules\nChecking Sigma rules\n"
+   },
+   "evaluator_error": null,
+   "tokens": 844,
+   "latency_s": 3.5,
+   "evaluation": {
+    "attack_total": 1,
+    "attack_detected": 0,
+    "attack_missed": [
+     "c73124a7-3e89-44a3-bdc1-25fe4df754b1.evtx"
+    ],
+    "attack_events_hit": 0,
+    "benign": {
+     "benign_dev_win7": {
+      "files_total": 129,
+      "files_with_hits": 0,
+      "hits": 0,
+      "examples": []
+     }
+    },
+    "attack_events": [
+     {
+      "EventID": 1,
+      "Channel": "Microsoft-Windows-Sysmon/Operational",
+      "RuleName": "technique_id=T1059.003,technique_name=Windows Command Shell",
+      "UtcTime": "2026-08-12 17:17:18.443",
+      "ProcessGuid": "{570e49aa-aa9e-6a7c-8b02-000000001400}",
+      "ProcessId": "8712",
+      "Image": "C:\\Windows\\System32\\cmd.exe",
+      "FileVersion": "10.0.26100.8737 (WinBuild.160101.0800)",
+      "Description": "Windows Command Processor",
+      "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+      "Company": "Microsoft Corporation",
+      "OriginalFileName": "Cmd.Exe",
+      "CommandLine": "\"cmd.exe\" /c copy \\\\?\\GLOBALROOT\\Device\\HarddiskVolumeShadowCopy1\\Windows\\NTDS\\NTDS.dit C:\\Windows\\Temp\\ntds.dit & copy \\\\?\\GLOBALROOT\\Device\\HarddiskVolumeShadowCopy1\\Windows\\System32\\config\\SYSTEM C:\\Windows\\Temp\\VSC_SYSTEM_HIVE & reg save HKLM\\SYSTEM C:\\Windows\\Temp\\SYSTEM_HIVE",
+      "CurrentDirectory": "C:\\Users\\frack113\\AppData\\Local\\Temp\\",
+      "User": "SigmaCatchVm\\frack113",
+      "LogonGuid": "{570e49aa-c366-6a76-1edd-080000000000}",
+      "LogonId": "0x000000000008dd1e",
+      "TerminalSessionId": "1",
+      "IntegrityLevel": "High",
+      "Hashes": "SHA1=6142A8457F497ABC4B102D75F549F76A9E3577C7,MD5=1F4D18374A699452622E80F6D5BB743E,SHA256=65EC268ADD3973B6DCA64222985DA47CAEAEE44A340B0EC1466782914FD743D9,IMPHASH=010B165E4C37F484601D3DBD700C9423",
+      "ParentProcessGuid": "{570e49aa-a962-6a7c-f601-000000001400}",
+      "ParentProcessId": "8368",
+      "ParentImage": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+      "ParentCommandLine": "\"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\" ",
+      "ParentUser": "SigmaCatchVm\\frack113"
+     }
+    ],
+    "seconds": 10.23
+   }
+  }
+ ],
+ "best_index": 3,
+ "success": false,
+ "stop_reason": "repair budget exhausted",
+ "heldout": {
+  "benign_heldout_win10": {
+   "files_total": 352,
+   "files_with_hits": 0,
+   "hits": 0,
+   "examples": []
+  }
+ },
+ "expert": {
+  "dev": {
+   "attack_total": 1,
+   "attack_detected": 1,
+   "attack_missed": [],
+   "attack_events_hit": 1,
+   "benign": {
+    "benign_dev_win7": {
+     "files_total": 129,
+     "files_with_hits": 0,
+     "hits": 0,
+     "examples": []
+    }
+   },
+   "attack_events": [],
+   "seconds": 9.34
+  },
+  "heldout": {
+   "benign_heldout_win10": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   }
+  },
+  "rule_text": "title: Copy From VolumeShadowCopy Via Cmd.EXE\nid: c73124a7-3e89-44a3-bdc1-25fe4df754b1\nstatus: test\ndescription: Detects the execution of the builtin \"copy\" command that targets a shadow copy (sometimes used to copy registry hives that are in use)\nreferences:\n    - https://twitter.com/vxunderground/status/1423336151860002816?s=20\n    - https://www.virustotal.com/gui/file/03e9b8c2e86d6db450e5eceec057d7e369ee2389b9daecaf06331a95410aa5f8/detection\n    - https://pentestlab.blog/2018/07/04/dumping-domain-password-hashes/\nauthor: Max Altgelt (Nextron Systems), Tobias Michalski (Nextron Systems)\ndate: 2021-08-09\nmodified: 2023-03-07\ntags:\n    - attack.impact\n    - attack.t1490\nlogsource:\n    category: process_creation\n    product: windows\ndetection:\n    selection:\n        # cmd /c copy \\\\?\\GLOBALROOT\\Device\\HarddiskVolumeShadowCopy1\\Windows\\System32\\config\\SYSTEM\\\n        # There is an additional \"\\\" to escape the special \"?\"\n        CommandLine|contains|all:\n            - 'copy '\n            - '\\\\\\\\\\?\\\\GLOBALROOT\\\\Device\\\\HarddiskVolumeShadowCopy'\n    condition: selection\nfalsepositives:\n    - Backup scenarios using the commandline\nlevel: high\nregression_tests_path: regression_data/rules/windows/process_creation/proc_creation_win_cmd_shadowcopy_access/info.yml\n"
+ },
+ "totals": {
+  "tokens": 19243,
+  "seconds": 158.8
+ },
+ "events": [
+  {
+   "type": "start",
+   "t": 0.0,
+   "data": {
+    "scenario": "c73124a7-3e89-44a3-bdc1-25fe4df754b1",
+    "title": "Copy From VolumeShadowCopy Via Cmd.EXE",
+    "model": "nvidia/nemotron-3-super-120b-a12b"
+   }
+  },
+  {
+   "type": "research",
+   "t": 3.17,
+   "data": {
+    "primary": {
+     "url": "https://twitter.com/vxunderground/status/1423336151860002816?s=20",
+     "title": "https://twitter.com/vxunderground/status/1423336151860002816?s=20",
+     "retrieved_at": "2026-10-27T12:00:55Z",
+     "via": "extract",
+     "score": null,
+     "chars": 3675
+    },
+    "corroboration": [
+     {
+      "url": "https://stackoverflow.com/questions/72615568/shadow-copy-disabled-detection-in-powershell",
+      "title": "Shadow copy disabled detection in powershell",
+      "retrieved_at": "2026-10-27T12:00:57Z",
+      "via": "search",
+      "score": 0.3605346,
+      "chars": 1397
+     },
+     {
+      "url": "https://serverfault.com/questions/119120/how-to-use-a-volume-shadow-copy-to-make-backups",
+      "title": "How to use a Volume Shadow Copy to make backups",
+      "retrieved_at": "2026-10-27T12:00:57Z",
+      "via": "search",
+      "score": 0.3454811,
+      "chars": 1049
+     },
+     {
+      "url": "https://www.bleepingcomputer.com/forums/t/609693/vssadminexe-volume-shadow-copy-disabling-procedure-questions",
+      "title": "vssadmin.exe (Volume Shadow Copy) disabling procedure questions - General Security",
+      "retrieved_at": "2026-10-27T12:00:57Z",
+      "via": "search",
+      "score": 0.34151715,
+      "chars": 1415
+     }
+    ],
+    "error": null,
+    "screening": {
+     "policy": "exclude",
+     "target": {
+      "id": "c73124a7-3e89-44a3-bdc1-25fe4df754b1",
+      "title": "Copy From VolumeShadowCopy Via Cmd.EXE"
+     },
+     "sources": [
+      {
+       "url": "https://twitter.com/vxunderground/status/1423336151860002816?s=20",
+       "role": "primary",
+       "via": "extract",
+       "retrieved_at": "2026-10-27T12:00:55Z",
+       "chars": 3675,
+       "sha256": "acb96e997c4223c4937467b17625813566bc5c6cdad19f5063e52411cc142c51",
+       "status": "included",
+       "reasons": []
+      },
+      {
+       "url": "https://www.manageengine.com/log-management/detection-rules/copy-from-volumeshadowcopy-via-cmd-exe.html",
+       "role": "corroboration",
+       "via": "search",
+       "retrieved_at": "2026-10-27T12:00:57Z",
+       "chars": 1476,
+       "sha256": "319f3c4b14a48e26292281dc1baab3c532a2459d619b3df57d60d5160ea9fc7f",
+       "status": "excluded",
+       "reasons": [
+        "target_rule_title"
+       ],
+       "content": "Attackers often leverage Windows' built-in Volume Shadow Copy Service to access backed-up versions of sensitive files such as the SAM, SYSTEM, or SECURITY hives. This rule detects the use of cmd.exe to copy data directly from \\\\?\\GLOBALROOT\\Device\\HarddiskVolumeShadowCopy paths, which may indicate an attempt to exfiltrate credentials or bypass real-time monitoring. Since Volume Shadow Copies are snapshots of the file system, this technique enables threat actors to evade traditional logging or [...] By triggering on file access from Volume Shadow Copy using cmd.exe, this rule allows you to detect stealthy credential access attempts and unauthorized data retrieval.\n\n### Author\n\nMax Altgelt (Nextron Systems), Tobias Michalski (Nextron Systems)\n\n## Future actions\n\n### Known False Positives\n\nThis rule may be triggered during legitimate system maintenance or forensic activities.\n\n### Next Steps\n\nWhen this rule is triggered, the following measures can be implemented: [...] ### Criteria\n\n`Action1: actionname = \"Process started\" AND COMMANDLINE contains \"copy \" AND COMMANDLINE contains \"\\\\?\\GLOBALROOT\\Device\\HarddiskVolumeShadowCopy\" select Action1.HOSTNAME,Action1.MESSAGE,Action1.COMMANDLINE,Action1.FILE_NAME,Action1.PROCESSNAME,Action1.USERNAME,Action1.PARENTPROCESSNAME,Action1.DOMAIN,Action1.ORIGINALFILENAME,Action1.PARENTPROCESSID,Action1.PROCESSID,Action1.PRODUCT_NAME,Action1.SECURITYID`\n\n## Detection\n\n### Execution Mode\n\nrealtime\n\n### Log Sources\n\nWindows"
+      },
+      {
+       "url": "https://stackoverflow.com/questions/72615568/shadow-copy-disabled-detection-in-powershell",
+       "role": "corroboration",
+       "via": "search",
+       "retrieved_at": "2026-10-27T12:00:57Z",
+       "chars": 1397,
+       "sha256": "82cf4dde5d355b7ef0502bb944c0bd08ef220046f2b692f2e89a4036d7a52af9",
+       "status": "included",
+       "reasons": [],
+       "content": "$Enabled = $false;\n      $Triggers = @();\n      $Task = Get-ScheduledTask -TaskName \"ShadowCopyVolume$($VolumeID)\" -ea SilentlyContinue\n      if ($Task -ne $null)\n      {\n        $TaskInfo = $Task | Get-ScheduledTaskInfo\n        $Enabled = $Task.State -ne \"Disabled\";\n        foreach ($Trigger in $Task.Triggers)\n        {\n            $object = New-Object -typeName PSObject\n            $object | Add-Member -Type NoteProperty -Name \"Start\" -Value ([DateTime]::Parse($Trigger.StartBoundary)) [...] > Configure Shadow Copies) you can Disabled or Enabled each volume for shadow copy. You can see in attach images \"Volume\" and \"Next Run time\" (\"Time\" or \"Disabled\" status).\n\nI looking for stript in powerhsell that list information which I can see in GUI?\n\nI have tried `vssadmin list volumes` or `Get-CimInstance Win32_ShadowCopy` but I need detect if VSS on specific Volume is Enabled or Disabled.\n\nPlease, does anybody know this issue?\n\nThank you for you answers and your help! [...] $VSSDriveLetter = $($configuration[$count + 2]).Trim()\n      $VSSDriveLetter = $VSSDriveLetter.Substring($VSSDriveLetter.IndexOf('(') + 1, 2)\n\n      $UsedSpace = $($configuration[$count + 3]).Trim()\n      $UsedSpace = $UsedSpace.Substring($UsedSpace.IndexOf(':') + 2)\n\n      $AllocatedSpace = $($configuration[$count + 4]).Trim()\n      $AllocatedSpace = $AllocatedSpace.Substring($AllocatedSpace.IndexOf(':') + 2)"
+      },
+      {
+       "url": "https://serverfault.com/questions/119120/how-to-use-a-volume-shadow-copy-to-make-backups",
+       "role": "corroboration",
+       "via": "search",
+       "retrieved_at": "2026-10-27T12:00:57Z",
+       "chars": 1049,
+       "sha256": "47e5ff14e72aeb1589387e874de8f67c74c9b80dccc6024a0d2d7a1842d24786",
+       "status": "included",
+       "reasons": [],
+       "content": "If ($Snapshots) {\n    $Null = $Snapshots -Match '(\\{[^}]{36}\\})'\n    $SnapshotID = $Matches\n  } Else {\n    Write-Dbg \"Unable to determine SnapshotID for target $Target\"\n    Exit-Script \"Unable to determine SnapshotID\"\n  }  \n\n  Write-Dbg \"SnapshotID: $SnapshotID\"\n\n  Return $SnapshotID\n}\n\nFunction Run-Command ([String]$Cmd, [Switch]$AsString=$False, [Switch]$AsArray=$False) {\n  Write-Dbg \"Running: $Cmd\" [...] If exitCodeOnly Then\n    Runcommand = process.ExitCode\n  Else\n    RunCommand = output\n  End If\nEnd Function\n\nSub CheckEnvironment\n  Dim argsOk\n\n  If LCase(fso.GetFileName(WScript.FullName)) <> \"cscript.exe\" Then\n    Say \"Please execute me on the command line via cscript.exe!\"\n    Die \"\"\n  End If\n\n  argsOk = args.Exists(\"target\")\n  argsOk = argsOk And (args.Exists(\"volume\") Or args.Exists(\"unmount\")) [...] Function Create-Snapshot {\n  Write-Log \"Creating snapshot...\"\n  Write-Dbg \"Creating snapshot of $Volume\"\n  $Cmd = \"$vshadowExePath -p $Volume\"\n  $CmdResult = Run-Command $Cmd -AsString\n\n  Write-Dbg \"Snapshot created successfully\""
+      },
+      {
+       "url": "https://www.bleepingcomputer.com/forums/t/609693/vssadminexe-volume-shadow-copy-disabling-procedure-questions",
+       "role": "corroboration",
+       "via": "search",
+       "retrieved_at": "2026-10-27T12:00:57Z",
+       "chars": 1415,
+       "sha256": "b855c63c7f4aae51d889ac0b3bcd9f336504a031017fe2046f60d7833491258f",
+       "status": "included",
+       "reasons": [],
+       "content": "in cmd you might try to run a command, after it is renamed, just to see if another verison is running (in cmd set, or simply the command path)\n\nHere you will se details about how your windows is set up.\n\nin cmd with admin rights (elevated rights) , you can run this command.\n\nc:\n\ncd \\\n\ndir c:\\vssadmin.exe /s /a /b\n\nor as you have done\n\ndir c:\\vssadmin.\\ /s /a /b\n\nThen you can find the exact locations.\n\ndir /? gives you help and is similar to help dir. Pretty much all MS-commands supports /? [...] system32 and SysWOW64 are important system folders for windows. I would definitely disabled, renamed or in any other whay disabled those if possible.\n\nWhen you have decided to disable vssadmin. If you do similar stuff to notepad.exe you won't be able to run notepad,\n\nso you could experiment by renaming notepad and se when notepad commands does not happen.\n\nwindows do protect some files especially important dll-files and some exe-files (Application Extension and Applications) [...] Latest News: Microsoft fixes game, app crashes caused by recent Windows update\n\nFeatured Deal: Get lifetime access to 90+ cybersecurity courses for just $52.99\n\nLatest Buyer's Guide: Best VPNs in 2025\n\nPosted 31 March 2016 - 03:35 PM\n\nIt has been discussed that many of the ransomware programs use the vssadmin.exe program that wipes clean all volume shadow copys (restoration copies) to make recovery of your system impossible."
+      },
+      {
+       "url": "https://research.splunk.com/endpoint/19c85f5e-24a5-4355-a430-db9a58d1dc15",
+       "role": "corroboration",
+       "via": "search",
+       "retrieved_at": "2026-10-27T12:00:57Z",
+       "chars": 1486,
+       "sha256": "9d02c207b39b0dc17f6fddff994b3d83b79ad96bab33fcf6657f9d72f6c6e3dd",
+       "status": "not_used",
+       "reasons": [],
+       "content": "GitHub Repo\n\n# Detection: Deleting Shadow Copies\n\nLast Updated: 2025-10-17 ID: 19c85f5e-24a5-4355-a430-db9a58d1dc15 Author: Bhavin Patel, Splunk Type: TTP Product: Splunk User Behavior Analytics\n\n### Description\n\nThe vssadmin.exe utility is used to interact with the Volume Shadow Copy Service. Wmic is an interface to the Windows Management Instrumentation. This search looks for either of these tools being used to delete shadow copies.\n\n### Annotations\n\nNo annotations available. [...] ### Known False Positives\n\nSystem administrators may resize the shadowstorage for valid purposes. Filter as needed.\n\n### Associated Analytic Story\n\n Clop Ransomware\n Ransomware\n\n### Risk Based Analytics (RBA)\n\n| Risk Message | Risk Score | Impact | Confidence |\n ---  --- |\n| An instance of shadow copy was deleted was deleted using command line - $process\\_cmd\\_line$ with process name `vssadmin.exe` or `wmic.exe` on host machine - $device\\_hostname$ by user $actor\\_user\\_name$. | 64 | 80 | 80 | [...] The detection is based on data that originates from Endpoint Detection and Response (EDR) agents. These agents are designed to provide security-related telemetry from the endpoints where the agent is installed. To implement this search, you must ingest logs that contain the process GUID, process name, and parent process. Additionally, you must ingest complete command-line executions. These logs must be processed using the appropriate Splunk Technology Add-ons that are specific to the EDR"
+      },
+      {
+       "url": "https://valinet.ro/2022/08/28/Shadow-copies-under-Windows-10-and-11.html",
+       "role": "corroboration",
+       "via": "search",
+       "retrieved_at": "2026-10-27T12:00:57Z",
+       "chars": 754,
+       "sha256": "3c3c6e017ac418d59ad936650d4c698498f5bb940925085b75e6ac68f3592f55",
+       "status": "not_used",
+       "reasons": [],
+       "content": "vssadmin 1.1 - Volume Shadow Copy Service administrative command-line tool (C) Copyright 2001-2013 Microsoft Corp. ---- Commands Supported ---- Add ShadowStorage - Add a new volume shadow copy storage association Create Shadow - Create a new volume shadow copy Delete Shadows - Delete volume shadow copies Delete ShadowStorage - Delete volume shadow copy storage associations List Providers - List registered volume shadow copy providers List Shadows - List existing volume shadow copies List [...] alarming signs from Microsoft in their latest OS versions. [...] Do note that under Windows 11 22H2-based builds (22621+), this functionality seems to be broken altogether; read more about my investigation regarding this here.\n\n### Restore an entire drive"
+      },
+      {
+       "url": "https://www.experts-exchange.com/questions/21763414/Use-robocopy-with-Volume-Shadow-Copy-Service.html",
+       "role": "corroboration",
+       "via": "search",
+       "retrieved_at": "2026-10-27T12:00:57Z",
+       "chars": 1047,
+       "sha256": "109eee502fa39a752d19b049ba35cc12c3551acef58ce2a9be6adce851193000",
+       "status": "not_used",
+       "reasons": [],
+       "content": "being only a command line tool, can not get access to this. [...] EARN REWARDS FOR ASKING, ANSWERING, AND MORE.\n\nEarn free swag for participating on the platform.\n\nPowerShell  \n\n```\n$s1 = (Get-WmiObject -List Win32_ShadowCopy).Create(\"C:\\\", \"ClientAccessible\") $s2 = Get-WmiObject Win32_ShadowCopy | Where-Object { $_.ID -eq $s1.ShadowID } $d = $s2.DeviceObject + \"\\\" cmd /c mklink /d C:\\ShadowCopy \"$d\" cmd /c robocopy C:\\ShadowCopy\\FolderFrom FolderTo /mir cmd /c rmdir C:\\ShadowCopy $s2.Delete()\n```\n\nOpen in new window\n\nWindows Server 2003\n\nWindows Server 2003 [...] I guess what you are trying to acheive is to have a batch file that would automatically backup the volume tree and copy it to another location ? Like basically you are trying to fully automate the process, without having to do any clicks or any user intervention etc ?   \n   \n If so, you can do two things:  \n 1. Have windows schedule snapshots, and have the snapshot ready just before you run your batch file, then use robocopy to copy this whole snapshot to another location"
+      },
+      {
+       "url": "https://learn.microsoft.com/en-us/windows-server/storage/file-server/volume-shadow-copy-service",
+       "role": "corroboration",
+       "via": "search",
+       "retrieved_at": "2026-10-27T12:00:57Z",
+       "chars": 686,
+       "sha256": "a572aef0cf04191e4c91fe16726eb0cff3016aeeddf161c307a5ebda7e3ed2fc",
+       "status": "not_used",
+       "reasons": [],
+       "content": "One shadow copy provider, the system provider, is supplied in the Windows operating system. Although a default provider is supplied in Windows, other vendors are free to supply implementations that are optimized for their storage hardware and software applications. [...] | Concurrent backup sessions (up to 64) | Windows XP | Windows Server 2003 |\n| Single restore session concurrent with backups | Windows Vista | Windows Server 2003 with SP2 |\n| Up to 8 restore sessions concurrent with backups | Windows 7 | Windows Server 2003 R2 | [...] VSS service: Part of the Windows operating system that ensures the other components can communicate with each other properly and work together."
+      }
+     ]
+    }
+   }
+  },
+  {
+   "type": "spec",
+   "t": 17.22,
+   "data": {
+    "behavior": "complete",
+    "logsource_category": "network_connection",
+    "observables": [],
+    "techniques": [],
+    "dropped": []
+   }
+  },
+  {
+   "type": "iteration",
+   "t": 40.09,
+   "data": {
+    "index": 0,
+    "action": "generate",
+    "resamples": 3,
+    "thinking_fallback": false,
+    "rule_text": "{\n \"title\": \"Potential C2 to Leaked Conti Pentester Infrastructure\",\n \"description\": \"Detects network connections to hostnames associated with the leaked Conti pentester infrastructure (vxug.fakedoma[.]in) on common web ports.\",\n \"tags\": [\n  \"attack.command_and_control\",\n  \"attack.t1071\"\n ],\n \"logsource_category\": \"network_connection\",\n \"groups\": [\n  {\n   \"name\": \"selection\",\n   \"fields\": [\n    {\n     \"field\": \"DestinationIp\",\n     \"modifier\": \"contains\",\n     \"values\": []\n    },\n    {\n     \"field\": \"DestinationPort\",\n     \"modifier\": \"exact\",\n     \"values\": []\n    }\n   ]\n  },\n  {\n   \"name\": \"selection\",\n   \"fields\": [\n    {\n     \"field\": \"DestinationHostname\",\n     \"modifier\": \"contains\",\n     \"values\": [\n      \"vxug\"\n     ]\n    },\n    {\n     \"field\": \"DestinationPort\",\n     \"modifier\": \"exact\",\n     \"values\": []\n    }\n   ]\n  }\n ],\n \"condition\": \"selection and not filter\",\n \"falsepositives\": [],\n \"level\": \"high\"\n}",
+    "sha256": "5e66326616525b9ecf1d625cde8de64b134a11afe9023bd3cdae443ddd49d2ad",
+    "validation": {
+     "ok": false,
+     "errors": [
+      "rule could not be built: group 'selection': field 'DestinationIp' has no values"
+     ],
+     "sigma_output": ""
+    },
+    "evaluator_error": null,
+    "tokens": 16171,
+    "latency_s": 22.88,
+    "evaluation": null
+   }
+  },
+  {
+   "type": "iteration",
+   "t": 46.3,
+   "data": {
+    "index": 1,
+    "action": "repair",
+    "resamples": 0,
+    "thinking_fallback": false,
+    "rule_text": "{\n \"title\": \"Potential C2 to Leaked Conti Pentester Infrastructure\",\n \"description\": \"Detects network connections to hostnames associated with the leaked Conti pentester infrastructure (vxug.fakedoma[.]in) on common web ports.\",\n \"tags\": [\n  \"attack.command_and_control\",\n  \"attack.t1071\"\n ],\n \"logsource_category\": \"network_connection\",\n \"groups\": [\n  {\n   \"name\": \"selection\",\n   \"fields\": [\n    {\n     \"field\": \"DestinationHostname\",\n     \"modifier\": \"contains\",\n     \"values\": [\n      \"vxug\"\n     ]\n    },\n    {\n     \"field\": \"DestinationPort\",\n     \"modifier\": \"exact\",\n     \"values\": []\n    }\n   ]\n  },\n  {\n   \"name\": \"filter\",\n   \"fields\": []\n  }\n ],\n \"condition\": \"selection and not filter\",\n \"falsepositives\": [],\n \"level\": \"high\"\n}",
+    "sha256": "90b55f51259265288de5047fe2f2e8e78f38cc6485747c5942614976a546c9eb",
+    "validation": {
+     "ok": false,
+     "errors": [
+      "rule could not be built: group 'selection': field 'DestinationPort' has no values"
+     ],
+     "sigma_output": ""
+    },
+    "evaluator_error": null,
+    "tokens": 1159,
+    "latency_s": 6.2,
+    "evaluation": null
+   }
+  },
+  {
+   "type": "iteration",
+   "t": 52.08,
+   "data": {
+    "index": 2,
+    "action": "repair",
+    "resamples": 0,
+    "thinking_fallback": false,
+    "rule_text": "{\n \"title\": \"Potential C2 to Leaked Conti Pentester Infrastructure\",\n \"description\": \"Detects network connections to hostnames associated with the leaked Conti pentester infrastructure (vxug.fakedoma[.]in) on common web ports.\",\n \"tags\": [\n  \"attack.command_and_control\",\n  \"attack.t1071\"\n ],\n \"logsource_category\": \"network_connection\",\n \"groups\": [\n  {\n   \"name\": \"selection\",\n   \"fields\": [\n    {\n     \"field\": \"DestinationHostname\",\n     \"modifier\": \"contains\",\n     \"values\": [\n      \"vxug\"\n     ]\n    }\n   ]\n  },\n  {\n   \"name\": \"filter\",\n   \"fields\": []\n  }\n ],\n \"condition\": \"selection and not filter\",\n \"falsepositives\": [],\n \"level\": \"high\"\n}",
+    "sha256": "aa3650c029ed272ba674252ba4d7b55c72c173fbae14fced8d1557ee6799da4c",
+    "validation": {
+     "ok": false,
+     "errors": [
+      "rule could not be built: group 'filter' has no fields"
+     ],
+     "sigma_output": ""
+    },
+    "evaluator_error": null,
+    "tokens": 1069,
+    "latency_s": 5.78,
+    "evaluation": null
+   }
+  },
+  {
+   "type": "iteration",
+   "t": 66.53,
+   "data": {
+    "index": 3,
+    "action": "repair",
+    "resamples": 0,
+    "thinking_fallback": false,
+    "rule_text": "title: Potential C2 to Leaked Conti Pentester Infrastructure\nid: ecbb4627-0572-4db0-8c23-0008fac3e76b\nstatus: experimental\ndescription: Detects network connections to hostnames associated with the leaked Conti pentester infrastructure (vxug.fakedoma[.]in)\n  on common web ports.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.command_and_control\n- attack.t1071\nlogsource:\n  category: network_connection\n  product: windows\ndetection:\n  selection:\n    DestinationHostname|contains: vxug\n  condition: selection\nfalsepositives:\n- Unknown\nlevel: high\n",
+    "sha256": "fbfb25bbc4358fa023c9f6cbdee7b0515ff2d973bf7448dd6146c3e690837b16",
+    "validation": {
+     "ok": true,
+     "errors": [],
+     "sigma_output": "=== Issues ===\nissue=InvalidATTACKTagIssue severity=medium description=Invalid MITRE ATT&CK tagging rule=<tmp>\\proc_creation_win_shakedown_candidate.yml tag=attack.command_and_control\n\n=== Summary ===\nFound 0 errors, 0 condition errors and 1 issues.\nNo rule errors found.\nNo condition errors found.\n\nValidation issue summary:\n+-------+-----------------------+----------+------------------------------+\n| Count | Issue                 | Severity | Description                  |\n+-------+-----------------------+----------+------------------------------+\n| 1     | InvalidATTACKTagIssue | MEDIUM   | Invalid MITRE ATT&CK tagging |\n+-------+-----------------------+----------+------------------------------+\nParsing Sigma rules\nChecking Sigma rules\n"
+    },
+    "evaluator_error": null,
+    "tokens": 844,
+    "latency_s": 3.5,
+    "evaluation": {
+     "attack_total": 1,
+     "attack_detected": 0,
+     "attack_missed": [
+      "c73124a7-3e89-44a3-bdc1-25fe4df754b1.evtx"
+     ],
+     "attack_events_hit": 0,
+     "benign": {
+      "benign_dev_win7": {
+       "files_total": 129,
+       "files_with_hits": 0,
+       "hits": 0,
+       "examples": []
+      }
+     },
+     "attack_events": [
+      {
+       "EventID": 1,
+       "Channel": "Microsoft-Windows-Sysmon/Operational",
+       "RuleName": "technique_id=T1059.003,technique_name=Windows Command Shell",
+       "UtcTime": "2026-08-12 17:17:18.443",
+       "ProcessGuid": "{570e49aa-aa9e-6a7c-8b02-000000001400}",
+       "ProcessId": "8712",
+       "Image": "C:\\Windows\\System32\\cmd.exe",
+       "FileVersion": "10.0.26100.8737 (WinBuild.160101.0800)",
+       "Description": "Windows Command Processor",
+       "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+       "Company": "Microsoft Corporation",
+       "OriginalFileName": "Cmd.Exe",
+       "CommandLine": "\"cmd.exe\" /c copy \\\\?\\GLOBALROOT\\Device\\HarddiskVolumeShadowCopy1\\Windows\\NTDS\\NTDS.dit C:\\Windows\\Temp\\ntds.dit & copy \\\\?\\GLOBALROOT\\Device\\HarddiskVolumeShadowCopy1\\Windows\\System32\\config\\SYSTEM C:\\Windows\\Temp\\VSC_SYSTEM_HIVE & reg save HKLM\\SYSTEM C:\\Windows\\Temp\\SYSTEM_HIVE",
+       "CurrentDirectory": "C:\\Users\\frack113\\AppData\\Local\\Temp\\",
+       "User": "SigmaCatchVm\\frack113",
+       "LogonGuid": "{570e49aa-c366-6a76-1edd-080000000000}",
+       "LogonId": "0x000000000008dd1e",
+       "TerminalSessionId": "1",
+       "IntegrityLevel": "High",
+       "Hashes": "SHA1=6142A8457F497ABC4B102D75F549F76A9E3577C7,MD5=1F4D18374A699452622E80F6D5BB743E,SHA256=65EC268ADD3973B6DCA64222985DA47CAEAEE44A340B0EC1466782914FD743D9,IMPHASH=010B165E4C37F484601D3DBD700C9423",
+       "ParentProcessGuid": "{570e49aa-a962-6a7c-f601-000000001400}",
+       "ParentProcessId": "8368",
+       "ParentImage": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+       "ParentCommandLine": "\"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\" ",
+       "ParentUser": "SigmaCatchVm\\frack113"
+      }
+     ],
+     "seconds": 10.23
+    }
+   }
+  },
+  {
+   "type": "heldout",
+   "t": 106.38,
+   "data": {
+    "benign_heldout_win10": {
+     "files_total": 352,
+     "files_with_hits": 0,
+     "hits": 0,
+     "examples": []
+    }
+   }
+  },
+  {
+   "type": "expert",
+   "t": 158.77,
+   "data": {
+    "detected": 1,
+    "total": 1
+   }
+  },
+  {
+   "type": "done",
+   "t": 158.77,
+   "data": {
+    "success": false,
+    "stop_reason": "repair budget exhausted"
+   }
+  }
+ ]
+}

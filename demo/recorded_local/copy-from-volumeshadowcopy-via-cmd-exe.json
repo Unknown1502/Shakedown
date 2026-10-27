@@ -1,0 +1,387 @@
+{
+ "created_at": "2026-10-27T07:35:03.666177+00:00",
+ "model": "nvidia/nemotron-3-super-120b-a12b",
+ "rule_format": "structured",
+ "thinking": true,
+ "scenario": {
+  "id": "c73124a7-3e89-44a3-bdc1-25fe4df754b1",
+  "title": "Copy From VolumeShadowCopy Via Cmd.EXE",
+  "category": "process_creation"
+ },
+ "input": {
+  "kind": "url",
+  "url": "https://twitter.com/vxunderground/status/1423336151860002816?s=20",
+  "chars": 6152
+ },
+ "research": {
+  "primary": {
+   "url": "https://twitter.com/vxunderground/status/1423336151860002816?s=20",
+   "title": "https://twitter.com/vxunderground/status/1423336151860002816?s=20",
+   "retrieved_at": "2026-10-27T07:30:58Z",
+   "via": "extract",
+   "score": null,
+   "chars": 1601
+  },
+  "corroboration": [
+   {
+    "url": "https://www.manageengine.com/log-management/detection-rules/copy-from-volumeshadowcopy-via-cmd-exe.html",
+    "title": "Copy From VolumeShadowCopy Via Cmd.EXE - Detection rules | ManageEngine Log360",
+    "retrieved_at": "2026-10-27T07:31:00Z",
+    "via": "search",
+    "score": 0.8958969,
+    "chars": 1476
+   },
+   {
+    "url": "https://serverfault.com/questions/119120/how-to-use-a-volume-shadow-copy-to-make-backups",
+    "title": "How to use a Volume Shadow Copy to make backups",
+    "retrieved_at": "2026-10-27T07:31:00Z",
+    "via": "search",
+    "score": 0.3454811,
+    "chars": 1049
+   },
+   {
+    "url": "https://research.splunk.com/endpoint/19c85f5e-24a5-4355-a430-db9a58d1dc15",
+    "title": "Detection: Deleting Shadow Copies | Splunk Security Content",
+    "retrieved_at": "2026-10-27T07:31:00Z",
+    "via": "search",
+    "score": 0.30551133,
+    "chars": 987
+   }
+  ],
+  "error": null
+ },
+ "spec": {
+  "behavior": "",
+  "logsource_category": "network_connection",
+  "observables": [],
+  "techniques": []
+ },
+ "spec_dropped": [],
+ "iterations": [
+  {
+   "index": 0,
+   "action": "generate",
+   "resamples": 0,
+   "rule_text": "title: Potential Credential Access via Volume Shadow Copy using cmd.exe\nid: fe99cd7b-b2e4-452c-871d-b1f523bdf80d\nstatus: experimental\ndescription: Detects network connections initiated by cmd.exe to common SMB ports, which may indicate usage of volume shadow\n  copy to access sensitive files for credential theft.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.credential_access\n- attack.t1003.003\nlogsource:\n  category: network_connection\n  product: windows\ndetection:\n  selection_img:\n    Image|endswith: \\cmd.exe\n  selection_port:\n    DestinationPort|contains:\n    - '>='\n    - <=\n  selection_port_specific:\n    DestinationPort: /regex/(445|139)/\n  condition: selection_img and selection_port_specific\nfalsepositives:\n- Legitimate administrative use of cmd.exe for file shares\n- Backup software using cmd.exe\nlevel: high\n",
+   "sha256": "9cb0328c78a7b01ff5754139cc25033e4da1a1f988f65aeac60da8d69a31f663",
+   "validation": {
+    "ok": true,
+    "errors": [],
+    "sigma_output": "=== Issues ===\nissue=DanglingDetectionIssue severity=high description=Rule defines detection that is not referenced from condition rule=<tmp>\\proc_creation_win_shakedown_candidate.yml detection_name=selection_port\nissue=InvalidATTACKTagIssue severity=medium description=Invalid MITRE ATT&CK tagging rule=<tmp>\\proc_creation_win_shakedown_candidate.yml tag=attack.credential_access\n\n=== Summary ===\nFound 0 errors, 0 condition errors and 2 issues.\nNo rule errors found.\nNo condition errors found.\n\nValidation issue summary:\n+-------+------------------------+----------+--------------------------------------------------------------+\n| Count | Issue                  | Severity | Description                                                  |\n+-------+------------------------+----------+--------------------------------------------------------------+\n| 1     | DanglingDetectionIssue | HIGH     | Rule defines detection that is not referenced from condition |\n| 1     | InvalidATTACKTagIssue  | MEDIUM   | Invalid MITRE ATT&CK tagging                                 |\n+-------+------------------------+----------+--------------------------------------------------------------+\nParsing Sigma rules\nChecking Sigma rules\n"
+   },
+   "evaluator_error": null,
+   "tokens": 3584,
+   "latency_s": 13.95,
+   "evaluation": {
+    "attack_total": 1,
+    "attack_detected": 0,
+    "attack_missed": [
+     "c73124a7-3e89-44a3-bdc1-25fe4df754b1.evtx"
+    ],
+    "attack_events_hit": 0,
+    "benign": {
+     "benign_dev_win7": {
+      "files_total": 129,
+      "files_with_hits": 0,
+      "hits": 0,
+      "examples": []
+     }
+    },
+    "attack_events": [
+     {
+      "EventID": 1,
+      "Channel": "Microsoft-Windows-Sysmon/Operational",
+      "RuleName": "technique_id=T1059.003,technique_name=Windows Command Shell",
+      "UtcTime": "2026-08-12 17:17:18.443",
+      "ProcessGuid": "{570e49aa-aa9e-6a7c-8b02-000000001400}",
+      "ProcessId": "8712",
+      "Image": "C:\\Windows\\System32\\cmd.exe",
+      "FileVersion": "10.0.26100.8737 (WinBuild.160101.0800)",
+      "Description": "Windows Command Processor",
+      "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+      "Company": "Microsoft Corporation",
+      "OriginalFileName": "Cmd.Exe",
+      "CommandLine": "\"cmd.exe\" /c copy \\\\?\\GLOBALROOT\\Device\\HarddiskVolumeShadowCopy1\\Windows\\NTDS\\NTDS.dit C:\\Windows\\Temp\\ntds.dit & copy \\\\?\\GLOBALROOT\\Device\\HarddiskVolumeShadowCopy1\\Windows\\System32\\config\\SYSTEM C:\\Windows\\Temp\\VSC_SYSTEM_HIVE & reg save HKLM\\SYSTEM C:\\Windows\\Temp\\SYSTEM_HIVE",
+      "CurrentDirectory": "C:\\Users\\frack113\\AppData\\Local\\Temp\\",
+      "User": "SigmaCatchVm\\frack113",
+      "LogonGuid": "{570e49aa-c366-6a76-1edd-080000000000}",
+      "LogonId": "0x000000000008dd1e",
+      "TerminalSessionId": "1",
+      "IntegrityLevel": "High",
+      "Hashes": "SHA1=6142A8457F497ABC4B102D75F549F76A9E3577C7,MD5=1F4D18374A699452622E80F6D5BB743E,SHA256=65EC268ADD3973B6DCA64222985DA47CAEAEE44A340B0EC1466782914FD743D9,IMPHASH=010B165E4C37F484601D3DBD700C9423",
+      "ParentProcessGuid": "{570e49aa-a962-6a7c-f601-000000001400}",
+      "ParentProcessId": "8368",
+      "ParentImage": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+      "ParentCommandLine": "\"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\" ",
+      "ParentUser": "SigmaCatchVm\\frack113"
+     }
+    ],
+    "seconds": 9.11
+   }
+  },
+  {
+   "index": 1,
+   "action": "repair",
+   "resamples": 1,
+   "rule_text": "title: Potential Credential Access via Volume Shadow Copy using cmd.exe\nid: fe99cd7b-b2e4-452c-871d-b1f523bdf80d\nstatus: experimental\ndescription: Detects usage of cmd.exe to access volume shadow copy files for credential theft.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.credential_access\n- attack.t1003.003\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  selection_img:\n    Image|endswith: \\cmd.exe\n  selection_shadowpath:\n    CommandLine|contains: \\\\\\\\?\\\\GLOBALROOT\\\\Device\\\\HarddiskVolumeShadowCopy1\\\\\n  selection_ntds:\n    CommandLine|contains: NTDS.dit\n  condition: selection_img and selection_shadowpath and selection_ntds\nfalsepositives:\n- Legitimate administrative use of cmd.exe for file shares\n- Backup software using cmd.exe\nlevel: high\n",
+   "sha256": "995ab47a696e3dba318eaaeaeb6b65d71d0d17cf80d30c5710399cbf156edde5",
+   "validation": {
+    "ok": true,
+    "errors": [],
+    "sigma_output": "=== Issues ===\nissue=InvalidATTACKTagIssue severity=medium description=Invalid MITRE ATT&CK tagging rule=<tmp>\\proc_creation_win_shakedown_candidate.yml tag=attack.credential_access\n\n=== Summary ===\nFound 0 errors, 0 condition errors and 1 issues.\nNo rule errors found.\nNo condition errors found.\n\nValidation issue summary:\n+-------+-----------------------+----------+------------------------------+\n| Count | Issue                 | Severity | Description                  |\n+-------+-----------------------+----------+------------------------------+\n| 1     | InvalidATTACKTagIssue | MEDIUM   | Invalid MITRE ATT&CK tagging |\n+-------+-----------------------+----------+------------------------------+\nParsing Sigma rules\nChecking Sigma rules\n"
+   },
+   "evaluator_error": null,
+   "tokens": 8287,
+   "latency_s": 58.08,
+   "evaluation": {
+    "attack_total": 1,
+    "attack_detected": 1,
+    "attack_missed": [],
+    "attack_events_hit": 1,
+    "benign": {
+     "benign_dev_win7": {
+      "files_total": 129,
+      "files_with_hits": 0,
+      "hits": 0,
+      "examples": []
+     }
+    },
+    "attack_events": [],
+    "seconds": 8.11
+   }
+  }
+ ],
+ "best_index": 1,
+ "success": true,
+ "stop_reason": "acceptance criteria passed",
+ "heldout": {
+  "benign_heldout_win10": {
+   "files_total": 352,
+   "files_with_hits": 0,
+   "hits": 0,
+   "examples": []
+  }
+ },
+ "expert": {
+  "dev": {
+   "attack_total": 1,
+   "attack_detected": 1,
+   "attack_missed": [],
+   "attack_events_hit": 1,
+   "benign": {
+    "benign_dev_win7": {
+     "files_total": 129,
+     "files_with_hits": 0,
+     "hits": 0,
+     "examples": []
+    }
+   },
+   "attack_events": [],
+   "seconds": 12.64
+  },
+  "heldout": {
+   "benign_heldout_win10": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   }
+  },
+  "rule_text": "title: Copy From VolumeShadowCopy Via Cmd.EXE\nid: c73124a7-3e89-44a3-bdc1-25fe4df754b1\nstatus: test\ndescription: Detects the execution of the builtin \"copy\" command that targets a shadow copy (sometimes used to copy registry hives that are in use)\nreferences:\n    - https://twitter.com/vxunderground/status/1423336151860002816?s=20\n    - https://www.virustotal.com/gui/file/03e9b8c2e86d6db450e5eceec057d7e369ee2389b9daecaf06331a95410aa5f8/detection\n    - https://pentestlab.blog/2018/07/04/dumping-domain-password-hashes/\nauthor: Max Altgelt (Nextron Systems), Tobias Michalski (Nextron Systems)\ndate: 2021-08-09\nmodified: 2023-03-07\ntags:\n    - attack.impact\n    - attack.t1490\nlogsource:\n    category: process_creation\n    product: windows\ndetection:\n    selection:\n        # cmd /c copy \\\\?\\GLOBALROOT\\Device\\HarddiskVolumeShadowCopy1\\Windows\\System32\\config\\SYSTEM\\\n        # There is an additional \"\\\" to escape the special \"?\"\n        CommandLine|contains|all:\n            - 'copy '\n            - '\\\\\\\\\\?\\\\GLOBALROOT\\\\Device\\\\HarddiskVolumeShadowCopy'\n    condition: selection\nfalsepositives:\n    - Backup scenarios using the commandline\nlevel: high\nregression_tests_path: regression_data/rules/windows/process_creation/proc_creation_win_cmd_shadowcopy_access/info.yml\n"
+ },
+ "totals": {
+  "tokens": 11871,
+  "seconds": 246.9
+ },
+ "events": [
+  {
+   "type": "start",
+   "t": 0.0,
+   "data": {
+    "scenario": "c73124a7-3e89-44a3-bdc1-25fe4df754b1",
+    "title": "Copy From VolumeShadowCopy Via Cmd.EXE",
+    "model": "nvidia/nemotron-3-super-120b-a12b"
+   }
+  },
+  {
+   "type": "research",
+   "t": 4.2,
+   "data": {
+    "primary": {
+     "url": "https://twitter.com/vxunderground/status/1423336151860002816?s=20",
+     "title": "https://twitter.com/vxunderground/status/1423336151860002816?s=20",
+     "retrieved_at": "2026-10-27T07:30:58Z",
+     "via": "extract",
+     "score": null,
+     "chars": 1601
+    },
+    "corroboration": [
+     {
+      "url": "https://www.manageengine.com/log-management/detection-rules/copy-from-volumeshadowcopy-via-cmd-exe.html",
+      "title": "Copy From VolumeShadowCopy Via Cmd.EXE - Detection rules | ManageEngine Log360",
+      "retrieved_at": "2026-10-27T07:31:00Z",
+      "via": "search",
+      "score": 0.8958969,
+      "chars": 1476
+     },
+     {
+      "url": "https://serverfault.com/questions/119120/how-to-use-a-volume-shadow-copy-to-make-backups",
+      "title": "How to use a Volume Shadow Copy to make backups",
+      "retrieved_at": "2026-10-27T07:31:00Z",
+      "via": "search",
+      "score": 0.3454811,
+      "chars": 1049
+     },
+     {
+      "url": "https://research.splunk.com/endpoint/19c85f5e-24a5-4355-a430-db9a58d1dc15",
+      "title": "Detection: Deleting Shadow Copies | Splunk Security Content",
+      "retrieved_at": "2026-10-27T07:31:00Z",
+      "via": "search",
+      "score": 0.30551133,
+      "chars": 987
+     }
+    ],
+    "error": null
+   }
+  },
+  {
+   "type": "spec",
+   "t": 22.42,
+   "data": {
+    "behavior": "",
+    "logsource_category": "network_connection",
+    "observables": [],
+    "techniques": [],
+    "dropped": []
+   }
+  },
+  {
+   "type": "iteration",
+   "t": 46.42,
+   "data": {
+    "index": 0,
+    "action": "generate",
+    "resamples": 0,
+    "rule_text": "title: Potential Credential Access via Volume Shadow Copy using cmd.exe\nid: fe99cd7b-b2e4-452c-871d-b1f523bdf80d\nstatus: experimental\ndescription: Detects network connections initiated by cmd.exe to common SMB ports, which may indicate usage of volume shadow\n  copy to access sensitive files for credential theft.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.credential_access\n- attack.t1003.003\nlogsource:\n  category: network_connection\n  product: windows\ndetection:\n  selection_img:\n    Image|endswith: \\cmd.exe\n  selection_port:\n    DestinationPort|contains:\n    - '>='\n    - <=\n  selection_port_specific:\n    DestinationPort: /regex/(445|139)/\n  condition: selection_img and selection_port_specific\nfalsepositives:\n- Legitimate administrative use of cmd.exe for file shares\n- Backup software using cmd.exe\nlevel: high\n",
+    "sha256": "9cb0328c78a7b01ff5754139cc25033e4da1a1f988f65aeac60da8d69a31f663",
+    "validation": {
+     "ok": true,
+     "errors": [],
+     "sigma_output": "=== Issues ===\nissue=DanglingDetectionIssue severity=high description=Rule defines detection that is not referenced from condition rule=<tmp>\\proc_creation_win_shakedown_candidate.yml detection_name=selection_port\nissue=InvalidATTACKTagIssue severity=medium description=Invalid MITRE ATT&CK tagging rule=<tmp>\\proc_creation_win_shakedown_candidate.yml tag=attack.credential_access\n\n=== Summary ===\nFound 0 errors, 0 condition errors and 2 issues.\nNo rule errors found.\nNo condition errors found.\n\nValidation issue summary:\n+-------+------------------------+----------+--------------------------------------------------------------+\n| Count | Issue                  | Severity | Description                                                  |\n+-------+------------------------+----------+--------------------------------------------------------------+\n| 1     | DanglingDetectionIssue | HIGH     | Rule defines detection that is not referenced from condition |\n| 1     | InvalidATTACKTagIssue  | MEDIUM   | Invalid MITRE ATT&CK tagging                                 |\n+-------+------------------------+----------+--------------------------------------------------------------+\nParsing Sigma rules\nChecking Sigma rules\n"
+    },
+    "evaluator_error": null,
+    "tokens": 3584,
+    "latency_s": 13.95,
+    "evaluation": {
+     "attack_total": 1,
+     "attack_detected": 0,
+     "attack_missed": [
+      "c73124a7-3e89-44a3-bdc1-25fe4df754b1.evtx"
+     ],
+     "attack_events_hit": 0,
+     "benign": {
+      "benign_dev_win7": {
+       "files_total": 129,
+       "files_with_hits": 0,
+       "hits": 0,
+       "examples": []
+      }
+     },
+     "attack_events": [
+      {
+       "EventID": 1,
+       "Channel": "Microsoft-Windows-Sysmon/Operational",
+       "RuleName": "technique_id=T1059.003,technique_name=Windows Command Shell",
+       "UtcTime": "2026-08-12 17:17:18.443",
+       "ProcessGuid": "{570e49aa-aa9e-6a7c-8b02-000000001400}",
+       "ProcessId": "8712",
+       "Image": "C:\\Windows\\System32\\cmd.exe",
+       "FileVersion": "10.0.26100.8737 (WinBuild.160101.0800)",
+       "Description": "Windows Command Processor",
+       "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+       "Company": "Microsoft Corporation",
+       "OriginalFileName": "Cmd.Exe",
+       "CommandLine": "\"cmd.exe\" /c copy \\\\?\\GLOBALROOT\\Device\\HarddiskVolumeShadowCopy1\\Windows\\NTDS\\NTDS.dit C:\\Windows\\Temp\\ntds.dit & copy \\\\?\\GLOBALROOT\\Device\\HarddiskVolumeShadowCopy1\\Windows\\System32\\config\\SYSTEM C:\\Windows\\Temp\\VSC_SYSTEM_HIVE & reg save HKLM\\SYSTEM C:\\Windows\\Temp\\SYSTEM_HIVE",
+       "CurrentDirectory": "C:\\Users\\frack113\\AppData\\Local\\Temp\\",
+       "User": "SigmaCatchVm\\frack113",
+       "LogonGuid": "{570e49aa-c366-6a76-1edd-080000000000}",
+       "LogonId": "0x000000000008dd1e",
+       "TerminalSessionId": "1",
+       "IntegrityLevel": "High",
+       "Hashes": "SHA1=6142A8457F497ABC4B102D75F549F76A9E3577C7,MD5=1F4D18374A699452622E80F6D5BB743E,SHA256=65EC268ADD3973B6DCA64222985DA47CAEAEE44A340B0EC1466782914FD743D9,IMPHASH=010B165E4C37F484601D3DBD700C9423",
+       "ParentProcessGuid": "{570e49aa-a962-6a7c-f601-000000001400}",
+       "ParentProcessId": "8368",
+       "ParentImage": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+       "ParentCommandLine": "\"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\" ",
+       "ParentUser": "SigmaCatchVm\\frack113"
+      }
+     ],
+     "seconds": 9.11
+    }
+   }
+  },
+  {
+   "type": "iteration",
+   "t": 119.09,
+   "data": {
+    "index": 1,
+    "action": "repair",
+    "resamples": 1,
+    "rule_text": "title: Potential Credential Access via Volume Shadow Copy using cmd.exe\nid: fe99cd7b-b2e4-452c-871d-b1f523bdf80d\nstatus: experimental\ndescription: Detects usage of cmd.exe to access volume shadow copy files for credential theft.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.credential_access\n- attack.t1003.003\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  selection_img:\n    Image|endswith: \\cmd.exe\n  selection_shadowpath:\n    CommandLine|contains: \\\\\\\\?\\\\GLOBALROOT\\\\Device\\\\HarddiskVolumeShadowCopy1\\\\\n  selection_ntds:\n    CommandLine|contains: NTDS.dit\n  condition: selection_img and selection_shadowpath and selection_ntds\nfalsepositives:\n- Legitimate administrative use of cmd.exe for file shares\n- Backup software using cmd.exe\nlevel: high\n",
+    "sha256": "995ab47a696e3dba318eaaeaeb6b65d71d0d17cf80d30c5710399cbf156edde5",
+    "validation": {
+     "ok": true,
+     "errors": [],
+     "sigma_output": "=== Issues ===\nissue=InvalidATTACKTagIssue severity=medium description=Invalid MITRE ATT&CK tagging rule=<tmp>\\proc_creation_win_shakedown_candidate.yml tag=attack.credential_access\n\n=== Summary ===\nFound 0 errors, 0 condition errors and 1 issues.\nNo rule errors found.\nNo condition errors found.\n\nValidation issue summary:\n+-------+-----------------------+----------+------------------------------+\n| Count | Issue                 | Severity | Description                  |\n+-------+-----------------------+----------+------------------------------+\n| 1     | InvalidATTACKTagIssue | MEDIUM   | Invalid MITRE ATT&CK tagging |\n+-------+-----------------------+----------+------------------------------+\nParsing Sigma rules\nChecking Sigma rules\n"
+    },
+    "evaluator_error": null,
+    "tokens": 8287,
+    "latency_s": 58.08,
+    "evaluation": {
+     "attack_total": 1,
+     "attack_detected": 1,
+     "attack_missed": [],
+     "attack_events_hit": 1,
+     "benign": {
+      "benign_dev_win7": {
+       "files_total": 129,
+       "files_with_hits": 0,
+       "hits": 0,
+       "examples": []
+      }
+     },
+     "attack_events": [],
+     "seconds": 8.11
+    }
+   }
+  },
+  {
+   "type": "heldout",
+   "t": 175.42,
+   "data": {
+    "benign_heldout_win10": {
+     "files_total": 352,
+     "files_with_hits": 0,
+     "hits": 0,
+     "examples": []
+    }
+   }
+  },
+  {
+   "type": "expert",
+   "t": 246.94,
+   "data": {
+    "detected": 1,
+    "total": 1
+   }
+  },
+  {
+   "type": "done",
+   "t": 246.94,
+   "data": {
+    "success": true,
+    "stop_reason": "acceptance criteria passed"
+   }
+  }
+ ]
+}

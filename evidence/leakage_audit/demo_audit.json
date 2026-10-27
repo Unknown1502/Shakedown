@@ -1,0 +1,348 @@
+[
+ {
+  "demo": "demo/recorded/copy-from-volumeshadowcopy-via-cmd-exe.json",
+  "title": "Copy From VolumeShadowCopy Via Cmd.EXE",
+  "success": false,
+  "attempts": 4,
+  "reconstruction_matches": false,
+  "sources": [
+   {
+    "url": "https://www.manageengine.com/log-management/detection-rules/copy-from-volumeshadowcopy-via-cmd-exe.html",
+    "reasons": [
+     "target_rule_title"
+    ],
+    "text_available": false,
+    "reference_field_names_in_text": null,
+    "reference_values_in_text": null,
+    "text": null
+   },
+   {
+    "url": "https://serverfault.com/questions/119120/how-to-use-a-volume-shadow-copy-to-make-backups",
+    "reasons": [],
+    "text_available": false,
+    "reference_field_names_in_text": null,
+    "reference_values_in_text": null,
+    "text": null
+   },
+   {
+    "url": "https://research.splunk.com/endpoint/19c85f5e-24a5-4355-a430-db9a58d1dc15",
+    "reasons": [],
+    "text_available": false,
+    "reference_field_names_in_text": null,
+    "reference_values_in_text": null,
+    "text": null
+   }
+  ]
+ },
+ {
+  "demo": "demo/recorded/potentially-suspicious-powershell-child-processes.json",
+  "title": "Potentially Suspicious PowerShell Child Processes",
+  "success": true,
+  "attempts": 2,
+  "reconstruction_matches": true,
+  "sources": [
+   {
+    "url": "https://github.com/SigmaHQ/sigma/blob/master/rules-threat-hunting/windows/process_creation/proc_creation_win_powershell_susp_child_processes.yml",
+    "reasons": [
+     "sigma_mirror",
+     "sigma_rule_text",
+     "target_rule_id"
+    ],
+    "text_available": true,
+    "reference_field_names_in_text": [
+     "CommandLine",
+     "Image",
+     "ParentCommandLine",
+     "ParentImage"
+    ],
+    "reference_values_in_text": [
+     "\\powershell.exe",
+     "\\pwsh.exe",
+     "\\bash.exe",
+     "\\bitsadmin.exe",
+     "\\certutil.exe",
+     "\\cscript.exe",
+     "\\forfiles.exe",
+     "\\hh.exe",
+     "\\mshta.exe",
+     "\\regsvr32.exe",
+     "\\rundll32.exe",
+     "\\schtasks.exe",
+     "\\scrcons.exe",
+     "\\scriptrunner.exe",
+     "\\sh.exe",
+     "\\wmic.exe",
+     "\\wscript.exe",
+     "\\Program Files\\Amazon\\WorkspacesConfig\\Scripts\\",
+     "\\Program Files\\Amazon\\WorkspacesConfig\\Scripts\\",
+     "\\certutil.exe",
+     "\\wmic.exe"
+    ],
+    "text": "description: |\n\nDetects potentially suspicious child processes spawned by PowerShell.\n\nUse this rule to hunt for potential anomalies initiating from PowerShell scripts and commands.\n\nreferences:\n\n- \n\nauthor: Florian Roth (Nextron Systems), Tim Shelton\n\ndate: 2022-04-26\n\nmodified: 2024-07-16\n\ntags:\n\n- attack.execution\n\n- attack.t1059.001\n\n- detection.threat-hunting\n\nlogsource:\n\ncategory: process\\_creation\n\nproduct: windows\n\ndetection:\n\nselection:\n\nParentImage|endswith:\n\n- '\\powershell\\_ise.exe' [...] 60 lines (60 loc) · 2.2 KB\n\nRaw\n\nCopy raw file\n\nDownload raw file\n\nOpen symbols panel\n\nEdit and raw actions\n\n1\n\n2\n\n3\n\n4\n\n5\n\n6\n\n7\n\n8\n\n9\n\n10\n\n11\n\n12\n\n13\n\n14\n\n15\n\n16\n\n17\n\n18\n\n19\n\n20\n\n21\n\n22\n\n23\n\n24\n\n25\n\n26\n\n27\n\n28\n\n29\n\n30\n\n31\n\n32\n\n33\n\n34\n\n35\n\n36\n\n37\n\n38\n\n39\n\n40\n\n41\n\n42\n\n43\n\n44\n\n45\n\n46\n\n47\n\n48\n\n49\n\n50\n\n51\n\n52\n\n53\n\n54\n\n55\n\n56\n\n57\n\n58\n\n59\n\n60\n\ntitle: Potentially Suspicious PowerShell Child Processes\n\nid: e4b6d2a7-d8a4-4f19-acbd-943c16d90647\n\nstatus: test\n\ndescription: | [...] - '\\powershell.exe'\n\n- '\\pwsh.exe'\n\nImage|endswith:\n\n- '\\bash.exe'\n\n- '\\bitsadmin.exe'\n\n- '\\certutil.exe'\n\n- '\\cscript.exe'\n\n- '\\forfiles.exe'\n\n- '\\hh.exe'\n\n- '\\mshta.exe'\n\n- '\\regsvr32.exe'\n\n- '\\rundll32.exe'\n\n- '\\schtasks.exe'\n\n- '\\scrcons.exe'\n\n- '\\scriptrunner.exe'\n\n- '\\sh.exe'\n\n- '\\wmic.exe'\n\n- '\\wscript.exe'\n\nfilter\\_optional\\_amazon:\n\nParentCommandLine|contains: '\\Program Files\\Amazon\\WorkspacesConfig\\Scripts\\' # AWS Workspaces"
+   },
+   {
+    "url": "https://www.manageengine.com/log-management/detection-rules/potentially-suspicious-powershell-child-processes.html",
+    "reasons": [
+     "target_rule_title"
+    ],
+    "text_available": true,
+    "reference_field_names_in_text": [
+     "CommandLine"
+    ],
+    "reference_values_in_text": [
+     "\\powershell_ise.exe",
+     "\\powershell.exe",
+     "\\pwsh.exe",
+     "\\bash.exe",
+     "\\bitsadmin.exe",
+     "\\certutil.exe",
+     "\\cscript.exe",
+     "\\forfiles.exe",
+     "\\hh.exe",
+     "\\mshta.exe",
+     "\\regsvr32.exe",
+     "\\rundll32.exe",
+     "\\schtasks.exe",
+     "\\scrcons.exe",
+     "\\scriptrunner.exe",
+     "\\sh.exe",
+     "\\wmic.exe",
+     "\\wscript.exe",
+     "\\certutil.exe",
+     "-verifystore ",
+     "\\wmic.exe"
+    ],
+    "text": "ManageEngine Log360\n\nEmail Download Link \n\n Attack Library\n Cloud Security\n SIEM Hubspot\n\n# Potentially Suspicious PowerShell Child Processes\n\nLast updated on:\n\nIn this page\n\n About the rule\n Rule Requirement\n Detection\n\n## About the rule\n\n### Rule Type\n\n### Rule Description\n\nDetects potentially suspicious child processes spawned by PowerShell. Use this rule to hunt for potential anomalies initiating from PowerShell scripts and commands.\n\n### Severity\n\n## Rule Requirement\n\n### Criteria [...] `Action1: actionname = \"Process started\" AND (PARENTPROCESSNAME endswith \"\\powershell_ise.exe,\\powershell.exe,\\pwsh.exe\" AND PROCESSNAME endswith \"\\bash.exe,\\bitsadmin.exe,\\certutil.exe,\\cscript.exe,\\forfiles.exe,\\hh.exe,\\mshta.exe,\\regsvr32.exe,\\rundll32.exe,\\schtasks.exe,\\scrcons.exe,\\scriptrunner.exe,\\sh.exe,\\wmic.exe,\\wscript.exe\") AND ((PROCESSNAME notendswith \"\\certutil.exe\" OR COMMANDLINE notcontains \"-verifystore \") AND (PROCESSNAME notendswith \"\\wmic.exe\" OR COMMANDLINE notcontains"
+   },
+   {
+    "url": "https://detection.fyi/sigmahq/sigma/windows/process_creation/proc_creation_win_conhost_susp_winshell_child_process",
+    "reasons": [
+     "sigma_mirror",
+     "sigma_rule_text"
+    ],
+    "text_available": true,
+    "reference_field_names_in_text": [],
+    "reference_values_in_text": [
+     "\\powershell.exe",
+     "\\pwsh.exe",
+     "\\regsvr32.exe",
+     "\\sh.exe",
+     "\\wscript.exe"
+    ],
+    "text": "# Windows PowerShell  '\\powershell.exe'  # Windows PowerShell  29 - '\\pwsh.exe' # PowerShell Core 29 - '\\pwsh.exe' # PowerShell Core  '\\pwsh.exe'  # PowerShell Core  30 - '\\regsvr32.exe' # Windows Registry Server (commonly used for exploits) 30 - '\\regsvr32.exe' # Windows Registry Server (commonly used for exploits)  '\\regsvr32.exe'  # Windows Registry Server (commonly used for exploits)  31 - '\\wscript.exe' # Windows Script Host (for executing scripts) 31 - '\\wscript.exe' # Windows Script Host [...] system components.  description:  Detects suspicious child processes related to Windows Shell utilities spawned by `conhost.exe`, which could indicate malicious activity using trusted system components.   8references:  8references:  references:   9 -   9 -     10author: Swachchhanda Shrawan Poudel (Nextron Systems) 10author: Swachchhanda Shrawan Poudel (Nextron Systems)  author:  Swachchhanda Shrawan Poudel (Nextron Systems)  11date: 2025-02-05 11date: 2025-02-05  date:  2025-02-05  12tags: [...] # Potentially Suspicious Child Processes Spawned by ConHost\n\nApr 28, 2026 · attack.stealth attack.t1202 attack.t1218    ·\n\nShare on:\n\nDetects suspicious child processes related to Windows Shell utilities spawned by `conhost.exe`, which could indicate malicious activity using trusted system components.\n\n## Sigma rule (View on GitHub)"
+   }
+  ]
+ },
+ {
+  "demo": "demo/recorded/pua-suspicious-activedirectory-enumeration-via-adfind-exe.json",
+  "title": "PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE",
+  "success": true,
+  "attempts": 2,
+  "reconstruction_matches": false,
+  "sources": [
+   {
+    "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/windows/process_creation/proc_creation_win_pua_adfind_enumeration.yml",
+    "reasons": [
+     "sigma_mirror"
+    ],
+    "text_available": false,
+    "reference_field_names_in_text": null,
+    "reference_values_in_text": null,
+    "text": null
+   },
+   {
+    "url": "https://filestore.fortinet.com/docs.fortinet.com/fsiem/Public_Resource_Access/7_6_0/rules/PH_RULE_Suspicious_AdFind_Enumerate.htm",
+    "reasons": [
+     "target_rule_title"
+    ],
+    "text_available": false,
+    "reference_field_names_in_text": null,
+    "reference_values_in_text": null,
+    "text": null
+   },
+   {
+    "url": "https://sigma.nasbench.dev/rules/455b9d50-15a1-4b99-853f-8d37655a4c1b",
+    "reasons": [
+     "sigma_mirror",
+     "target_rule_id",
+     "target_rule_title"
+    ],
+    "text_available": false,
+    "reference_field_names_in_text": null,
+    "reference_values_in_text": null,
+    "text": null
+   }
+  ]
+ },
+ {
+  "demo": "demo/recorded_local/copy-from-volumeshadowcopy-via-cmd-exe.json",
+  "title": "Copy From VolumeShadowCopy Via Cmd.EXE",
+  "success": true,
+  "attempts": 2,
+  "reconstruction_matches": false,
+  "sources": [
+   {
+    "url": "https://www.manageengine.com/log-management/detection-rules/copy-from-volumeshadowcopy-via-cmd-exe.html",
+    "reasons": [
+     "target_rule_title"
+    ],
+    "text_available": false,
+    "reference_field_names_in_text": null,
+    "reference_values_in_text": null,
+    "text": null
+   },
+   {
+    "url": "https://serverfault.com/questions/119120/how-to-use-a-volume-shadow-copy-to-make-backups",
+    "reasons": [],
+    "text_available": false,
+    "reference_field_names_in_text": null,
+    "reference_values_in_text": null,
+    "text": null
+   },
+   {
+    "url": "https://research.splunk.com/endpoint/19c85f5e-24a5-4355-a430-db9a58d1dc15",
+    "reasons": [],
+    "text_available": false,
+    "reference_field_names_in_text": null,
+    "reference_values_in_text": null,
+    "text": null
+   }
+  ]
+ },
+ {
+  "demo": "demo/recorded_local/potentially-suspicious-powershell-child-processes.json",
+  "title": "Potentially Suspicious PowerShell Child Processes",
+  "success": true,
+  "attempts": 1,
+  "reconstruction_matches": true,
+  "sources": [
+   {
+    "url": "https://github.com/SigmaHQ/sigma/blob/master/rules-threat-hunting/windows/process_creation/proc_creation_win_powershell_susp_child_processes.yml",
+    "reasons": [
+     "sigma_mirror",
+     "sigma_rule_text",
+     "target_rule_id"
+    ],
+    "text_available": true,
+    "reference_field_names_in_text": [
+     "CommandLine",
+     "Image",
+     "ParentCommandLine",
+     "ParentImage"
+    ],
+    "reference_values_in_text": [
+     "\\powershell.exe",
+     "\\pwsh.exe",
+     "\\bash.exe",
+     "\\bitsadmin.exe",
+     "\\certutil.exe",
+     "\\cscript.exe",
+     "\\forfiles.exe",
+     "\\hh.exe",
+     "\\mshta.exe",
+     "\\regsvr32.exe",
+     "\\rundll32.exe",
+     "\\schtasks.exe",
+     "\\scrcons.exe",
+     "\\scriptrunner.exe",
+     "\\sh.exe",
+     "\\wmic.exe",
+     "\\wscript.exe",
+     "\\Program Files\\Amazon\\WorkspacesConfig\\Scripts\\",
+     "\\Program Files\\Amazon\\WorkspacesConfig\\Scripts\\",
+     "\\certutil.exe",
+     "\\wmic.exe"
+    ],
+    "text": "description: |\n\nDetects potentially suspicious child processes spawned by PowerShell.\n\nUse this rule to hunt for potential anomalies initiating from PowerShell scripts and commands.\n\nreferences:\n\n- \n\nauthor: Florian Roth (Nextron Systems), Tim Shelton\n\ndate: 2022-04-26\n\nmodified: 2024-07-16\n\ntags:\n\n- attack.execution\n\n- attack.t1059.001\n\n- detection.threat-hunting\n\nlogsource:\n\ncategory: process\\_creation\n\nproduct: windows\n\ndetection:\n\nselection:\n\nParentImage|endswith:\n\n- '\\powershell\\_ise.exe' [...] 60 lines (60 loc) · 2.2 KB\n\nRaw\n\nCopy raw file\n\nDownload raw file\n\nOpen symbols panel\n\nEdit and raw actions\n\n1\n\n2\n\n3\n\n4\n\n5\n\n6\n\n7\n\n8\n\n9\n\n10\n\n11\n\n12\n\n13\n\n14\n\n15\n\n16\n\n17\n\n18\n\n19\n\n20\n\n21\n\n22\n\n23\n\n24\n\n25\n\n26\n\n27\n\n28\n\n29\n\n30\n\n31\n\n32\n\n33\n\n34\n\n35\n\n36\n\n37\n\n38\n\n39\n\n40\n\n41\n\n42\n\n43\n\n44\n\n45\n\n46\n\n47\n\n48\n\n49\n\n50\n\n51\n\n52\n\n53\n\n54\n\n55\n\n56\n\n57\n\n58\n\n59\n\n60\n\ntitle: Potentially Suspicious PowerShell Child Processes\n\nid: e4b6d2a7-d8a4-4f19-acbd-943c16d90647\n\nstatus: test\n\ndescription: | [...] - '\\powershell.exe'\n\n- '\\pwsh.exe'\n\nImage|endswith:\n\n- '\\bash.exe'\n\n- '\\bitsadmin.exe'\n\n- '\\certutil.exe'\n\n- '\\cscript.exe'\n\n- '\\forfiles.exe'\n\n- '\\hh.exe'\n\n- '\\mshta.exe'\n\n- '\\regsvr32.exe'\n\n- '\\rundll32.exe'\n\n- '\\schtasks.exe'\n\n- '\\scrcons.exe'\n\n- '\\scriptrunner.exe'\n\n- '\\sh.exe'\n\n- '\\wmic.exe'\n\n- '\\wscript.exe'\n\nfilter\\_optional\\_amazon:\n\nParentCommandLine|contains: '\\Program Files\\Amazon\\WorkspacesConfig\\Scripts\\' # AWS Workspaces"
+   },
+   {
+    "url": "https://www.manageengine.com/log-management/detection-rules/potentially-suspicious-powershell-child-processes.html",
+    "reasons": [
+     "target_rule_title"
+    ],
+    "text_available": true,
+    "reference_field_names_in_text": [
+     "CommandLine"
+    ],
+    "reference_values_in_text": [
+     "\\powershell_ise.exe",
+     "\\powershell.exe",
+     "\\pwsh.exe",
+     "\\bash.exe",
+     "\\bitsadmin.exe",
+     "\\certutil.exe",
+     "\\cscript.exe",
+     "\\forfiles.exe",
+     "\\hh.exe",
+     "\\mshta.exe",
+     "\\regsvr32.exe",
+     "\\rundll32.exe",
+     "\\schtasks.exe",
+     "\\scrcons.exe",
+     "\\scriptrunner.exe",
+     "\\sh.exe",
+     "\\wmic.exe",
+     "\\wscript.exe",
+     "\\certutil.exe",
+     "-verifystore ",
+     "\\wmic.exe"
+    ],
+    "text": "ManageEngine Log360\n\nEmail Download Link \n\n Attack Library\n Cloud Security\n SIEM Hubspot\n\n# Potentially Suspicious PowerShell Child Processes\n\nLast updated on:\n\nIn this page\n\n About the rule\n Rule Requirement\n Detection\n\n## About the rule\n\n### Rule Type\n\n### Rule Description\n\nDetects potentially suspicious child processes spawned by PowerShell. Use this rule to hunt for potential anomalies initiating from PowerShell scripts and commands.\n\n### Severity\n\n## Rule Requirement\n\n### Criteria [...] `Action1: actionname = \"Process started\" AND (PARENTPROCESSNAME endswith \"\\powershell_ise.exe,\\powershell.exe,\\pwsh.exe\" AND PROCESSNAME endswith \"\\bash.exe,\\bitsadmin.exe,\\certutil.exe,\\cscript.exe,\\forfiles.exe,\\hh.exe,\\mshta.exe,\\regsvr32.exe,\\rundll32.exe,\\schtasks.exe,\\scrcons.exe,\\scriptrunner.exe,\\sh.exe,\\wmic.exe,\\wscript.exe\") AND ((PROCESSNAME notendswith \"\\certutil.exe\" OR COMMANDLINE notcontains \"-verifystore \") AND (PROCESSNAME notendswith \"\\wmic.exe\" OR COMMANDLINE notcontains"
+   },
+   {
+    "url": "https://detection.fyi/sigmahq/sigma/windows/process_creation/proc_creation_win_conhost_susp_winshell_child_process",
+    "reasons": [
+     "sigma_mirror",
+     "sigma_rule_text"
+    ],
+    "text_available": true,
+    "reference_field_names_in_text": [],
+    "reference_values_in_text": [
+     "\\powershell.exe",
+     "\\pwsh.exe",
+     "\\regsvr32.exe",
+     "\\sh.exe",
+     "\\wscript.exe"
+    ],
+    "text": "# Windows PowerShell  '\\powershell.exe'  # Windows PowerShell  29 - '\\pwsh.exe' # PowerShell Core 29 - '\\pwsh.exe' # PowerShell Core  '\\pwsh.exe'  # PowerShell Core  30 - '\\regsvr32.exe' # Windows Registry Server (commonly used for exploits) 30 - '\\regsvr32.exe' # Windows Registry Server (commonly used for exploits)  '\\regsvr32.exe'  # Windows Registry Server (commonly used for exploits)  31 - '\\wscript.exe' # Windows Script Host (for executing scripts) 31 - '\\wscript.exe' # Windows Script Host [...] system components.  description:  Detects suspicious child processes related to Windows Shell utilities spawned by `conhost.exe`, which could indicate malicious activity using trusted system components.   8references:  8references:  references:   9 -   9 -     10author: Swachchhanda Shrawan Poudel (Nextron Systems) 10author: Swachchhanda Shrawan Poudel (Nextron Systems)  author:  Swachchhanda Shrawan Poudel (Nextron Systems)  11date: 2025-02-05 11date: 2025-02-05  date:  2025-02-05  12tags: [...] # Potentially Suspicious Child Processes Spawned by ConHost\n\nApr 28, 2026 · attack.stealth attack.t1202 attack.t1218    ·\n\nShare on:\n\nDetects suspicious child processes related to Windows Shell utilities spawned by `conhost.exe`, which could indicate malicious activity using trusted system components.\n\n## Sigma rule (View on GitHub)"
+   }
+  ]
+ },
+ {
+  "demo": "demo/recorded_local/pua-suspicious-activedirectory-enumeration-via-adfind-exe.json",
+  "title": "PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE",
+  "success": false,
+  "attempts": 4,
+  "reconstruction_matches": false,
+  "sources": [
+   {
+    "url": "https://www.manageengine.com/log-management/detection-rules/pua-suspicious-activedirectory-enumeration-via-adfind-exe.html",
+    "reasons": [
+     "target_rule_title"
+    ],
+    "text_available": false,
+    "reference_field_names_in_text": null,
+    "reference_values_in_text": null,
+    "text": null
+   },
+   {
+    "url": "https://detection.fyi/sigmahq/sigma/windows/process_creation/proc_creation_win_pua_adfind_susp_usage",
+    "reasons": [
+     "sigma_mirror"
+    ],
+    "text_available": false,
+    "reference_field_names_in_text": null,
+    "reference_values_in_text": null,
+    "text": null
+   },
+   {
+    "url": "https://research.splunk.com/detections",
+    "reasons": [],
+    "text_available": false,
+    "reference_field_names_in_text": null,
+    "reference_values_in_text": null,
+    "text": null
+   }
+  ]
+ }
+]

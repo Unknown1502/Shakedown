@@ -1,0 +1,261 @@
+{
+ "created_at": "2026-10-27T07:30:55.004926+00:00",
+ "model": "nvidia/nemotron-3-super-120b-a12b",
+ "rule_format": "structured",
+ "thinking": true,
+ "scenario": {
+  "id": "e4b6d2a7-d8a4-4f19-acbd-943c16d90647",
+  "title": "Potentially Suspicious PowerShell Child Processes",
+  "category": "process_creation"
+ },
+ "input": {
+  "kind": "url",
+  "url": "https://twitter.com/ankit_anubhav/status/1518835408502620162",
+  "chars": 6616
+ },
+ "research": {
+  "primary": {
+   "url": "https://twitter.com/ankit_anubhav/status/1518835408502620162",
+   "title": "https://twitter.com/ankit_anubhav/status/1518835408502620162",
+   "retrieved_at": "2026-10-27T07:28:11Z",
+   "via": "extract",
+   "score": null,
+   "chars": 1722
+  },
+  "corroboration": [
+   {
+    "url": "https://github.com/SigmaHQ/sigma/blob/master/rules-threat-hunting/windows/process_creation/proc_creation_win_powershell_susp_child_processes.yml",
+    "title": "sigma/rules-threat-hunting/windows/process_creation/proc_creation_win_powershell_susp_child_processes.yml at master \u00b7 SigmaHQ/sigma \u00b7 GitHub",
+    "retrieved_at": "2026-10-27T07:28:13Z",
+    "via": "search",
+    "score": 0.9240941,
+    "chars": 1418
+   },
+   {
+    "url": "https://www.manageengine.com/log-management/detection-rules/potentially-suspicious-powershell-child-processes.html",
+    "title": "Potentially Suspicious PowerShell Child Processes - Detection rules | ManageEngine Log360",
+    "retrieved_at": "2026-10-27T07:28:13Z",
+    "via": "search",
+    "score": 0.8455478,
+    "chars": 992
+   },
+   {
+    "url": "https://detection.fyi/sigmahq/sigma/windows/process_creation/proc_creation_win_conhost_susp_winshell_child_process",
+    "title": "Potentially Suspicious Child Processes Spawned by ConHost | Detection.FYI",
+    "retrieved_at": "2026-10-27T07:28:13Z",
+    "via": "search",
+    "score": 0.8106142,
+    "chars": 1342
+   }
+  ],
+  "error": null
+ },
+ "spec": {
+  "behavior": "",
+  "logsource_category": "process_creation",
+  "observables": [],
+  "techniques": []
+ },
+ "spec_dropped": [],
+ "iterations": [
+  {
+   "index": 0,
+   "action": "generate",
+   "resamples": 0,
+   "rule_text": "title: Potentially Suspicious PowerShell Child Processes\nid: 1fa460de-578e-45a1-8b6e-b43d8364728d\nstatus: experimental\ndescription: Detects potentially suspicious child processes spawned by PowerShell.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.execution\n- attack.t1059.001\n- detection.threat-hunting\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  parent_powershell:\n    ParentImage|endswith|endswith:\n    - \\\\powershell.exe\n    - \\\\pwsh.exe\n    - \\\\powershell_ise.exe\n  suspicious_child:\n    Image|endswith|endswith:\n    - \\\\bash.exe\n    - \\\\bitsadmin.exe\n    - \\\\certutil.exe\n    - \\\\cscript.exe\n    - \\\\forfiles.exe\n    - \\\\hh.exe\n    - \\\\mshta.exe\n    - \\\\regsvr32.exe\n    - \\\\rundll32.exe\n    - \\\\schtasks.exe\n    - \\\\scrcons.exe\n    - \\\\scriptrunner.exe\n    - \\\\sh.exe\n    - \\\\wmic.exe\n    - \\\\wscript.exe\n  filter_optional_amazon:\n    ParentCommandLine|contains|contains: \\\\Program Files\\\\Amazon\\\\WorkspacesConfig\\\\Scripts\\\\\n  condition: parent_powershell and suspicious_child and not filter_optional_amazon\nfalsepositives:\n- Legitimate administrative scripts using PowerShell to launch system utilities.\nlevel: high\n",
+   "sha256": "f34d5f7057b398e0d8375a44abba5c16f5089456e086007f42208937a915f5fc",
+   "validation": {
+    "ok": true,
+    "errors": [],
+    "sigma_output": "=WindowsPath('C:/Users/prajw/AppData/Local/Temp/shakedown-validate-wvzvl9tl/proc_creation_win_shakedown_candidate.yml'), line=None, char=None), item_linking=<class 'sigma.conditions.ConditionAND'>), applied_processing_items=set(), field='ParentCommandLine', modifiers=[<class 'sigma.modifiers.SigmaContainsModifier'>, <class 'sigma.modifiers.SigmaContainsModifier'>], value=[SigmaString([<SpecialChars.WILDCARD_MULTI: 1>, '\\\\Program Files\\\\Amazon\\\\WorkspacesConfig\\\\Scripts\\\\', <SpecialChars.WILDCARD_MULTI: 1>])], value_linking=<class 'sigma.conditions.ConditionOR'>, negated=False, source=SigmaRuleLocation(path=WindowsPath('C:/Users/prajw/AppData/Local/Temp/shakedown-validate-wvzvl9tl/proc_creation_win_shakedown_candidate.yml'), line=None, char=None)) modifiers={<class 'sigma.modifiers.SigmaContainsModifier'>}\n\n=== Summary ===\nFound 0 errors, 0 condition errors and 3 issues.\nNo rule errors found.\nNo condition errors found.\n\nValidation issue summary:\n+-------+------------------------------+----------+-----------------------------------------------+\n| Count | Issue                        | Severity | Description                                   |\n+-------+------------------------------+----------+-----------------------------------------------+\n| 3     | ModifierAppliedMultipleIssue | MEDIUM   | Modifiers shouldn't be applied multiple times |\n+-------+------------------------------+----------+-----------------------------------------------+\nParsing Sigma rules\nChecking Sigma rules\n"
+   },
+   "evaluator_error": null,
+   "tokens": 4392,
+   "latency_s": 14.16,
+   "evaluation": {
+    "attack_total": 1,
+    "attack_detected": 1,
+    "attack_missed": [],
+    "attack_events_hit": 1,
+    "benign": {
+     "benign_dev_win7": {
+      "files_total": 129,
+      "files_with_hits": 0,
+      "hits": 0,
+      "examples": []
+     }
+    },
+    "attack_events": [],
+    "seconds": 9.81
+   }
+  }
+ ],
+ "best_index": 0,
+ "success": true,
+ "stop_reason": "acceptance criteria passed",
+ "heldout": {
+  "benign_heldout_win10": {
+   "files_total": 352,
+   "files_with_hits": 0,
+   "hits": 0,
+   "examples": []
+  }
+ },
+ "expert": {
+  "dev": {
+   "attack_total": 1,
+   "attack_detected": 1,
+   "attack_missed": [],
+   "attack_events_hit": 1,
+   "benign": {
+    "benign_dev_win7": {
+     "files_total": 129,
+     "files_with_hits": 0,
+     "hits": 0,
+     "examples": []
+    }
+   },
+   "attack_events": [],
+   "seconds": 12.77
+  },
+  "heldout": {
+   "benign_heldout_win10": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   }
+  },
+  "rule_text": "title: Potentially Suspicious PowerShell Child Processes\nid: e4b6d2a7-d8a4-4f19-acbd-943c16d90647\nstatus: test\ndescription: |\n    Detects potentially suspicious child processes spawned by PowerShell.\n    Use this rule to hunt for potential anomalies initiating from PowerShell scripts and commands.\nreferences:\n    - https://twitter.com/ankit_anubhav/status/1518835408502620162\nauthor: Florian Roth (Nextron Systems), Tim Shelton\ndate: 2022-04-26\nmodified: 2024-07-16\ntags:\n    - attack.execution\n    - attack.t1059.001\n    - detection.threat-hunting\nlogsource:\n    category: process_creation\n    product: windows\ndetection:\n    selection:\n        ParentImage|endswith:\n            - '\\powershell_ise.exe'\n            - '\\powershell.exe'\n            - '\\pwsh.exe'\n        Image|endswith:\n            - '\\bash.exe'\n            - '\\bitsadmin.exe'\n            - '\\certutil.exe'\n            - '\\cscript.exe'\n            - '\\forfiles.exe'\n            - '\\hh.exe'\n            - '\\mshta.exe'\n            - '\\regsvr32.exe'\n            - '\\rundll32.exe'\n            - '\\schtasks.exe'\n            - '\\scrcons.exe'\n            - '\\scriptrunner.exe'\n            - '\\sh.exe'\n            - '\\wmic.exe'\n            - '\\wscript.exe'\n    filter_optional_amazon:\n        ParentCommandLine|contains: '\\Program Files\\Amazon\\WorkspacesConfig\\Scripts\\'  # AWS Workspaces\n        CommandLine|contains: '\\Program Files\\Amazon\\WorkspacesConfig\\Scripts\\'  # AWS Workspaces\n    filter_main_certutil_verify_store:\n        Image|endswith: '\\certutil.exe'\n        CommandLine|contains: '-verifystore '\n    filter_main_wmic:\n        Image|endswith: '\\wmic.exe'\n        CommandLine|contains:\n            - 'qfe list'\n            - 'diskdrive '\n            - 'csproduct '\n            - 'computersystem '\n            - ' os '\n            - ''\n    condition: selection and not 1 of filter_main_* and not 1 of filter_optional_*\nfalsepositives:\n    - False positives are to be expected from PowerShell scripts that might make use of additional binaries such as \"mshta\", \"bitsadmin\", etc. Apply additional filters for those scripts.\nlevel: medium\nregression_tests_path: regression_data/rules-threat-hunting/windows/process_creation/proc_creation_win_powershell_susp_child_processes/info.yml\n"
+ },
+ "totals": {
+  "tokens": 4392,
+  "seconds": 165.5
+ },
+ "events": [
+  {
+   "type": "start",
+   "t": 0.0,
+   "data": {
+    "scenario": "e4b6d2a7-d8a4-4f19-acbd-943c16d90647",
+    "title": "Potentially Suspicious PowerShell Child Processes",
+    "model": "nvidia/nemotron-3-super-120b-a12b"
+   }
+  },
+  {
+   "type": "research",
+   "t": 4.44,
+   "data": {
+    "primary": {
+     "url": "https://twitter.com/ankit_anubhav/status/1518835408502620162",
+     "title": "https://twitter.com/ankit_anubhav/status/1518835408502620162",
+     "retrieved_at": "2026-10-27T07:28:11Z",
+     "via": "extract",
+     "score": null,
+     "chars": 1722
+    },
+    "corroboration": [
+     {
+      "url": "https://github.com/SigmaHQ/sigma/blob/master/rules-threat-hunting/windows/process_creation/proc_creation_win_powershell_susp_child_processes.yml",
+      "title": "sigma/rules-threat-hunting/windows/process_creation/proc_creation_win_powershell_susp_child_processes.yml at master \u00b7 SigmaHQ/sigma \u00b7 GitHub",
+      "retrieved_at": "2026-10-27T07:28:13Z",
+      "via": "search",
+      "score": 0.9240941,
+      "chars": 1418
+     },
+     {
+      "url": "https://www.manageengine.com/log-management/detection-rules/potentially-suspicious-powershell-child-processes.html",
+      "title": "Potentially Suspicious PowerShell Child Processes - Detection rules | ManageEngine Log360",
+      "retrieved_at": "2026-10-27T07:28:13Z",
+      "via": "search",
+      "score": 0.8455478,
+      "chars": 992
+     },
+     {
+      "url": "https://detection.fyi/sigmahq/sigma/windows/process_creation/proc_creation_win_conhost_susp_winshell_child_process",
+      "title": "Potentially Suspicious Child Processes Spawned by ConHost | Detection.FYI",
+      "retrieved_at": "2026-10-27T07:28:13Z",
+      "via": "search",
+      "score": 0.8106142,
+      "chars": 1342
+     }
+    ],
+    "error": null
+   }
+  },
+  {
+   "type": "spec",
+   "t": 12.03,
+   "data": {
+    "behavior": "",
+    "logsource_category": "process_creation",
+    "observables": [],
+    "techniques": [],
+    "dropped": []
+   }
+  },
+  {
+   "type": "iteration",
+   "t": 36.94,
+   "data": {
+    "index": 0,
+    "action": "generate",
+    "resamples": 0,
+    "rule_text": "title: Potentially Suspicious PowerShell Child Processes\nid: 1fa460de-578e-45a1-8b6e-b43d8364728d\nstatus: experimental\ndescription: Detects potentially suspicious child processes spawned by PowerShell.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.execution\n- attack.t1059.001\n- detection.threat-hunting\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  parent_powershell:\n    ParentImage|endswith|endswith:\n    - \\\\powershell.exe\n    - \\\\pwsh.exe\n    - \\\\powershell_ise.exe\n  suspicious_child:\n    Image|endswith|endswith:\n    - \\\\bash.exe\n    - \\\\bitsadmin.exe\n    - \\\\certutil.exe\n    - \\\\cscript.exe\n    - \\\\forfiles.exe\n    - \\\\hh.exe\n    - \\\\mshta.exe\n    - \\\\regsvr32.exe\n    - \\\\rundll32.exe\n    - \\\\schtasks.exe\n    - \\\\scrcons.exe\n    - \\\\scriptrunner.exe\n    - \\\\sh.exe\n    - \\\\wmic.exe\n    - \\\\wscript.exe\n  filter_optional_amazon:\n    ParentCommandLine|contains|contains: \\\\Program Files\\\\Amazon\\\\WorkspacesConfig\\\\Scripts\\\\\n  condition: parent_powershell and suspicious_child and not filter_optional_amazon\nfalsepositives:\n- Legitimate administrative scripts using PowerShell to launch system utilities.\nlevel: high\n",
+    "sha256": "f34d5f7057b398e0d8375a44abba5c16f5089456e086007f42208937a915f5fc",
+    "validation": {
+     "ok": true,
+     "errors": [],
+     "sigma_output": "=WindowsPath('C:/Users/prajw/AppData/Local/Temp/shakedown-validate-wvzvl9tl/proc_creation_win_shakedown_candidate.yml'), line=None, char=None), item_linking=<class 'sigma.conditions.ConditionAND'>), applied_processing_items=set(), field='ParentCommandLine', modifiers=[<class 'sigma.modifiers.SigmaContainsModifier'>, <class 'sigma.modifiers.SigmaContainsModifier'>], value=[SigmaString([<SpecialChars.WILDCARD_MULTI: 1>, '\\\\Program Files\\\\Amazon\\\\WorkspacesConfig\\\\Scripts\\\\', <SpecialChars.WILDCARD_MULTI: 1>])], value_linking=<class 'sigma.conditions.ConditionOR'>, negated=False, source=SigmaRuleLocation(path=WindowsPath('C:/Users/prajw/AppData/Local/Temp/shakedown-validate-wvzvl9tl/proc_creation_win_shakedown_candidate.yml'), line=None, char=None)) modifiers={<class 'sigma.modifiers.SigmaContainsModifier'>}\n\n=== Summary ===\nFound 0 errors, 0 condition errors and 3 issues.\nNo rule errors found.\nNo condition errors found.\n\nValidation issue summary:\n+-------+------------------------------+----------+-----------------------------------------------+\n| Count | Issue                        | Severity | Description                                   |\n+-------+------------------------------+----------+-----------------------------------------------+\n| 3     | ModifierAppliedMultipleIssue | MEDIUM   | Modifiers shouldn't be applied multiple times |\n+-------+------------------------------+----------+-----------------------------------------------+\nParsing Sigma rules\nChecking Sigma rules\n"
+    },
+    "evaluator_error": null,
+    "tokens": 4392,
+    "latency_s": 14.16,
+    "evaluation": {
+     "attack_total": 1,
+     "attack_detected": 1,
+     "attack_missed": [],
+     "attack_events_hit": 1,
+     "benign": {
+      "benign_dev_win7": {
+       "files_total": 129,
+       "files_with_hits": 0,
+       "hits": 0,
+       "examples": []
+      }
+     },
+     "attack_events": [],
+     "seconds": 9.81
+    }
+   }
+  },
+  {
+   "type": "heldout",
+   "t": 96.22,
+   "data": {
+    "benign_heldout_win10": {
+     "files_total": 352,
+     "files_with_hits": 0,
+     "hits": 0,
+     "examples": []
+    }
+   }
+  },
+  {
+   "type": "expert",
+   "t": 165.5,
+   "data": {
+    "detected": 1,
+    "total": 1
+   }
+  },
+  {
+   "type": "done",
+   "t": 165.5,
+   "data": {
+    "success": true,
+    "stop_reason": "acceptance criteria passed"
+   }
+  }
+ ]
+}

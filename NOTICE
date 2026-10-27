@@ -1,0 +1,19 @@
+Shakedown
+Copyright 2026 the Shakedown authors. Licensed under the Apache License, Version 2.0 (see LICENSE).
+
+Third-party material used at run time (not redistributed in this repository, except where noted):
+
+- SigmaHQ rules (https://github.com/SigmaHQ/sigma), Detection Rule License (DRL) 1.1. Rules are fetched at run
+  time and used as expert baselines and as sources of task descriptions. Where a rule is shown (the expert
+  baseline in the web app and in demo/recorded/*.json), it is attributed to its authors as listed in the rule's
+  own `author` field and to the SigmaHQ project, with the licence above.
+- SigmaHQ regression data (EVTX samples), tests/thor.yml, and evtx-sigma-checker v0.8.5 from
+  https://github.com/NextronSystems/evtx-baseline (Apache-2.0 repository). Fetched at run time; not
+  committed. The status of the sample and checker-binary licences is described in docs/DATASET_AUDIT.md.
+- Rule texts shown in recorded runs keep their `author` fields. SigmaHQ rules: Detection Rule License 1.1, https://github.com/SigmaHQ/Detection-Rule-License . Recorded run evidence also contains short excerpts (a few hundred characters each) of events from the SigmaHQ regression samples and the evtx-baseline logs; the data files themselves are not in this repository.
+- evtx-baseline benign Windows logs, release v0.8.5 (Apache-2.0). Fetched at run time; not committed.
+- sigma-cli (LGPL-2.1-or-later), pySigma and pysigma-backend-splunk (LGPL-2.1-only), contree-sdk and python-evtx (Apache-2.0),
+  FastAPI and PyYAML (MIT), uvicorn (BSD-3-Clause): used as installed dependencies, unmodified, not redistributed in this repository.
+
+- `evidence/leakage_audit/` and `demo/` hold short excerpts of public web pages returned by Tavily search (for example sigmaquery.com, detection.fyi, the SigmaHQ GitHub repository, research.splunk.com, manageengine.com) and SigmaHQ rule text, kept as audit evidence and attributed by the URL stored with each excerpt. SigmaHQ rule text is under the Detection Rule License 1.1.
+

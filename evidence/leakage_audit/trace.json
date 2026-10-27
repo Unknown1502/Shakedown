@@ -1,0 +1,117 @@
+{
+ "run_record": "evidence/leakage_audit/original/live_63b72e6e0664.json",
+ "target": {
+  "id": "514e7e3e-b3b4-4a67-af60-be20f139198b",
+  "title": "PUA - AdFind.EXE Execution"
+ },
+ "reconstruction_matches_recorded_urls_and_lengths": true,
+ "recorded_corroboration": [
+  [
+   "https://sigmaquery.com/rule.php?id=93",
+   1447
+  ],
+  [
+   "https://detection.fyi/sigmahq/sigma/windows/process_creation/proc_creation_win_pua_adfind_execution",
+   1241
+  ],
+  [
+   "https://research.splunk.com/endpoint/bd3b0187-189b-46c0-be45-f52da2bae67f",
+   498
+  ]
+ ],
+ "reveals": {
+  "primary (first 6000 chars)": {
+   "reference_field_names_present": [],
+   "reference_values_present": [],
+   "rule_id": false,
+   "reasons": []
+  },
+  "scenario title": {
+   "reference_field_names_present": [],
+   "reference_values_present": [
+    "\\AdFind.exe",
+    "AdFind.exe"
+   ],
+   "rule_id": false,
+   "reasons": []
+  },
+  "snippet: https://sigmaquery.com/rule.php?id=93": {
+   "reference_field_names_present": [],
+   "reference_values_present": [
+    "\\AdFind.exe",
+    "AdFind.exe"
+   ],
+   "rule_id": true,
+   "reasons": [
+    "sigma_rule_text",
+    "target_rule_id"
+   ]
+  },
+  "snippet: https://detection.fyi/sigmahq/sigma/windows/process_creation": {
+   "reference_field_names_present": [],
+   "reference_values_present": [
+    "\\AdFind.exe",
+    "AdFind.exe"
+   ],
+   "rule_id": true,
+   "reasons": [
+    "sigma_rule_text",
+    "target_rule_id"
+   ]
+  },
+  "snippet: https://research.splunk.com/endpoint/bd3b0187-189b-46c0-be45": {
+   "reference_field_names_present": [],
+   "reference_values_present": [
+    "\\AdFind.exe",
+    "AdFind.exe"
+   ],
+   "rule_id": false,
+   "reasons": []
+  }
+ },
+ "reference_detection_fields": [
+  "Hashes",
+  "Image",
+  "OriginalFileName"
+ ],
+ "reference_detection_value_count": 10,
+ "generated_detection_fields": [
+  "CommandLine",
+  "Image"
+ ],
+ "generated_detection_values": [
+  "net user /domain",
+  "net group /domain",
+  "dscacheutil -q group",
+  "ldapsearch",
+  "AdFind.exe",
+  "ADRecon.ps1"
+ ],
+ "values_shared_with_reference": [
+  "AdFind.exe"
+ ],
+ "provenance_of_generated_values": {
+  "net user /domain": [
+   "primary (first 6000 chars)"
+  ],
+  "net group /domain": [
+   "primary (first 6000 chars)"
+  ],
+  "dscacheutil -q group": [
+   "primary (first 6000 chars)"
+  ],
+  "ldapsearch": [
+   "primary (first 6000 chars)"
+  ],
+  "AdFind.exe": [
+   "scenario title",
+   "snippet: https://sigmaquery.com/rule.php?id=93",
+   "snippet: https://detection.fyi/sigmahq/sigma/windows/process_creation",
+   "snippet: https://research.splunk.com/endpoint/bd3b0187-189b-46c0-be45"
+  ],
+  "ADRecon.ps1": [
+   "primary (first 6000 chars)"
+  ]
+ },
+ "generated_has_original_filename_or_hashes": false
+}

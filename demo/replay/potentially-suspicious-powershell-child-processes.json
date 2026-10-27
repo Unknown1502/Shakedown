@@ -1,0 +1,1079 @@
+{
+ "created_at": "2026-10-27T11:58:30.277099+00:00",
+ "model": "nvidia/nemotron-3-super-120b-a12b",
+ "rule_format": "structured",
+ "thinking": true,
+ "evaluator": {
+  "kind": "token-factory-sandbox",
+  "image_tag": "shakedown-eval:v1",
+  "image_uuid": "ed2169ef-219f-4c57-a9a1-3ca6f4a1f9fb",
+  "network": "disabled (networking.enabled=false)",
+  "isolation": "Contree microVM, disposable"
+ },
+ "scenario": {
+  "id": "e4b6d2a7-d8a4-4f19-acbd-943c16d90647",
+  "title": "Potentially Suspicious PowerShell Child Processes",
+  "category": "process_creation"
+ },
+ "input": {
+  "kind": "url",
+  "url": "https://twitter.com/ankit_anubhav/status/1518835408502620162",
+  "chars": 7589,
+  "sha256": "f64fe577322f50e00d96234f463a4df264a5787c90d7d2fdcfb8e6e41b05bb62"
+ },
+ "research": {
+  "primary": {
+   "url": "https://twitter.com/ankit_anubhav/status/1518835408502620162",
+   "title": "https://twitter.com/ankit_anubhav/status/1518835408502620162",
+   "retrieved_at": "2026-10-27T11:55:11Z",
+   "via": "extract",
+   "score": null,
+   "chars": 2503
+  },
+  "corroboration": [
+   {
+    "url": "https://filestore.fortinet.com/docs.fortinet.com/fsiem/Public_Resource_Access/7_6_0/rules/PH_RULE_Potentially_Suspicious_Child_Processes_Spawned_by_ConHost.htm",
+    "title": "Windows: Potentially Suspicious Child Processes Spawned by ConHost",
+    "retrieved_at": "2026-10-27T11:55:13Z",
+    "via": "search",
+    "score": 0.8235701,
+    "chars": 1410
+   },
+   {
+    "url": "https://research.splunk.com/endpoint/2d4470ef-7158-4b47-b68b-1f7f16382156",
+    "title": "Detection: Windows Suspicious Child Process Spawned From WebServer | Splunk Security Content",
+    "retrieved_at": "2026-10-27T11:55:13Z",
+    "via": "search",
+    "score": 0.77261686,
+    "chars": 1375
+   },
+   {
+    "url": "https://www.elastic.co/guide/en/security/8.19/suspicious-explorer-child-process.html",
+    "title": "Suspicious Explorer Child Process | Elastic Security [8.19] | Elastic",
+    "retrieved_at": "2026-10-27T11:55:13Z",
+    "via": "search",
+    "score": 0.70483154,
+    "chars": 1215
+   }
+  ],
+  "error": null,
+  "screening": {
+   "policy": "exclude",
+   "target": {
+    "id": "e4b6d2a7-d8a4-4f19-acbd-943c16d90647",
+    "title": "Potentially Suspicious PowerShell Child Processes"
+   },
+   "sources": [
+    {
+     "url": "https://twitter.com/ankit_anubhav/status/1518835408502620162",
+     "role": "primary",
+     "via": "extract",
+     "retrieved_at": "2026-10-27T11:55:11Z",
+     "chars": 2503,
+     "sha256": "efa8bf71106c2ae458244ab73347083cd6cabb57555981e894b7b0a50b4786b8",
+     "status": "included",
+     "reasons": []
+    },
+    {
+     "url": "https://github.com/SigmaHQ/sigma/blob/master/rules-threat-hunting/windows/process_creation/proc_creation_win_powershell_susp_child_processes.yml",
+     "role": "corroboration",
+     "via": "search",
+     "retrieved_at": "2026-10-27T11:55:13Z",
+     "chars": 1418,
+     "sha256": "2fd429fb84d2101ff46dad7a512c776dfebb86d4290fb39b0dda19df29fb2743",
+     "status": "excluded",
+     "reasons": [
+      "sigma_mirror",
+      "sigma_rule_text",
+      "target_rule_id"
+     ],
+     "content": "description: |\n\nDetects potentially suspicious child processes spawned by PowerShell.\n\nUse this rule to hunt for potential anomalies initiating from PowerShell scripts and commands.\n\nreferences:\n\n- \n\nauthor: Florian Roth (Nextron Systems), Tim Shelton\n\ndate: 2022-04-26\n\nmodified: 2024-07-16\n\ntags:\n\n- attack.execution\n\n- attack.t1059.001\n\n- detection.threat-hunting\n\nlogsource:\n\ncategory: process\\_creation\n\nproduct: windows\n\ndetection:\n\nselection:\n\nParentImage|endswith:\n\n- '\\powershell\\_ise.exe' [...] 60 lines (60 loc) \u00b7 2.2 KB\n\nRaw\n\nCopy raw file\n\nDownload raw file\n\nOpen symbols panel\n\nEdit and raw actions\n\n1\n\n2\n\n3\n\n4\n\n5\n\n6\n\n7\n\n8\n\n9\n\n10\n\n11\n\n12\n\n13\n\n14\n\n15\n\n16\n\n17\n\n18\n\n19\n\n20\n\n21\n\n22\n\n23\n\n24\n\n25\n\n26\n\n27\n\n28\n\n29\n\n30\n\n31\n\n32\n\n33\n\n34\n\n35\n\n36\n\n37\n\n38\n\n39\n\n40\n\n41\n\n42\n\n43\n\n44\n\n45\n\n46\n\n47\n\n48\n\n49\n\n50\n\n51\n\n52\n\n53\n\n54\n\n55\n\n56\n\n57\n\n58\n\n59\n\n60\n\ntitle: Potentially Suspicious PowerShell Child Processes\n\nid: e4b6d2a7-d8a4-4f19-acbd-943c16d90647\n\nstatus: test\n\ndescription: | [...] - '\\powershell.exe'\n\n- '\\pwsh.exe'\n\nImage|endswith:\n\n- '\\bash.exe'\n\n- '\\bitsadmin.exe'\n\n- '\\certutil.exe'\n\n- '\\cscript.exe'\n\n- '\\forfiles.exe'\n\n- '\\hh.exe'\n\n- '\\mshta.exe'\n\n- '\\regsvr32.exe'\n\n- '\\rundll32.exe'\n\n- '\\schtasks.exe'\n\n- '\\scrcons.exe'\n\n- '\\scriptrunner.exe'\n\n- '\\sh.exe'\n\n- '\\wmic.exe'\n\n- '\\wscript.exe'\n\nfilter\\_optional\\_amazon:\n\nParentCommandLine|contains: '\\Program Files\\Amazon\\WorkspacesConfig\\Scripts\\' # AWS Workspaces"
+    },
+    {
+     "url": "https://www.manageengine.com/log-management/detection-rules/potentially-suspicious-powershell-child-processes.html",
+     "role": "corroboration",
+     "via": "search",
+     "retrieved_at": "2026-10-27T11:55:13Z",
+     "chars": 1262,
+     "sha256": "bc596318cf962dcf24ccf75390519408901de18361f5de11fa08ad32d0996c01",
+     "status": "excluded",
+     "reasons": [
+      "target_rule_title"
+     ],
+     "content": "ManageEngine Log360\n\nEmail Download Link \n\n Attack Library\n Cloud Security\n SIEM Hubspot\n\n# Potentially Suspicious PowerShell Child Processes\n\nLast updated on:\n\nIn this page\n\n About the rule\n Rule Requirement\n Detection\n\n## About the rule\n\n### Rule Type\n\n### Rule Description\n\nDetects potentially suspicious child processes spawned by PowerShell. Use this rule to hunt for potential anomalies initiating from PowerShell scripts and commands.\n\n### Severity\n\n## Rule Requirement\n\n### Criteria [...] `Action1: actionname = \"Process started\" AND (PARENTPROCESSNAME endswith \"\\powershell_ise.exe,\\powershell.exe,\\pwsh.exe\" AND PROCESSNAME endswith \"\\bash.exe,\\bitsadmin.exe,\\certutil.exe,\\cscript.exe,\\forfiles.exe,\\hh.exe,\\mshta.exe,\\regsvr32.exe,\\rundll32.exe,\\schtasks.exe,\\scrcons.exe,\\scriptrunner.exe,\\sh.exe,\\wmic.exe,\\wscript.exe\") AND ((PROCESSNAME notendswith \"\\certutil.exe\" OR COMMANDLINE notcontains \"-verifystore \") AND (PROCESSNAME notendswith \"\\wmic.exe\" OR COMMANDLINE notcontains [...] select Action1.HOSTNAME,Action1.MESSAGE,Action1.COMMANDLINE,Action1.FILE_NAME,Action1.PROCESSNAME,Action1.USERNAME,Action1.PARENTPROCESSNAME,Action1.DOMAIN,Action1.ORIGINALFILENAME,Action1.PARENTPROCESSID,Action1.PROCESSID,Action1.PRODUCT_NAME,Action1.SECURITYID`"
+    },
+    {
+     "url": "https://sigma.nasbench.dev/rules/e4b6d2a7-d8a4-4f19-acbd-943c16d90647",
+     "role": "corroboration",
+     "via": "search",
+     "retrieved_at": "2026-10-27T11:55:13Z",
+     "chars": 1219,
+     "sha256": "7244a8022a67505727af19530e1a9779218772cb60265b8ded717518a690366c",
+     "status": "excluded",
+     "reasons": [
+      "sigma_mirror",
+      "target_rule_id",
+      "target_rule_title"
+     ],
+     "content": "Sigma IntelligenceBeta\n\nSearch Rules\n\nBack to Rules\n\nThreat Huntmediumtest\n\n# Potentially Suspicious PowerShell Child Processes\n\nDetects potentially suspicious child processes spawned by PowerShell. Use this rule to hunt for potential anomalies initiating from PowerShell scripts and commands.\n\nConvert In Phoenix Studio\n\nOpen this Sigma rule in the converter with the YAML preloaded and ready for backend selection.\n\nLaunch [...] detection selection ParentImage|endswith | endswith'\\powershell_ise.exe''\\powershell.exe''\\pwsh.exe' Image|endswith | endswith'\\bash.exe''\\bitsadmin.exe''\\certutil.exe''\\cscript.exe''\\forfiles.exe''\\hh.exe''\\mshta.exe''\\regsvr32.exe''\\rundll32.exe''\\schtasks.exe''\\scrcons.exe''\\scriptrunner.exe''\\sh.exe''\\wmic.exe''\\wscript.exe' filter_optional_amazon ParentCommandLine|contains | contains'\\Program Files\\Amazon\\WorkspacesConfig\\Scripts\\' # AWS Workspaces CommandLine|contains: ' # AWS Workspaces [...] Tue Apr 26\n\nModified\n\nTue Jul 16\n\nAuthor\n\nFlorian Roth (Nextron Systems), Tim Shelton\n\nPath\n\nrules-threat-hunting/windows/process\\_creation/proc\\_creation\\_win\\_powershell\\_susp\\_child\\_processes.yml\n\nRaw Tags\n\nattack.executionattack.t1059.001detection.threat-hunting\n\nView on GitHub"
+    },
+    {
+     "url": "https://filestore.fortinet.com/docs.fortinet.com/fsiem/Public_Resource_Access/7_6_0/rules/PH_RULE_Potentially_Suspicious_Child_Processes_Spawned_by_ConHost.htm",
+     "role": "corroboration",
+     "via": "search",
+     "retrieved_at": "2026-10-27T11:55:13Z",
+     "chars": 1410,
+     "sha256": "b3062775a76b5ac2c9ddfab022a6fe6b236c596ac57a87db0c060a6f3a448931",
+     "status": "included",
+     "reasons": [],
+     "content": "fsm-logo\n\n# FortiSIEM Rules\n\n# Windows: Potentially Suspicious Child Processes Spawned by ConHost\n\n## Rule ID\n\n## Default Status\n\nDisabled\n\n## Description\n\nDetects suspicious child processes related to Windows Shell utilities spawned by `conhost.exe`, which could indicate malicious activity using trusted system components.. This rule is adapted from \n\n## Severity\n\n7\n\n## Category\n\nSecurity\n\n## Detection Technology\n\nCorrelation\n\n## Rule Mode\n\nStreaming\n\n## MITRE ATT&CK\u00ae Tactics\n\nDefense Evasion [...] ```\neventType=\"Win-Sysmon-1-Create-Process\" AND parentProcName REGEXP \"\\\\conhost\\.exe$\" AND (procName REGEXP \"\\\\cmd\\.exe$|\\\\cscript\\.exe$|\\\\mshta\\.exe$|\\\\powershell\\.exe$|\\\\powershell_ise\\.exe$|\\\\pwsh\\.exe$|\\\\regsvr32\\.exe$|\\\\wscript\\.exe$\" OR srcFileName IN (\"cmd.exe\",\"cscript.exe\",\"mshta.exe\",\"powershell.exe\",\"powershell_ise.exe\",\"pwsh.dll\",\"regsvr32.exe\",\"wscript.exe\"))\n```\n\n### Group by Attributes [...] Adversaries may abuse utilities that allow for command execution to bypass security restrictions that limit the use of command-line interpreters. Various Windows utilities may be used to execute commands, possibly without invoking cmd. Adversaries may abuse these features for Defense Evasion, specifically to perform arbitrary execution while subverting detections and/or mitigation controls (such as Group Policy) that limit/prevent the usage of cmd or file extensions more commonly associated"
+    },
+    {
+     "url": "https://detection.fyi/sigmahq/sigma/windows/process_creation/proc_creation_win_conhost_susp_winshell_child_process",
+     "role": "corroboration",
+     "via": "search",
+     "retrieved_at": "2026-10-27T11:55:13Z",
+     "chars": 1342,
+     "sha256": "bb280f1d6598463f7db246d4c95e43cc02eede9f4908cdee152fb3261db14b0b",
+     "status": "excluded",
+     "reasons": [
+      "sigma_mirror",
+      "sigma_rule_text"
+     ],
+     "content": "# Windows PowerShell  '\\powershell.exe'  # Windows PowerShell  29 - '\\pwsh.exe' # PowerShell Core 29 - '\\pwsh.exe' # PowerShell Core  '\\pwsh.exe'  # PowerShell Core  30 - '\\regsvr32.exe' # Windows Registry Server (commonly used for exploits) 30 - '\\regsvr32.exe' # Windows Registry Server (commonly used for exploits)  '\\regsvr32.exe'  # Windows Registry Server (commonly used for exploits)  31 - '\\wscript.exe' # Windows Script Host (for executing scripts) 31 - '\\wscript.exe' # Windows Script Host [...] system components.  description:  Detects suspicious child processes related to Windows Shell utilities spawned by `conhost.exe`, which could indicate malicious activity using trusted system components.   8references:  8references:  references:   9 -   9 -     10author: Swachchhanda Shrawan Poudel (Nextron Systems) 10author: Swachchhanda Shrawan Poudel (Nextron Systems)  author:  Swachchhanda Shrawan Poudel (Nextron Systems)  11date: 2025-02-05 11date: 2025-02-05  date:  2025-02-05  12tags: [...] # Potentially Suspicious Child Processes Spawned by ConHost\n\nApr 28, 2026 \u00b7 attack.stealth attack.t1202 attack.t1218    \u00b7\n\nShare on:\n\nDetects suspicious child processes related to Windows Shell utilities spawned by `conhost.exe`, which could indicate malicious activity using trusted system components.\n\n## Sigma rule (View on GitHub)"
+    },
+    {
+     "url": "https://research.splunk.com/endpoint/2d4470ef-7158-4b47-b68b-1f7f16382156",
+     "role": "corroboration",
+     "via": "search",
+     "retrieved_at": "2026-10-27T11:55:13Z",
+     "chars": 1375,
+     "sha256": "f2e6cb95be27c7048294410a9a722fa6b40c309e967f29d0485cab396fd6cce3",
+     "status": "included",
+     "reasons": [],
+     "content": "\"scrcons.exe\",\"schtasks.exe\",\"sh.exe\",\"systeminfo.exe\",\"tasklist.exe\",\"tracert.exe\",\"ver.exe\",\"vssadmin.exe\", \"wevtutil.exe\",\"whoami.exe\",\"wmic.exe\",\"wscript.exe\",\"wusa.exe\",\"zsh.exe\")  4 Processes.process_name IN (\"arp.exe\",\"at.exe\",\"bash.exe\",\"bitsadmin.exe\",\"certutil.exe\",\"cmd.exe\",\"cscript.exe\", \"dsget.exe\",\"dsquery.exe\",\"find.exe\",\"findstr.exe\",\"fsutil.exe\",\"hostname.exe\",\"ipconfig.exe\",\"ksh.exe\",\"nbstat.exe\", [...] \"net.exe\",\"net1.exe\",\"netdom.exe\",\"netsh.exe\",\"netstat.exe\",\"nltest.exe\",\"nslookup.exe\",\"ntdsutil.exe\",\"pathping.exe\", \"ping.exe\",\"powershell.exe\",\"pwsh.exe\",\"qprocess.exe\",\"query.exe\",\"qwinsta.exe\",\"reg.exe\",\"rundll32.exe\",\"sc.exe\", \"scrcons.exe\",\"schtasks.exe\",\"sh.exe\",\"systeminfo.exe\",\"tasklist.exe\",\"tracert.exe\",\"ver.exe\",\"vssadmin.exe\", \"wevtutil.exe\",\"whoami.exe\",\"wmic.exe\",\"wscript.exe\",\"wusa.exe\",\"zsh.exe\")  Processes. process_name  IN [...] The following analytic identifies the execution of suspicious processes typically associated with WebShell activity on web servers. It detects when processes like `cmd.exe`, `powershell.exe`, or `bash.exe` are spawned by web server processes such as `w3wp.exe` or `nginx.exe`. This behavior is significant as it may indicate an adversary exploiting a web application vulnerability to install a WebShell, providing persistent access and command execution capabilities. If confirmed malicious, this"
+    },
+    {
+     "url": "https://www.elastic.co/guide/en/security/8.19/suspicious-explorer-child-process.html",
+     "role": "corroboration",
+     "via": "search",
+     "retrieved_at": "2026-10-27T11:55:13Z",
+     "chars": 1215,
+     "sha256": "bb2db2011b700b1d032e9da25fa36b8493e7aa85be4dfd164986e7fe5471679f",
+     "status": "included",
+     "reasons": [],
+     "content": "Windows Explorer, a core component of the Windows OS, manages file and folder navigation. Adversaries exploit its trusted status to launch malicious scripts or executables, often using DCOM to start processes like PowerShell or cmd.exe. The detection rule identifies such anomalies by monitoring child processes of Explorer with specific characteristics, excluding known benign activities, to flag potential threats.\n\nPossible investigation steps [...] Isolate the affected system from the network to prevent further spread of the potential threat and to contain any malicious activity.\n Terminate the suspicious child process identified in the alert, such as cscript.exe, wscript.exe, powershell.exe, rundll32.exe, cmd.exe, mshta.exe, or regsvr32.exe, to stop any ongoing malicious actions. [...] + Name: Command and Scripting Interpreter\n  + ID: T1059\n  + Reference URL: \n Sub-technique:\n\n  + Name: PowerShell\n  + ID: T1059.001\n  + Reference URL: \n Sub-technique:\n\n  + Name: Windows Command Shell\n  + ID: T1059.003\n  + Reference URL: \n Sub-technique:\n\n  + Name: Visual Basic\n  + ID: T1059.005\n  + Reference URL: \n Technique:\n\n  + Name: Inter-Process Communication\n  + ID: T1559\n  + Reference URL: \n Sub-technique:"
+    },
+    {
+     "url": "https://redcanary.com/threat-detection-report/techniques/powershell",
+     "role": "corroboration",
+     "via": "search",
+     "retrieved_at": "2026-10-27T11:55:13Z",
+     "chars": 1399,
+     "sha256": "22faadd9c7e075e0d8748a4edf7762d4032023ecda73bc198231ce1d11a77fd0",
+     "status": "not_used",
+     "reasons": [],
+     "content": "Since monitoring for suspicious PowerShell will involve the execution of the PowerShell process, Sysmon Event ID 1 warrants mention. However, Sysmon Event ID 7 is likely an even better source for gaining visibility into PowerShell since it will record any process that runs PowerShell by focusing on the modload for `System.Management.Automation.dll` and `System.Management.Automation.ni.dll`. Olaf Hartong\u2019s Sysmon Modular includes a PowerShell-specific configuration looking for these and other [...] Red Canary has 368 detection analytics designed to catch suspicious PowerShell activity, 120 of which raised events that converted to confirmed threat detections in 2025. Security teams seeking to detect malicious and suspicious PowerShell will want to look for process chains or combinations of process starts and command lines that suggest malicious activity. The following detection opportunities are adapted from the Red Canary behavioral analytics that find the most\u2014or most impactful\u2014threats. [...] ```\nprocess == powershell.exe && command_includes ('-nop' || '-noni' || 'invoke-expression' || 'iex' || '.downloadstring' || 'downloadfile')\n```\n\nThe following example combines many of these suspicious cmdlets together to print \u201ctweet, tweet\u201d to the console:\n\n```\npowershell.exe -nop iex \"\\\"Write-Host `\\\"$((New-Object Net.WebClient).DownloadString(' \n```\n\n#### Suspicious script directories"
+    }
+   ]
+  }
+ },
+ "spec": {
+  "behavior": "JSON format per instruction.",
+  "logsource_category": "network_connection",
+  "observables": [],
+  "techniques": []
+ },
+ "spec_dropped": [
+  {
+   "kind": "observable",
+   "item": {
+    "field": "src_ip_address",
+    "match": "equals",
+    "value": "",
+    "quote": ""
+   },
+   "reason": "quote not found verbatim in report"
+  }
+ ],
+ "iterations": [
+  {
+   "index": 0,
+   "action": "generate",
+   "resamples": 0,
+   "thinking_fallback": false,
+   "rule_text": "title: Suspicious Network Connections Initiated by Commonly Abused Windows Utilities\nid: 7f85fd32-fc7c-4c7c-9ddd-ef4e58b62650\nstatus: experimental\ndescription: Detects network connections initiated by processes often abused for command and control, which may indicate Emotet\n  or similar malware activity.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.t1059\n- attack.t1059.001\n- attack.t1059.003\n- attack.t1059.005\n- attack.t1566.001\nlogsource:\n  category: network_connection\n  product: windows\ndetection:\n  selection:\n    Image|contains|contains:\n    - powershell.exe\n    - pwsh.exe\n    - cmd.exe\n    - wscript.exe\n    - cscript.exe\n    - mshta.exe\n    - regsvr32.exe\n    - rundll32.exe\n  condition: selection\nfalsepositives:\n- Legitimate administrative scripts using the listed binaries may trigger false positives.\nlevel: high\n",
+   "sha256": "ff905b75d10571bc73bf6c7141c11db466393f10e0997c7e64278a814b17080c",
+   "validation": {
+    "ok": true,
+    "errors": [],
+    "sigma_output": "s.WILDCARD_MULTI: 1>]), SigmaString([<SpecialChars.WILDCARD_MULTI: 1>, 'wscript.exe', <SpecialChars.WILDCARD_MULTI: 1>]), SigmaString([<SpecialChars.WILDCARD_MULTI: 1>, 'cscript.exe', <SpecialChars.WILDCARD_MULTI: 1>]), SigmaString([<SpecialChars.WILDCARD_MULTI: 1>, 'mshta.exe', <SpecialChars.WILDCARD_MULTI: 1>]), SigmaString([<SpecialChars.WILDCARD_MULTI: 1>, 'regsvr32.exe', <SpecialChars.WILDCARD_MULTI: 1>]), SigmaString([<SpecialChars.WILDCARD_MULTI: 1>, 'rundll32.exe', <SpecialChars.WILDCARD_MULTI: 1>])], value_linking=<class 'sigma.conditions.ConditionOR'>, negated=False, source=SigmaRuleLocation(path=WindowsPath('C:/Users/prajw/AppData/Local/Temp/shakedown-validate-otf2xeng/proc_creation_win_shakedown_candidate.yml'), line=None, char=None)) modifiers={<class 'sigma.modifiers.SigmaContainsModifier'>}\n\n=== Summary ===\nFound 0 errors, 0 condition errors and 1 issues.\nNo rule errors found.\nNo condition errors found.\n\nValidation issue summary:\n+-------+------------------------------+----------+-----------------------------------------------+\n| Count | Issue                        | Severity | Description                                   |\n+-------+------------------------------+----------+-----------------------------------------------+\n| 1     | ModifierAppliedMultipleIssue | MEDIUM   | Modifiers shouldn't be applied multiple times |\n+-------+------------------------------+----------+-----------------------------------------------+\nParsing Sigma rules\nChecking Sigma rules\n"
+   },
+   "evaluator_error": null,
+   "tokens": 4631,
+   "latency_s": 9.95,
+   "evaluation": {
+    "attack_total": 1,
+    "attack_detected": 0,
+    "attack_missed": [
+     "e4b6d2a7-d8a4-4f19-acbd-943c16d90647.evtx"
+    ],
+    "attack_events_hit": 0,
+    "benign": {
+     "benign_dev_win7": {
+      "files_total": 129,
+      "files_with_hits": 0,
+      "hits": 0,
+      "examples": []
+     }
+    },
+    "attack_events": [
+     {
+      "EventID": 1,
+      "Channel": "Microsoft-Windows-Sysmon/Operational",
+      "RuleName": "technique_id=T1083,technique_name=File and Directory Discovery",
+      "UtcTime": "2026-08-30 14:55:46.300",
+      "ProcessGuid": "{570e49aa-4472-6a94-630f-000000001800}",
+      "ProcessId": "5548",
+      "Image": "C:\\Windows\\System32\\rundll32.exe",
+      "FileVersion": "10.0.26100.8972 (WinBuild.160101.0800)",
+      "Description": "Windows host process (Rundll32)",
+      "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+      "Company": "Microsoft Corporation",
+      "OriginalFileName": "RUNDLL32.EXE",
+      "CommandLine": "\"C:\\Windows\\System32\\rundll32.exe\" C:\\windows\\System32\\comsvcs.dll MiniDump 832 C:\\Users\\frack113\\AppData\\Local\\Temp\\lsass-comsvcs.dmp full",
+      "CurrentDirectory": "C:\\Users\\frack113\\AppData\\Local\\Temp\\",
+      "User": "SigmaCatchVm\\frack113",
+      "LogonGuid": "{570e49aa-0307-6a94-5d82-100000000000}",
+      "LogonId": "0x000000000010825d",
+      "TerminalSessionId": "1",
+      "IntegrityLevel": "High",
+      "Hashes": "SHA1=A9AC2CB1F8CFC2E9692B1C5019D48E1D522BAE49,MD5=807D8C1EA3658035B6F5B27232ED120D,SHA256=C4C8160C42407741BAF0946A1FC0E8162E14C6CC543E754EFD78CC52BB316AF5,IMPHASH=C8B70D465C35D895C4171BAF042BB63A",
+      "ParentProcessGuid": "{570e49aa-4471-6a94-610f-000000001800}",
+      "ParentProcessId": "10144",
+      "ParentImage": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+      "ParentCommandLine": "\"powershell.exe\" & {C:\\Windows\\System32\\rundll32.exe C:\\windows\\System32\\comsvcs.dll, MiniDump (Get-Process lsass).id $env:TEMP\\lsass-comsvcs.dmp full}",
+      "ParentUser": "SigmaCatchVm\\frack113"
+     }
+    ],
+    "seconds": 9.5
+   }
+  },
+  {
+   "index": 1,
+   "action": "repair",
+   "resamples": 0,
+   "thinking_fallback": false,
+   "rule_text": "title: Suspicious Network Connections Initiated by Commonly Abused Windows Utilities\nid: 7f85fd32-fc7c-4c7c-9ddd-ef4e58b62650\nstatus: experimental\ndescription: \"Detects network connections initiated by processes often abused for command and control, which may indicate\\\n  \\ Emotet\\n  or similar malware activity.\"\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.t1059\n- attack.t1059.001\n- attack.t1059.003\n- attack.t1059.005\n- attack.t1566.001\nlogsource:\n  category: network_connection\n  product: windows\ndetection:\n  selection:\n    Image|contains:\n    - powershell.exe\n    - pwsh.exe\n    - cmd.exe\n    - wscript.exe\n    - cscript.exe\n    - mshta.exe\n    - regsvr32.exe\n    - rundll32.exe\n  condition: selection\nfalsepositives:\n- Legitimate administrative scripts using the listed binaries may trigger false positives.\nlevel: high\n",
+   "sha256": "7373e43d8f07f240da1c087582fdf60207e7ed39b3dcb551e7d7dec966977f4f",
+   "validation": {
+    "ok": true,
+    "errors": [],
+    "sigma_output": "\n=== Summary ===\nFound 0 errors, 0 condition errors and 0 issues.\nNo rule errors found.\nNo condition errors found.\nNo validation issues found.\nParsing Sigma rules\nChecking Sigma rules\n"
+   },
+   "evaluator_error": null,
+   "tokens": 2257,
+   "latency_s": 6.39,
+   "evaluation": {
+    "attack_total": 1,
+    "attack_detected": 0,
+    "attack_missed": [
+     "e4b6d2a7-d8a4-4f19-acbd-943c16d90647.evtx"
+    ],
+    "attack_events_hit": 0,
+    "benign": {
+     "benign_dev_win7": {
+      "files_total": 129,
+      "files_with_hits": 0,
+      "hits": 0,
+      "examples": []
+     }
+    },
+    "attack_events": [
+     {
+      "EventID": 1,
+      "Channel": "Microsoft-Windows-Sysmon/Operational",
+      "RuleName": "technique_id=T1083,technique_name=File and Directory Discovery",
+      "UtcTime": "2026-08-30 14:55:46.300",
+      "ProcessGuid": "{570e49aa-4472-6a94-630f-000000001800}",
+      "ProcessId": "5548",
+      "Image": "C:\\Windows\\System32\\rundll32.exe",
+      "FileVersion": "10.0.26100.8972 (WinBuild.160101.0800)",
+      "Description": "Windows host process (Rundll32)",
+      "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+      "Company": "Microsoft Corporation",
+      "OriginalFileName": "RUNDLL32.EXE",
+      "CommandLine": "\"C:\\Windows\\System32\\rundll32.exe\" C:\\windows\\System32\\comsvcs.dll MiniDump 832 C:\\Users\\frack113\\AppData\\Local\\Temp\\lsass-comsvcs.dmp full",
+      "CurrentDirectory": "C:\\Users\\frack113\\AppData\\Local\\Temp\\",
+      "User": "SigmaCatchVm\\frack113",
+      "LogonGuid": "{570e49aa-0307-6a94-5d82-100000000000}",
+      "LogonId": "0x000000000010825d",
+      "TerminalSessionId": "1",
+      "IntegrityLevel": "High",
+      "Hashes": "SHA1=A9AC2CB1F8CFC2E9692B1C5019D48E1D522BAE49,MD5=807D8C1EA3658035B6F5B27232ED120D,SHA256=C4C8160C42407741BAF0946A1FC0E8162E14C6CC543E754EFD78CC52BB316AF5,IMPHASH=C8B70D465C35D895C4171BAF042BB63A",
+      "ParentProcessGuid": "{570e49aa-4471-6a94-610f-000000001800}",
+      "ParentProcessId": "10144",
+      "ParentImage": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+      "ParentCommandLine": "\"powershell.exe\" & {C:\\Windows\\System32\\rundll32.exe C:\\windows\\System32\\comsvcs.dll, MiniDump (Get-Process lsass).id $env:TEMP\\lsass-comsvcs.dmp full}",
+      "ParentUser": "SigmaCatchVm\\frack113"
+     }
+    ],
+    "seconds": 9.38
+   }
+  },
+  {
+   "index": 2,
+   "action": "repair",
+   "resamples": 1,
+   "thinking_fallback": false,
+   "rule_text": "title: Suspicious Network Connections Initiated by Commonly Abused Windows Utilities\nid: 7f85fd32-fc7c-4c7c-9ddd-ef4e58b62650\nstatus: experimental\ndescription: Detects network connections initiated by processes often abused for command and control, which may indicate Emotet\n  or similar malware activity.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.t1059\n- attack.t1059.001\n- attack.t1059.003\n- attack.t1059.005\n- attack.t1566.001\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  selection:\n    Image|contains:\n    - powershell.exe\n    - pwsh.exe\n    - cmd.exe\n    - wscript.exe\n    - cscript.exe\n    - mshta.exe\n    - regsvr32.exe\n    - rundll32.exe\n  condition: selection\nfalsepositives:\n- Legitimate administrative scripts using the listed binaries may trigger false positives.\nlevel: high\n",
+   "sha256": "00bc65a9df74564d048393af24b21700d6dc544b112f779c5e7cd934ffdf80e9",
+   "validation": {
+    "ok": true,
+    "errors": [],
+    "sigma_output": "\n=== Summary ===\nFound 0 errors, 0 condition errors and 0 issues.\nNo rule errors found.\nNo condition errors found.\nNo validation issues found.\nParsing Sigma rules\nChecking Sigma rules\n"
+   },
+   "evaluator_error": null,
+   "tokens": 5532,
+   "latency_s": 17.72,
+   "evaluation": {
+    "attack_total": 1,
+    "attack_detected": 1,
+    "attack_missed": [],
+    "attack_events_hit": 1,
+    "benign": {
+     "benign_dev_win7": {
+      "files_total": 129,
+      "files_with_hits": 2,
+      "hits": 51,
+      "examples": [
+       {
+        "file": "Security.evtx",
+        "event": "SubjectUserSid: S-1-5-21-712794737-353456615-3249761964-1001  SubjectUserName: evtx  SubjectDomainName: evtx-PC  SubjectLogonId: 0x16812  NewProcessId: 0x184  NewProcessName: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe  TokenElevationType: %%1938  ProcessId: 0xc04  Provider_Name: Microsoft-Windows-Security-Auditing  Provider_Guid: 54849625-5478-4994-A5BA-3E3B0328C30D  EventID: 4688  Version: 0  Level: 0  Task: 13312  Opcode: 0  Keywords: 0x8020000000000000  TimeCreated_SystemTime: 2022-04-04T12:03:51.433732748Z  EventRecordID: 431  Execution_ProcessID: 4  Execution_ThreadID: 60  ",
+        "matched": [
+         {
+          "SearchIdentifier": "selection",
+          "Field": "NewProcessName",
+          "Offset": 43,
+          "Data": "powershell.exe"
+         }
+        ]
+       },
+       {
+        "file": "Security.evtx",
+        "event": "SubjectUserSid: S-1-5-21-712794737-353456615-3249761964-1001  SubjectUserName: evtx  SubjectDomainName: evtx-PC  SubjectLogonId: 0x16812  NewProcessId: 0xe38  NewProcessName: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe  TokenElevationType: %%1938  ProcessId: 0xc04  Provider_Name: Microsoft-Windows-Security-Auditing  Provider_Guid: 54849625-5478-4994-A5BA-3E3B0328C30D  EventID: 4688  Version: 0  Level: 0  Task: 13312  Opcode: 0  Keywords: 0x8020000000000000  TimeCreated_SystemTime: 2022-04-04T12:04:03.496233701Z  EventRecordID: 434  Execution_ProcessID: 4  Execution_ThreadID: 60  ",
+        "matched": [
+         {
+          "SearchIdentifier": "selection",
+          "Field": "NewProcessName",
+          "Offset": 43,
+          "Data": "powershell.exe"
+         }
+        ]
+       },
+       {
+        "file": "Security.evtx",
+        "event": "SubjectUserSid: S-1-5-21-712794737-353456615-3249761964-1001  SubjectUserName: evtx  SubjectDomainName: evtx-PC  SubjectLogonId: 0x16812  NewProcessId: 0xcdc  NewProcessName: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe  TokenElevationType: %%1938  ProcessId: 0xc04  Provider_Name: Microsoft-Windows-Security-Auditing  Provider_Guid: 54849625-5478-4994-A5BA-3E3B0328C30D  EventID: 4688  Version: 0  Level: 0  Task: 13312  Opcode: 0  Keywords: 0x8020000000000000  TimeCreated_SystemTime: 2022-04-04T12:04:07.293107271Z  EventRecordID: 435  Execution_ProcessID: 4  Execution_ThreadID: 44  ",
+        "matched": [
+         {
+          "SearchIdentifier": "selection",
+          "Field": "NewProcessName",
+          "Offset": 43,
+          "Data": "powershell.exe"
+         }
+        ]
+       }
+      ]
+     }
+    },
+    "attack_events": [],
+    "seconds": 9.89
+   }
+  },
+  {
+   "index": 3,
+   "action": "repair",
+   "resamples": 1,
+   "thinking_fallback": false,
+   "rule_text": "title: Suspicious Network Connections Initiated by Commonly Abused Windows Utilities\nid: 7f85fd32-fc7c-4c7c-9ddd-ef4e58b62650\nstatus: experimental\ndescription: \"Detects network connections initiated by processes often abused for command and control, which may indicate\\\n  \\ Emotet\\n  or similar malware activity.\"\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.t1059\n- attack.t1059.001\n- attack.t1059.003\n- attack.t1059.005\n- attack.t1566.001\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  selection:\n    Image|contains:\n    - powershell.exe\n    - pwsh.exe\n    - cmd.exe\n    - wscript.exe\n    - cscript.exe\n    - mshta.exe\n    - regsvr32.exe\n    - rundll32.exe\n  filter:\n    Image|contains: C:\\\\Windows\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\n  condition: selection and not filter\nfalsepositives:\n- Legitimate administrative scripts using the listed binaries may trigger false positives.\nlevel: high\n",
+   "sha256": "1b7c1dbc4df659f5c7f4ee94314df5ae584039f85ea857c31e33b1c3a98509e6",
+   "validation": {
+    "ok": true,
+    "errors": [],
+    "sigma_output": "\n=== Summary ===\nFound 0 errors, 0 condition errors and 0 issues.\nNo rule errors found.\nNo condition errors found.\nNo validation issues found.\nParsing Sigma rules\nChecking Sigma rules\n"
+   },
+   "evaluator_error": null,
+   "tokens": 5286,
+   "latency_s": 17.22,
+   "evaluation": {
+    "attack_total": 1,
+    "attack_detected": 1,
+    "attack_missed": [],
+    "attack_events_hit": 1,
+    "benign": {
+     "benign_dev_win7": {
+      "files_total": 129,
+      "files_with_hits": 2,
+      "hits": 26,
+      "examples": [
+       {
+        "file": "Security.evtx",
+        "event": "SubjectUserSid: S-1-5-21-712794737-353456615-3249761964-1001  SubjectUserName: evtx  SubjectDomainName: evtx-PC  SubjectLogonId: 0x16812  NewProcessId: 0x978  NewProcessName: C:\\Windows\\System32\\rundll32.exe  TokenElevationType: %%1938  ProcessId: 0x4d4  Provider_Name: Microsoft-Windows-Security-Auditing  Provider_Guid: 54849625-5478-4994-A5BA-3E3B0328C30D  EventID: 4688  Version: 0  Level: 0  Task: 13312  Opcode: 0  Keywords: 0x8020000000000000  TimeCreated_SystemTime: 2022-04-04T12:16:57.402064085Z  EventRecordID: 504  Execution_ProcessID: 4  Execution_ThreadID: 48  Channel: Security  Comput",
+        "matched": [
+         {
+          "SearchIdentifier": "selection",
+          "Field": "NewProcessName",
+          "Offset": 20,
+          "Data": "rundll32.exe"
+         }
+        ]
+       },
+       {
+        "file": "Security.evtx",
+        "event": "SubjectUserSid: S-1-5-21-712794737-353456615-3249761964-1001  SubjectUserName: evtx  SubjectDomainName: evtx-PC  SubjectLogonId: 0x167ec  NewProcessId: 0x17e0  NewProcessName: C:\\Windows\\System32\\regsvr32.exe  TokenElevationType: %%1937  ProcessId: 0x1628  Provider_Name: Microsoft-Windows-Security-Auditing  Provider_Guid: 54849625-5478-4994-A5BA-3E3B0328C30D  EventID: 4688  Version: 0  Level: 0  Task: 13312  Opcode: 0  Keywords: 0x8020000000000000  TimeCreated_SystemTime: 2022-04-04T12:35:14.721846342Z  EventRecordID: 651  Execution_ProcessID: 4  Execution_ThreadID: 56  Channel: Security  Comp",
+        "matched": [
+         {
+          "SearchIdentifier": "selection",
+          "Field": "NewProcessName",
+          "Offset": 20,
+          "Data": "regsvr32.exe"
+         }
+        ]
+       },
+       {
+        "file": "Security.evtx",
+        "event": "SubjectUserSid: S-1-5-21-712794737-353456615-3249761964-1001  SubjectUserName: evtx  SubjectDomainName: evtx-PC  SubjectLogonId: 0x16812  NewProcessId: 0x1610  NewProcessName: C:\\Windows\\System32\\cmd.exe  TokenElevationType: %%1938  ProcessId: 0x1024  Provider_Name: Microsoft-Windows-Security-Auditing  Provider_Guid: 54849625-5478-4994-A5BA-3E3B0328C30D  EventID: 4688  Version: 0  Level: 0  Task: 13312  Opcode: 0  Keywords: 0x8020000000000000  TimeCreated_SystemTime: 2022-04-04T12:43:29.043545484Z  EventRecordID: 866  Execution_ProcessID: 4  Execution_ThreadID: 56  Channel: Security  Computer:",
+        "matched": [
+         {
+          "SearchIdentifier": "selection",
+          "Field": "NewProcessName",
+          "Offset": 20,
+          "Data": "cmd.exe"
+         }
+        ]
+       }
+      ]
+     }
+    },
+    "attack_events": [],
+    "seconds": 12.28
+   }
+  }
+ ],
+ "best_index": 3,
+ "success": false,
+ "stop_reason": "repair budget exhausted",
+ "heldout": {
+  "benign_heldout_win10": {
+   "files_total": 352,
+   "files_with_hits": 1,
+   "hits": 72,
+   "examples": [
+    {
+     "file": "Microsoft-Windows-Sysmon%4Operational.evtx",
+     "event": "RuleName: -  UtcTime: 2022-02-08 11:41:54.002  ProcessGuid: 50A1B328-5702-6202-D300-000000000600  ProcessId: 6820  Image: C:\\Windows\\System32\\regsvr32.exe  FileVersion: 10.0.19041.1 (WinBuild.160101.0800)  Description: Microsoft(C) Register Server  Product: Microsoft\u00ae Windows\u00ae Operating System  Company: Microsoft Corporation  OriginalFileName: REGSVR32.EXE  CommandLine: \"C:\\Windows\\system32\\regsvr32.exe\" /s \"C:\\Program Files\\Mozilla Firefox\\AccessibleMarshal.dll\"  CurrentDirectory: C:\\Program Files\\Mozilla Firefox\\  User: DESKTOP-A8CALR3\\user  LogonGuid: 50A1B328-23F5-6202-6B96-060000000000  L",
+     "matched": [
+      {
+       "SearchIdentifier": "selection",
+       "Field": "Image",
+       "Offset": 20,
+       "Data": "regsvr32.exe"
+      }
+     ]
+    },
+    {
+     "file": "Microsoft-Windows-Sysmon%4Operational.evtx",
+     "event": "RuleName: -  UtcTime: 2022-02-08 11:41:54.212  ProcessGuid: 50A1B328-5702-6202-D400-000000000600  ProcessId: 6788  Image: C:\\Windows\\System32\\regsvr32.exe  FileVersion: 10.0.19041.1 (WinBuild.160101.0800)  Description: Microsoft(C) Register Server  Product: Microsoft\u00ae Windows\u00ae Operating System  Company: Microsoft Corporation  OriginalFileName: REGSVR32.EXE  CommandLine: \"C:\\Windows\\system32\\regsvr32.exe\" /s \"C:\\Program Files\\Mozilla Firefox\\AccessibleHandler.dll\"  CurrentDirectory: C:\\Program Files\\Mozilla Firefox\\  User: DESKTOP-A8CALR3\\user  LogonGuid: 50A1B328-23F5-6202-6B96-060000000000  L",
+     "matched": [
+      {
+       "SearchIdentifier": "selection",
+       "Field": "Image",
+       "Offset": 20,
+       "Data": "regsvr32.exe"
+      }
+     ]
+    },
+    {
+     "file": "Microsoft-Windows-Sysmon%4Operational.evtx",
+     "event": "RuleName: -  UtcTime: 2022-02-08 11:45:34.245  ProcessGuid: 50A1B328-57DE-6202-1901-000000000600  ProcessId: 1348  Image: C:\\Windows\\System32\\cmd.exe  FileVersion: 10.0.19041.746 (WinBuild.160101.0800)  Description: Windows Command Processor  Product: Microsoft\u00ae Windows\u00ae Operating System  Company: Microsoft Corporation  OriginalFileName: Cmd.Exe  CommandLine: C:\\Windows\\system32\\cmd.exe /c \"ver\"  CurrentDirectory: C:\\Windows\\SysWOW64\\  User: DESKTOP-A8CALR3\\user  LogonGuid: 50A1B328-23F5-6202-6B96-060000000000  LogonId: 0x6966b  TerminalSessionId: 1  IntegrityLevel: High  Hashes: SHA1=F1EFB0FD",
+     "matched": [
+      {
+       "SearchIdentifier": "selection",
+       "Field": "Image",
+       "Offset": 20,
+       "Data": "cmd.exe"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "expert": {
+  "dev": {
+   "attack_total": 1,
+   "attack_detected": 1,
+   "attack_missed": [],
+   "attack_events_hit": 1,
+   "benign": {
+    "benign_dev_win7": {
+     "files_total": 129,
+     "files_with_hits": 0,
+     "hits": 0,
+     "examples": []
+    }
+   },
+   "attack_events": [],
+   "seconds": 12.05
+  },
+  "heldout": {
+   "benign_heldout_win10": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   }
+  },
+  "rule_text": "title: Potentially Suspicious PowerShell Child Processes\nid: e4b6d2a7-d8a4-4f19-acbd-943c16d90647\nstatus: test\ndescription: |\n    Detects potentially suspicious child processes spawned by PowerShell.\n    Use this rule to hunt for potential anomalies initiating from PowerShell scripts and commands.\nreferences:\n    - https://twitter.com/ankit_anubhav/status/1518835408502620162\nauthor: Florian Roth (Nextron Systems), Tim Shelton\ndate: 2022-04-26\nmodified: 2024-07-16\ntags:\n    - attack.execution\n    - attack.t1059.001\n    - detection.threat-hunting\nlogsource:\n    category: process_creation\n    product: windows\ndetection:\n    selection:\n        ParentImage|endswith:\n            - '\\powershell_ise.exe'\n            - '\\powershell.exe'\n            - '\\pwsh.exe'\n        Image|endswith:\n            - '\\bash.exe'\n            - '\\bitsadmin.exe'\n            - '\\certutil.exe'\n            - '\\cscript.exe'\n            - '\\forfiles.exe'\n            - '\\hh.exe'\n            - '\\mshta.exe'\n            - '\\regsvr32.exe'\n            - '\\rundll32.exe'\n            - '\\schtasks.exe'\n            - '\\scrcons.exe'\n            - '\\scriptrunner.exe'\n            - '\\sh.exe'\n            - '\\wmic.exe'\n            - '\\wscript.exe'\n    filter_optional_amazon:\n        ParentCommandLine|contains: '\\Program Files\\Amazon\\WorkspacesConfig\\Scripts\\'  # AWS Workspaces\n        CommandLine|contains: '\\Program Files\\Amazon\\WorkspacesConfig\\Scripts\\'  # AWS Workspaces\n    filter_main_certutil_verify_store:\n        Image|endswith: '\\certutil.exe'\n        CommandLine|contains: '-verifystore '\n    filter_main_wmic:\n        Image|endswith: '\\wmic.exe'\n        CommandLine|contains:\n            - 'qfe list'\n            - 'diskdrive '\n            - 'csproduct '\n            - 'computersystem '\n            - ' os '\n            - ''\n    condition: selection and not 1 of filter_main_* and not 1 of filter_optional_*\nfalsepositives:\n    - False positives are to be expected from PowerShell scripts that might make use of additional binaries such as \"mshta\", \"bitsadmin\", etc. Apply additional filters for those scripts.\nlevel: medium\nregression_tests_path: regression_data/rules-threat-hunting/windows/process_creation/proc_creation_win_powershell_susp_child_processes/info.yml\n"
+ },
+ "totals": {
+  "tokens": 17706,
+  "seconds": 199.4
+ },
+ "events": [
+  {
+   "type": "start",
+   "t": 0.0,
+   "data": {
+    "scenario": "e4b6d2a7-d8a4-4f19-acbd-943c16d90647",
+    "title": "Potentially Suspicious PowerShell Child Processes",
+    "model": "nvidia/nemotron-3-super-120b-a12b"
+   }
+  },
+  {
+   "type": "research",
+   "t": 2.8,
+   "data": {
+    "primary": {
+     "url": "https://twitter.com/ankit_anubhav/status/1518835408502620162",
+     "title": "https://twitter.com/ankit_anubhav/status/1518835408502620162",
+     "retrieved_at": "2026-10-27T11:55:11Z",
+     "via": "extract",
+     "score": null,
+     "chars": 2503
+    },
+    "corroboration": [
+     {
+      "url": "https://filestore.fortinet.com/docs.fortinet.com/fsiem/Public_Resource_Access/7_6_0/rules/PH_RULE_Potentially_Suspicious_Child_Processes_Spawned_by_ConHost.htm",
+      "title": "Windows: Potentially Suspicious Child Processes Spawned by ConHost",
+      "retrieved_at": "2026-10-27T11:55:13Z",
+      "via": "search",
+      "score": 0.8235701,
+      "chars": 1410
+     },
+     {
+      "url": "https://research.splunk.com/endpoint/2d4470ef-7158-4b47-b68b-1f7f16382156",
+      "title": "Detection: Windows Suspicious Child Process Spawned From WebServer | Splunk Security Content",
+      "retrieved_at": "2026-10-27T11:55:13Z",
+      "via": "search",
+      "score": 0.77261686,
+      "chars": 1375
+     },
+     {
+      "url": "https://www.elastic.co/guide/en/security/8.19/suspicious-explorer-child-process.html",
+      "title": "Suspicious Explorer Child Process | Elastic Security [8.19] | Elastic",
+      "retrieved_at": "2026-10-27T11:55:13Z",
+      "via": "search",
+      "score": 0.70483154,
+      "chars": 1215
+     }
+    ],
+    "error": null,
+    "screening": {
+     "policy": "exclude",
+     "target": {
+      "id": "e4b6d2a7-d8a4-4f19-acbd-943c16d90647",
+      "title": "Potentially Suspicious PowerShell Child Processes"
+     },
+     "sources": [
+      {
+       "url": "https://twitter.com/ankit_anubhav/status/1518835408502620162",
+       "role": "primary",
+       "via": "extract",
+       "retrieved_at": "2026-10-27T11:55:11Z",
+       "chars": 2503,
+       "sha256": "efa8bf71106c2ae458244ab73347083cd6cabb57555981e894b7b0a50b4786b8",
+       "status": "included",
+       "reasons": []
+      },
+      {
+       "url": "https://github.com/SigmaHQ/sigma/blob/master/rules-threat-hunting/windows/process_creation/proc_creation_win_powershell_susp_child_processes.yml",
+       "role": "corroboration",
+       "via": "search",
+       "retrieved_at": "2026-10-27T11:55:13Z",
+       "chars": 1418,
+       "sha256": "2fd429fb84d2101ff46dad7a512c776dfebb86d4290fb39b0dda19df29fb2743",
+       "status": "excluded",
+       "reasons": [
+        "sigma_mirror",
+        "sigma_rule_text",
+        "target_rule_id"
+       ],
+       "content": "description: |\n\nDetects potentially suspicious child processes spawned by PowerShell.\n\nUse this rule to hunt for potential anomalies initiating from PowerShell scripts and commands.\n\nreferences:\n\n- \n\nauthor: Florian Roth (Nextron Systems), Tim Shelton\n\ndate: 2022-04-26\n\nmodified: 2024-07-16\n\ntags:\n\n- attack.execution\n\n- attack.t1059.001\n\n- detection.threat-hunting\n\nlogsource:\n\ncategory: process\\_creation\n\nproduct: windows\n\ndetection:\n\nselection:\n\nParentImage|endswith:\n\n- '\\powershell\\_ise.exe' [...] 60 lines (60 loc) \u00b7 2.2 KB\n\nRaw\n\nCopy raw file\n\nDownload raw file\n\nOpen symbols panel\n\nEdit and raw actions\n\n1\n\n2\n\n3\n\n4\n\n5\n\n6\n\n7\n\n8\n\n9\n\n10\n\n11\n\n12\n\n13\n\n14\n\n15\n\n16\n\n17\n\n18\n\n19\n\n20\n\n21\n\n22\n\n23\n\n24\n\n25\n\n26\n\n27\n\n28\n\n29\n\n30\n\n31\n\n32\n\n33\n\n34\n\n35\n\n36\n\n37\n\n38\n\n39\n\n40\n\n41\n\n42\n\n43\n\n44\n\n45\n\n46\n\n47\n\n48\n\n49\n\n50\n\n51\n\n52\n\n53\n\n54\n\n55\n\n56\n\n57\n\n58\n\n59\n\n60\n\ntitle: Potentially Suspicious PowerShell Child Processes\n\nid: e4b6d2a7-d8a4-4f19-acbd-943c16d90647\n\nstatus: test\n\ndescription: | [...] - '\\powershell.exe'\n\n- '\\pwsh.exe'\n\nImage|endswith:\n\n- '\\bash.exe'\n\n- '\\bitsadmin.exe'\n\n- '\\certutil.exe'\n\n- '\\cscript.exe'\n\n- '\\forfiles.exe'\n\n- '\\hh.exe'\n\n- '\\mshta.exe'\n\n- '\\regsvr32.exe'\n\n- '\\rundll32.exe'\n\n- '\\schtasks.exe'\n\n- '\\scrcons.exe'\n\n- '\\scriptrunner.exe'\n\n- '\\sh.exe'\n\n- '\\wmic.exe'\n\n- '\\wscript.exe'\n\nfilter\\_optional\\_amazon:\n\nParentCommandLine|contains: '\\Program Files\\Amazon\\WorkspacesConfig\\Scripts\\' # AWS Workspaces"
+      },
+      {
+       "url": "https://www.manageengine.com/log-management/detection-rules/potentially-suspicious-powershell-child-processes.html",
+       "role": "corroboration",
+       "via": "search",
+       "retrieved_at": "2026-10-27T11:55:13Z",
+       "chars": 1262,
+       "sha256": "bc596318cf962dcf24ccf75390519408901de18361f5de11fa08ad32d0996c01",
+       "status": "excluded",
+       "reasons": [
+        "target_rule_title"
+       ],
+       "content": "ManageEngine Log360\n\nEmail Download Link \n\n Attack Library\n Cloud Security\n SIEM Hubspot\n\n# Potentially Suspicious PowerShell Child Processes\n\nLast updated on:\n\nIn this page\n\n About the rule\n Rule Requirement\n Detection\n\n## About the rule\n\n### Rule Type\n\n### Rule Description\n\nDetects potentially suspicious child processes spawned by PowerShell. Use this rule to hunt for potential anomalies initiating from PowerShell scripts and commands.\n\n### Severity\n\n## Rule Requirement\n\n### Criteria [...] `Action1: actionname = \"Process started\" AND (PARENTPROCESSNAME endswith \"\\powershell_ise.exe,\\powershell.exe,\\pwsh.exe\" AND PROCESSNAME endswith \"\\bash.exe,\\bitsadmin.exe,\\certutil.exe,\\cscript.exe,\\forfiles.exe,\\hh.exe,\\mshta.exe,\\regsvr32.exe,\\rundll32.exe,\\schtasks.exe,\\scrcons.exe,\\scriptrunner.exe,\\sh.exe,\\wmic.exe,\\wscript.exe\") AND ((PROCESSNAME notendswith \"\\certutil.exe\" OR COMMANDLINE notcontains \"-verifystore \") AND (PROCESSNAME notendswith \"\\wmic.exe\" OR COMMANDLINE notcontains [...] select Action1.HOSTNAME,Action1.MESSAGE,Action1.COMMANDLINE,Action1.FILE_NAME,Action1.PROCESSNAME,Action1.USERNAME,Action1.PARENTPROCESSNAME,Action1.DOMAIN,Action1.ORIGINALFILENAME,Action1.PARENTPROCESSID,Action1.PROCESSID,Action1.PRODUCT_NAME,Action1.SECURITYID`"
+      },
+      {
+       "url": "https://sigma.nasbench.dev/rules/e4b6d2a7-d8a4-4f19-acbd-943c16d90647",
+       "role": "corroboration",
+       "via": "search",
+       "retrieved_at": "2026-10-27T11:55:13Z",
+       "chars": 1219,
+       "sha256": "7244a8022a67505727af19530e1a9779218772cb60265b8ded717518a690366c",
+       "status": "excluded",
+       "reasons": [
+        "sigma_mirror",
+        "target_rule_id",
+        "target_rule_title"
+       ],
+       "content": "Sigma IntelligenceBeta\n\nSearch Rules\n\nBack to Rules\n\nThreat Huntmediumtest\n\n# Potentially Suspicious PowerShell Child Processes\n\nDetects potentially suspicious child processes spawned by PowerShell. Use this rule to hunt for potential anomalies initiating from PowerShell scripts and commands.\n\nConvert In Phoenix Studio\n\nOpen this Sigma rule in the converter with the YAML preloaded and ready for backend selection.\n\nLaunch [...] detection selection ParentImage|endswith | endswith'\\powershell_ise.exe''\\powershell.exe''\\pwsh.exe' Image|endswith | endswith'\\bash.exe''\\bitsadmin.exe''\\certutil.exe''\\cscript.exe''\\forfiles.exe''\\hh.exe''\\mshta.exe''\\regsvr32.exe''\\rundll32.exe''\\schtasks.exe''\\scrcons.exe''\\scriptrunner.exe''\\sh.exe''\\wmic.exe''\\wscript.exe' filter_optional_amazon ParentCommandLine|contains | contains'\\Program Files\\Amazon\\WorkspacesConfig\\Scripts\\' # AWS Workspaces CommandLine|contains: ' # AWS Workspaces [...] Tue Apr 26\n\nModified\n\nTue Jul 16\n\nAuthor\n\nFlorian Roth (Nextron Systems), Tim Shelton\n\nPath\n\nrules-threat-hunting/windows/process\\_creation/proc\\_creation\\_win\\_powershell\\_susp\\_child\\_processes.yml\n\nRaw Tags\n\nattack.executionattack.t1059.001detection.threat-hunting\n\nView on GitHub"
+      },
+      {
+       "url": "https://filestore.fortinet.com/docs.fortinet.com/fsiem/Public_Resource_Access/7_6_0/rules/PH_RULE_Potentially_Suspicious_Child_Processes_Spawned_by_ConHost.htm",
+       "role": "corroboration",
+       "via": "search",
+       "retrieved_at": "2026-10-27T11:55:13Z",
+       "chars": 1410,
+       "sha256": "b3062775a76b5ac2c9ddfab022a6fe6b236c596ac57a87db0c060a6f3a448931",
+       "status": "included",
+       "reasons": [],
+       "content": "fsm-logo\n\n# FortiSIEM Rules\n\n# Windows: Potentially Suspicious Child Processes Spawned by ConHost\n\n## Rule ID\n\n## Default Status\n\nDisabled\n\n## Description\n\nDetects suspicious child processes related to Windows Shell utilities spawned by `conhost.exe`, which could indicate malicious activity using trusted system components.. This rule is adapted from \n\n## Severity\n\n7\n\n## Category\n\nSecurity\n\n## Detection Technology\n\nCorrelation\n\n## Rule Mode\n\nStreaming\n\n## MITRE ATT&CK\u00ae Tactics\n\nDefense Evasion [...] ```\neventType=\"Win-Sysmon-1-Create-Process\" AND parentProcName REGEXP \"\\\\conhost\\.exe$\" AND (procName REGEXP \"\\\\cmd\\.exe$|\\\\cscript\\.exe$|\\\\mshta\\.exe$|\\\\powershell\\.exe$|\\\\powershell_ise\\.exe$|\\\\pwsh\\.exe$|\\\\regsvr32\\.exe$|\\\\wscript\\.exe$\" OR srcFileName IN (\"cmd.exe\",\"cscript.exe\",\"mshta.exe\",\"powershell.exe\",\"powershell_ise.exe\",\"pwsh.dll\",\"regsvr32.exe\",\"wscript.exe\"))\n```\n\n### Group by Attributes [...] Adversaries may abuse utilities that allow for command execution to bypass security restrictions that limit the use of command-line interpreters. Various Windows utilities may be used to execute commands, possibly without invoking cmd. Adversaries may abuse these features for Defense Evasion, specifically to perform arbitrary execution while subverting detections and/or mitigation controls (such as Group Policy) that limit/prevent the usage of cmd or file extensions more commonly associated"
+      },
+      {
+       "url": "https://detection.fyi/sigmahq/sigma/windows/process_creation/proc_creation_win_conhost_susp_winshell_child_process",
+       "role": "corroboration",
+       "via": "search",
+       "retrieved_at": "2026-10-27T11:55:13Z",
+       "chars": 1342,
+       "sha256": "bb280f1d6598463f7db246d4c95e43cc02eede9f4908cdee152fb3261db14b0b",
+       "status": "excluded",
+       "reasons": [
+        "sigma_mirror",
+        "sigma_rule_text"
+       ],
+       "content": "# Windows PowerShell  '\\powershell.exe'  # Windows PowerShell  29 - '\\pwsh.exe' # PowerShell Core 29 - '\\pwsh.exe' # PowerShell Core  '\\pwsh.exe'  # PowerShell Core  30 - '\\regsvr32.exe' # Windows Registry Server (commonly used for exploits) 30 - '\\regsvr32.exe' # Windows Registry Server (commonly used for exploits)  '\\regsvr32.exe'  # Windows Registry Server (commonly used for exploits)  31 - '\\wscript.exe' # Windows Script Host (for executing scripts) 31 - '\\wscript.exe' # Windows Script Host [...] system components.  description:  Detects suspicious child processes related to Windows Shell utilities spawned by `conhost.exe`, which could indicate malicious activity using trusted system components.   8references:  8references:  references:   9 -   9 -     10author: Swachchhanda Shrawan Poudel (Nextron Systems) 10author: Swachchhanda Shrawan Poudel (Nextron Systems)  author:  Swachchhanda Shrawan Poudel (Nextron Systems)  11date: 2025-02-05 11date: 2025-02-05  date:  2025-02-05  12tags: [...] # Potentially Suspicious Child Processes Spawned by ConHost\n\nApr 28, 2026 \u00b7 attack.stealth attack.t1202 attack.t1218    \u00b7\n\nShare on:\n\nDetects suspicious child processes related to Windows Shell utilities spawned by `conhost.exe`, which could indicate malicious activity using trusted system components.\n\n## Sigma rule (View on GitHub)"
+      },
+      {
+       "url": "https://research.splunk.com/endpoint/2d4470ef-7158-4b47-b68b-1f7f16382156",
+       "role": "corroboration",
+       "via": "search",
+       "retrieved_at": "2026-10-27T11:55:13Z",
+       "chars": 1375,
+       "sha256": "f2e6cb95be27c7048294410a9a722fa6b40c309e967f29d0485cab396fd6cce3",
+       "status": "included",
+       "reasons": [],
+       "content": "\"scrcons.exe\",\"schtasks.exe\",\"sh.exe\",\"systeminfo.exe\",\"tasklist.exe\",\"tracert.exe\",\"ver.exe\",\"vssadmin.exe\", \"wevtutil.exe\",\"whoami.exe\",\"wmic.exe\",\"wscript.exe\",\"wusa.exe\",\"zsh.exe\")  4 Processes.process_name IN (\"arp.exe\",\"at.exe\",\"bash.exe\",\"bitsadmin.exe\",\"certutil.exe\",\"cmd.exe\",\"cscript.exe\", \"dsget.exe\",\"dsquery.exe\",\"find.exe\",\"findstr.exe\",\"fsutil.exe\",\"hostname.exe\",\"ipconfig.exe\",\"ksh.exe\",\"nbstat.exe\", [...] \"net.exe\",\"net1.exe\",\"netdom.exe\",\"netsh.exe\",\"netstat.exe\",\"nltest.exe\",\"nslookup.exe\",\"ntdsutil.exe\",\"pathping.exe\", \"ping.exe\",\"powershell.exe\",\"pwsh.exe\",\"qprocess.exe\",\"query.exe\",\"qwinsta.exe\",\"reg.exe\",\"rundll32.exe\",\"sc.exe\", \"scrcons.exe\",\"schtasks.exe\",\"sh.exe\",\"systeminfo.exe\",\"tasklist.exe\",\"tracert.exe\",\"ver.exe\",\"vssadmin.exe\", \"wevtutil.exe\",\"whoami.exe\",\"wmic.exe\",\"wscript.exe\",\"wusa.exe\",\"zsh.exe\")  Processes. process_name  IN [...] The following analytic identifies the execution of suspicious processes typically associated with WebShell activity on web servers. It detects when processes like `cmd.exe`, `powershell.exe`, or `bash.exe` are spawned by web server processes such as `w3wp.exe` or `nginx.exe`. This behavior is significant as it may indicate an adversary exploiting a web application vulnerability to install a WebShell, providing persistent access and command execution capabilities. If confirmed malicious, this"
+      },
+      {
+       "url": "https://www.elastic.co/guide/en/security/8.19/suspicious-explorer-child-process.html",
+       "role": "corroboration",
+       "via": "search",
+       "retrieved_at": "2026-10-27T11:55:13Z",
+       "chars": 1215,
+       "sha256": "bb2db2011b700b1d032e9da25fa36b8493e7aa85be4dfd164986e7fe5471679f",
+       "status": "included",
+       "reasons": [],
+       "content": "Windows Explorer, a core component of the Windows OS, manages file and folder navigation. Adversaries exploit its trusted status to launch malicious scripts or executables, often using DCOM to start processes like PowerShell or cmd.exe. The detection rule identifies such anomalies by monitoring child processes of Explorer with specific characteristics, excluding known benign activities, to flag potential threats.\n\nPossible investigation steps [...] Isolate the affected system from the network to prevent further spread of the potential threat and to contain any malicious activity.\n Terminate the suspicious child process identified in the alert, such as cscript.exe, wscript.exe, powershell.exe, rundll32.exe, cmd.exe, mshta.exe, or regsvr32.exe, to stop any ongoing malicious actions. [...] + Name: Command and Scripting Interpreter\n  + ID: T1059\n  + Reference URL: \n Sub-technique:\n\n  + Name: PowerShell\n  + ID: T1059.001\n  + Reference URL: \n Sub-technique:\n\n  + Name: Windows Command Shell\n  + ID: T1059.003\n  + Reference URL: \n Sub-technique:\n\n  + Name: Visual Basic\n  + ID: T1059.005\n  + Reference URL: \n Technique:\n\n  + Name: Inter-Process Communication\n  + ID: T1559\n  + Reference URL: \n Sub-technique:"
+      },
+      {
+       "url": "https://redcanary.com/threat-detection-report/techniques/powershell",
+       "role": "corroboration",
+       "via": "search",
+       "retrieved_at": "2026-10-27T11:55:13Z",
+       "chars": 1399,
+       "sha256": "22faadd9c7e075e0d8748a4edf7762d4032023ecda73bc198231ce1d11a77fd0",
+       "status": "not_used",
+       "reasons": [],
+       "content": "Since monitoring for suspicious PowerShell will involve the execution of the PowerShell process, Sysmon Event ID 1 warrants mention. However, Sysmon Event ID 7 is likely an even better source for gaining visibility into PowerShell since it will record any process that runs PowerShell by focusing on the modload for `System.Management.Automation.dll` and `System.Management.Automation.ni.dll`. Olaf Hartong\u2019s Sysmon Modular includes a PowerShell-specific configuration looking for these and other [...] Red Canary has 368 detection analytics designed to catch suspicious PowerShell activity, 120 of which raised events that converted to confirmed threat detections in 2025. Security teams seeking to detect malicious and suspicious PowerShell will want to look for process chains or combinations of process starts and command lines that suggest malicious activity. The following detection opportunities are adapted from the Red Canary behavioral analytics that find the most\u2014or most impactful\u2014threats. [...] ```\nprocess == powershell.exe && command_includes ('-nop' || '-noni' || 'invoke-expression' || 'iex' || '.downloadstring' || 'downloadfile')\n```\n\nThe following example combines many of these suspicious cmdlets together to print \u201ctweet, tweet\u201d to the console:\n\n```\npowershell.exe -nop iex \"\\\"Write-Host `\\\"$((New-Object Net.WebClient).DownloadString(' \n```\n\n#### Suspicious script directories"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "type": "spec",
+   "t": 13.91,
+   "data": {
+    "behavior": "JSON format per instruction.",
+    "logsource_category": "network_connection",
+    "observables": [],
+    "techniques": [],
+    "dropped": [
+     {
+      "kind": "observable",
+      "item": {
+       "field": "src_ip_address",
+       "match": "equals",
+       "value": "",
+       "quote": ""
+      },
+      "reason": "quote not found verbatim in report"
+     }
+    ]
+   }
+  },
+  {
+   "type": "iteration",
+   "t": 34.45,
+   "data": {
+    "index": 0,
+    "action": "generate",
+    "resamples": 0,
+    "thinking_fallback": false,
+    "rule_text": "title: Suspicious Network Connections Initiated by Commonly Abused Windows Utilities\nid: 7f85fd32-fc7c-4c7c-9ddd-ef4e58b62650\nstatus: experimental\ndescription: Detects network connections initiated by processes often abused for command and control, which may indicate Emotet\n  or similar malware activity.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.t1059\n- attack.t1059.001\n- attack.t1059.003\n- attack.t1059.005\n- attack.t1566.001\nlogsource:\n  category: network_connection\n  product: windows\ndetection:\n  selection:\n    Image|contains|contains:\n    - powershell.exe\n    - pwsh.exe\n    - cmd.exe\n    - wscript.exe\n    - cscript.exe\n    - mshta.exe\n    - regsvr32.exe\n    - rundll32.exe\n  condition: selection\nfalsepositives:\n- Legitimate administrative scripts using the listed binaries may trigger false positives.\nlevel: high\n",
+    "sha256": "ff905b75d10571bc73bf6c7141c11db466393f10e0997c7e64278a814b17080c",
+    "validation": {
+     "ok": true,
+     "errors": [],
+     "sigma_output": "s.WILDCARD_MULTI: 1>]), SigmaString([<SpecialChars.WILDCARD_MULTI: 1>, 'wscript.exe', <SpecialChars.WILDCARD_MULTI: 1>]), SigmaString([<SpecialChars.WILDCARD_MULTI: 1>, 'cscript.exe', <SpecialChars.WILDCARD_MULTI: 1>]), SigmaString([<SpecialChars.WILDCARD_MULTI: 1>, 'mshta.exe', <SpecialChars.WILDCARD_MULTI: 1>]), SigmaString([<SpecialChars.WILDCARD_MULTI: 1>, 'regsvr32.exe', <SpecialChars.WILDCARD_MULTI: 1>]), SigmaString([<SpecialChars.WILDCARD_MULTI: 1>, 'rundll32.exe', <SpecialChars.WILDCARD_MULTI: 1>])], value_linking=<class 'sigma.conditions.ConditionOR'>, negated=False, source=SigmaRuleLocation(path=WindowsPath('C:/Users/prajw/AppData/Local/Temp/shakedown-validate-otf2xeng/proc_creation_win_shakedown_candidate.yml'), line=None, char=None)) modifiers={<class 'sigma.modifiers.SigmaContainsModifier'>}\n\n=== Summary ===\nFound 0 errors, 0 condition errors and 1 issues.\nNo rule errors found.\nNo condition errors found.\n\nValidation issue summary:\n+-------+------------------------------+----------+-----------------------------------------------+\n| Count | Issue                        | Severity | Description                                   |\n+-------+------------------------------+----------+-----------------------------------------------+\n| 1     | ModifierAppliedMultipleIssue | MEDIUM   | Modifiers shouldn't be applied multiple times |\n+-------+------------------------------+----------+-----------------------------------------------+\nParsing Sigma rules\nChecking Sigma rules\n"
+    },
+    "evaluator_error": null,
+    "tokens": 4631,
+    "latency_s": 9.95,
+    "evaluation": {
+     "attack_total": 1,
+     "attack_detected": 0,
+     "attack_missed": [
+      "e4b6d2a7-d8a4-4f19-acbd-943c16d90647.evtx"
+     ],
+     "attack_events_hit": 0,
+     "benign": {
+      "benign_dev_win7": {
+       "files_total": 129,
+       "files_with_hits": 0,
+       "hits": 0,
+       "examples": []
+      }
+     },
+     "attack_events": [
+      {
+       "EventID": 1,
+       "Channel": "Microsoft-Windows-Sysmon/Operational",
+       "RuleName": "technique_id=T1083,technique_name=File and Directory Discovery",
+       "UtcTime": "2026-08-30 14:55:46.300",
+       "ProcessGuid": "{570e49aa-4472-6a94-630f-000000001800}",
+       "ProcessId": "5548",
+       "Image": "C:\\Windows\\System32\\rundll32.exe",
+       "FileVersion": "10.0.26100.8972 (WinBuild.160101.0800)",
+       "Description": "Windows host process (Rundll32)",
+       "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+       "Company": "Microsoft Corporation",
+       "OriginalFileName": "RUNDLL32.EXE",
+       "CommandLine": "\"C:\\Windows\\System32\\rundll32.exe\" C:\\windows\\System32\\comsvcs.dll MiniDump 832 C:\\Users\\frack113\\AppData\\Local\\Temp\\lsass-comsvcs.dmp full",
+       "CurrentDirectory": "C:\\Users\\frack113\\AppData\\Local\\Temp\\",
+       "User": "SigmaCatchVm\\frack113",
+       "LogonGuid": "{570e49aa-0307-6a94-5d82-100000000000}",
+       "LogonId": "0x000000000010825d",
+       "TerminalSessionId": "1",
+       "IntegrityLevel": "High",
+       "Hashes": "SHA1=A9AC2CB1F8CFC2E9692B1C5019D48E1D522BAE49,MD5=807D8C1EA3658035B6F5B27232ED120D,SHA256=C4C8160C42407741BAF0946A1FC0E8162E14C6CC543E754EFD78CC52BB316AF5,IMPHASH=C8B70D465C35D895C4171BAF042BB63A",
+       "ParentProcessGuid": "{570e49aa-4471-6a94-610f-000000001800}",
+       "ParentProcessId": "10144",
+       "ParentImage": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+       "ParentCommandLine": "\"powershell.exe\" & {C:\\Windows\\System32\\rundll32.exe C:\\windows\\System32\\comsvcs.dll, MiniDump (Get-Process lsass).id $env:TEMP\\lsass-comsvcs.dmp full}",
+       "ParentUser": "SigmaCatchVm\\frack113"
+      }
+     ],
+     "seconds": 9.5
+    }
+   }
+  },
+  {
+   "type": "iteration",
+   "t": 50.98,
+   "data": {
+    "index": 1,
+    "action": "repair",
+    "resamples": 0,
+    "thinking_fallback": false,
+    "rule_text": "title: Suspicious Network Connections Initiated by Commonly Abused Windows Utilities\nid: 7f85fd32-fc7c-4c7c-9ddd-ef4e58b62650\nstatus: experimental\ndescription: \"Detects network connections initiated by processes often abused for command and control, which may indicate\\\n  \\ Emotet\\n  or similar malware activity.\"\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.t1059\n- attack.t1059.001\n- attack.t1059.003\n- attack.t1059.005\n- attack.t1566.001\nlogsource:\n  category: network_connection\n  product: windows\ndetection:\n  selection:\n    Image|contains:\n    - powershell.exe\n    - pwsh.exe\n    - cmd.exe\n    - wscript.exe\n    - cscript.exe\n    - mshta.exe\n    - regsvr32.exe\n    - rundll32.exe\n  condition: selection\nfalsepositives:\n- Legitimate administrative scripts using the listed binaries may trigger false positives.\nlevel: high\n",
+    "sha256": "7373e43d8f07f240da1c087582fdf60207e7ed39b3dcb551e7d7dec966977f4f",
+    "validation": {
+     "ok": true,
+     "errors": [],
+     "sigma_output": "\n=== Summary ===\nFound 0 errors, 0 condition errors and 0 issues.\nNo rule errors found.\nNo condition errors found.\nNo validation issues found.\nParsing Sigma rules\nChecking Sigma rules\n"
+    },
+    "evaluator_error": null,
+    "tokens": 2257,
+    "latency_s": 6.39,
+    "evaluation": {
+     "attack_total": 1,
+     "attack_detected": 0,
+     "attack_missed": [
+      "e4b6d2a7-d8a4-4f19-acbd-943c16d90647.evtx"
+     ],
+     "attack_events_hit": 0,
+     "benign": {
+      "benign_dev_win7": {
+       "files_total": 129,
+       "files_with_hits": 0,
+       "hits": 0,
+       "examples": []
+      }
+     },
+     "attack_events": [
+      {
+       "EventID": 1,
+       "Channel": "Microsoft-Windows-Sysmon/Operational",
+       "RuleName": "technique_id=T1083,technique_name=File and Directory Discovery",
+       "UtcTime": "2026-08-30 14:55:46.300",
+       "ProcessGuid": "{570e49aa-4472-6a94-630f-000000001800}",
+       "ProcessId": "5548",
+       "Image": "C:\\Windows\\System32\\rundll32.exe",
+       "FileVersion": "10.0.26100.8972 (WinBuild.160101.0800)",
+       "Description": "Windows host process (Rundll32)",
+       "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+       "Company": "Microsoft Corporation",
+       "OriginalFileName": "RUNDLL32.EXE",
+       "CommandLine": "\"C:\\Windows\\System32\\rundll32.exe\" C:\\windows\\System32\\comsvcs.dll MiniDump 832 C:\\Users\\frack113\\AppData\\Local\\Temp\\lsass-comsvcs.dmp full",
+       "CurrentDirectory": "C:\\Users\\frack113\\AppData\\Local\\Temp\\",
+       "User": "SigmaCatchVm\\frack113",
+       "LogonGuid": "{570e49aa-0307-6a94-5d82-100000000000}",
+       "LogonId": "0x000000000010825d",
+       "TerminalSessionId": "1",
+       "IntegrityLevel": "High",
+       "Hashes": "SHA1=A9AC2CB1F8CFC2E9692B1C5019D48E1D522BAE49,MD5=807D8C1EA3658035B6F5B27232ED120D,SHA256=C4C8160C42407741BAF0946A1FC0E8162E14C6CC543E754EFD78CC52BB316AF5,IMPHASH=C8B70D465C35D895C4171BAF042BB63A",
+       "ParentProcessGuid": "{570e49aa-4471-6a94-610f-000000001800}",
+       "ParentProcessId": "10144",
+       "ParentImage": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+       "ParentCommandLine": "\"powershell.exe\" & {C:\\Windows\\System32\\rundll32.exe C:\\windows\\System32\\comsvcs.dll, MiniDump (Get-Process lsass).id $env:TEMP\\lsass-comsvcs.dmp full}",
+       "ParentUser": "SigmaCatchVm\\frack113"
+      }
+     ],
+     "seconds": 9.38
+    }
+   }
+  },
+  {
+   "type": "iteration",
+   "t": 79.34,
+   "data": {
+    "index": 2,
+    "action": "repair",
+    "resamples": 1,
+    "thinking_fallback": false,
+    "rule_text": "title: Suspicious Network Connections Initiated by Commonly Abused Windows Utilities\nid: 7f85fd32-fc7c-4c7c-9ddd-ef4e58b62650\nstatus: experimental\ndescription: Detects network connections initiated by processes often abused for command and control, which may indicate Emotet\n  or similar malware activity.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.t1059\n- attack.t1059.001\n- attack.t1059.003\n- attack.t1059.005\n- attack.t1566.001\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  selection:\n    Image|contains:\n    - powershell.exe\n    - pwsh.exe\n    - cmd.exe\n    - wscript.exe\n    - cscript.exe\n    - mshta.exe\n    - regsvr32.exe\n    - rundll32.exe\n  condition: selection\nfalsepositives:\n- Legitimate administrative scripts using the listed binaries may trigger false positives.\nlevel: high\n",
+    "sha256": "00bc65a9df74564d048393af24b21700d6dc544b112f779c5e7cd934ffdf80e9",
+    "validation": {
+     "ok": true,
+     "errors": [],
+     "sigma_output": "\n=== Summary ===\nFound 0 errors, 0 condition errors and 0 issues.\nNo rule errors found.\nNo condition errors found.\nNo validation issues found.\nParsing Sigma rules\nChecking Sigma rules\n"
+    },
+    "evaluator_error": null,
+    "tokens": 5532,
+    "latency_s": 17.72,
+    "evaluation": {
+     "attack_total": 1,
+     "attack_detected": 1,
+     "attack_missed": [],
+     "attack_events_hit": 1,
+     "benign": {
+      "benign_dev_win7": {
+       "files_total": 129,
+       "files_with_hits": 2,
+       "hits": 51,
+       "examples": [
+        {
+         "file": "Security.evtx",
+         "event": "SubjectUserSid: S-1-5-21-712794737-353456615-3249761964-1001  SubjectUserName: evtx  SubjectDomainName: evtx-PC  SubjectLogonId: 0x16812  NewProcessId: 0x184  NewProcessName: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe  TokenElevationType: %%1938  ProcessId: 0xc04  Provider_Name: Microsoft-Windows-Security-Auditing  Provider_Guid: 54849625-5478-4994-A5BA-3E3B0328C30D  EventID: 4688  Version: 0  Level: 0  Task: 13312  Opcode: 0  Keywords: 0x8020000000000000  TimeCreated_SystemTime: 2022-04-04T12:03:51.433732748Z  EventRecordID: 431  Execution_ProcessID: 4  Execution_ThreadID: 60  ",
+         "matched": [
+          {
+           "SearchIdentifier": "selection",
+           "Field": "NewProcessName",
+           "Offset": 43,
+           "Data": "powershell.exe"
+          }
+         ]
+        },
+        {
+         "file": "Security.evtx",
+         "event": "SubjectUserSid: S-1-5-21-712794737-353456615-3249761964-1001  SubjectUserName: evtx  SubjectDomainName: evtx-PC  SubjectLogonId: 0x16812  NewProcessId: 0xe38  NewProcessName: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe  TokenElevationType: %%1938  ProcessId: 0xc04  Provider_Name: Microsoft-Windows-Security-Auditing  Provider_Guid: 54849625-5478-4994-A5BA-3E3B0328C30D  EventID: 4688  Version: 0  Level: 0  Task: 13312  Opcode: 0  Keywords: 0x8020000000000000  TimeCreated_SystemTime: 2022-04-04T12:04:03.496233701Z  EventRecordID: 434  Execution_ProcessID: 4  Execution_ThreadID: 60  ",
+         "matched": [
+          {
+           "SearchIdentifier": "selection",
+           "Field": "NewProcessName",
+           "Offset": 43,
+           "Data": "powershell.exe"
+          }
+         ]
+        },
+        {
+         "file": "Security.evtx",
+         "event": "SubjectUserSid: S-1-5-21-712794737-353456615-3249761964-1001  SubjectUserName: evtx  SubjectDomainName: evtx-PC  SubjectLogonId: 0x16812  NewProcessId: 0xcdc  NewProcessName: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe  TokenElevationType: %%1938  ProcessId: 0xc04  Provider_Name: Microsoft-Windows-Security-Auditing  Provider_Guid: 54849625-5478-4994-A5BA-3E3B0328C30D  EventID: 4688  Version: 0  Level: 0  Task: 13312  Opcode: 0  Keywords: 0x8020000000000000  TimeCreated_SystemTime: 2022-04-04T12:04:07.293107271Z  EventRecordID: 435  Execution_ProcessID: 4  Execution_ThreadID: 44  ",
+         "matched": [
+          {
+           "SearchIdentifier": "selection",
+           "Field": "NewProcessName",
+           "Offset": 43,
+           "Data": "powershell.exe"
+          }
+         ]
+        }
+       ]
+      }
+     },
+     "attack_events": [],
+     "seconds": 9.89
+    }
+   }
+  },
+  {
+   "type": "iteration",
+   "t": 109.64,
+   "data": {
+    "index": 3,
+    "action": "repair",
+    "resamples": 1,
+    "thinking_fallback": false,
+    "rule_text": "title: Suspicious Network Connections Initiated by Commonly Abused Windows Utilities\nid: 7f85fd32-fc7c-4c7c-9ddd-ef4e58b62650\nstatus: experimental\ndescription: \"Detects network connections initiated by processes often abused for command and control, which may indicate\\\n  \\ Emotet\\n  or similar malware activity.\"\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.t1059\n- attack.t1059.001\n- attack.t1059.003\n- attack.t1059.005\n- attack.t1566.001\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  selection:\n    Image|contains:\n    - powershell.exe\n    - pwsh.exe\n    - cmd.exe\n    - wscript.exe\n    - cscript.exe\n    - mshta.exe\n    - regsvr32.exe\n    - rundll32.exe\n  filter:\n    Image|contains: C:\\\\Windows\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\n  condition: selection and not filter\nfalsepositives:\n- Legitimate administrative scripts using the listed binaries may trigger false positives.\nlevel: high\n",
+    "sha256": "1b7c1dbc4df659f5c7f4ee94314df5ae584039f85ea857c31e33b1c3a98509e6",
+    "validation": {
+     "ok": true,
+     "errors": [],
+     "sigma_output": "\n=== Summary ===\nFound 0 errors, 0 condition errors and 0 issues.\nNo rule errors found.\nNo condition errors found.\nNo validation issues found.\nParsing Sigma rules\nChecking Sigma rules\n"
+    },
+    "evaluator_error": null,
+    "tokens": 5286,
+    "latency_s": 17.22,
+    "evaluation": {
+     "attack_total": 1,
+     "attack_detected": 1,
+     "attack_missed": [],
+     "attack_events_hit": 1,
+     "benign": {
+      "benign_dev_win7": {
+       "files_total": 129,
+       "files_with_hits": 2,
+       "hits": 26,
+       "examples": [
+        {
+         "file": "Security.evtx",
+         "event": "SubjectUserSid: S-1-5-21-712794737-353456615-3249761964-1001  SubjectUserName: evtx  SubjectDomainName: evtx-PC  SubjectLogonId: 0x16812  NewProcessId: 0x978  NewProcessName: C:\\Windows\\System32\\rundll32.exe  TokenElevationType: %%1938  ProcessId: 0x4d4  Provider_Name: Microsoft-Windows-Security-Auditing  Provider_Guid: 54849625-5478-4994-A5BA-3E3B0328C30D  EventID: 4688  Version: 0  Level: 0  Task: 13312  Opcode: 0  Keywords: 0x8020000000000000  TimeCreated_SystemTime: 2022-04-04T12:16:57.402064085Z  EventRecordID: 504  Execution_ProcessID: 4  Execution_ThreadID: 48  Channel: Security  Comput",
+         "matched": [
+          {
+           "SearchIdentifier": "selection",
+           "Field": "NewProcessName",
+           "Offset": 20,
+           "Data": "rundll32.exe"
+          }
+         ]
+        },
+        {
+         "file": "Security.evtx",
+         "event": "SubjectUserSid: S-1-5-21-712794737-353456615-3249761964-1001  SubjectUserName: evtx  SubjectDomainName: evtx-PC  SubjectLogonId: 0x167ec  NewProcessId: 0x17e0  NewProcessName: C:\\Windows\\System32\\regsvr32.exe  TokenElevationType: %%1937  ProcessId: 0x1628  Provider_Name: Microsoft-Windows-Security-Auditing  Provider_Guid: 54849625-5478-4994-A5BA-3E3B0328C30D  EventID: 4688  Version: 0  Level: 0  Task: 13312  Opcode: 0  Keywords: 0x8020000000000000  TimeCreated_SystemTime: 2022-04-04T12:35:14.721846342Z  EventRecordID: 651  Execution_ProcessID: 4  Execution_ThreadID: 56  Channel: Security  Comp",
+         "matched": [
+          {
+           "SearchIdentifier": "selection",
+           "Field": "NewProcessName",
+           "Offset": 20,
+           "Data": "regsvr32.exe"
+          }
+         ]
+        },
+        {
+         "file": "Security.evtx",
+         "event": "SubjectUserSid: S-1-5-21-712794737-353456615-3249761964-1001  SubjectUserName: evtx  SubjectDomainName: evtx-PC  SubjectLogonId: 0x16812  NewProcessId: 0x1610  NewProcessName: C:\\Windows\\System32\\cmd.exe  TokenElevationType: %%1938  ProcessId: 0x1024  Provider_Name: Microsoft-Windows-Security-Auditing  Provider_Guid: 54849625-5478-4994-A5BA-3E3B0328C30D  EventID: 4688  Version: 0  Level: 0  Task: 13312  Opcode: 0  Keywords: 0x8020000000000000  TimeCreated_SystemTime: 2022-04-04T12:43:29.043545484Z  EventRecordID: 866  Execution_ProcessID: 4  Execution_ThreadID: 56  Channel: Security  Computer:",
+         "matched": [
+          {
+           "SearchIdentifier": "selection",
+           "Field": "NewProcessName",
+           "Offset": 20,
+           "Data": "cmd.exe"
+          }
+         ]
+        }
+       ]
+      }
+     },
+     "attack_events": [],
+     "seconds": 12.28
+    }
+   }
+  },
+  {
+   "type": "heldout",
+   "t": 149.44,
+   "data": {
+    "benign_heldout_win10": {
+     "files_total": 352,
+     "files_with_hits": 1,
+     "hits": 72,
+     "examples": [
+      {
+       "file": "Microsoft-Windows-Sysmon%4Operational.evtx",
+       "event": "RuleName: -  UtcTime: 2022-02-08 11:41:54.002  ProcessGuid: 50A1B328-5702-6202-D300-000000000600  ProcessId: 6820  Image: C:\\Windows\\System32\\regsvr32.exe  FileVersion: 10.0.19041.1 (WinBuild.160101.0800)  Description: Microsoft(C) Register Server  Product: Microsoft\u00ae Windows\u00ae Operating System  Company: Microsoft Corporation  OriginalFileName: REGSVR32.EXE  CommandLine: \"C:\\Windows\\system32\\regsvr32.exe\" /s \"C:\\Program Files\\Mozilla Firefox\\AccessibleMarshal.dll\"  CurrentDirectory: C:\\Program Files\\Mozilla Firefox\\  User: DESKTOP-A8CALR3\\user  LogonGuid: 50A1B328-23F5-6202-6B96-060000000000  L",
+       "matched": [
+        {
+         "SearchIdentifier": "selection",
+         "Field": "Image",
+         "Offset": 20,
+         "Data": "regsvr32.exe"
+        }
+       ]
+      },
+      {
+       "file": "Microsoft-Windows-Sysmon%4Operational.evtx",
+       "event": "RuleName: -  UtcTime: 2022-02-08 11:41:54.212  ProcessGuid: 50A1B328-5702-6202-D400-000000000600  ProcessId: 6788  Image: C:\\Windows\\System32\\regsvr32.exe  FileVersion: 10.0.19041.1 (WinBuild.160101.0800)  Description: Microsoft(C) Register Server  Product: Microsoft\u00ae Windows\u00ae Operating System  Company: Microsoft Corporation  OriginalFileName: REGSVR32.EXE  CommandLine: \"C:\\Windows\\system32\\regsvr32.exe\" /s \"C:\\Program Files\\Mozilla Firefox\\AccessibleHandler.dll\"  CurrentDirectory: C:\\Program Files\\Mozilla Firefox\\  User: DESKTOP-A8CALR3\\user  LogonGuid: 50A1B328-23F5-6202-6B96-060000000000  L",
+       "matched": [
+        {
+         "SearchIdentifier": "selection",
+         "Field": "Image",
+         "Offset": 20,
+         "Data": "regsvr32.exe"
+        }
+       ]
+      },
+      {
+       "file": "Microsoft-Windows-Sysmon%4Operational.evtx",
+       "event": "RuleName: -  UtcTime: 2022-02-08 11:45:34.245  ProcessGuid: 50A1B328-57DE-6202-1901-000000000600  ProcessId: 1348  Image: C:\\Windows\\System32\\cmd.exe  FileVersion: 10.0.19041.746 (WinBuild.160101.0800)  Description: Windows Command Processor  Product: Microsoft\u00ae Windows\u00ae Operating System  Company: Microsoft Corporation  OriginalFileName: Cmd.Exe  CommandLine: C:\\Windows\\system32\\cmd.exe /c \"ver\"  CurrentDirectory: C:\\Windows\\SysWOW64\\  User: DESKTOP-A8CALR3\\user  LogonGuid: 50A1B328-23F5-6202-6B96-060000000000  LogonId: 0x6966b  TerminalSessionId: 1  IntegrityLevel: High  Hashes: SHA1=F1EFB0FD",
+       "matched": [
+        {
+         "SearchIdentifier": "selection",
+         "Field": "Image",
+         "Offset": 20,
+         "Data": "cmd.exe"
+        }
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "type": "expert",
+   "t": 199.38,
+   "data": {
+    "detected": 1,
+    "total": 1
+   }
+  },
+  {
+   "type": "done",
+   "t": 199.38,
+   "data": {
+    "success": false,
+    "stop_reason": "repair budget exhausted"
+   }
+  }
+ ]
+}

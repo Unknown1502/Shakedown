@@ -1,0 +1,3336 @@
+{
+ "summary": {
+  "rules_evaluated": 470,
+  "reproduced": 470,
+  "not_reproduced": [],
+  "checker_seconds": 12.1,
+  "ignored_output_lines": 0,
+  "benign": {
+   "win7-x86": {
+    "rules_with_hits": 3,
+    "total_hits": 23,
+    "checker_seconds": 9.9
+   },
+   "Logs_Client": {
+    "rules_with_hits": 4,
+    "total_hits": 7,
+    "checker_seconds": 46.0
+   }
+  }
+ },
+ "results": [
+  {
+   "rule_id": "c977cb50-3dff-4a9f-b873-9290f56132f1",
+   "rule_path": "rules/windows/builtin/appxdeployment_server/win_appxdeployment_server_uncommon_package_locations.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "e54279c7-4910-4e2c-902c-c56a25b549f6",
+   "rule_path": "rules/windows/builtin/appxdeployment_server/win_appxdeployment_server_full_trust_package_installation.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "b85e5894-9b19-4d86-8c87-a2f3b81f0521",
+   "rule_path": "rules/windows/builtin/bits_client/win_bits_client_new_transfer_saving_susp_extensions.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "6d44fb93-e7d2-475c-9d3d-54c9c1e33427",
+   "rule_path": "rules/windows/builtin/bits_client/win_bits_client_new_transfer_via_uncommon_tld.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "eca81e8d-09e1-4d04-8614-c91f44fd0519",
+   "rule_path": "rules/windows/builtin/firewall_as/win_firewall_as_add_rule_wmiprvse.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "e3c6d245-7b8f-4e2a-c17f-a9d0e5b38f62",
+   "rule_path": "rules/windows/builtin/security/win_security_explicit_credential_local_logon.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "7595ba94-cf3b-4471-aa03-4f6baa9e5fad",
+   "rule_path": "rules/windows/builtin/security/win_security_susp_scheduled_task_delete_or_disable.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "9e3cb244-bdb8-4632-8c90-6079c8f4f16d",
+   "rule_path": "rules/windows/builtin/taskscheduler/win_taskscheduler_susp_schtasks_delete_or_disable.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "06d71506-7beb-4f22-8888-e2e5e2ca7fd8",
+   "rule_path": "rules/windows/builtin/win_alert_mimikatz_keywords.yml",
+   "expected": 1,
+   "got": 2,
+   "reproduced": true
+  },
+  {
+   "rule_id": "1321dc4e-a1fe-481d-a016-52c45f0c8b4f",
+   "rule_path": "rules/windows/builtin/windefend/win_defender_config_change_exclusion_added.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "b28e58e4-2a72-4fae-bdee-0fbe904db642",
+   "rule_path": "rules/windows/builtin/windefend/win_defender_real_time_protection_disabled.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "bc92ca75-cd42-4d61-9a37-9d5aa259c88b",
+   "rule_path": "rules/windows/builtin/windefend/win_defender_restored_quarantine_file.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "801bd44f-ceed-4eb6-887c-11544633c0aa",
+   "rule_path": "rules/windows/builtin/windefend/win_defender_suspicious_features_tampering.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "57b649ef-ff42-4fb0-8bf6-62da243a1708",
+   "rule_path": "rules/windows/builtin/windefend/win_defender_threat.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "686c0b4b-9dd3-4847-9077-d6c1bbe36fcb",
+   "rule_path": "rules/windows/builtin/windefend/win_defender_virus_scan_disabled.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "d4f1a2b3-7c8e-4d5f-b6a9-1e0c2d3f4e5b",
+   "rule_path": "rules/windows/builtin/wmi/win_wmi_activity_nteventlogfile_cleareventlog.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "b69888d4-380c-45ce-9cf9-d9ce46e67821",
+   "rule_path": "rules/windows/create_stream_hash/create_stream_hash_ads_executable.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "4d07b1f4-cb00-4470-b9f8-b0191d48ff52",
+   "rule_path": "rules/windows/dns_query/dns_query_win_remote_access_software_domains_non_browsers.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "fed85bf9-e075-4280-9159-fbe8a023d6fa",
+   "rule_path": "rules/windows/file/file_event/file_event_win_advanced_ip_scanner.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "0b9ad457-2554-44c1-82c2-d56a99c42377",
+   "rule_path": "rules/windows/file/file_event/file_event_win_anydesk_artefact.yml",
+   "expected": 3,
+   "got": 3,
+   "reproduced": true
+  },
+  {
+   "rule_id": "65236ec7-ace0-4f0c-82fd-737b04fd4dcb",
+   "rule_path": "rules/windows/file/file_event/file_event_win_create_evtx_non_common_locations.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "df6ecb8b-7822-4f4b-b412-08f524b4576c",
+   "rule_path": "rules/windows/file/file_event/file_event_win_create_non_existent_dlls.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "ee63c85c-6d51-4d12-ad09-04e25877a947",
+   "rule_path": "rules/windows/file/file_event/file_event_win_creation_new_shim_database.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "13c02350-4177-4e45-ac17-cf7ca628ff5e",
+   "rule_path": "rules/windows/file/file_event/file_event_win_creation_system_dll_files.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "d5866ddf-ce8f-4aea-b28e-d96485a20d3d",
+   "rule_path": "rules/windows/file/file_event/file_event_win_creation_system_file.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "8fbf3271-1ef6-4e94-8210-03c2317947f6",
+   "rule_path": "rules/windows/file/file_event/file_event_win_cred_dump_tools_dropped_files.yml",
+   "expected": 3,
+   "got": 3,
+   "reproduced": true
+  },
+  {
+   "rule_id": "aba15bdd-657f-422a-bab3-ac2d2a0d6f1c",
+   "rule_path": "rules/windows/file/file_event/file_event_win_dump_file_susp_creation.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "5d756aee-ad3e-4306-ad95-cb1abec48de2",
+   "rule_path": "rules/windows/file/file_event/file_event_win_gotoopener_artefact.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "efc21479-9e83-41da-8cf1-122e06ba8db3",
+   "rule_path": "rules/windows/file/file_event/file_event_win_hktl_netexec_file_indicators.yml",
+   "expected": 7,
+   "got": 7,
+   "reproduced": true
+  },
+  {
+   "rule_id": "602a1f13-c640-4d73-b053-be9a2fa58b96",
+   "rule_path": "rules/windows/file/file_event/file_event_win_hktl_powerup_dllhijacking.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "9711de76-5d4f-4c50-a94f-21e4e8f8384d",
+   "rule_path": "rules/windows/file/file_event/file_event_win_install_teamviewer_desktop.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "7047d730-036f-4f40-b9d8-1c63e36d5e62",
+   "rule_path": "rules/windows/file/file_event/file_event_win_powershell_drop_binary_or_script.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "1277f594-a7d1-4f28-a2d3-73af5cbeab43",
+   "rule_path": "rules/windows/file/file_event/file_event_win_shell_write_susp_directory.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "b8fd0e93-ff58-4cbd-8f48-1c114e342e62",
+   "rule_path": "rules/windows/file/file_event/file_event_win_shell_write_susp_files_extensions.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "b4926b47-a9d7-434c-b3a0-adc3fa0bd13e",
+   "rule_path": "rules/windows/file/file_event/file_event_win_susp_double_extension.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "f0540f7e-2db3-4432-b9e0-3965486744bc",
+   "rule_path": "rules/windows/file/file_event/file_event_win_susp_legitimate_app_dropping_exe.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "1cf465a1-2609-4c15-9b66-c32dbe4bfd67",
+   "rule_path": "rules/windows/file/file_event/file_event_win_susp_legitimate_app_dropping_in_uncommon_location.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "7d604714-e071-49ff-8726-edeb95a70679",
+   "rule_path": "rules/windows/file/file_event/file_event_win_susp_legitimate_app_dropping_script.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "3215aa19-f060-4332-86d5-5602511f3ca8",
+   "rule_path": "rules/windows/file/file_event/file_event_win_susp_lnk_double_extension.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "b447f7de-1e53-4cbf-bfb4-f1f6d0b04e4e",
+   "rule_path": "rules/windows/file/file_event/file_event_win_susp_public_folder_extension.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "cd8b36ac-8e4a-4c2f-a402-a29b8fbd5bca",
+   "rule_path": "rules/windows/file/file_event/file_event_win_susp_recycle_bin_fake_exec.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "a7f3c891-2e4d-4b6a-9f8c-d5e2a1b04c73",
+   "rule_path": "rules/windows/file/file_event/file_event_win_susp_registry_hive_file_creation.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "979baf41-ca44-4540-9d0c-4fcef3b5a3a4",
+   "rule_path": "rules/windows/file/file_event/file_event_win_susp_right_to_left_override_extension_spoofing.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "304afd73-55a5-4bb9-8c21-0b1fc84ea9e4",
+   "rule_path": "rules/windows/file/file_event/file_event_win_sysinternals_psexec_service_key.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "69ca12af-119d-44ed-b50f-a47af0ebc364",
+   "rule_path": "rules/windows/file/file_event/file_event_win_taskmgr_lsass_dump.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "2f400434-01e1-416b-b52c-bb5bfbb9eb78",
+   "rule_path": "rules/windows/file/file_event/file_event_win_wsl_binary_modification.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "2b140a5c-dc02-4bb8-b6b1-8bdb45714cde",
+   "rule_path": "rules/windows/image_load/image_load_side_load_cpl_from_non_system_location.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "d7a63acb-1284-49bc-bfea-7771146c8b1c",
+   "rule_path": "rules/windows/image_load/image_load_side_load_vcruntime140.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "c9e5f013-4a6f-4d8c-9b0e-f7a4c3d26e95",
+   "rule_path": "rules/windows/image_load/image_load_susp_offreg_dll_load.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "416bc4a2-7217-4519-8dc7-c3271817f1d5",
+   "rule_path": "rules/windows/image_load/image_load_win_susp_dbgcore_dbghelp_load.yml",
+   "expected": null,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "ed74fe75-7594-4b4b-ae38-e38e3fd2eb23",
+   "rule_path": "rules/windows/network_connection/net_connection_win_rdp_outbound_over_non_standard_tools.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "c539afac-c12a-46ed-b1bd-5a5567c9f045",
+   "rule_path": "rules/windows/network_connection/net_connection_win_susp_remote_powershell_session.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "08249dc0-a28d-4555-8ba5-9255a198e08c",
+   "rule_path": "rules/windows/network_connection/net_connection_win_wscript_cscript_local_connection.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "992a6cae-db6a-43c8-9cec-76d7195c96fc",
+   "rule_path": "rules/windows/network_connection/net_connection_win_wscript_cscript_outbound_connection.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "d36f87ea-c403-44d2-aa79-1a0ac7c24456",
+   "rule_path": "rules/windows/pipe_created/pipe_created_pua_remcom_default_pipe.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "41025fd7-0466-4650-a813-574aaacbe7f4",
+   "rule_path": "rules/windows/powershell/powershell_module/posh_pm_exploit_scripts.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "8ff28fdd-e2fa-4dfa-aeda-ef3d61c62090",
+   "rule_path": "rules/windows/powershell/powershell_module/posh_pm_susp_invocation_specific.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "e50d5d26-0cf6-4045-b82b-13c0a4e316be",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_adsi_create_user.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "96c982fe-3d08-4df4-bed2-eb14e02f21c8",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_as_rep_roasting.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "c1dda054-d638-4c16-afc8-53e007f3fbc5",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_automated_collection.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "d4a11f63-2390-411c-9adf-d791fd152830",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_capture_screenshots.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "bde47d4b-9987-405c-94c7-b080410e8ea7",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_clearing_windows_console_history.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "4ff4ad3e-9fb5-4a70-9962-d6ea58090318",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_cmdlet_invocation_via_exported_commands_array_index.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "363eccc0-279a-4ccf-a3ab-24c2e63b11fb",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_cmdlet_scheduled_task.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "63bf8794-9917-45bc-88dd-e1b5abc0ecfd",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_copy_item_system_directory.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "afd12fed-b0ec-45c9-a13d-aa86625dac81",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_create_volume_shadow_copy.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "d93129cd-1ee0-479f-bc03-ca6f129882e3",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_detect_vm_env.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "1f6399cf-2c80-4924-ace1-6fcff3393480",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_directorysearcher.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "b29a93fb-087c-4b5b-a84d-ee3309e69d08",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_directoryservices_accountmanagement.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "99c4658d-2c5e-4d87-828d-7c066ca537c3",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_disable_windows_optional_feature.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "ddcd88cb-7f62-4ce5-86f9-1704190feb0a",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_dotnet_assembly_from_file.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "846c7a87-8e14-4569-9d49-ecfd4276a01c",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_dsinternals_cmdlets.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "99c49d9c-34ea-45f7-84a7-4751ae6b2cbc",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_dump_password_windows_credential_manager.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "991a9744-f2f0-44f2-bd33-9092eba17dc3",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_enable_psremoting.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "df69cb1d-b891-4cd9-90c7-d617d90100ce",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_frombase64string_archive.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "95afc12e-3cbb-40c3-9340-84a032e596a3",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_get_acl_service.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "060c3ef1-fd0a-4091-bf46-e7d625f60b73",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_get_adreplaccount.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "904e8e61-8edf-4350-b59c-b905fc8e810c",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_get_process_security_software_discovery.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "3245cd30-e015-40ff-a31d-5cadd5f377ec",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_hktl_rubeus.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "851fd622-b675-4d26-b803-14bc7baa517a",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_hktl_winpwn.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "7b836d7f-179c-4ba4-90a7-a7e60afb48e6",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_invoke_command_remote.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "d59d7842-9a21-4bc6-ba98-64bfe0091355",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_invoke_dnsexfiltration.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "34f90d3c-c297-49e9-b26d-911b05a4866c",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_keylogging.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "4fdc44df-bfe9-4fcc-b041-68f5a2d3031c",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_localuser.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "89819aa4-bbd6-46bc-88ec-c7f7fe30efa6",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_malicious_commandlets.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "b7216a7d-687e-4c8d-82b1-3080b2ad961f",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_modify_group_policy_settings.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "78aa1347-1517-4454-9982-b338d6df8343",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_msxml_com.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "f772cee9-b7c2-4cb2-8f07-49870adc02e0",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_nishang_malicious_commandlets.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "8c521530-5169-495d-a199-0a3a881ad24e",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_ntfs_ads_access.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "36fbec91-fa1b-4d5d-8df1-8d8edcb632ad",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_office_comobject_registerxll.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "da34e323-1e65-42db-83be-a6725ac2caa3",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_packet_capture.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "189e3b02-82b2-4b90-9662-411eb64486d4",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_potential_invoke_mimikatz.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "cdfa73b6-3c9d-4bb8-97f8-ddbd8921f5c5",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_potential_unconstrained_delegation_discovery.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "dcd74b95-3f36-4ed9-9598-0490951643aa",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_powerview_malicious_commandlets.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "a0edd39f-a0c6-4c17-8141-261f958e8d8f",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_remote_session_creation.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "a861d835-af37-4930-bcd6-5b178bfb54df",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_request_kerberos_ticket.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "7d416556-6502-45b2-9bad-9d2f05f38997",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_sensitive_file_discovery.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "61d0475c-173f-4844-86f7-f3eebae1c66b",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_set_policies_to_unsecure_level.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "a699b30e-d010-46c8-bbd1-ee2e26765fe9",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_store_file_in_alternate_data_stream.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "162e69a7-7981-4344-84a9-0f1c9a217a52",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_susp_directory_enum.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "b5522a23-82da-44e5-9c8b-e10ed8955f88",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_susp_execute_batch_script.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "bd5971a7-626d-46ab-8176-ed643f694f68",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_susp_extracting.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "84c174ab-d3ef-481f-9c86-a50d0b8e3edb",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_susp_getprocess_lsass.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "42d36aa1-3240-4db0-8257-e0118dcdd9cd",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_susp_hyper_v_condlet.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "ae7fbf8e-f3cb-49fd-8db4-5f3bed522c71",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_susp_invocation_specific.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "d4488827-73af-4f8d-9244-7b7662ef046e",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_susp_invoke_webrequest_useragent.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "70ad982f-67c8-40e0-a955-b920c2fa05cb",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_susp_iofilestream.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "2837e152-93c8-43d2-85ba-c3cd3c2ae614",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_susp_mail_acces.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "1c563233-030e-4a07-af8c-ee0490a66d3a",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_susp_new_psdrive.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "a9723fcc-881c-424c-8709-fd61442ab3c3",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_susp_recon_export.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "0718cd72-f316-4aa2-988f-838ea8533277",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_susp_start_process.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "5947497f-1aa4-41dd-9693-c9848d58727d",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_susp_unblock_file.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "c1337eb8-921a-4b59-855b-4ba188ddcc42",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_susp_win32_shadowcopy_deletion.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "313fbb0a-a341-4682-848d-6d6f8c4fab7c",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_susp_windowstyle.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "b7a3c9a3-09ea-4934-8864-6a32cacd98d9",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_susp_zip_compress.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "14c71865-6cd3-44ae-adaa-1db923fae5f2",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_tamper_windows_defender_set_mp.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "adf876b3-f1f8-4aa9-a4e4-a64106feec06",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_test_netconnection.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "c6438007-e081-42ce-9483-b067fbef33c3",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_timestomp.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "1139d2e2-84b1-4226-b445-354492eba8ba",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_web_request_cmd_and_cmdlets.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "91109523-17f0-4248-a800-f81d9e7c081d",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_win32_product_install_msi.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "03d83090-8cba-44a0-b02f-0b756a050306",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_win_api_susp_access.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "9e07f6e7-83aa-45c6-998e-0af26efd0a85",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_wmi_persistence.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "9f5c1d59-33be-4e60-bcab-85d2f566effd",
+   "rule_path": "rules/windows/process_access/proc_access_win_susp_dbgcore_dbghelp_load.yml",
+   "expected": null,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "387df17d-3b04-448f-8669-9e7fd5e5fd8c",
+   "rule_path": "rules/windows/process_access/proc_access_win_werfaultsecure_msmpeng_access.yml",
+   "expected": null,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "7dbbcac2-57a0-45ac-b306-ff30a8bd2981",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_amsi_registry_tampering.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "60fc936d-2eb0-4543-8a13-911c750a1dfc",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_at_interactive_execution.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "d7b81144-b866-48a4-9bcc-275dc69d870e",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_autologger_session_registry_modification.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "d059842b-6b9d-4ed1-b5c3-5b89143c6ede",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_bitsadmin_download.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "99c840f2-2012-46fd-9141-c761987550ef",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_bitsadmin_download_direct_ip.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "8518ed3d-f7c9-4601-a26c-f361a4256a0c",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_bitsadmin_download_file_sharing_domains.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "5b80a791-ad9b-4b75-bcc1-ad4e1e89c200",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_bitsadmin_download_susp_extensions.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "2ddef153-167b-4e89-86b6-757a9e65dcac",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_bitsadmin_download_susp_targetfolder.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "0e8cfe08-02c9-4815-a2f8-0d157b7ed33e",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_browsers_chromium_headless_file_download.yml",
+   "expected": null,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "88d6e60c-759d-4ac1-a447-c0f1466c2d21",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_browsers_chromium_load_extension.yml",
+   "expected": null,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "1c526788-0abe-4713-862f-b520da5e5316",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_browsers_chromium_mockbin_abuse.yml",
+   "expected": null,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "27ba3207-dd30-4812-abbf-5d20c57d474e",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_browsers_chromium_susp_load_extension.yml",
+   "expected": null,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "94771a71-ba41-4b6e-a757-b531372eaab6",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_browsers_inline_file_download.yml",
+   "expected": null,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "62f7c9bf-9135-49b2-8aeb-1e54a6ecc13c",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_browsers_tor_execution.yml",
+   "expected": null,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "737e618a-a410-49b5-bec3-9e55ff7fbc15",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_calc_uncommon_exec.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "d2125259-ddea-4c1c-9c22-977eb5b29cf0",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_certutil_certificate_installation.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "cc9cbe82-7bc0-4ef5-bc23-bbfb83947be7",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_certutil_decode.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "19b08b1c-861d-4e75-a1ef-ea0c1baf202b",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_certutil_download.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "13e6fe51-d478-4c7e-b0f2-6da9b400a829",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_certutil_download_direct_ip.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "42a5f1e7-9603-4f6d-97ae-3f37d130d794",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_certutil_download_file_sharing_domains.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "e62a9f0c-ca1e-46b2-85d5-a6da77f86d1a",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_certutil_encode.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "ea0cdc3e-2239-4f26-a947-4e8f8224e464",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_certutil_encode_susp_extensions.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "82a6714f-4899-4f16-9c1e-9a333544d4c3",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_certutil_encode_susp_location.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "3ffd6f51-e6c1-47b7-94b4-c1e61d4117c5",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_certutil_export_pfx.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "6c6d9280-e6d0-4b9d-80ac-254701b64916",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_certutil_ntlm_coercion.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "7090adee-82e2-4269-bd59-80691e7c6338",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_chcp_codepage_lookup.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "c7942406-33dd-4377-a564-0f62db0593a3",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_chcp_codepage_switch.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "4b046706-5789-4673-b111-66f25fe99534",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_cipher_overwrite_deleted_data.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "ddeff553-5233-4ae9-bbab-d64d2bd634be",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_clip_execution.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "3d3aa6cd-6272-44d6-8afc-7e88dfef7061",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_cmd_assoc_execution.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "7c9340a9-e2ee-4e43-94c5-c54ebbea1006",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_cmd_dir_execution.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "5a6b7c8d-9e0f-1a2b-3c4d-5e6f7a8b9c0d",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_cmd_launched_with_hidden_start_flag.yml",
+   "expected": null,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "e9b61244-893f-427c-b287-3e708f321c6b",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_cmd_mklink_osk_cmd.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "40b19fa6-d835-400c-b301-41f3a2baacaf",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_cmd_mklink_shadow_copies_access_symlink.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "41ca393d-538c-408a-ac27-cf1e038be80c",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_cmd_rmdir_execution.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "c73124a7-3e89-44a3-bdc1-25fe4df754b1",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_cmd_shadowcopy_access.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "241e802a-b65e-484f-88cd-c2dc10f9206d",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_cmd_stdin_redirect.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "b1ec66c6-f4d1-4b5c-96dd-af28ccae7727",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_cmdkey_adding_generic_creds.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "07f8bdc2-c9b3-472a-9817-5a670b872f53",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_cmdkey_recon.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "056c7317-9a09-4bd4-9067-d051312752ea",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_conhost_headless_powershell.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "515c8be5-e5df-4c5e-8f6d-a4a2f05e4b48",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_createdump_lolbin_execution.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "c17d47b7-dcd6-4109-87eb-d1817bd4cbc9",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_credential_guard_registry_tampering.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "dcaa3f04-70c3-427a-80b4-b870d73c94c4",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_csc_susp_dynamic_compilation.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "b730a276-6b63-41b8-bcf8-55930c8fc6ee",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_csc_susp_parent.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "5a6e1e16-07de-48d8-8aae-faa766c05e88",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_curl_cookie_hijacking.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "85de1f22-d189-44e4-8239-dc276b45379b",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_curl_custom_user_agent.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "9cc85849-3b02-4cb5-b371-3a1ff54f2218",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_curl_download_direct_ip_exec.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "5cb299fc-5fb1-4d07-b989-0644c68b6043",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_curl_download_direct_ip_susp_extensions.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "56454143-524f-49fb-b1c6-3fb8b1ad41fb",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_curl_download_susp_file_sharing_domains.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "cb9cc1d1-e84e-4bdc-b7ad-c31b1b7908ec",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_curl_insecure_connection.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "2c1486f5-02e8-4f86-9099-b97f2da4ed77",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_curl_insecure_proxy_or_doh.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "aa6f6ea6-0676-40dd-b510-6e46f02d8867",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_curl_local_file_read.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "916eb839-895e-47f8-99ee-3008bf377a3e",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_curl_ntlm_hash_leak_attempt.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "e218595b-bbe7-4ee5-8a96-f32a24ad3468",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_curl_susp_download.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "85f520e7-6f5e-43ca-874c-222e5bf9c0de",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_devcon_disable_vmci_driver.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "b4dc61f5-6cce-468e-a608-b48b469feaa2",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_dirlister_execution.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "0022869c-49f7-4ff2-ba03-85ac42ddac58",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_discovery_via_reg_queries.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "43e32da2-fdd0-4156-90de-50dfd62636f9",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_dism_remove.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "9fc3072c-dc8f-4bf7-b231-18950000fadd",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_driverquery_recon.yml",
+   "expected": null,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "a20def93-0709-4eae-9bd2-31206e21e6b2",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_driverquery_usage.yml",
+   "expected": null,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "3bad990e-4848-4a78-9530-b427d854aac0",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_dsquery_domain_trust_discovery.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "7124aebe-4cd7-4ccb-8df0-6d6b93c96795",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_dtrace_kernel_dump.yml",
+   "expected": null,
+   "got": 2,
+   "reproduced": true
+  },
+  {
+   "rule_id": "e7be6119-fc37-43f0-ad4f-1f3f99be2f9f",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_esentutl_sensitive_file_copy.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "c3d76afc-93df-461e-8e67-9b2bad3f2ac4",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_explorer_folder_shortcut_via_shell_binary.yml",
+   "expected": null,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "587254ee-a24b-4335-b3cd-065c0f1f4baa",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_findstr_download.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "91a2c315-9ee6-4052-a853-6f6a8238f90d",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_findstr_gpp_passwords.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "fe63010f-8823-4864-a96b-a7b4a0f7b929",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_findstr_lsass.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "47e4bab7-c626-47dc-967b-255608c9a920",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_findstr_recon_everyone.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "ccb5742c-c248-4982-8c5c-5571b9275ad3",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_findstr_recon_pipe_output.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "4fe074b4-b833-4081-8f24-7dcfeca72b42",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_findstr_security_keyword_lookup.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "37db85d1-b089-490a-a59a-c7b6f984f480",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_findstr_sysmon_discovery_via_default_altitude.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "af491bca-e752-4b44-9c86-df5680533dbc",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_finger_execution.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "c0b2768a-dd06-4671-8339-b16ca8d1f27f",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_fsutil_symlinkevaluation.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "add64136-62e5-48ea-807e-88638d02df1e",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_fsutil_usage.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "5bac7a56-da88-4c27-922e-c81e113b20cb",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_github_self_hosted_runner.yml",
+   "expected": null,
+   "got": 2,
+   "reproduced": true
+  },
+  {
+   "rule_id": "e56d3073-83ff-4021-90fe-c658e0709e72",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_gpresult_execution.yml",
+   "expected": null,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "68c8acb4-1b60-4890-8e82-3ddf7a6dba84",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_hh_chm_execution.yml",
+   "expected": null,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "f376c8a7-a2d0-4ddc-aa0c-16c17236d962",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_hktl_bloodhound_sharphound.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "058f4380-962d-40a5-afce-50207d36d7e2",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_hktl_crackmapexec_execution_patterns.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "2704ab9e-afe2-4854-a3b1-0c0706d03578",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_hktl_dumpert.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "c598cc0c-9e70-4852-b9eb-8921af79f598",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_hktl_edr_freeze.yml",
+   "expected": null,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "39b31e81-5f5f-4898-9c0e-2160cfc0f9bf",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_hktl_hashcat.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "a642964e-bead-4bed-8910-1bb4d63e3b4d",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_hktl_mimikatz_command_line.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "7638e5fe-600c-4289-a968-f49dd537ec7d",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_hktl_netexec.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "52ff7941-8211-46f9-84f8-9903efb7077d",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_hktl_selectmyparent.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "b2317cfa-4a47-4ead-b3ff-297438c0bc2d",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_hktl_sharpview.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "e92a4287-e072-4a40-9739-370c106bb750",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_hktl_soaphound_execution.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "d557dc06-62e8-4468-a8e8-7984124908ce",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_hktl_winpwn.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "589ac73f-8e12-409c-964e-31a2f5775ae2",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_hktl_wsass.yml",
+   "expected": null,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "66e563f9-1cbd-4a22-a957-d8b7c0f44372",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_hktl_xordump.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "6225c53a-a96e-4235-b28f-8d7997cd96eb",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_hvci_registry_tampering.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "ce7cf472-6fcc-490a-9481-3786840b5d9b",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_infdefaultinstall_execute_sct_scripts.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "d042284c-a296-4988-9be5-f424fadcc28c",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_instalutil_no_log_execution.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "d3bf399f-b0cf-4250-8bb4-dfc192ab81dc",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_lolbin_ie4uinit.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "4f73421b-5a0b-4bbf-a892-5a7fb99bea66",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_lolbin_mavinject_process_injection.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "cafeeba3-01da-4ab4-b6c4-a31b1d9730c7",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_lolbin_printbrm.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "1fb76ab8-fa60-4b01-bddd-71e89bf555da",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_lolbin_pubprn.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "9292293b-8496-4715-9db6-37028dcda4b3",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_lolbin_replace.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "762bb580-79b4-40f4-8b9e-9349ce1710f4",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_sftp_proxy_command_execution.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "36475a7d-0f6d-4dce-9b01-6aeb473bbaf1",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_lolbin_syncappvpublishingserver_vbs_execute_psh.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "da92713f-ca2d-4fab-8320-098013d3f43a",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_systemsettingsadminflows_defender_disable.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "b98d0db6-511d-45de-ad02-e82a98729620",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_mshta_http.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "67f113fa-e23d-4271-befa-30113b3e08b1",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_mshta_javascript.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "84f52741-8834-4a8c-a413-2eb2269aa6c8",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_msiexec_dll.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "4a2a2c3e-209f-4d01-b513-4155a540b469",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_msiexec_embedding.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "6f4191bb-912b-48a8-9ce7-682769541e6d",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_msiexec_execute_dll.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "79a87aa6-e4bd-42fc-a5bb-5e6fbdcd62f5",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_msiexec_install_quiet.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "f7b5f842-a6af-4da5-9e95-e32478f3cd2f",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_msiexec_web_install.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "d95de845-b83c-4a9a-8a6a-4fc802ebf6c0",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_net_groups_and_accounts_recon.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "5b768e71-86f2-4879-b448-81061cbae951",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_net_user_default_accounts_manipulation.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "1a5fefe6-734f-452e-a07d-fc1c35bce4b2",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_netsh_fw_delete_rule.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "afa71271-6a97-4e47-810f-83120fb1a4ce",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_node_new_agent_skills_installed.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "e6313acd-208c-44fc-a0ff-db85d572e90e",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_nslookup_domain_discovery.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "f956c7c1-0f60-4bc5-b7d7-b39ab3c08908",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_pktmon_execution.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "7c9fed65-039a-4055-8c23-fa763d94aff6",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_powershell_adsi_create_user.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "ca2092a1-c273-4878-9b4b-0d60115bf5ea",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_powershell_base64_encoded_cmd.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "b9d9cc83-380b-4ba3-8d8f-60c0e7e2930c",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_powershell_base64_encoded_cmd_patterns.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "6385697e-9f1b-40bd-8817-f4a91f40508e",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_powershell_base64_invoke.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "0c3ebe9f-df09-4e00-be0f-73d4ca8d62f6",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_powershell_cmdlet_invocation_via_exported_commands_array_index.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "74403157-20f5-415d-89a7-c505779585cf",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_powershell_cmdline_convertto_securestring.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "d7bcd677-645d-4691-a8d4-7a5602b780d1",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_powershell_cmdline_special_characters.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "0f0450f3-8b47-441e-a31b-15a91dc243e2",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_powershell_download_dll.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "85b0b087-eddf-4a2b-b033-d771fa2b9775",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_powershell_download_iex.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "3b6ab547-8ec2-4991-b9d2-2b06702a48d7",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_powershell_download_patterns.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "43d91656-a9b2-4541-b7e2-6a9bd3a13f4e",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_powershell_dsinternals_cmdlets.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "fb843269-508c-4b76-8b8d-88679db22ce7",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_powershell_encode.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "ee218c12-627a-4d27-9e30-d6fb2fe22ed2",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_powershell_exec_data_file.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "e32d4572-9826-4738-b651-95fa63747e8a",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_powershell_frombase64string.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "b2815d0d-7481-4bf0-9b6c-a4c48a94b349",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_powershell_getprocess_lsass.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "09576804-7a05-458e-a817-eb718ca91f54",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_powershell_iex_patterns.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "536e2947-3729-478c-9903-745aaffe60d2",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_powershell_invocation_specific.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "5e3cc4d8-3e68-43db-8656-eaaeefdec9cc",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_powershell_invoke_webrequest_download.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "02030f2f-6199-49ec-b258-ea71b07e03dc",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_powershell_malicious_cmdlets.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "e312efd0-35a1-407f-8439-b8d434b438a6",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_powershell_obfuscation_via_utf8.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "a6fc3c46-23b8-4996-9ea2-573f4c4d88c5",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_powershell_remotefxvgpudisablement_abuse.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "45a594aa-1fbd-4972-a809-ff5a99dd81b8",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_powershell_run_script_from_ads.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "1af57a4b-460a-4738-9034-db68b880c665",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_powershell_sam_access.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "a6a39bdb-935c-4f0a-ab77-35f4bbf44d33",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_powershell_script_exec_from_temp_folder.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "87e3c4e8-a6a8-4ad9-bb4f-46e7ff99a180",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_powershell_set_policies_to_unsecure_level.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "e6c54d94-498c-4562-a37c-b469d8e9a275",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_powershell_susp_download_patterns.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "36210e0d-5b19-485d-a087-c096088885f0",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_powershell_susp_parameter_variation.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "deb9b646-a508-44ee-b7c9-d8965921c6b6",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_powershell_token_obfuscation.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "85a8e5ba-bd03-4bfb-bbfa-a4409a8f8b98",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_powershell_zip_compress.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "2fcda7e2-8c57-4904-86ac-37fc3157e09d",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_print_dump_sensitive_files.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "bafac3d6-7de9-4dd9-8874-4a1194b493ed",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_print_remote_file_copy.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "455b9d50-15a1-4b99-853f-8d37655a4c1b",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_pua_adfind_enumeration.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "514e7e3e-b3b4-4a67-af60-be20f139198b",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_pua_adfind_execution.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "9a132afa-654e-11eb-ae93-0242ac130002",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_pua_adfind_susp_usage.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "bef37fa2-f205-4a7b-b484-0759bfd5f86f",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_pua_advanced_ip_scanner.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "54773c5f-f1cc-4703-9126-2f797d96a69d",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_pua_advanced_port_scanner.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "d2b749ee-4225-417e-b20e-a8d2193cbb84",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_pua_advancedrun.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "fa00b701-44c6-4679-994d-5a18afa8a707",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_pua_advancedrun_priv_user.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "e76ca062-4de0-4d79-8d90-160a0d335eca",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_pua_kdu_driver_tool.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "8a1b2c3d-4e5f-6789-abcd-ef1234567890",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_pua_memprocfs.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "74a12f18-505c-4114-8d0b-8448dd5485c6",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_pua_nimgrab.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "44030449-b0df-4c94-aae1-502359ab28ee",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_pua_trufflehog.yml",
+   "expected": null,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "50a0aa3d-ab16-4594-a8aa-5145a6e6792b",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_python_base64_encoded_execution.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "899133d5-4d7c-4a7f-94ee-27355c879d90",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_python_inline_command_execution.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "de587dce-915e-4218-aac4-835ca6af6f70",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_reg_add_run_key.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "d7662ff6-9e97-4596-a61d-9839e32dee8d",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_reg_add_safeboot.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "0e0255bf-2548-47b8-9582-c0955c9283f5",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_reg_bitlocker.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "fd877b94-9bb5-4191-bb25-d79cbd93c167",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_reg_dumping_sensitive_hives.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "ccc946a3-f65a-432a-bb6f-efc6acc1fd27",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_reg_internal_tools_setting_tampering.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "28ac00d6-22d9-4a3c-927f-bbd770104573",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_reg_lsa_disable_restricted_admin.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "ada4b0c4-758b-46ac-9033-9004613a150d",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_reg_modify_group_policy_settings.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "0d5675be-bc88-4172-86d3-1e96a4476536",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_reg_rdp_keys_tamper.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "b7e2a8d4-74bb-4b78-adc9-3f92af2d4829",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_reg_susp_paths.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "c43a5405-e8e1-4221-9ac9-dbe3fa14e886",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_reg_system_language_discovery.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "7c06ab9b-b1d2-4ba9-b06e-09491ded20d9",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_reg_system_restore_modification.yml",
+   "expected": 4,
+   "got": 4,
+   "reproduced": true
+  },
+  {
+   "rule_id": "21d856f9-9281-4ded-9377-51a1a6e2a432",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_registry_logon_script.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "baef1ec6-2ca9-47a3-97cc-4cf2bda10b77",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_registry_new_network_provider.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "9ec9fb1b-e059-4489-9642-f270c207923d",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_registry_special_accounts_hide_user.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "089fc3d2-71e8-4763-a8a5-c97fbb0a403e",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_regsvr32_susp_extensions.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "b52e84a3-029e-4529-b09b-71d19dd27e94",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_remote_access_tools_anydesk.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "b6d98a4f-cef0-4abf-bbf6-24132854a83d",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_remote_access_tools_gotoopener.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "d85873ef-a0f8-4c48-a53a-6b621f11729d",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_remote_access_tools_logmein.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "df55196f-f105-44d3-a675-e9dfb6cc2f2b",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_renamed_adfind.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "36480ae1-a1cb-4eaa-a0d6-29801d7e9142",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_renamed_binary.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "0ba1da6d-b6ce-4366-828c-18826c9de23e",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_renamed_binary_highly_relevant.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "1a1ed54a-2ba4-4221-94d5-01dee560d71e",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_renamed_createdump.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "7530cd3d-7671-43e3-b209-976966f6ea48",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_renamed_curl.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "277a4393-446c-449a-b0ed-7fdc7795244c",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_renamed_ftp.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "e6474a1b-5390-49cd-ab41-8d88655f7394",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_renamed_mavinject.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "bd1c6866-65fc-44b2-be51-5588fcff82b9",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_renamed_msdt.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "f91e51c9-f344-4b32-969b-0b6f6b8537d4",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_renamed_schtasks_execution.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "a4694263-59a8-4608-a3a0-6f8d3a51664c",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_rundll32_keymgr.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "4782eb5a-a513-4523-a0ac-f3082b26ac5c",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_rundll32_mshtml_runhtmlapplication.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "646ea171-dded-4578-8a4d-65e9822892e3",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_rundll32_process_dump_via_comsvcs.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "e593cf51-88db-4ee1-b920-37e89012a3c9",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_rundll32_susp_activity.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "5cdb711b-5740-4fb2-ba88-f7945027afac",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_rundll32_unc_path.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "c3a99af4-35a9-4668-879e-c09aeb4f2bdf",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_rundll32_uncommon_dll_extension.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "6c8fbee5-dee8-49bc-851d-c3142d02aa47",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_sc_sdset_allow_service_changes.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "98c5aeef-32d5-492f-b174-64a691896d25",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_sc_sdset_modification.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "81bcb81b-5b1f-474b-b373-52c871aaa7b1",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_sc_stop_service.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "dbc1f800-0fe0-4bc0-9c66-292c2abe3f78",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_schtasks_delete.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "9ac94dc8-9042-493c-ba45-3b5e7c86b980",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_schtasks_disable.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "c4eeeeae-89f4-43a7-8b48-8d1bdfa66c78",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_schtasks_reg_loader_encoded.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "24c8392b-aa3c-46b7-a545-43f71657fe98",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_schtasks_schedule_type.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "f2c64357-b1d2-41b7-849f-34d2682c0fad",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_schtasks_susp_pattern.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "89ca78fd-b37c-4310-b3d3-81a023f83936",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_schtasks_system.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "517490a7-115a-48c6-8862-1a481504d5a8",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_sdbinst_shim_persistence.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "da2738f2-fadb-4394-afa7-0a0674885afa",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_sdclt_child_process.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "d522eca2-2973-4391-a3e0-ef0374321dae",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_susp_abusing_debug_privilege.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "7f43c430-5001-4f8b-aaa9-c3b88f18fa5c",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_susp_alternate_data_streams.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "f576a613-2392-4067-9d1a-9345fb58d8d1",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_susp_automated_collection.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "f5d19838-41b5-476c-98d8-ba8af4929ee2",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_susp_copy_system_dir_lolbin.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "d2b7a134-9c3e-4f8a-b56d-e0c1f8a29b47",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_susp_cross_user_process_spawn.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "7d1aaf3d-4304-425c-b7c3-162055e0b3ab",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_susp_data_exfiltration_via_cli.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "1cdd9a09-06c9-4769-99ff-626e2b3991b8",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_susp_double_extension.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "beaa66d6-aa1b-4e3c-80f5-e0145369bfaf",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_susp_eventlog_content_recon.yml",
+   "expected": null,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "07aa184a-870d-413d-893a-157f317f6f58",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_susp_gather_network_info_execution.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "0900463c-b33b-49a8-be1d-552a3b553dae",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_susp_hidden_dir_index_allocation.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "ba3f5c1b-6272-4119-9dbd-0bc8d21c2702",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_susp_inline_win_api_access.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "502b42de-4306-40b4-9596-6f590c81f073",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_susp_local_system_owner_account_discovery.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "ffa6861c-4461-4f59-8a41-578c39f3f23e",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_susp_lsass_dmp_cli_keywords.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "f8ad2e2c-40b6-4117-84d7-20b89896ab23",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_susp_network_scan_loop.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "8bc64091-6875-4881-aaf9-7bd25b5dda08",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_susp_ntds.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "213d6a77-3d55-4ce8-ba74-fcfef741974e",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_susp_private_keys_recon.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "efdd8dd5-cee8-4e59-9390-7d4d5e4dd6f6",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_susp_progname.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "aa2efee7-34dd-446e-8a37-40790a66efd7",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_susp_recon.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "ab9e3b40-0c85-4ba1-aede-455d226fd124",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_susp_redirect_local_admin_share.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "ad691d92-15f2-4181-9aa4-723c74f9ddc3",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_susp_right_to_left_override.yml",
+   "expected": null,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "1228c958-e64e-4e71-92ad-7d429f4138ba",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_susp_script_exec_from_env_folder.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "0f60b28c-64dd-4e2c-9a63-5334d3e3a6e6",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_susp_script_interpretor_spawn_credential_scanner.yml",
+   "expected": null,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "f57f8d16-1f39-4dcb-a604-6c73d9b54b3d",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_susp_sensitive_file_access_shadowcopy.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "17a1be64-8d88-40bf-b5ff-a4f7a50ebcc8",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_susp_service_creation.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "b17ea6f7-6e90-447e-a799-e6c0a493d6ce",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_susp_shadow_copies_creation.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "3a6586ad-127a-4d3b-a677-1e6eacdf8fde",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_susp_shell_spawn_susp_program.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "e4a6b256-3e47-40fc-89d2-7a477edd6915",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_susp_system_exe_anomaly.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "9fc51a3c-81b3-4fa7-b35f-7c02cf10fd2d",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_susp_web_request_cmd_and_cmdlets.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "be58d2e2-06c8-4f58-b666-b99f6dc3b6cd",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_svchost_masqueraded_execution.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "f17211f1-1f24-4d0c-829f-31e28dc93cdd",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_svchost_uncommon_command_line_flags.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "2e65275c-8288-4ab4-aeb7-6274f58b6b20",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_sysinternals_procdump.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "5afee48e-67dd-4e03-a783-f74259dcf998",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_sysinternals_procdump_lsass.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "730fc21b-eaff-474b-ad23-90fd265d4988",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_sysinternals_psexec_execution.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "7c0dcd3d-acf8-4f71-9570-f448b0034f94",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_sysinternals_psexesvc_as_system.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "554601fb-9b71-4bcc-abf4-21a611be4fde",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_takeown_recursive_own.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "8f3ab69a-aa22-4943-aa58-e0a52fdf6818",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_user_shell_folders_registry_modification.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "22154f0e-5132-4a54-aa78-cc62f6def531",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_vulnerable_driver_blocklist_registry_tampering.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "639c9081-f482-47d3-a0bd-ddee3d4ecd76",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_wbadmin_delete_all_backups.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "1f0b4cac-9c81-41f4-95d0-8475ff46b3e2",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_werfaultsecure_abuse.yml",
+   "expected": null,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "97a80ec7-0e2f-4d05-9ef4-65760e634f6b",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_whoami_priv_discovery.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "4ede543c-e098-43d9-a28f-dd784a13132f",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_winrar_uncommon_folder_execution.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "79df3f68-dccb-48e9-9171-b75cbc37c51d",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_winrshost_command_execution.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "51cbac1e-eee3-4a90-b1b7-358efb81fa0a",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_wmic_namespace_defender.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "526be59f-a573-4eea-b5f7-f0973207634d",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_wmic_process_creation.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "9d7ca793-f6bd-471c-8d0f-11e68b2f0d2f",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_wmic_recon_computersystem.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "3e3ceccd-6c06-48b8-b5ff-ab1d25db8c1d",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_wmic_recon_csproduct.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "164eda96-11b2-430b-85ff-6a265c15bf32",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_wmic_recon_group.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "dfd2fcb7-8bd5-4daa-b132-5adb61d6ad45",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_wmic_recon_hotfix.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "221b251a-357a-49a9-920a-271802777cc0",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_wmic_recon_process.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "15434e33-5027-4914-88d5-3d4145ec25a9",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_wmic_recon_product.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "e568650b-5dcd-4658-8f34-ded0b1e13992",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_wmic_recon_product_class.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "76f55eaa-d27f-4213-9d45-7b0e4b60bbae",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_wmic_recon_service.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "9d5a1274-922a-49d0-87f3-8c653483b909",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_wmic_recon_system_info_uncommon.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "68bcd73b-37ef-49cb-95fc-edc809730be6",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_wmic_recon_unquoted_service_search.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "c79da740-5030-45ec-a2e0-479e824a562c",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_wmic_recon_volume.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "7773b877-5abb-4a3e-b9c9-fd0369b59b00",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_wmic_remote_execution.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "0b7163dc-7eee-4960-af17-c0cd517f92da",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_wmic_service_manipulation.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "c0514f28-fdae-42df-b886-06e2b2bc5b37",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_wmic_service_startup_change.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "c453ab7a-1f5c-4716-a3b4-dea8135fb43a",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_wmic_stdregprov_reg_modification.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "3c89a1e8-0fba-449e-8f1b-8409d6267ec8",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_wmic_susp_process_creation.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "49d9671b-0a0a-4c09-8280-d215bfd30662",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_wmic_terminate_application.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "b53317a0-8acf-4fd1-8de8-a5401e776b96",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_wmic_uninstall_application.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "847d5ff3-8a31-4737-a970-aeae8fe21765",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_wmic_uninstall_security_products.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "99b7460d-c9f1-40d7-a316-1f36f61d52ee",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_wscript_cscript_uncommon_extension_exec.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "88d306e9-8e2d-4025-9768-28757d2732db",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_wsl_binary_hijack_execution.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "f9f62824-de4e-40ca-afe7-8358f76a876d",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_wsl_installlocation_modification_via_cmdline.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "530576ee-3b62-4bce-9a03-9aac6c61788a",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_wsl_masquerading.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "d645ef86-2396-48a1-a2b6-b629ca3f57ff",
+   "rule_path": "rules/windows/registry/registry_delete/registry_delete_disable_credential_guard.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "41d1058a-aea7-4952-9293-29eaaf516465",
+   "rule_path": "rules/windows/registry/registry_delete/registry_delete_removal_amsi_registry_key.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "3a9b8c1e-5b2e-4f7a-9d1c-2a7f3b6e1c55",
+   "rule_path": "rules/windows/registry/registry_delete/registry_delete_runmru.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "526cc8bc-1cdc-48ad-8b26-f19bff969cec",
+   "rule_path": "rules/windows/registry/registry_delete/registry_delete_schtasks_hide_task_via_index_value_removal.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "acd74772-5f88-45c7-956b-6a7b36c294d2",
+   "rule_path": "rules/windows/registry/registry_delete/registry_delete_schtasks_hide_task_via_sd_value_removal.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "460479f3-80b7-42da-9c43-2cc1d54dbccd",
+   "rule_path": "rules/windows/registry/registry_event/registry_event_add_local_hidden_user.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "1547e27c-3974-43e2-a7d7-7f484fb928ec",
+   "rule_path": "rules/windows/registry/registry_set/registry_set_add_load_service_in_safe_mode.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "944e8941-f6f6-4ee8-ac05-1c224e923c0e",
+   "rule_path": "rules/windows/registry/registry_set/registry_set_add_port_monitor.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "c69fc6a2-607d-4530-b7d1-75823af1bde4",
+   "rule_path": "rules/windows/registry/registry_set/registry_set_allow_defender_firewall_exceptions.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "37b437cf-3fc5-4c8e-9c94-1d7c9aff842b",
+   "rule_path": "rules/windows/registry/registry_set/registry_set_allow_rdp_remote_assistance_feature.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "aa37cbb0-da36-42cb-a90f-fdf216fc7467",
+   "rule_path": "rules/windows/registry/registry_set/registry_set_amsi_disable.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "f674e36a-4b91-431e-8aef-f8a96c2aca35",
+   "rule_path": "rules/windows/registry/registry_set/registry_set_asep_reg_keys_modification_currentcontrolset.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "cbf93e5d-ca6c-4722-8bea-e9119007c248",
+   "rule_path": "rules/windows/registry/registry_set/registry_set_asep_reg_keys_modification_currentversion_nt.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "480421f9-417f-4d3b-9552-fd2728443ec8",
+   "rule_path": "rules/windows/registry/registry_set/registry_set_asep_reg_keys_modification_wow6432node_currentversion.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "46dd5308-4572-4d12-aa43-8938f0184d4f",
+   "rule_path": "rules/windows/registry/registry_set/registry_set_bypass_uac_using_delegateexecute.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "674202d0-b22a-4af4-ae5f-2eda1f3da1af",
+   "rule_path": "rules/windows/registry/registry_set/registry_set_bypass_uac_using_eventviewer.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "724ea201-6514-4f38-9739-e5973c34f49a",
+   "rule_path": "rules/windows/registry/registry_set/registry_set_bypass_uac_using_silentcleanup_task.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "509e84b9-a71a-40e0-834f-05470369bd1e",
+   "rule_path": "rules/windows/registry/registry_set/registry_set_change_rdp_port.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "45e112d0-7759-4c2a-aa36-9f8fb79d3393",
+   "rule_path": "rules/windows/registry/registry_set/registry_set_change_security_zones.yml",
+   "expected": 3,
+   "got": 3,
+   "reproduced": true
+  },
+  {
+   "rule_id": "a07f0359-4c90-4dc4-a681-8ffea40b4f47",
+   "rule_path": "rules/windows/registry/registry_set/registry_set_creation_service_susp_folder.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "73921b9c-cafd-4446-b0c6-fdb0ace42bc0",
+   "rule_path": "rules/windows/registry/registry_set/registry_set_credential_guard_disabled.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "6648f900-4a7d-47e3-bad6-952b313a1c0e",
+   "rule_path": "rules/windows/registry/registry_set/registry_set_defender_firewall_add_exception.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "8b7273a4-ba5d-4d8a-b04f-11f2900d043a",
+   "rule_path": "rules/windows/registry/registry_set/registry_set_deviceguard_hypervisorenforcedcodeintegrity_disabled.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "c7dcacd0-cc59-4004-b0a4-1d6cdebe6f3e",
+   "rule_path": "rules/windows/registry/registry_set/registry_set_disable_administrative_share.yml",
+   "expected": 2,
+   "got": 2,
+   "reproduced": true
+  },
+  {
+   "rule_id": "f37b4bce-49d0-4087-9f5b-58bffda77316",
+   "rule_path": "rules/windows/registry/registry_set/registry_set_disable_autologger_sessions.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "974515da-6cc5-4c95-ae65-f97f9150ec7f",
+   "rule_path": "rules/windows/registry/registry_set/registry_set_disable_defender_firewall.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "e2482f8d-3443-4237-b906-cc145d87a076",
+   "rule_path": "rules/windows/registry/registry_set/registry_set_disable_function_user.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "3ae1a046-f7db-439d-b7ce-b8b366b81fa6",
+   "rule_path": "rules/windows/registry/registry_set/registry_set_disable_security_center_notifications.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "5de03871-5d46-4539-a82d-3aa992a69a83",
+   "rule_path": "rules/windows/registry/registry_set/registry_set_disable_system_restore.yml",
+   "expected": 4,
+   "got": 4,
+   "reproduced": true
+  },
+  {
+   "rule_id": "d223b46b-5621-4037-88fe-fda32eead684",
+   "rule_path": "rules/windows/registry/registry_set/registry_set_install_root_or_ca_certificat.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "8b9606c9-28be-4a38-b146-0e313cc232c1",
+   "rule_path": "rules/windows/registry/registry_set/registry_set_legalnotice_susp_message.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "33efc23c-6ea2-4503-8cfe-bdf82ce8f705",
+   "rule_path": "rules/windows/registry/registry_set/registry_set_persistence_amsi_providers.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "e6fe26ee-d063-4f5b-b007-39e90aaf50e3",
+   "rule_path": "rules/windows/registry/registry_set/registry_set_persistence_autodial_dll.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "9b0f8a61-91b2-464f-aceb-0527e0a45020",
+   "rule_path": "rules/windows/registry/registry_set/registry_set_persistence_com_key_linking.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "36803969-5421-41ec-b92f-8500f79c23b0",
+   "rule_path": "rules/windows/registry/registry_set/registry_set_persistence_globalflags.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "9ace0707-b560-49b8-b6ca-5148b42f39fb",
+   "rule_path": "rules/windows/registry/registry_set/registry_set_persistence_logon_scripts_userinitmprlogonscript.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "fecfd1a1-cc78-4313-a1ea-2ee2e8ec27a7",
+   "rule_path": "rules/windows/registry/registry_set/registry_set_powershell_logging_disabled.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "25ffa65d-76d8-4da5-a832-3f2b0136e133",
+   "rule_path": "rules/windows/registry/registry_set/registry_set_pua_sysinternals_execution_via_eula.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "f50f3c09-557d-492d-81db-9064a8d4e211",
+   "rule_path": "rules/windows/registry/registry_set/registry_set_pua_sysinternals_renamed_execution_via_eula.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "c7da8edc-49ae-45a2-9e61-9fd860e4e73d",
+   "rule_path": "rules/windows/registry/registry_set/registry_set_pua_sysinternals_susp_execution_via_eula.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "f8aebc67-a56d-4ec9-9fbe-7b0e8b7b4efd",
+   "rule_path": "rules/windows/registry/registry_set/registry_set_special_accounts.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "02ee49e2-e294-4d0f-9278-f5b3212fc588",
+   "rule_path": "rules/windows/registry/registry_set/registry_set_susp_run_key_img_folder.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "9c226817-8dc9-46c2-a58d-66655aafd7dc",
+   "rule_path": "rules/windows/registry/registry_set/registry_set_susp_user_shell_folders.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "966315ef-c5e1-4767-ba25-fce9c8de3660",
+   "rule_path": "rules/windows/registry/registry_set/registry_set_suspicious_env_variables.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "a2863fbc-d5cb-48d5-83fb-d976d4b1743b",
+   "rule_path": "rules/windows/registry/registry_set/registry_set_terminal_server_suspicious.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "e88a6ddc-74f7-463b-9b26-f69fc0d2ce85",
+   "rule_path": "rules/windows/registry/registry_set/registry_set_timeproviders_dllname.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "d526c60a-e236-4011-b165-831ffa52ab70",
+   "rule_path": "rules/windows/registry/registry_set/registry_set_vulnerable_driver_blocklist_disable.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "0eb46774-f1ab-4a74-8238-1155855f2263",
+   "rule_path": "rules/windows/registry/registry_set/registry_set_windows_defender_tamper.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "83475063-b1c8-4774-9568-69bbda71a539",
+   "rule_path": "rules/windows/registry/registry_set/registry_set_wsl_installlocation_registry_key_modification.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "8ac03a65-6c84-4116-acad-dc1558ff7a77",
+   "rule_path": "rules/windows/sysmon/sysmon_config_modification.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "693a44e9-7f26-4cb6-b787-214867672d3a",
+   "rule_path": "rules/windows/sysmon/sysmon_file_executable_detected.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "0f06a3a5-6a09-413f-8743-e6cf35561297",
+   "rule_path": "rules/windows/wmi_event/sysmon_wmi_event_subscription.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "1cfac73c-be78-4f9a-9b08-5bde0c3953ab",
+   "rule_path": "rules-emerging-threats/2019/TA/Operation-Wocao/proc_creation_win_apt_wocao.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "999e8307-a775-4d5f-addc-4855632335be",
+   "rule_path": "rules-emerging-threats/2021/Malware/BlackByte/proc_creation_win_malware_blackbyte_ransomware.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "83314318-052a-4c90-a1ad-660ece38d276",
+   "rule_path": "rules-emerging-threats/2021/Malware/BlackByte/registry_set_win_malware_blackbyte_privesc_registry.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "cf879ffb-793a-4753-9a14-bc8f37cc90df",
+   "rule_path": "rules-emerging-threats/2023/Malware/Qakbot/proc_creation_win_malware_qakbot_rundll32_execution.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "05164d17-8e11-4d7d-973e-9e4962436b87",
+   "rule_path": "rules-emerging-threats/2024/TA/SlashAndGrab-Exploitation-In-Wild/file_event_win_apt_unknown_exploitation_indicators.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "af688c76-4ce4-4309-bfdd-e896f01acf27",
+   "rule_path": "rules-emerging-threats/2025/Malware/Grixba/proc_creation_win_malware_grixba_recon.yml",
+   "expected": null,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "540703fb-a874-4385-a9d6-7cd1bfab268c",
+   "rule_path": "rules-emerging-threats/2025/Malware/Shai-Hulud/proc_creation_win_mal_shai_hulud_indicator.yml",
+   "expected": null,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "5299fadf-f228-4526-8274-251db1960be9",
+   "rule_path": "rules-emerging-threats/2025/Malware/Shai-Hulud/proc_creation_win_mal_shai_hulud_malicious_node_bun_execution.yml",
+   "expected": null,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "bae7c70b-8569-44e9-accf-b30073da8a5d",
+   "rule_path": "rules-emerging-threats/2025/Malware/Shai-Hulud/proc_creation_win_mal_shai_hulud_malicious_npm_package_installation.yml",
+   "expected": null,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "7c3a5b1d-9e2f-4a8c-b5d7-1e0f3c6a9b2d",
+   "rule_path": "rules-emerging-threats/2026/Exploits/CVE-2026-33829/proc_creation_win_exploit_cve_2026_33829.yml",
+   "expected": 2,
+   "got": 2,
+   "reproduced": true
+  },
+  {
+   "rule_id": "f2e4b7d9-5c3a-4f8b-9e1d-7a6c2b3f4e5d",
+   "rule_path": "rules-emerging-threats/2026/Exploits/RedSun/file_event_win_exploit_redsun_indicators.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "9b4e7c2a-3f6d-4a8b-b5e9-1c7d3f2e6a4b",
+   "rule_path": "rules-emerging-threats/2026/Exploits/RedSun/pipe_created_win_exploit_redsun_named_pipe.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "a7c3e5f2-8b1d-4e9a-b6c2-3d7f5e8a9b4c",
+   "rule_path": "rules-emerging-threats/2026/Exploits/RedSun/win_defender_exploit_redsun_tiering_engine_detected_as_eicar.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "caf02a0a-1e1c-4552-9b48-5e070bd88d11",
+   "rule_path": "rules-threat-hunting/windows/file/file_event/file_event_win_susp_desktop_txt.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "8a2f4b1c-3d5e-4f7a-9b2c-1e4f6d8a9c2b",
+   "rule_path": "rules-threat-hunting/windows/image_load/image_load_win_werfaultsecure_dbgcore_dbghelp_load.yml",
+   "expected": null,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "4e485d01-e18a-43f6-a46b-ef20496fa9d3",
+   "rule_path": "rules-threat-hunting/windows/powershell/powershell_script/posh_ps_mailbox_access.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "9a7afa56-4762-43eb-807d-c3dc9ffe211b",
+   "rule_path": "rules-threat-hunting/windows/powershell/powershell_script/posh_ps_send_mailmessage.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "f3a98ce4-6164-4dd4-867c-4d83de7eca51",
+   "rule_path": "rules-threat-hunting/windows/powershell/powershell_script/posh_ps_token_obfuscation.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "acf2807c-805b-4042-aab9-f86b6ba9cb2b",
+   "rule_path": "rules-threat-hunting/windows/process_creation/proc_creation_win_csc_compilation.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "3286d37a-00fd-41c2-a624-a672dcd34e60",
+   "rule_path": "rules-threat-hunting/windows/process_creation/proc_creation_win_curl_useragent.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "419dbf2b-8a9b-4bea-bf99-7544b050ec8d",
+   "rule_path": "rules-threat-hunting/windows/process_creation/proc_creation_win_microsoft_workflow_compiler_execution.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "e4b6d2a7-d8a4-4f19-acbd-943c16d90647",
+   "rule_path": "rules-threat-hunting/windows/process_creation/proc_creation_win_powershell_susp_child_processes.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "9cd55b6c-430a-4fa9-96f4-7cadf5229e9f",
+   "rule_path": "rules-threat-hunting/windows/process_creation/proc_creation_win_susp_event_log_query.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "349d891d-fef0-4fe4-bc53-eee623a15969",
+   "rule_path": "rules-threat-hunting/windows/process_creation/proc_creation_win_susp_ntfs_short_name_path_use_cli.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  },
+  {
+   "rule_id": "277dc340-0540-42e7-8efb-5ff460045e07",
+   "rule_path": "rules-threat-hunting/windows/registry/registry_set/registry_set_service_image_path_user_controlled_folder.yml",
+   "expected": 1,
+   "got": 1,
+   "reproduced": true
+  }
+ ],
+ "benign": {
+  "win7-x86": {
+   "rules_with_hits": 3,
+   "total_hits": 23,
+   "per_rule": {
+    "b69888d4-380c-45ce-9cf9-d9ce46e67821": 18,
+    "8ac03a65-6c84-4116-acad-dc1558ff7a77": 3,
+    "36480ae1-a1cb-4eaa-a0d6-29801d7e9142": 2
+   },
+   "checker_seconds": 9.9
+  },
+  "Logs_Client": {
+   "rules_with_hits": 4,
+   "total_hits": 7,
+   "per_rule": {
+    "41ca393d-538c-408a-ac27-cf1e038be80c": 4,
+    "8ac03a65-6c84-4116-acad-dc1558ff7a77": 1,
+    "36480ae1-a1cb-4eaa-a0d6-29801d7e9142": 1,
+    "502b42de-4306-40b4-9596-6f590c81f073": 1
+   },
+   "checker_seconds": 46.0
+  }
+ }
+}

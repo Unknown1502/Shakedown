@@ -1,0 +1,93 @@
+{
+ "schema": "shakedown-assessment/1",
+ "created_at": "2026-10-27T14:52:00.361650+00:00",
+ "rule": {
+  "id": "856f2711-3c41-4fb0-8236-1487b30a905e",
+  "title": "Potential AdFind Usage",
+  "sha256": "5c114954f3a30d9c9383c1eab8b63410317191b5066cc3bfc781814ab26bcf5b",
+  "falsepositives": [
+   "Legitimate administrative use of AdFind for authorized Active Directory queries."
+  ],
+  "logsource": {
+   "category": "process_creation",
+   "product": "windows"
+  }
+ },
+ "statuses": {
+  "rule_validity": {
+   "state": "valid",
+   "label": "Valid Sigma rule",
+   "origin": "sigma_validator",
+   "detail": "the Sigma validator accepted the rule",
+   "output": "\n=== Summary ===\nFound 0 errors, 0 condition errors and 0 issues.\nNo rule errors found.\nNo condition errors found.\nNo validation issues found.\nParsing Sigma rules\nChecking Sigma rules\n"
+  },
+  "attack_validation": {
+   "state": "validated_on_supplied_attack_evidence",
+   "label": "Validated on the attack evidence",
+   "origin": "organisation_supplied",
+   "detail": "the rule matched every sample labelled expect: detect and no negative control",
+   "caveats": [
+    "Only one attack sample: a match on one sample does not show the rule generalises to other variants."
+   ],
+   "expected_detections": 1,
+   "expected_detections_met": 1,
+   "samples": [
+    {
+     "file": "adfind_run.evtx",
+     "expect": "detect",
+     "detected": true,
+     "outcome": "as_expected",
+     "sha256": "5175ff0f3f0c18f493dd1ae4189185ec4f26b9852ce764bc728ab7e0ae276ec4",
+     "label_basis": "SigmaHQ regression sample for the AdFind.EXE execution rule; AdFind was run on purpose"
+    }
+   ]
+  },
+  "environment_preflight": {
+   "state": "not_run",
+   "label": "Not run",
+   "origin": null,
+   "detail": "no SIEM search was requested",
+   "connector_label": "implemented but not live-verified"
+  }
+ },
+ "benign_baseline": {
+  "sets": [
+   {
+    "label": "benign",
+    "basis": "known_clean",
+    "files_total": 352,
+    "files_with_hits": 0,
+    "matching_events": 0,
+    "examples": []
+   }
+  ],
+  "matching_events": 0,
+  "reasons": [
+   "limited to the logs supplied; says nothing about other hosts, users or periods"
+  ],
+  "verdict": "no_benign_matches",
+  "supports_false_positive_claim": true
+ },
+ "lab_evidence": null,
+ "report": null,
+ "target_query": {
+  "language": "SPL",
+  "detection": "search index=\"<your index>\" source=\"XmlWinEventLog:Microsoft-Windows-Sysmon/Operational\" EventCode=1 (OriginalFileName=\"AdFind.exe\" CommandLine IN (\"*parentrdn*\", \"*objrdn*\", \"*-dechextosid*\", \"*-encguidtoiid*\", \"*-showdel*\", \"*-sdna*\", \"*-nosacl*\", \"*-f*\"))",
+  "scope": {
+   "logsource_scope": "source=\"XmlWinEventLog:Microsoft-Windows-Sysmon/Operational\" EventCode=1",
+   "logsource_note": "Sysmon process creation. Windows Security 4688 uses different field names (NewProcessName, CommandLine) and is not supported: a rule written with Sigma's Sysmon-style fields would not match it."
+  }
+ },
+ "recommendation": {
+  "level": "needs_more_evidence",
+  "text": "More evidence is needed before this rule can be recommended: at least one of the three questions is unanswered or could not be answered reliably. Nothing was deployed or changed.",
+  "automatic_deployment": false
+ },
+ "limitations": [
+  "The three statuses answer different questions and are not added together. There is no overall pass.",
+  "A lab or supplied-attack match does not show the organisation collects the telemetry the rule needs.",
+  "Nothing was deployed, scheduled or changed in any SIEM. Deployment is a decision for an analyst.",
+  "Only one attack sample: a match on one sample does not show the rule generalises to other variants.",
+  "limited to the logs supplied; says nothing about other hosts, users or periods"
+ ]
+}

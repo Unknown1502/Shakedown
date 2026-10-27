@@ -1,0 +1,26 @@
+[
+ {
+  "url": "https://sigmaquery.com/rule.php?id=93",
+  "title": "PUA - AdFind.EXE Execution | Sigma Query",
+  "content": "title: PUA - AdFind.EXE Execution id: 514e7e3e-b3b4-4a67-af60-be20f139198b related: - id: 455b9d50-15a1-4b99-853f-8d37655a4c1b type: similar status: experimental description: Detects execution of Adfind.exe utility, which can be used for reconnaissance in an Active Directory environment references: -  -  author: Swachchhanda Shrawan Poudel (Nextron Systems) date: 2025-02-26 tags: - attack.discovery - attack.t1087.002 logsource: product: windows category: process_creation detection: selection: - [...] > Rule Detail\n\n## PUA - AdFind.EXE Execution\n\n👁 45\n\nLevel medium\n\nStatus experimental\n\n|  |  |\n --- |\n| ID | 514e7e3e-b3b4-4a67-af60-be20f139198b  🔗 View on GitHub |\n| Author | Swachchhanda Shrawan Poudel (Nextron Systems) |\n| Date | 2025-05-21 |\n| Logsource | windows / process\\_creation |\n\nDetects execution of Adfind.exe utility, which can be used for reconnaissance in an Active Directory environment\n\nT1087.002↗\n\nCondition `selection` [...] ### Detection Logic Flowchart\n\n### Version History\n\nLoading history…\n\n### Community Comments\n\nLoading comments…\n\n### ⚡ Convert to SIEM Format\n\n### Related Rules\n\nmedium\n\nPotential AD User Enumeration From Non-Machine Account medium\n\nPotential Active Directory Reconnaissance/Enumeration Via LDAP high\n\nAD Privileged Users or Groups Reconnaissance high\n\nReconnaissance Activity high\n\nPUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE high\n\nMalicious PowerShell Commandlets - ScriptBlock",
+  "retrieved_at": "2026-10-27T11:25:59Z",
+  "via": "search",
+  "score": 0.8737439
+ },
+ {
+  "url": "https://detection.fyi/sigmahq/sigma/windows/process_creation/proc_creation_win_pua_adfind_execution",
+  "title": "PUA - AdFind.EXE Execution | Detection.FYI",
+  "content": "# PUA - AdFind.EXE Execution\n\nNov 26, 2025 · attack.discovery attack.t1087.002    ·\n\nShare on:\n\nDetects execution of Adfind.exe utility, which can be used for reconnaissance in an Active Directory environment\n\n## Sigma rule (View on GitHub) [...] 1title: PUA - AdFind.EXE Execution  1title: PUA - AdFind.EXE Execution title:  PUA - AdFind.EXE Execution   2id: 514e7e3e-b3b4-4a67-af60-be20f139198b  2id: 514e7e3e-b3b4-4a67-af60-be20f139198b  id:  514e7e3e-b3b4-4a67-af60-be20f139198b   3related:  3related:  related:   4 - id: 455b9d50-15a1-4b99-853f-8d37655a4c1b  4 - id: 455b9d50-15a1-4b99-853f-8d37655a4c1b  id:  455b9d50-15a1-4b99-853f-8d37655a4c1b   5 type: similar  5 type: similar  type:  similar   6status: experimental  6status: [...] 6status: experimental  status:  experimental   7description: Detects execution of Adfind.exe utility, which can be used for reconnaissance in an Active Directory environment  7description: Detects execution of Adfind.exe utility, which can be used for reconnaissance in an Active Directory environment  description:  Detects execution of Adfind.exe utility, which can be used for reconnaissance in an Active Directory environment   8references:  8references:  references:   9 -   9 -     10 -  10 -",
+  "retrieved_at": "2026-10-27T11:25:59Z",
+  "via": "search",
+  "score": 0.79845446
+ },
+ {
+  "url": "https://research.splunk.com/endpoint/bd3b0187-189b-46c0-be45-f52da2bae67f",
+  "title": "Detection: Windows AdFind Exe | Splunk Security Content",
+  "content": "The following analytic identifies the execution of `adfind.exe` standalone or with specific command-line arguments related to Active Directory queries. It leverages data from Endpoint Detection and Response (EDR) agents, focusing on process names, command-line arguments, and parent Processes. This activity is significant because `adfind.exe` is a powerful tool often used by threat actors like Wizard Spider and FIN6 to gather sensitive AD information. If confirmed malicious, this activity could",
+  "retrieved_at": "2026-10-27T11:25:59Z",
+  "via": "search",
+  "score": 0.7598145
+ }
+]

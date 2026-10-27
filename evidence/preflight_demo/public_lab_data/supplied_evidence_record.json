@@ -1,0 +1,2339 @@
+{
+ "evidence_origin": "organisation_supplied",
+ "evaluated_at": "2026-10-27T14:51:59.515190+00:00",
+ "evaluator": {
+  "kind": "local-docker",
+  "image": "debian:bookworm-slim@sha256:7ff6ba31527b9e336162fa061746c366c4b2032f4d2cff2078bea43f78efe3f8",
+  "network": "disabled (--network none)",
+  "isolation": "Docker container, read-only root, no capabilities, non-root",
+  "note": "Not a Token Factory Sandbox."
+ },
+ "rule": {
+  "id": "856f2711-3c41-4fb0-8236-1487b30a905e",
+  "title": "Potential AdFind Usage",
+  "sha256": "5c114954f3a30d9c9383c1eab8b63410317191b5066cc3bfc781814ab26bcf5b"
+ },
+ "manifest": {
+  "name": "public lab data standing in for an organisation's own evidence",
+  "logsource": {
+   "category": "process_creation",
+   "product": "windows"
+  },
+  "schema": {
+   "channel": "Microsoft-Windows-Sysmon/Operational",
+   "source": "Sysmon"
+  }
+ },
+ "provenance": {
+  "collected_by": "SigmaHQ regression data and NextronSystems evtx-baseline (public)",
+  "method": "AdFind.exe run recorded by SigmaHQ; clean Windows 10 client baseline published by Nextron"
+ },
+ "inputs": {
+  "attack": [
+   {
+    "file": "adfind_run.evtx",
+    "sha256": "5175ff0f3f0c18f493dd1ae4189185ec4f26b9852ce764bc728ab7e0ae276ec4",
+    "size": 69632,
+    "expect": "detect",
+    "label_basis": "SigmaHQ regression sample for the AdFind.EXE execution rule; AdFind was run on purpose"
+   }
+  ],
+  "benign": [
+   {
+    "label": "benign",
+    "label_basis": "known_clean",
+    "basis_meaning": "reviewed or freshly built, believed to contain no attack activity",
+    "description": "Windows 10 client baseline published with evtx-baseline v0.8.5",
+    "attested_by": "NextronSystems (public release)",
+    "files": [
+     {
+      "name": "Application.evtx",
+      "path": "benign/Application.evtx",
+      "size": 1118208,
+      "sha256": "9ec5eedd032cb5d87ee29ae14ff944bf8014b269e6891483a6ae89d808618980"
+     },
+     {
+      "name": "HardwareEvents.evtx",
+      "path": "benign/HardwareEvents.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Internet Explorer.evtx",
+      "path": "benign/Internet Explorer.evtx",
+      "size": 69632,
+      "sha256": "f72e9b24dc15f9c80af730fe543fd39cb5cfc23908628737c227de24993b1e72"
+     },
+     {
+      "name": "Key Management Service.evtx",
+      "path": "benign/Key Management Service.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-AppV-Client%4Admin.evtx",
+      "path": "benign/Microsoft-AppV-Client%4Admin.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-AppV-Client%4Operational.evtx",
+      "path": "benign/Microsoft-AppV-Client%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-AppV-Client%4Virtual Applications.evtx",
+      "path": "benign/Microsoft-AppV-Client%4Virtual Applications.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Client-Licensing-Platform%4Admin.evtx",
+      "path": "benign/Microsoft-Client-Licensing-Platform%4Admin.evtx",
+      "size": 1052672,
+      "sha256": "c3e95b9743841dafbedf85f2cf160533565d67472b249683eced040dba5289d9"
+     },
+     {
+      "name": "Microsoft-User Experience Virtualization-Agent Driver%4Operational.evtx",
+      "path": "benign/Microsoft-User Experience Virtualization-Agent Driver%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-User Experience Virtualization-App Agent%4Operational.evtx",
+      "path": "benign/Microsoft-User Experience Virtualization-App Agent%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-User Experience Virtualization-IPC%4Operational.evtx",
+      "path": "benign/Microsoft-User Experience Virtualization-IPC%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-User Experience Virtualization-SQM Uploader%4Operational.evtx",
+      "path": "benign/Microsoft-User Experience Virtualization-SQM Uploader%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-AAD%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-AAD%4Operational.evtx",
+      "size": 69632,
+      "sha256": "423afe7e0187c571b9592a3098cf080c3f481d99194c786683615b21bc1509d8"
+     },
+     {
+      "name": "Microsoft-Windows-All-User-Install-Agent%4Admin.evtx",
+      "path": "benign/Microsoft-Windows-All-User-Install-Agent%4Admin.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-AllJoyn%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-AllJoyn%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-AppHost%4Admin.evtx",
+      "path": "benign/Microsoft-Windows-AppHost%4Admin.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-AppID%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-AppID%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-ApplicabilityEngine%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-ApplicabilityEngine%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Application Server-Applications%4Admin.evtx",
+      "path": "benign/Microsoft-Windows-Application Server-Applications%4Admin.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Application Server-Applications%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Application Server-Applications%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Application-Experience%4Program-Compatibility-Assistant.evtx",
+      "path": "benign/Microsoft-Windows-Application-Experience%4Program-Compatibility-Assistant.evtx",
+      "size": 69632,
+      "sha256": "c692179a231953dab45f42caec6465e21382b665d86671ea476909dfde2a7e98"
+     },
+     {
+      "name": "Microsoft-Windows-Application-Experience%4Program-Compatibility-Troubleshooter.evtx",
+      "path": "benign/Microsoft-Windows-Application-Experience%4Program-Compatibility-Troubleshooter.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Application-Experience%4Program-Inventory.evtx",
+      "path": "benign/Microsoft-Windows-Application-Experience%4Program-Inventory.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Application-Experience%4Program-Telemetry.evtx",
+      "path": "benign/Microsoft-Windows-Application-Experience%4Program-Telemetry.evtx",
+      "size": 69632,
+      "sha256": "a46940f83d695e7a71a180349a7c8e5e5cff21ddeee5496dd8b9adbcc0e8cbe5"
+     },
+     {
+      "name": "Microsoft-Windows-Application-Experience%4Steps-Recorder.evtx",
+      "path": "benign/Microsoft-Windows-Application-Experience%4Steps-Recorder.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-AppLocker%4EXE and DLL.evtx",
+      "path": "benign/Microsoft-Windows-AppLocker%4EXE and DLL.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-AppLocker%4MSI and Script.evtx",
+      "path": "benign/Microsoft-Windows-AppLocker%4MSI and Script.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-AppLocker%4Packaged app-Deployment.evtx",
+      "path": "benign/Microsoft-Windows-AppLocker%4Packaged app-Deployment.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-AppLocker%4Packaged app-Execution.evtx",
+      "path": "benign/Microsoft-Windows-AppLocker%4Packaged app-Execution.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-AppModel-Runtime%4Admin.evtx",
+      "path": "benign/Microsoft-Windows-AppModel-Runtime%4Admin.evtx",
+      "size": 1052672,
+      "sha256": "669516cc2f925188d2d5e03d3a367f23a483cef21c3df8a32a86d029c873adf1"
+     },
+     {
+      "name": "Microsoft-Windows-AppReadiness%4Admin.evtx",
+      "path": "benign/Microsoft-Windows-AppReadiness%4Admin.evtx",
+      "size": 1118208,
+      "sha256": "62f60f3c6a437c214ec77f1aa09a23493dc6ddf52771072615cf374eb4c22551"
+     },
+     {
+      "name": "Microsoft-Windows-AppReadiness%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-AppReadiness%4Operational.evtx",
+      "size": 69632,
+      "sha256": "48b82ea235e076dbad268501aedbc43435f151c1f32ad4343c0ebd5c12552bb0"
+     },
+     {
+      "name": "Microsoft-Windows-AppXDeployment%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-AppXDeployment%4Operational.evtx",
+      "size": 1052672,
+      "sha256": "805988c1873dc977369e427e3d65587d23b1d6a7ea2dfd793ae42748bbd5d3ff"
+     },
+     {
+      "name": "Microsoft-Windows-AppXDeploymentServer%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-AppXDeploymentServer%4Operational.evtx",
+      "size": 5246976,
+      "sha256": "b8917d1dfe6653c64c3b8ea6ac2b659b59a2a162d4355e0ce9064671b10e1ee4"
+     },
+     {
+      "name": "Microsoft-Windows-AppXDeploymentServer%4Restricted.evtx",
+      "path": "benign/Microsoft-Windows-AppXDeploymentServer%4Restricted.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-AppxPackaging%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-AppxPackaging%4Operational.evtx",
+      "size": 1052672,
+      "sha256": "9bc670f990b12364ee1205ead3a546ab1966458d07aa3edc879308976692fdbc"
+     },
+     {
+      "name": "Microsoft-Windows-AssignedAccess%4Admin.evtx",
+      "path": "benign/Microsoft-Windows-AssignedAccess%4Admin.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-AssignedAccessBroker%4Admin.evtx",
+      "path": "benign/Microsoft-Windows-AssignedAccessBroker%4Admin.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Audio%4CaptureMonitor.evtx",
+      "path": "benign/Microsoft-Windows-Audio%4CaptureMonitor.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Audio%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Audio%4Operational.evtx",
+      "size": 69632,
+      "sha256": "92935537699b8fd9ad81a996236741c0be196f34e6ec9092e47a3d812461f803"
+     },
+     {
+      "name": "Microsoft-Windows-Audio%4PlaybackManager.evtx",
+      "path": "benign/Microsoft-Windows-Audio%4PlaybackManager.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Authentication User Interface%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Authentication User Interface%4Operational.evtx",
+      "size": 69632,
+      "sha256": "024ba3d92688d1b9d1412f4a9441822c2ea1944c07fc288474cf91a7b86dd33d"
+     },
+     {
+      "name": "Microsoft-Windows-BackgroundTaskInfrastructure%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-BackgroundTaskInfrastructure%4Operational.evtx",
+      "size": 69632,
+      "sha256": "abdaf50457afb0975d6c5be7b2f536995f3f0459923600150a2ee1896dbace17"
+     },
+     {
+      "name": "Microsoft-Windows-Backup.evtx",
+      "path": "benign/Microsoft-Windows-Backup.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Biometrics%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Biometrics%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f98750c5cf794ec8b83592a2d96f59049092b548866b49ba0321cec9f9785cc4"
+     },
+     {
+      "name": "Microsoft-Windows-BitLocker%4BitLocker Management.evtx",
+      "path": "benign/Microsoft-Windows-BitLocker%4BitLocker Management.evtx",
+      "size": 69632,
+      "sha256": "e8d22465c877f05c5f0f52196eaaa2620c9a59efd505f8c10612e4bae6f2493a"
+     },
+     {
+      "name": "Microsoft-Windows-BitLocker-DrivePreparationTool%4Admin.evtx",
+      "path": "benign/Microsoft-Windows-BitLocker-DrivePreparationTool%4Admin.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-BitLocker-DrivePreparationTool%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-BitLocker-DrivePreparationTool%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Bits-Client%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Bits-Client%4Operational.evtx",
+      "size": 1052672,
+      "sha256": "f33ac4655312bb409646192b9fe53dc272d129f7252d81e9c6442b7964220205"
+     },
+     {
+      "name": "Microsoft-Windows-Bluetooth-BthLEPrepairing%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Bluetooth-BthLEPrepairing%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Bluetooth-MTPEnum%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Bluetooth-MTPEnum%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-BranchCache%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-BranchCache%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-BranchCacheSMB%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-BranchCacheSMB%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-CertificateServicesClient-Lifecycle-System%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-CertificateServicesClient-Lifecycle-System%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-CertificateServicesClient-Lifecycle-User%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-CertificateServicesClient-Lifecycle-User%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Cleanmgr%4Diagnostic.evtx",
+      "path": "benign/Microsoft-Windows-Cleanmgr%4Diagnostic.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-CloudStore%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-CloudStore%4Operational.evtx",
+      "size": 69632,
+      "sha256": "d7add06894e0123668dbdd546d18fafacecec7b836205d7c6c5e49f07112537f"
+     },
+     {
+      "name": "Microsoft-Windows-CodeIntegrity%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-CodeIntegrity%4Operational.evtx",
+      "size": 69632,
+      "sha256": "2fe19ef99c06d985758d54065945b4163320b17303c392abaa296d38f7379c66"
+     },
+     {
+      "name": "Microsoft-Windows-Compat-Appraiser%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Compat-Appraiser%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Containers-BindFlt%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Containers-BindFlt%4Operational.evtx",
+      "size": 69632,
+      "sha256": "734a5f3f95da70df7b0a2cd7abf0b2e69ccfe4b2f54818c829fd5559078d4ba6"
+     },
+     {
+      "name": "Microsoft-Windows-Containers-Wcifs%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Containers-Wcifs%4Operational.evtx",
+      "size": 69632,
+      "sha256": "07a1797f2d32b809ce667971bbec4ffd0ca249cb5d2dc8eec7d667c35085c503"
+     },
+     {
+      "name": "Microsoft-Windows-Containers-Wcnfs%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Containers-Wcnfs%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-CoreApplication%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-CoreApplication%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-CoreSystem-SmsRouter-Events%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-CoreSystem-SmsRouter-Events%4Operational.evtx",
+      "size": 69632,
+      "sha256": "dedea771916dcf00d04a024f013bde00805f4f5a9c829cdb5169b582979f7bd2"
+     },
+     {
+      "name": "Microsoft-Windows-CorruptedFileRecovery-Client%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-CorruptedFileRecovery-Client%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-CorruptedFileRecovery-Server%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-CorruptedFileRecovery-Server%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Crypto-DPAPI%4BackUpKeySvc.evtx",
+      "path": "benign/Microsoft-Windows-Crypto-DPAPI%4BackUpKeySvc.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Crypto-DPAPI%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Crypto-DPAPI%4Operational.evtx",
+      "size": 69632,
+      "sha256": "c12746f68605edfff395ac04cce35ff9ac504c976613854f4799d3743e60546d"
+     },
+     {
+      "name": "Microsoft-Windows-Crypto-NCrypt%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Crypto-NCrypt%4Operational.evtx",
+      "size": 69632,
+      "sha256": "0a27f129e7c1d9f66d80fd39f0d3b930c286af8c06c8fc77d7c2476b88ffc193"
+     },
+     {
+      "name": "Microsoft-Windows-DAL-Provider%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-DAL-Provider%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-DataIntegrityScan%4Admin.evtx",
+      "path": "benign/Microsoft-Windows-DataIntegrityScan%4Admin.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-DataIntegrityScan%4CrashRecovery.evtx",
+      "path": "benign/Microsoft-Windows-DataIntegrityScan%4CrashRecovery.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-DateTimeControlPanel%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-DateTimeControlPanel%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Deduplication%4Diagnostic.evtx",
+      "path": "benign/Microsoft-Windows-Deduplication%4Diagnostic.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Deduplication%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Deduplication%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Deduplication%4Scrubbing.evtx",
+      "path": "benign/Microsoft-Windows-Deduplication%4Scrubbing.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-DeviceGuard%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-DeviceGuard%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-DeviceManagement-Enterprise-Diagnostics-Provider%4Admin.evtx",
+      "path": "benign/Microsoft-Windows-DeviceManagement-Enterprise-Diagnostics-Provider%4Admin.evtx",
+      "size": 1052672,
+      "sha256": "a0459f607f464c5585cd9d6ceeac7cc94db272c20cb634319cb7d0e5f842875a"
+     },
+     {
+      "name": "Microsoft-Windows-DeviceManagement-Enterprise-Diagnostics-Provider%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-DeviceManagement-Enterprise-Diagnostics-Provider%4Operational.evtx",
+      "size": 1052672,
+      "sha256": "69db4346ab32f6ee5583a69cbfa41eba2fa935004fa5715fb5ac776c57484a6a"
+     },
+     {
+      "name": "Microsoft-Windows-Devices-Background%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Devices-Background%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-DeviceSetupManager%4Admin.evtx",
+      "path": "benign/Microsoft-Windows-DeviceSetupManager%4Admin.evtx",
+      "size": 69632,
+      "sha256": "234823d4f47883b2df7eab7221773838aaa785cc62a091a22769f39148ef2bcc"
+     },
+     {
+      "name": "Microsoft-Windows-DeviceSetupManager%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-DeviceSetupManager%4Operational.evtx",
+      "size": 69632,
+      "sha256": "ae6ea28fb289e70b13325d3d7e92177ed74c3330ea01f055c27c241b4c035717"
+     },
+     {
+      "name": "Microsoft-Windows-DeviceSync%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-DeviceSync%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-DeviceUpdateAgent%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-DeviceUpdateAgent%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Dhcp-Client%4Admin.evtx",
+      "path": "benign/Microsoft-Windows-Dhcp-Client%4Admin.evtx",
+      "size": 69632,
+      "sha256": "a00c3a16333bf82fa2171694c25931042bec90358ac8241c2862f8a1e0b56085"
+     },
+     {
+      "name": "Microsoft-Windows-Dhcpv6-Client%4Admin.evtx",
+      "path": "benign/Microsoft-Windows-Dhcpv6-Client%4Admin.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Diagnosis-DPS%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Diagnosis-DPS%4Operational.evtx",
+      "size": 1052672,
+      "sha256": "2c4dd4a5e6afaf0d69d7f0e8169072efaf67caff45ee9e7d7b51cd327ca19260"
+     },
+     {
+      "name": "Microsoft-Windows-Diagnosis-PCW%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Diagnosis-PCW%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Diagnosis-PLA%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Diagnosis-PLA%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Diagnosis-Scheduled%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Diagnosis-Scheduled%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Diagnosis-Scripted%4Admin.evtx",
+      "path": "benign/Microsoft-Windows-Diagnosis-Scripted%4Admin.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Diagnosis-Scripted%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Diagnosis-Scripted%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Diagnosis-ScriptedDiagnosticsProvider%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Diagnosis-ScriptedDiagnosticsProvider%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Diagnostics-Networking%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Diagnostics-Networking%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Diagnostics-Performance%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Diagnostics-Performance%4Operational.evtx",
+      "size": 69632,
+      "sha256": "508d8cc5f9021ee334ec0975f8348cedee8e770a24346351a37c4694935d6ecc"
+     },
+     {
+      "name": "Microsoft-Windows-DiskDiagnostic%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-DiskDiagnostic%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-DiskDiagnosticDataCollector%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-DiskDiagnosticDataCollector%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-DiskDiagnosticResolver%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-DiskDiagnosticResolver%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-DSC%4Admin.evtx",
+      "path": "benign/Microsoft-Windows-DSC%4Admin.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-DSC%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-DSC%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-DucUpdateAgent%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-DucUpdateAgent%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-DxgKrnl-Admin.evtx",
+      "path": "benign/Microsoft-Windows-DxgKrnl-Admin.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-DxgKrnl-Operational.evtx",
+      "path": "benign/Microsoft-Windows-DxgKrnl-Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-EapHost%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-EapHost%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-EapMethods-RasChap%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-EapMethods-RasChap%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-EapMethods-RasTls%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-EapMethods-RasTls%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-EapMethods-Sim%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-EapMethods-Sim%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-EapMethods-Ttls%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-EapMethods-Ttls%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-EDP-Application-Learning%4Admin.evtx",
+      "path": "benign/Microsoft-Windows-EDP-Application-Learning%4Admin.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-EDP-Audit-Regular%4Admin.evtx",
+      "path": "benign/Microsoft-Windows-EDP-Audit-Regular%4Admin.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-EDP-Audit-TCB%4Admin.evtx",
+      "path": "benign/Microsoft-Windows-EDP-Audit-TCB%4Admin.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-EventCollector%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-EventCollector%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Fault-Tolerant-Heap%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Fault-Tolerant-Heap%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-FeatureConfiguration%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-FeatureConfiguration%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-FileHistory-Core%4WHC.evtx",
+      "path": "benign/Microsoft-Windows-FileHistory-Core%4WHC.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-FileHistory-Engine%4BackupLog.evtx",
+      "path": "benign/Microsoft-Windows-FileHistory-Engine%4BackupLog.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-FMS%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-FMS%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Folder Redirection%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Folder Redirection%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Forwarding%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Forwarding%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-GenericRoaming%4Admin.evtx",
+      "path": "benign/Microsoft-Windows-GenericRoaming%4Admin.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-GroupPolicy%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-GroupPolicy%4Operational.evtx",
+      "size": 1118208,
+      "sha256": "429359523dd95b25736183470e6f78848a72ddaa4ce643fa284590e1ad0ca6d7"
+     },
+     {
+      "name": "Microsoft-Windows-HelloForBusiness%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-HelloForBusiness%4Operational.evtx",
+      "size": 69632,
+      "sha256": "b6551b28d29c4acb81b84473a8541ff3123310c870add02b4d16092a86e72e4e"
+     },
+     {
+      "name": "Microsoft-Windows-Help%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Help%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-HomeGroup Control Panel%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-HomeGroup Control Panel%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-HomeGroup Listener Service%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-HomeGroup Listener Service%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-HomeGroup Provider Service%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-HomeGroup Provider Service%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-HotspotAuth%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-HotspotAuth%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Hyper-V-Guest-Drivers%4Admin.evtx",
+      "path": "benign/Microsoft-Windows-Hyper-V-Guest-Drivers%4Admin.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Hyper-V-Hypervisor-Admin.evtx",
+      "path": "benign/Microsoft-Windows-Hyper-V-Hypervisor-Admin.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Hyper-V-Hypervisor-Operational.evtx",
+      "path": "benign/Microsoft-Windows-Hyper-V-Hypervisor-Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Hyper-V-VID-Admin.evtx",
+      "path": "benign/Microsoft-Windows-Hyper-V-VID-Admin.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-IdCtrls%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-IdCtrls%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-IKE%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-IKE%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-International-RegionalOptionsControlPanel%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-International-RegionalOptionsControlPanel%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Iphlpsvc%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Iphlpsvc%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-IPxlatCfg%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-IPxlatCfg%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-KdsSvc%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-KdsSvc%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Kernel-ApphelpCache%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Kernel-ApphelpCache%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Kernel-Boot%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Kernel-Boot%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f9fe86738b0662f0f0aef8e0bd9a00781f3c36e86b9f89fae17b837f24dc6aef"
+     },
+     {
+      "name": "Microsoft-Windows-Kernel-EventTracing%4Admin.evtx",
+      "path": "benign/Microsoft-Windows-Kernel-EventTracing%4Admin.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Kernel-IO%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Kernel-IO%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Kernel-LiveDump%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Kernel-LiveDump%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Kernel-PnP%4Configuration.evtx",
+      "path": "benign/Microsoft-Windows-Kernel-PnP%4Configuration.evtx",
+      "size": 1052672,
+      "sha256": "a68b771939497829095f8c25b593b76f6df5052be140f553a3e32793dd369dd5"
+     },
+     {
+      "name": "Microsoft-Windows-Kernel-PnP%4Driver Watchdog.evtx",
+      "path": "benign/Microsoft-Windows-Kernel-PnP%4Driver Watchdog.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Kernel-Power%4Thermal-Operational.evtx",
+      "path": "benign/Microsoft-Windows-Kernel-Power%4Thermal-Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Kernel-ShimEngine%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Kernel-ShimEngine%4Operational.evtx",
+      "size": 69632,
+      "sha256": "375acd1388b1560d56ffbc1b720e886fcb6cd6cd5d29800bd5b84a6da90cedf7"
+     },
+     {
+      "name": "Microsoft-Windows-Kernel-StoreMgr%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Kernel-StoreMgr%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Kernel-WDI%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Kernel-WDI%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Kernel-WHEA%4Errors.evtx",
+      "path": "benign/Microsoft-Windows-Kernel-WHEA%4Errors.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Kernel-WHEA%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Kernel-WHEA%4Operational.evtx",
+      "size": 1118208,
+      "sha256": "e9e1ca3a1d1497983531e4021ddbd6fa87d8acf432d7b0a6bc97b389f4b6c479"
+     },
+     {
+      "name": "Microsoft-Windows-KeyboardFilter%4Admin.evtx",
+      "path": "benign/Microsoft-Windows-KeyboardFilter%4Admin.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Known Folders API Service.evtx",
+      "path": "benign/Microsoft-Windows-Known Folders API Service.evtx",
+      "size": 69632,
+      "sha256": "4033b71bd920a780bad01c372c978bc3b6a02930c2a2fe0d17eec095953df82c"
+     },
+     {
+      "name": "Microsoft-Windows-LanguagePackSetup%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-LanguagePackSetup%4Operational.evtx",
+      "size": 69632,
+      "sha256": "fa205b8689450cca0ab68a7676b7eca726cdc2ca4769548fe4eb87fa3f05b644"
+     },
+     {
+      "name": "Microsoft-Windows-LiveId%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-LiveId%4Operational.evtx",
+      "size": 1052672,
+      "sha256": "2ebe79517ca279e17b4b64c4034f2569e9af9ad852553e81c0ed49dae802b867"
+     },
+     {
+      "name": "Microsoft-Windows-MemoryDiagnostics-Results%4Debug.evtx",
+      "path": "benign/Microsoft-Windows-MemoryDiagnostics-Results%4Debug.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Mobile-Broadband-Experience-Parser-Task%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Mobile-Broadband-Experience-Parser-Task%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-ModernDeployment-Diagnostics-Provider%4Admin.evtx",
+      "path": "benign/Microsoft-Windows-ModernDeployment-Diagnostics-Provider%4Admin.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-ModernDeployment-Diagnostics-Provider%4Autopilot.evtx",
+      "path": "benign/Microsoft-Windows-ModernDeployment-Diagnostics-Provider%4Autopilot.evtx",
+      "size": 69632,
+      "sha256": "15d60406bb3a026d816d67171f16783cacdf6538840f8de19ba4e6c2ce7ff7ed"
+     },
+     {
+      "name": "Microsoft-Windows-ModernDeployment-Diagnostics-Provider%4ManagementService.evtx",
+      "path": "benign/Microsoft-Windows-ModernDeployment-Diagnostics-Provider%4ManagementService.evtx",
+      "size": 69632,
+      "sha256": "b795febc24ddde2d546ced70a530335a5771c77140bfe476d1799106e960a4a4"
+     },
+     {
+      "name": "Microsoft-Windows-Mprddm%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Mprddm%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-MUI%4Admin.evtx",
+      "path": "benign/Microsoft-Windows-MUI%4Admin.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-MUI%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-MUI%4Operational.evtx",
+      "size": 69632,
+      "sha256": "e61128746a4093d3ce90fe00bc054e10f6e88318b2913389f82636d7e707f8ee"
+     },
+     {
+      "name": "Microsoft-Windows-NcdAutoSetup%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-NcdAutoSetup%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-NCSI%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-NCSI%4Operational.evtx",
+      "size": 69632,
+      "sha256": "745634a6861f210e6c84b705e4428198c305d9a9d2984f117d3120df8809ffb9"
+     },
+     {
+      "name": "Microsoft-Windows-NdisImPlatform%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-NdisImPlatform%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-NetworkLocationWizard%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-NetworkLocationWizard%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-NetworkProfile%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-NetworkProfile%4Operational.evtx",
+      "size": 69632,
+      "sha256": "fbaaf29cc9048afdec96d82953db80822d3b44b284fb82483374d5419d633b30"
+     },
+     {
+      "name": "Microsoft-Windows-NetworkProvider%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-NetworkProvider%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-NetworkProvisioning%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-NetworkProvisioning%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-NlaSvc%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-NlaSvc%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Ntfs%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Ntfs%4Operational.evtx",
+      "size": 1118208,
+      "sha256": "53f13f5afecf2185360fff3fdc39d13f45f51b2d3be1b458f430e4313bf3f974"
+     },
+     {
+      "name": "Microsoft-Windows-Ntfs%4WHC.evtx",
+      "path": "benign/Microsoft-Windows-Ntfs%4WHC.evtx",
+      "size": 69632,
+      "sha256": "bf759f75d4ab35533a088eba4ce7f47194f1251b5695498862b1bf186c191a84"
+     },
+     {
+      "name": "Microsoft-Windows-NTLM%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-NTLM%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-OcpUpdateAgent%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-OcpUpdateAgent%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-OfflineFiles%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-OfflineFiles%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-OneBackup%4Debug.evtx",
+      "path": "benign/Microsoft-Windows-OneBackup%4Debug.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-OOBE-Machine-DUI%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-OOBE-Machine-DUI%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-PackageStateRoaming%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-PackageStateRoaming%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-ParentalControls%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-ParentalControls%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Partition%4Diagnostic.evtx",
+      "path": "benign/Microsoft-Windows-Partition%4Diagnostic.evtx",
+      "size": 69632,
+      "sha256": "1cb02a46b23152e5569d35723ba9982ed5bbaabfb69b519df668c4a5338a117d"
+     },
+     {
+      "name": "Microsoft-Windows-PerceptionRuntime%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-PerceptionRuntime%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-PerceptionSensorDataService%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-PerceptionSensorDataService%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-PersistentMemory-Nvdimm%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-PersistentMemory-Nvdimm%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-PersistentMemory-PmemDisk%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-PersistentMemory-PmemDisk%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-PersistentMemory-ScmBus%4Certification.evtx",
+      "path": "benign/Microsoft-Windows-PersistentMemory-ScmBus%4Certification.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-PersistentMemory-ScmBus%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-PersistentMemory-ScmBus%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Policy%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Policy%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-PowerShell%4Admin.evtx",
+      "path": "benign/Microsoft-Windows-PowerShell%4Admin.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-PowerShell%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-PowerShell%4Operational.evtx",
+      "size": 4263936,
+      "sha256": "fc95504793682c73aece8e89c7d799545a5b607119afe3466c3e879ca8db1464"
+     },
+     {
+      "name": "Microsoft-Windows-PowerShell-DesiredStateConfiguration-FileDownloadManager%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-PowerShell-DesiredStateConfiguration-FileDownloadManager%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-PrintBRM%4Admin.evtx",
+      "path": "benign/Microsoft-Windows-PrintBRM%4Admin.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-PrintService%4Admin.evtx",
+      "path": "benign/Microsoft-Windows-PrintService%4Admin.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Privacy-Auditing%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Privacy-Auditing%4Operational.evtx",
+      "size": 1118208,
+      "sha256": "defa3e1e8a75179e49e24e4c36b4d09e4e4bbec00185ed8540d1f5e22801d7a3"
+     },
+     {
+      "name": "Microsoft-Windows-Program-Compatibility-Assistant%4CompatAfterUpgrade.evtx",
+      "path": "benign/Microsoft-Windows-Program-Compatibility-Assistant%4CompatAfterUpgrade.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Provisioning-Diagnostics-Provider%4Admin.evtx",
+      "path": "benign/Microsoft-Windows-Provisioning-Diagnostics-Provider%4Admin.evtx",
+      "size": 1052672,
+      "sha256": "a47e7ba52ef548fc3bb966701518cb280ab0853644bb63615d241ef9c38f676d"
+     },
+     {
+      "name": "Microsoft-Windows-Provisioning-Diagnostics-Provider%4AutoPilot.evtx",
+      "path": "benign/Microsoft-Windows-Provisioning-Diagnostics-Provider%4AutoPilot.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Provisioning-Diagnostics-Provider%4ManagementService.evtx",
+      "path": "benign/Microsoft-Windows-Provisioning-Diagnostics-Provider%4ManagementService.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-PushNotification-Platform%4Admin.evtx",
+      "path": "benign/Microsoft-Windows-PushNotification-Platform%4Admin.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-PushNotification-Platform%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-PushNotification-Platform%4Operational.evtx",
+      "size": 1052672,
+      "sha256": "ffbaa5f41edf2712a8497ddf88745e32241262f51334b8ce2fa5e59776af5791"
+     },
+     {
+      "name": "Microsoft-Windows-ReadyBoost%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-ReadyBoost%4Operational.evtx",
+      "size": 69632,
+      "sha256": "6af65d095e12ab6f13011870e9e8a8e743a895cf3589b10e7652245479542308"
+     },
+     {
+      "name": "Microsoft-Windows-ReadyBoostDriver%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-ReadyBoostDriver%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-ReFS%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-ReFS%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Regsvr32%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Regsvr32%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-RemoteApp and Desktop Connections%4Admin.evtx",
+      "path": "benign/Microsoft-Windows-RemoteApp and Desktop Connections%4Admin.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-RemoteApp and Desktop Connections%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-RemoteApp and Desktop Connections%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-RemoteAssistance%4Admin.evtx",
+      "path": "benign/Microsoft-Windows-RemoteAssistance%4Admin.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-RemoteAssistance%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-RemoteAssistance%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-RemoteDesktopServices-RdpCoreTS%4Admin.evtx",
+      "path": "benign/Microsoft-Windows-RemoteDesktopServices-RdpCoreTS%4Admin.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-RemoteDesktopServices-RdpCoreTS%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-RemoteDesktopServices-RdpCoreTS%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-RemoteDesktopServices-RemoteFX-Synth3dvsc%4Admin.evtx",
+      "path": "benign/Microsoft-Windows-RemoteDesktopServices-RemoteFX-Synth3dvsc%4Admin.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-RemoteDesktopServices-SessionServices%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-RemoteDesktopServices-SessionServices%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Resource-Exhaustion-Detector%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Resource-Exhaustion-Detector%4Operational.evtx",
+      "size": 69632,
+      "sha256": "5f49e2f4731480495929a6744aef8cf011f46c8b4e52c84d1f8e444de30be63a"
+     },
+     {
+      "name": "Microsoft-Windows-Resource-Exhaustion-Resolver%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Resource-Exhaustion-Resolver%4Operational.evtx",
+      "size": 69632,
+      "sha256": "ad1f1d3d4ae98b70957734d0cc514beb30155f79618a50126ef32228749738f7"
+     },
+     {
+      "name": "Microsoft-Windows-RestartManager%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-RestartManager%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-RetailDemo%4Admin.evtx",
+      "path": "benign/Microsoft-Windows-RetailDemo%4Admin.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-RetailDemo%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-RetailDemo%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-SearchUI%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-SearchUI%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Security-Adminless%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Security-Adminless%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Security-Audit-Configuration-Client%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Security-Audit-Configuration-Client%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Security-EnterpriseData-FileRevocationManager%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Security-EnterpriseData-FileRevocationManager%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Security-LessPrivilegedAppContainer%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Security-LessPrivilegedAppContainer%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Security-Mitigations%4KernelMode.evtx",
+      "path": "benign/Microsoft-Windows-Security-Mitigations%4KernelMode.evtx",
+      "size": 1052672,
+      "sha256": "e778673bc3088ad851b681a5ab8b08a2768a724e2e8e0e8cb2249b850b1bc18b"
+     },
+     {
+      "name": "Microsoft-Windows-Security-Mitigations%4UserMode.evtx",
+      "path": "benign/Microsoft-Windows-Security-Mitigations%4UserMode.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Security-Netlogon%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Security-Netlogon%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Security-SPP-UX-GenuineCenter-Logging%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Security-SPP-UX-GenuineCenter-Logging%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Security-SPP-UX-Notifications%4ActionCenter.evtx",
+      "path": "benign/Microsoft-Windows-Security-SPP-UX-Notifications%4ActionCenter.evtx",
+      "size": 69632,
+      "sha256": "3f59c37180b9075cad2977777415e2e754e119fc5bed74b86f3801e97e682cb2"
+     },
+     {
+      "name": "Microsoft-Windows-Security-UserConsentVerifier%4Audit.evtx",
+      "path": "benign/Microsoft-Windows-Security-UserConsentVerifier%4Audit.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-SecurityMitigationsBroker%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-SecurityMitigationsBroker%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-SENSE%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-SENSE%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-SenseIR%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-SenseIR%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-SettingSync%4Debug.evtx",
+      "path": "benign/Microsoft-Windows-SettingSync%4Debug.evtx",
+      "size": 69632,
+      "sha256": "7d2c8f5c30c77029ca42dd9292670c42199003c88ccaffd894e7e1262466dd3b"
+     },
+     {
+      "name": "Microsoft-Windows-SettingSync%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-SettingSync%4Operational.evtx",
+      "size": 69632,
+      "sha256": "62eecf146a700805404fbfe76cac7dd621b592a8dec26b44bdce5c14b862e8ce"
+     },
+     {
+      "name": "Microsoft-Windows-SettingSync-Azure%4Debug.evtx",
+      "path": "benign/Microsoft-Windows-SettingSync-Azure%4Debug.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-SettingSync-Azure%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-SettingSync-Azure%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-SettingSync-OneDrive%4Debug.evtx",
+      "path": "benign/Microsoft-Windows-SettingSync-OneDrive%4Debug.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-SettingSync-OneDrive%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-SettingSync-OneDrive%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Shell-ConnectedAccountState%4ActionCenter.evtx",
+      "path": "benign/Microsoft-Windows-Shell-ConnectedAccountState%4ActionCenter.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Shell-Core%4ActionCenter.evtx",
+      "path": "benign/Microsoft-Windows-Shell-Core%4ActionCenter.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Shell-Core%4AppDefaults.evtx",
+      "path": "benign/Microsoft-Windows-Shell-Core%4AppDefaults.evtx",
+      "size": 1052672,
+      "sha256": "d30baa8a0033c420f7e8f05d9f8ba70b2c74cb7236f925fc41ad4d16a808c700"
+     },
+     {
+      "name": "Microsoft-Windows-Shell-Core%4LogonTasksChannel.evtx",
+      "path": "benign/Microsoft-Windows-Shell-Core%4LogonTasksChannel.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Shell-Core%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Shell-Core%4Operational.evtx",
+      "size": 1052672,
+      "sha256": "4635cbacb1533d0e28650650352765abf56e45db8a08ea03613bea2f98b4151a"
+     },
+     {
+      "name": "Microsoft-Windows-ShellCommon-StartLayoutPopulation%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-ShellCommon-StartLayoutPopulation%4Operational.evtx",
+      "size": 69632,
+      "sha256": "48ffd7692c2d82bddfa7fc093fa707a7b8304b84e980fcdf2a1e97ba77b3e429"
+     },
+     {
+      "name": "Microsoft-Windows-SmartCard-Audit%4Authentication.evtx",
+      "path": "benign/Microsoft-Windows-SmartCard-Audit%4Authentication.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-SmartCard-DeviceEnum%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-SmartCard-DeviceEnum%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-SmartCard-TPM-VCard-Module%4Admin.evtx",
+      "path": "benign/Microsoft-Windows-SmartCard-TPM-VCard-Module%4Admin.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-SmartCard-TPM-VCard-Module%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-SmartCard-TPM-VCard-Module%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-SmbClient%4Audit.evtx",
+      "path": "benign/Microsoft-Windows-SmbClient%4Audit.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-SmbClient%4Connectivity.evtx",
+      "path": "benign/Microsoft-Windows-SmbClient%4Connectivity.evtx",
+      "size": 69632,
+      "sha256": "0e54b5e835b4bbd3ebcda7256247aaff55858a33bab9909ca659c1ffbe505dbe"
+     },
+     {
+      "name": "Microsoft-Windows-SMBClient%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-SMBClient%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-SmbClient%4Security.evtx",
+      "path": "benign/Microsoft-Windows-SmbClient%4Security.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-SMBDirect%4Admin.evtx",
+      "path": "benign/Microsoft-Windows-SMBDirect%4Admin.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-SMBServer%4Audit.evtx",
+      "path": "benign/Microsoft-Windows-SMBServer%4Audit.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-SMBServer%4Connectivity.evtx",
+      "path": "benign/Microsoft-Windows-SMBServer%4Connectivity.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-SMBServer%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-SMBServer%4Operational.evtx",
+      "size": 69632,
+      "sha256": "4db5e61c1089acc234e3a25d00d9bc26e5abf8820591edc7fbbcbf935f567e0d"
+     },
+     {
+      "name": "Microsoft-Windows-SMBServer%4Security.evtx",
+      "path": "benign/Microsoft-Windows-SMBServer%4Security.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-SMBWitnessClient%4Admin.evtx",
+      "path": "benign/Microsoft-Windows-SMBWitnessClient%4Admin.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-SMBWitnessClient%4Informational.evtx",
+      "path": "benign/Microsoft-Windows-SMBWitnessClient%4Informational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-StateRepository%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-StateRepository%4Operational.evtx",
+      "size": 1118208,
+      "sha256": "30739daecb9baf2883f8aa35fba35055e0b43080fc36f233c8ddc5344fa82ada"
+     },
+     {
+      "name": "Microsoft-Windows-StateRepository%4Restricted.evtx",
+      "path": "benign/Microsoft-Windows-StateRepository%4Restricted.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Storage-ClassPnP%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Storage-ClassPnP%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Storage-Storport%4Health.evtx",
+      "path": "benign/Microsoft-Windows-Storage-Storport%4Health.evtx",
+      "size": 1118208,
+      "sha256": "e30762be928bc5aed5a2b04f4d9b0b0d5459ea70925d26eaede449addb7f2d0b"
+     },
+     {
+      "name": "Microsoft-Windows-Storage-Storport%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Storage-Storport%4Operational.evtx",
+      "size": 1118208,
+      "sha256": "e33905c18546864b0c4cc172d516e85b33445664f849da0e56f9824cd1c1912d"
+     },
+     {
+      "name": "Microsoft-Windows-Storage-Tiering%4Admin.evtx",
+      "path": "benign/Microsoft-Windows-Storage-Tiering%4Admin.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-StorageManagement%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-StorageManagement%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-StorageSettings%4Diagnostic.evtx",
+      "path": "benign/Microsoft-Windows-StorageSettings%4Diagnostic.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-StorageSpaces-Driver%4Diagnostic.evtx",
+      "path": "benign/Microsoft-Windows-StorageSpaces-Driver%4Diagnostic.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-StorageSpaces-Driver%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-StorageSpaces-Driver%4Operational.evtx",
+      "size": 69632,
+      "sha256": "e9f501673fda68e8aa9b5f2cb4b11c81047aeb513812c1708a2dc540d3d1d4f9"
+     },
+     {
+      "name": "Microsoft-Windows-StorageSpaces-ManagementAgent%4WHC.evtx",
+      "path": "benign/Microsoft-Windows-StorageSpaces-ManagementAgent%4WHC.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-StorageSpaces-SpaceManager%4Diagnostic.evtx",
+      "path": "benign/Microsoft-Windows-StorageSpaces-SpaceManager%4Diagnostic.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-StorageSpaces-SpaceManager%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-StorageSpaces-SpaceManager%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Store%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Store%4Operational.evtx",
+      "size": 9506816,
+      "sha256": "4f8fc19c658f78dfc96db85932073f50508ff98a7706df2b2aa7ebc3f6490923"
+     },
+     {
+      "name": "Microsoft-Windows-Storsvc%4Diagnostic.evtx",
+      "path": "benign/Microsoft-Windows-Storsvc%4Diagnostic.evtx",
+      "size": 69632,
+      "sha256": "be3734419e076f793f5b4e34a2692d8af03ae52d1558ce54edfc8d5b100b9186"
+     },
+     {
+      "name": "Microsoft-Windows-Sysmon%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Sysmon%4Operational.evtx",
+      "size": 799084544,
+      "sha256": "efbc4d4cd450eddf7665f5965b0f6cfe30088f8f69225886e1d433329fb950cb"
+     },
+     {
+      "name": "Microsoft-Windows-SystemSettingsThreshold%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-SystemSettingsThreshold%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-TaskScheduler%4Maintenance.evtx",
+      "path": "benign/Microsoft-Windows-TaskScheduler%4Maintenance.evtx",
+      "size": 69632,
+      "sha256": "dc33340437658d0cc713dd15b0731b2e98d29f2e7376b73370514e818f6be2d5"
+     },
+     {
+      "name": "Microsoft-Windows-TCPIP%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-TCPIP%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-TenantRestrictions%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-TenantRestrictions%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-TerminalServices-ClientUSBDevices%4Admin.evtx",
+      "path": "benign/Microsoft-Windows-TerminalServices-ClientUSBDevices%4Admin.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-TerminalServices-ClientUSBDevices%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-TerminalServices-ClientUSBDevices%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-TerminalServices-LocalSessionManager%4Admin.evtx",
+      "path": "benign/Microsoft-Windows-TerminalServices-LocalSessionManager%4Admin.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-TerminalServices-LocalSessionManager%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-TerminalServices-LocalSessionManager%4Operational.evtx",
+      "size": 69632,
+      "sha256": "64020c38d3be432ad3d3cbf72dafeca43191640fa24568eec43b4d4a74633aa0"
+     },
+     {
+      "name": "Microsoft-Windows-TerminalServices-PnPDevices%4Admin.evtx",
+      "path": "benign/Microsoft-Windows-TerminalServices-PnPDevices%4Admin.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-TerminalServices-PnPDevices%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-TerminalServices-PnPDevices%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-TerminalServices-Printers%4Admin.evtx",
+      "path": "benign/Microsoft-Windows-TerminalServices-Printers%4Admin.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-TerminalServices-Printers%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-TerminalServices-Printers%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-TerminalServices-RDPClient%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-TerminalServices-RDPClient%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-TerminalServices-RemoteConnectionManager%4Admin.evtx",
+      "path": "benign/Microsoft-Windows-TerminalServices-RemoteConnectionManager%4Admin.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-TerminalServices-RemoteConnectionManager%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-TerminalServices-RemoteConnectionManager%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-TerminalServices-ServerUSBDevices%4Admin.evtx",
+      "path": "benign/Microsoft-Windows-TerminalServices-ServerUSBDevices%4Admin.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-TerminalServices-ServerUSBDevices%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-TerminalServices-ServerUSBDevices%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Time-Service%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Time-Service%4Operational.evtx",
+      "size": 69632,
+      "sha256": "e63bf63c7471efacdc8a0c9954af666637599a9602e4b94623a30c4d77442bc2"
+     },
+     {
+      "name": "Microsoft-Windows-Time-Service-PTP-Provider%4PTP-Operational.evtx",
+      "path": "benign/Microsoft-Windows-Time-Service-PTP-Provider%4PTP-Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Troubleshooting-Recommended%4Admin.evtx",
+      "path": "benign/Microsoft-Windows-Troubleshooting-Recommended%4Admin.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Troubleshooting-Recommended%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Troubleshooting-Recommended%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-TWinUI%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-TWinUI%4Operational.evtx",
+      "size": 69632,
+      "sha256": "19989571392410edeb03217091283df96aa733c0ba5517abab2fbf17e7090f4a"
+     },
+     {
+      "name": "Microsoft-Windows-TZSync%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-TZSync%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-TZUtil%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-TZUtil%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-UAC%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-UAC%4Operational.evtx",
+      "size": 69632,
+      "sha256": "1293165273c43aecf044b00014b86e075f238ef13b1c544ddf09e92a5d752675"
+     },
+     {
+      "name": "Microsoft-Windows-UAC-FileVirtualization%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-UAC-FileVirtualization%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-UniversalTelemetryClient%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-UniversalTelemetryClient%4Operational.evtx",
+      "size": 1052672,
+      "sha256": "894fde61fd689c9f620c71185d2271540944a37c05e9f00c3a0d2fd5193b507d"
+     },
+     {
+      "name": "Microsoft-Windows-User Control Panel%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-User Control Panel%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-User Device Registration%4Admin.evtx",
+      "path": "benign/Microsoft-Windows-User Device Registration%4Admin.evtx",
+      "size": 69632,
+      "sha256": "6f736536d4ae7a8a57c560cb8406b31b3060d3c8ff07f3257f20e4b9c76da07d"
+     },
+     {
+      "name": "Microsoft-Windows-User Profile Service%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-User Profile Service%4Operational.evtx",
+      "size": 69632,
+      "sha256": "7f183d0036b8ef12e6c3c0a76fa3cb883b2b54b5e91a83f0129c1ed9d95ab00c"
+     },
+     {
+      "name": "Microsoft-Windows-User-Loader%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-User-Loader%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-UserPnp%4ActionCenter.evtx",
+      "path": "benign/Microsoft-Windows-UserPnp%4ActionCenter.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-UserPnp%4DeviceInstall.evtx",
+      "path": "benign/Microsoft-Windows-UserPnp%4DeviceInstall.evtx",
+      "size": 69632,
+      "sha256": "a08702be447f62ec955f768a9394b285192efc47b4d7eeead8377c342be7fba9"
+     },
+     {
+      "name": "Microsoft-Windows-VDRVROOT%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-VDRVROOT%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-VerifyHardwareSecurity%4Admin.evtx",
+      "path": "benign/Microsoft-Windows-VerifyHardwareSecurity%4Admin.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-VHDMP-Operational.evtx",
+      "path": "benign/Microsoft-Windows-VHDMP-Operational.evtx",
+      "size": 69632,
+      "sha256": "8d9e4578ce0ac82ced63fb07f7a1a32d5245f7bbe79ce7a414b58d00f1be5d5c"
+     },
+     {
+      "name": "Microsoft-Windows-Volume%4Diagnostic.evtx",
+      "path": "benign/Microsoft-Windows-Volume%4Diagnostic.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-VolumeSnapshot-Driver%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-VolumeSnapshot-Driver%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f1d4e7a511b245cb9238cee711a49534684b9302127afe86f6221f88451da16d"
+     },
+     {
+      "name": "Microsoft-Windows-VPN%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-VPN%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-VPN-Client%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-VPN-Client%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Wcmsvc%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Wcmsvc%4Operational.evtx",
+      "size": 69632,
+      "sha256": "382b0de182a4712f8689fbcb8a9ce6a7fc91572af3d182102c4ed22129fb7ad4"
+     },
+     {
+      "name": "Microsoft-Windows-WDAG-PolicyEvaluator-CSP%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-WDAG-PolicyEvaluator-CSP%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-WDAG-PolicyEvaluator-GP%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-WDAG-PolicyEvaluator-GP%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-WebAuthN%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-WebAuthN%4Operational.evtx",
+      "size": 69632,
+      "sha256": "c59e759a2992ca7df73780a2edf0c398933cac5fa2c54decbecc6a34b22bc792"
+     },
+     {
+      "name": "Microsoft-Windows-WER-PayloadHealth%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-WER-PayloadHealth%4Operational.evtx",
+      "size": 69632,
+      "sha256": "c66e276b47137ed6e315876aa9156af44c452c365459551be4aaa28eae1d13ea"
+     },
+     {
+      "name": "Microsoft-Windows-WFP%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-WFP%4Operational.evtx",
+      "size": 69632,
+      "sha256": "890f1c71289b4291f531d66623656b976a2694e6ce619e002874475eaf18913b"
+     },
+     {
+      "name": "Microsoft-Windows-Win32k%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Win32k%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Windows Defender%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Windows Defender%4Operational.evtx",
+      "size": 1052672,
+      "sha256": "edf7b9f4ca7cb946ffdde239721497a4de736120494f946c70a58954f1c0b0b3"
+     },
+     {
+      "name": "Microsoft-Windows-Windows Defender%4WHC.evtx",
+      "path": "benign/Microsoft-Windows-Windows Defender%4WHC.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Windows Firewall With Advanced Security%4ConnectionSecurity.evtx",
+      "path": "benign/Microsoft-Windows-Windows Firewall With Advanced Security%4ConnectionSecurity.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Windows Firewall With Advanced Security%4Firewall.evtx",
+      "path": "benign/Microsoft-Windows-Windows Firewall With Advanced Security%4Firewall.evtx",
+      "size": 1052672,
+      "sha256": "d6c419d34bf757770079d2b097c5452f952575ea425267ad7e51778b24814607"
+     },
+     {
+      "name": "Microsoft-Windows-Windows Firewall With Advanced Security%4FirewallDiagnostics.evtx",
+      "path": "benign/Microsoft-Windows-Windows Firewall With Advanced Security%4FirewallDiagnostics.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-WindowsBackup%4ActionCenter.evtx",
+      "path": "benign/Microsoft-Windows-WindowsBackup%4ActionCenter.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-WindowsSystemAssessmentTool%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-WindowsSystemAssessmentTool%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-WindowsUpdateClient%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-WindowsUpdateClient%4Operational.evtx",
+      "size": 69632,
+      "sha256": "4a40b14c7708677330ca5556dc2b7173d49944eed2e5fe2b9a1eb536e82301d6"
+     },
+     {
+      "name": "Microsoft-Windows-WinINet-Config%4ProxyConfigChanged.evtx",
+      "path": "benign/Microsoft-Windows-WinINet-Config%4ProxyConfigChanged.evtx",
+      "size": 69632,
+      "sha256": "92320f8a056472d6f03acd0d011ee03a9bd3f349402cc84dfe8a9ee4dc803a01"
+     },
+     {
+      "name": "Microsoft-Windows-Winlogon%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Winlogon%4Operational.evtx",
+      "size": 1052672,
+      "sha256": "ca29c937e22c2460fcd4c38a69689d9b00f005ff0fa014f4c49a36f1a85e7247"
+     },
+     {
+      "name": "Microsoft-Windows-WinRM%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-WinRM%4Operational.evtx",
+      "size": 69632,
+      "sha256": "fe4f2dca8d7686792514865f11ad052fda61e283b4b5faa87b70fddcef8587c3"
+     },
+     {
+      "name": "Microsoft-Windows-Winsock-WS2HELP%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Winsock-WS2HELP%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Wired-AutoConfig%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-Wired-AutoConfig%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-WLAN-AutoConfig%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-WLAN-AutoConfig%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-WMI-Activity%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-WMI-Activity%4Operational.evtx",
+      "size": 1052672,
+      "sha256": "89c2b18ba88bf3f8a49113ec6b749db5aa523939a69b97dc417f716afecf497e"
+     },
+     {
+      "name": "Microsoft-Windows-WMPNSS-Service%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-WMPNSS-Service%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-WorkFolders%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-WorkFolders%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-WorkFolders%4WHC.evtx",
+      "path": "benign/Microsoft-Windows-WorkFolders%4WHC.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-Workplace Join%4Admin.evtx",
+      "path": "benign/Microsoft-Windows-Workplace Join%4Admin.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-WPD-ClassInstaller%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-WPD-ClassInstaller%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-WPD-CompositeClassDriver%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-WPD-CompositeClassDriver%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-WPD-MTPClassDriver%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-WPD-MTPClassDriver%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-Windows-WWAN-SVC-Events%4Operational.evtx",
+      "path": "benign/Microsoft-Windows-WWAN-SVC-Events%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Microsoft-WindowsPhone-Connectivity-WiFiConnSvc-Channel.evtx",
+      "path": "benign/Microsoft-WindowsPhone-Connectivity-WiFiConnSvc-Channel.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "OAlerts.evtx",
+      "path": "benign/OAlerts.evtx",
+      "size": 69632,
+      "sha256": "8f44a164483e4c0dfa443abe7954313d74fd9594b55aa1291adf4cfd882fb2cc"
+     },
+     {
+      "name": "OpenSSH%4Admin.evtx",
+      "path": "benign/OpenSSH%4Admin.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "OpenSSH%4Operational.evtx",
+      "path": "benign/OpenSSH%4Operational.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "Security.evtx",
+      "path": "benign/Security.evtx",
+      "size": 3215360,
+      "sha256": "543f73f57f0b9a682a3a6e7bdab890e94484c86dc1771e5780e481386a6044fe"
+     },
+     {
+      "name": "Setup.evtx",
+      "path": "benign/Setup.evtx",
+      "size": 69632,
+      "sha256": "6013b60cf07095e3172509f4c469545d27ff801c55e3e9db1ae5a591bd3ca9ac"
+     },
+     {
+      "name": "SMSApi.evtx",
+      "path": "benign/SMSApi.evtx",
+      "size": 69632,
+      "sha256": "f5f9e97a6b1ec8d46a9bd5b9d4ccae96521b85517b0337b248814d2e974a968b"
+     },
+     {
+      "name": "System.evtx",
+      "path": "benign/System.evtx",
+      "size": 1118208,
+      "sha256": "206f08715b8277f084d3e82f5680a78a8bac64486b6dabe973cba7e0a4224a9b"
+     },
+     {
+      "name": "Windows PowerShell.evtx",
+      "path": "benign/Windows PowerShell.evtx",
+      "size": 1118208,
+      "sha256": "fc006947f33d5ae515d7be2ca880d30c5b9a7f4bd985b4dd6e50fe13debe7351"
+     }
+    ]
+   }
+  ]
+ },
+ "schema_check": {
+  "required_event_ids": [
+   1,
+   4688
+  ],
+  "sampled_events_per_file": 300,
+  "attack": {
+   "adfind_run.evtx": {
+    "events_sampled": 1,
+    "event_ids": {
+     "1": 1
+    },
+    "channels": [
+     "Microsoft-Windows-Sysmon/Operational"
+    ],
+    "compatible": true,
+    "reason": ""
+   }
+  },
+  "benign": {
+   "benign": {
+    "files_sampled": 5,
+    "files": {
+     "Application.evtx": {
+      "events_sampled": 300,
+      "event_ids": {
+       "1531": 5,
+       "100": 2,
+       "0": 11,
+       "5615": 5,
+       "5617": 5,
+       "1034": 7,
+       "1003": 10,
+       "4625": 4,
+       "257": 1,
+       "1008": 1,
+       "1010": 1,
+       "1004": 5,
+       "102": 4,
+       "5": 2,
+       "105": 4,
+       "325": 1,
+       "1005": 1,
+       "5611": 1,
+       "6003": 5,
+       "6000": 13,
+       "4097": 12,
+       "1": 6,
+       "16": 1,
+       "15": 17,
+       "4113": 1,
+       "8230": 2,
+       "1013": 1,
+       "1067": 1,
+       "20488": 1,
+       "20481": 1,
+       "20482": 1,
+       "20489": 1,
+       "12305": 1,
+       "12304": 1,
+       "12311": 1,
+       "1036": 1,
+       "1033": 5,
+       "1037": 4,
+       "8197": 2,
+       "16384": 50,
+       "903": 4,
+       "10023": 1,
+       "16394": 51,
+       "1532": 3,
+       "900": 6,
+       "1066": 3,
+       "902": 3,
+       "326": 3,
+       "3086": 1,
+       "9027": 3,
+       "4109": 5,
+       "4108": 1,
+       "4111": 1,
+       "4100": 4,
+       "8224": 3,
+       "1001": 4,
+       "1130": 4,
+       "258": 1,
+       "8195": 1
+      },
+      "channels": [
+       "Application"
+      ],
+      "compatible": true,
+      "reason": ""
+     },
+     "HardwareEvents.evtx": {
+      "events_sampled": 0,
+      "event_ids": {},
+      "channels": [],
+      "compatible": false,
+      "reason": "none of the required EventIDs [1, 4688] appear in the first 0 events"
+     },
+     "Internet Explorer.evtx": {
+      "events_sampled": 0,
+      "event_ids": {},
+      "channels": [],
+      "compatible": false,
+      "reason": "none of the required EventIDs [1, 4688] appear in the first 0 events"
+     },
+     "Key Management Service.evtx": {
+      "events_sampled": 0,
+      "event_ids": {},
+      "channels": [],
+      "compatible": false,
+      "reason": "none of the required EventIDs [1, 4688] appear in the first 0 events"
+     },
+     "Microsoft-AppV-Client%4Admin.evtx": {
+      "events_sampled": 0,
+      "event_ids": {},
+      "channels": [],
+      "compatible": false,
+      "reason": "none of the required EventIDs [1, 4688] appear in the first 0 events"
+     }
+    }
+   }
+  }
+ },
+ "normalisation": "None. The EVTX files are not converted or filtered. SigmaHQ's evtx-sigma-checker reads them and maps the rule's log source to EventID and channel conditions with tests/thor.yml.",
+ "result": {
+  "attack": {
+   "samples": [
+    {
+     "file": "adfind_run.evtx",
+     "expect": "detect",
+     "detected": true,
+     "outcome": "as_expected",
+     "sha256": "5175ff0f3f0c18f493dd1ae4189185ec4f26b9852ce764bc728ab7e0ae276ec4",
+     "label_basis": "SigmaHQ regression sample for the AdFind.EXE execution rule; AdFind was run on purpose"
+    }
+   ],
+   "expected_detections": 1,
+   "expected_detections_met": 1,
+   "negative_controls": 0,
+   "negative_controls_clean": 0,
+   "reasons": [],
+   "caveats": [
+    "Only one attack sample: a match on one sample does not show the rule generalises to other variants."
+   ],
+   "verdict": "validated_on_supplied_attack_evidence"
+  },
+  "benign": {
+   "sets": [
+    {
+     "label": "benign",
+     "basis": "known_clean",
+     "files_total": 352,
+     "files_with_hits": 0,
+     "matching_events": 0,
+     "examples": []
+    }
+   ],
+   "matching_events": 0,
+   "reasons": [
+    "limited to the logs supplied; says nothing about other hosts, users or periods"
+   ],
+   "verdict": "no_benign_matches",
+   "supports_false_positive_claim": true
+  },
+  "seconds": 48.91
+ },
+ "contains_event_excerpts": false,
+ "limitations": [
+  "The labels are the supplier's statement; they are recorded, not verified.",
+  "A match on attack samples shows the rule fires on those events. It does not show the organisation collects that telemetry.",
+  "Zero matches on a benign baseline shows nothing about logs that were not supplied.",
+  "Only EVTX is evaluated. Event fields are as the checker parses them, not as a SIEM would index them."
+ ]
+}

@@ -1,0 +1,308 @@
+{
+ "created_at": "2026-10-27T09:20:51.080062+00:00",
+ "model": "nvidia/nemotron-3-super-120b-a12b",
+ "rule_format": "structured",
+ "thinking": true,
+ "evaluator": {
+  "kind": "token-factory-sandbox",
+  "image_tag": "shakedown-eval:v1",
+  "image_uuid": "ed2169ef-219f-4c57-a9a1-3ca6f4a1f9fb",
+  "network": "disabled (networking.enabled=false)",
+  "isolation": "Contree microVM, disposable"
+ },
+ "scenario": {
+  "id": "455b9d50-15a1-4b99-853f-8d37655a4c1b",
+  "title": "PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE",
+  "category": "process_creation"
+ },
+ "input": {
+  "kind": "url",
+  "url": "https://www.joeware.net/freetools/tools/adfind/",
+  "chars": 10196
+ },
+ "research": {
+  "primary": {
+   "url": "https://www.joeware.net/freetools/tools/adfind/",
+   "title": "https://www.joeware.net/freetools/tools/adfind/",
+   "retrieved_at": "2026-10-27T09:17:57Z",
+   "via": "extract",
+   "score": null,
+   "chars": 29903
+  },
+  "corroboration": [
+   {
+    "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/windows/process_creation/proc_creation_win_pua_adfind_enumeration.yml",
+    "title": "sigma/rules/windows/process_creation/proc_creation_win_pua_adfind_enumeration.yml at master \u00b7 SigmaHQ/sigma \u00b7 GitHub",
+    "retrieved_at": "2026-10-27T09:17:59Z",
+    "via": "search",
+    "score": 0.9159971,
+    "chars": 489
+   },
+   {
+    "url": "https://filestore.fortinet.com/docs.fortinet.com/fsiem/Public_Resource_Access/7_6_0/rules/PH_RULE_Suspicious_AdFind_Enumerate.htm",
+    "title": "Windows: PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE",
+    "retrieved_at": "2026-10-27T09:17:59Z",
+    "via": "search",
+    "score": 0.90771407,
+    "chars": 1211
+   },
+   {
+    "url": "https://sigma.nasbench.dev/rules/455b9d50-15a1-4b99-853f-8d37655a4c1b",
+    "title": "PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE | Phoenix",
+    "retrieved_at": "2026-10-27T09:17:59Z",
+    "via": "search",
+    "score": 0.885404,
+    "chars": 1421
+   }
+  ],
+  "error": null
+ },
+ "spec": {
+  "behavior": "JSON only per instruction.",
+  "logsource_category": "process_creation",
+  "observables": [],
+  "techniques": []
+ },
+ "spec_dropped": [],
+ "iterations": [
+  {
+   "index": 0,
+   "action": "generate",
+   "resamples": 3,
+   "rule_text": "{\n \"title\": \"PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE\",\n \"description\": \"Detects active directory enumeration activity using known AdFind CLI flags\",\n \"tags\": [\n  \"attack.discovery\",\n  \"attack.t1087.002\"\n ],\n \"logsource_category\": \"process_creation\",\n \"groups\": [],\n \"condition\": \"\",\n \"falsepositives\": [],\n \"level\": \"high\"\n}",
+   "sha256": "2202d22f1039431fa67ed03a607007307b41fbd1c3b606ab54b24440b05cd0a5",
+   "validation": {
+    "ok": false,
+    "errors": [
+     "rule could not be built: rule has no condition"
+    ],
+    "sigma_output": ""
+   },
+   "evaluator_error": null,
+   "tokens": 16449,
+   "latency_s": 25.92,
+   "evaluation": null
+  },
+  {
+   "index": 1,
+   "action": "repair",
+   "resamples": 1,
+   "rule_text": "title: PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE\nid: a311e028-5f4f-4e69-b9ac-3ff68c7ad069\nstatus: experimental\ndescription: Detects active directory enumeration activity using known AdFind CLI flags\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.discovery\n- attack.t1087.002\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  selection:\n    Image|endswith: \\adfind.exe\n  condition: selection\nfalsepositives:\n- Unknown\nlevel: high\n",
+   "sha256": "4f82d90e83f2f2d6f6efb7820dfaf6cd48fa8bcc19affa47051e9dbf48b58e52",
+   "validation": {
+    "ok": true,
+    "errors": [],
+    "sigma_output": "\n=== Summary ===\nFound 0 errors, 0 condition errors and 0 issues.\nNo rule errors found.\nNo condition errors found.\nNo validation issues found.\nParsing Sigma rules\nChecking Sigma rules\n"
+   },
+   "evaluator_error": null,
+   "tokens": 1862,
+   "latency_s": 7.78,
+   "evaluation": {
+    "attack_total": 1,
+    "attack_detected": 1,
+    "attack_missed": [],
+    "attack_events_hit": 1,
+    "benign": {
+     "benign_dev_win7": {
+      "files_total": 129,
+      "files_with_hits": 0,
+      "hits": 0,
+      "examples": []
+     }
+    },
+    "attack_events": [],
+    "seconds": 10.92
+   }
+  }
+ ],
+ "best_index": 1,
+ "success": true,
+ "stop_reason": "acceptance criteria passed",
+ "heldout": {
+  "benign_heldout_win10": {
+   "files_total": 352,
+   "files_with_hits": 0,
+   "hits": 0,
+   "examples": []
+  }
+ },
+ "expert": {
+  "dev": {
+   "attack_total": 1,
+   "attack_detected": 1,
+   "attack_missed": [],
+   "attack_events_hit": 1,
+   "benign": {
+    "benign_dev_win7": {
+     "files_total": 129,
+     "files_with_hits": 0,
+     "hits": 0,
+     "examples": []
+    }
+   },
+   "attack_events": [],
+   "seconds": 10.56
+  },
+  "heldout": {
+   "benign_heldout_win10": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   }
+  },
+  "rule_text": "title: PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE\nid: 455b9d50-15a1-4b99-853f-8d37655a4c1b\nrelated:\n    - id: 9a132afa-654e-11eb-ae93-0242ac130002\n      type: similar\n    - id: 514e7e3e-b3b4-4a67-af60-be20f139198b\n      type: similar\nstatus: test\ndescription: Detects active directory enumeration activity using known AdFind CLI flags\nreferences:\n    - https://www.joeware.net/freetools/tools/adfind/\n    - https://social.technet.microsoft.com/wiki/contents/articles/7535.adfind-command-examples.aspx\n    - https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1087.002/T1087.002.md\nauthor: frack113\ndate: 2021-12-13\nmodified: 2023-03-05\ntags:\n    - attack.discovery\n    - attack.t1087.002\nlogsource:\n    product: windows\n    category: process_creation\ndetection:\n    selection_password: # Listing password policy\n        CommandLine|contains:\n            - lockoutduration\n            - lockoutthreshold\n            - lockoutobservationwindow\n            - maxpwdage\n            - minpwdage\n            - minpwdlength\n            - pwdhistorylength\n            - pwdproperties\n    selection_enum_ad: # Enumerate Active Directory Admins\n        CommandLine|contains: '-sc admincountdmp'\n    selection_enum_exchange: # Enumerate Active Directory Exchange AD Objects\n        CommandLine|contains: '-sc exchaddresses'\n    condition: 1 of selection_*\nfalsepositives:\n    - Authorized administrative activity\nlevel: high\nregression_tests_path: regression_data/rules/windows/process_creation/proc_creation_win_pua_adfind_enumeration/info.yml\n"
+ },
+ "totals": {
+  "tokens": 18311,
+  "seconds": 174.9
+ },
+ "events": [
+  {
+   "type": "start",
+   "t": 0.0,
+   "data": {
+    "scenario": "455b9d50-15a1-4b99-853f-8d37655a4c1b",
+    "title": "PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE",
+    "model": "nvidia/nemotron-3-super-120b-a12b"
+   }
+  },
+  {
+   "type": "research",
+   "t": 3.78,
+   "data": {
+    "primary": {
+     "url": "https://www.joeware.net/freetools/tools/adfind/",
+     "title": "https://www.joeware.net/freetools/tools/adfind/",
+     "retrieved_at": "2026-10-27T09:17:57Z",
+     "via": "extract",
+     "score": null,
+     "chars": 29903
+    },
+    "corroboration": [
+     {
+      "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/windows/process_creation/proc_creation_win_pua_adfind_enumeration.yml",
+      "title": "sigma/rules/windows/process_creation/proc_creation_win_pua_adfind_enumeration.yml at master \u00b7 SigmaHQ/sigma \u00b7 GitHub",
+      "retrieved_at": "2026-10-27T09:17:59Z",
+      "via": "search",
+      "score": 0.9159971,
+      "chars": 489
+     },
+     {
+      "url": "https://filestore.fortinet.com/docs.fortinet.com/fsiem/Public_Resource_Access/7_6_0/rules/PH_RULE_Suspicious_AdFind_Enumerate.htm",
+      "title": "Windows: PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE",
+      "retrieved_at": "2026-10-27T09:17:59Z",
+      "via": "search",
+      "score": 0.90771407,
+      "chars": 1211
+     },
+     {
+      "url": "https://sigma.nasbench.dev/rules/455b9d50-15a1-4b99-853f-8d37655a4c1b",
+      "title": "PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE | Phoenix",
+      "retrieved_at": "2026-10-27T09:17:59Z",
+      "via": "search",
+      "score": 0.885404,
+      "chars": 1421
+     }
+    ],
+    "error": null
+   }
+  },
+  {
+   "type": "spec",
+   "t": 41.55,
+   "data": {
+    "behavior": "JSON only per instruction.",
+    "logsource_category": "process_creation",
+    "observables": [],
+    "techniques": [],
+    "dropped": []
+   }
+  },
+  {
+   "type": "iteration",
+   "t": 67.47,
+   "data": {
+    "index": 0,
+    "action": "generate",
+    "resamples": 3,
+    "rule_text": "{\n \"title\": \"PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE\",\n \"description\": \"Detects active directory enumeration activity using known AdFind CLI flags\",\n \"tags\": [\n  \"attack.discovery\",\n  \"attack.t1087.002\"\n ],\n \"logsource_category\": \"process_creation\",\n \"groups\": [],\n \"condition\": \"\",\n \"falsepositives\": [],\n \"level\": \"high\"\n}",
+    "sha256": "2202d22f1039431fa67ed03a607007307b41fbd1c3b606ab54b24440b05cd0a5",
+    "validation": {
+     "ok": false,
+     "errors": [
+      "rule could not be built: rule has no condition"
+     ],
+     "sigma_output": ""
+    },
+    "evaluator_error": null,
+    "tokens": 16449,
+    "latency_s": 25.92,
+    "evaluation": null
+   }
+  },
+  {
+   "type": "iteration",
+   "t": 86.89,
+   "data": {
+    "index": 1,
+    "action": "repair",
+    "resamples": 1,
+    "rule_text": "title: PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE\nid: a311e028-5f4f-4e69-b9ac-3ff68c7ad069\nstatus: experimental\ndescription: Detects active directory enumeration activity using known AdFind CLI flags\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.discovery\n- attack.t1087.002\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  selection:\n    Image|endswith: \\adfind.exe\n  condition: selection\nfalsepositives:\n- Unknown\nlevel: high\n",
+    "sha256": "4f82d90e83f2f2d6f6efb7820dfaf6cd48fa8bcc19affa47051e9dbf48b58e52",
+    "validation": {
+     "ok": true,
+     "errors": [],
+     "sigma_output": "\n=== Summary ===\nFound 0 errors, 0 condition errors and 0 issues.\nNo rule errors found.\nNo condition errors found.\nNo validation issues found.\nParsing Sigma rules\nChecking Sigma rules\n"
+    },
+    "evaluator_error": null,
+    "tokens": 1862,
+    "latency_s": 7.78,
+    "evaluation": {
+     "attack_total": 1,
+     "attack_detected": 1,
+     "attack_missed": [],
+     "attack_events_hit": 1,
+     "benign": {
+      "benign_dev_win7": {
+       "files_total": 129,
+       "files_with_hits": 0,
+       "hits": 0,
+       "examples": []
+      }
+     },
+     "attack_events": [],
+     "seconds": 10.92
+    }
+   }
+  },
+  {
+   "type": "heldout",
+   "t": 124.67,
+   "data": {
+    "benign_heldout_win10": {
+     "files_total": 352,
+     "files_with_hits": 0,
+     "hits": 0,
+     "examples": []
+    }
+   }
+  },
+  {
+   "type": "expert",
+   "t": 174.94,
+   "data": {
+    "detected": 1,
+    "total": 1
+   }
+  },
+  {
+   "type": "done",
+   "t": 174.94,
+   "data": {
+    "success": true,
+    "stop_reason": "acceptance criteria passed"
+   }
+  }
+ ]
+}

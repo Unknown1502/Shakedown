@@ -1,0 +1,1 @@
+search index="<your index>" source="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational" EventCode=1 (OriginalFileName="AdFind.exe" CommandLine IN ("*parentrdn*", "*objrdn*", "*-dechextosid*", "*-encguidtoiid*", "*-showdel*", "*-sdna*", "*-nosacl*", "*-f*"))

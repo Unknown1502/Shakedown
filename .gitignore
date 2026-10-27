@@ -1,0 +1,13 @@
+# Third-party datasets and binaries are downloaded at runtime, never committed
+data/
+# Local secrets
+.env
+.env.*
+!.env.example
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+# Local process ledgers
+.aqg/

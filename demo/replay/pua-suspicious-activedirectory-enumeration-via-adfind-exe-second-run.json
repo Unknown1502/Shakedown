@@ -1,0 +1,1120 @@
+{
+ "created_at": "2026-10-27T12:56:33.370747+00:00",
+ "model": "nvidia/nemotron-3-super-120b-a12b",
+ "rule_format": "structured",
+ "thinking": true,
+ "evaluator": {
+  "kind": "token-factory-sandbox",
+  "image_tag": "shakedown-eval:v1",
+  "image_uuid": "ed2169ef-219f-4c57-a9a1-3ca6f4a1f9fb",
+  "network": "disabled (networking.enabled=false)",
+  "isolation": "Contree microVM, disposable"
+ },
+ "scenario": {
+  "id": "455b9d50-15a1-4b99-853f-8d37655a4c1b",
+  "title": "PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE",
+  "category": "process_creation"
+ },
+ "input": {
+  "kind": "url",
+  "url": "https://www.joeware.net/freetools/tools/adfind/",
+  "chars": 10114,
+  "sha256": "1e52d5482dc74f26da6e253ae4dac1f12b8fdad03c038656c2e5405ba02dfd19"
+ },
+ "source_mode": {
+  "policy": "exclude",
+  "mode": "leakage-controlled",
+  "verdict": "controlled",
+  "excluded": 4,
+  "flagged_shown": 0
+ },
+ "research": {
+  "primary": {
+   "url": "https://www.joeware.net/freetools/tools/adfind/",
+   "title": "https://www.joeware.net/freetools/tools/adfind/",
+   "retrieved_at": "2026-10-27T12:52:18Z",
+   "via": "extract",
+   "score": null,
+   "chars": 29903
+  },
+  "corroboration": [
+   {
+    "url": "https://research.splunk.com/endpoint/bd3b0187-189b-46c0-be45-f52da2bae67f",
+    "title": "Detection: Windows AdFind Exe | Splunk Security Content",
+    "retrieved_at": "2026-10-27T12:52:19Z",
+    "via": "search",
+    "score": 0.61307496,
+    "chars": 786
+   },
+   {
+    "url": "https://rocketreach.co/pua-forums-profile_b428d464c1f980f2",
+    "title": "PUA Forums Information",
+    "retrieved_at": "2026-10-27T12:52:19Z",
+    "via": "search",
+    "score": 0.12755504,
+    "chars": 950
+   },
+   {
+    "url": "https://www.mapquest.com/us/hawaii/the-pua-bar-431019139",
+    "title": "The Pua Bar",
+    "retrieved_at": "2026-10-27T12:52:19Z",
+    "via": "search",
+    "score": 0.11055777,
+    "chars": 1434
+   }
+  ],
+  "error": null,
+  "screening": {
+   "policy": "exclude",
+   "target": {
+    "id": "455b9d50-15a1-4b99-853f-8d37655a4c1b",
+    "title": "PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE"
+   },
+   "sources": [
+    {
+     "url": "https://www.joeware.net/freetools/tools/adfind/",
+     "role": "primary",
+     "via": "extract",
+     "retrieved_at": "2026-10-27T12:52:18Z",
+     "chars": 29903,
+     "sha256": "5bfe8b83a51741487685b5c785d90fe9d0782093791b21bdbb325226ed18c27e",
+     "status": "included",
+     "reasons": []
+    },
+    {
+     "url": "https://sigma.nasbench.dev/rules/455b9d50-15a1-4b99-853f-8d37655a4c1b",
+     "role": "corroboration",
+     "via": "search",
+     "retrieved_at": "2026-10-27T12:52:19Z",
+     "chars": 1421,
+     "sha256": "39c6968ff331c094d34fae0b67ef7cd549519a97ed43499201eb31e819bcc750",
+     "status": "excluded",
+     "reasons": [
+      "sigma_mirror",
+      "target_rule_id",
+      "target_rule_title"
+     ],
+     "content": "Sigma IntelligenceBeta\n\nSearch Rules\n\nBack to Rules\n\nDetectionhightest\n\n# PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE\n\nDetects active directory enumeration activity using known AdFind CLI flags\n\nConvert In Phoenix Studio\n\nOpen this Sigma rule in the converter with the YAML preloaded and ready for backend selection.\n\nLaunch\n\nFran\u00e7ois HubautCreated Mon Dec 13Updated Sun Mar 05455b9d50-15a1-4b99-853f-8d37655a4c1bwindows\n\nLog Source\n\nWindowsProcess Creation [...] PUA - AdFind.EXE Execution\n\nDetects execution of Adfind.exe utility, which can be used for reconnaissance in an Active Directory environment\n\nDetects similar activity. Both rules may fire on overlapping events.\n\nRule Metadata\n\nRule ID\n\n455b9d50-15a1-4b99-853f-8d37655a4c1b\n\nStatus\n\ntest\n\nLevel\n\nhigh\n\nType\n\nDetection\n\nCreated\n\nMon Dec 13\n\nModified\n\nSun Mar 05\n\nAuthor\n\nFran\u00e7ois Hubaut\n\nPath\n\nRaw Tags\n\nattack.discoveryattack.t1087.002\n\nView on GitHub [...] ```\ndetection selection_password # Listing password policy CommandLine|contains | contains selection_enum_ad # Enumerate Active Directory Admins CommandLine|contains | contains'-sc admincountdmp' selection_enum_exchange # Enumerate Active Directory Exchange AD Objects CommandLine|contains | contains'-sc exchaddresses' condition 1\n```\n\nFalse Positives\n\nAuthorized administrative activity\n\nReferences\n\n1\n\nResolving title\u2026\n\njoeware.net2\n\nResolving title\u2026\n\nsocial.technet.microsoft.com3"
+    },
+    {
+     "url": "https://detection.fyi/sigmahq/sigma/windows/process_creation/proc_creation_win_pua_adfind_enumeration",
+     "role": "corroboration",
+     "via": "search",
+     "retrieved_at": "2026-10-27T12:52:19Z",
+     "chars": 1198,
+     "sha256": "e34493b9b8e73bf02e42eaa84f847056c0679a183a2cba25691ec45bc53aa7d5",
+     "status": "excluded",
+     "reasons": [
+      "sigma_mirror",
+      "sigma_rule_text",
+      "target_rule_id",
+      "target_rule_title"
+     ],
+     "content": "# PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE\n\nNov 26, 2025 \u00b7 attack.discovery attack.t1087.002    \u00b7\n\nShare on:\n\nDetects active directory enumeration activity using known AdFind CLI flags\n\n## Sigma rule (View on GitHub) [...] using known AdFind CLI flags  description:  Detects active directory enumeration activity using known AdFind CLI flags  10references: 10references:  references:  11 -  11 -     12 -  12 -     13 -  13 -     14author: frack113 14author: frack113  author:  frack113  15date: 2021-12-13 15date: 2021-12-13  date:  2021-12-13  16modified: 2023-03-05 16modified: 2023-03-05  modified:  2023-03-05  17tags: 17tags:  tags:  18 - attack.discovery 18 - attack.discovery  attack.discovery  19 - [...] 1title: PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE  1title: PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE title:  PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE   2id: 455b9d50-15a1-4b99-853f-8d37655a4c1b  2id: 455b9d50-15a1-4b99-853f-8d37655a4c1b  id:  455b9d50-15a1-4b99-853f-8d37655a4c1b   3related:  3related:  related:   4 - id: 9a132afa-654e-11eb-ae93-0242ac130002  4 - id: 9a132afa-654e-11eb-ae93-0242ac130002  id:"
+    },
+    {
+     "url": "https://www.manageengine.com/log-management/detection-rules/pua-suspicious-activedirectory-enumeration-via-adfind-exe.html",
+     "role": "corroboration",
+     "via": "search",
+     "retrieved_at": "2026-10-27T12:52:19Z",
+     "chars": 1334,
+     "sha256": "34710104520a7577afd0690a29bbb8e97eb8c8665e3291887c1449f329a15ec7",
+     "status": "excluded",
+     "reasons": [
+      "target_rule_title"
+     ],
+     "content": "Detects use of the AdFind tool performing Active Directory enumeration with CLI flags targeting sensitive domain attributes and account policies, potentially indicating reconnaissance activity by attackers.\n\n### Severity\n\nTrouble\n\n## Rule journey\n\n### Attack chain scenario\n\nDiscovery: Account Discovery - Domain Account (T1087.002)\n\n### Impact [...] ## Detection\n\n### Execution Mode\n\nrealtime\n\n### Log Sources\n\nActive Directory\n\n### MITRE ATT&CK\n\nT1087.002: Account Discovery - Domain Account\n\n### Security Standards\n\n Configure Operating System to prevent enumeration of administrator accounts during elevation (disable registry key HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\CredUI\\EnumerateAdministrators).\n Implement Group Policy to disable enumeration of admin accounts on elevation.\n\n### Author\n\n## Future actions [...] 1. Open GPMC (gpmc.msc).\n2. Edit/Create GPO > Go to:  \n   Computer Configuration > Policies > Windows Settings > Security Settings > Advanced Audit Policy Configuration > Audit Policies > Detailed Tracking\n3. Enable:\n    Audit Process Creation \u2192 Success\n    Audit Process Termination \u2192 Success\n4. For command-line tracking:  \n   Computer Configuration > Administrative Templates > System > Audit Process Creation  \n   Enable Include command line in process creation events.\n5. Add registry key:"
+    },
+    {
+     "url": "https://detection.fyi/sigmahq/sigma/windows/process_creation/proc_creation_win_pua_adfind_execution",
+     "role": "corroboration",
+     "via": "search",
+     "retrieved_at": "2026-10-27T12:52:19Z",
+     "chars": 1285,
+     "sha256": "174f7866fe533f5e545c1d4cacd56da8516ad2f3e7e6a07de4328d26e8f6d0a7",
+     "status": "excluded",
+     "reasons": [
+      "sigma_mirror"
+     ],
+     "content": "## References\n\n ### \n\n  \n\n  Read More\n ### \n\n  \n\n  Read More\n\n## Related rules\n\n PUA - AdFind Suspicious Execution\n PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE\n Renamed AdFind Execution\n ADExplorer Writing Complete AD Snapshot Into .dat File\n Active Directory Database Snapshot Via ADExplorer [...] 6status: experimental  status:  experimental   7description: Detects execution of Adfind.exe utility, which can be used for reconnaissance in an Active Directory environment  7description: Detects execution of Adfind.exe utility, which can be used for reconnaissance in an Active Directory environment  description:  Detects execution of Adfind.exe utility, which can be used for reconnaissance in an Active Directory environment   8references:  8references:  references:   9 -   9 -     10 -  10 - [...] product:  windows  18 category: process_creation 18 category: process_creation  category:  process_creation  19detection: 19detection:  detection:  20 selection: 20 selection:  selection:  21 - Image|endswith: '\\AdFind.exe' 21 - Image|endswith: '\\AdFind.exe'  Image|endswith:  '\\AdFind.exe'  22 - OriginalFileName: 'AdFind.exe' 22 - OriginalFileName: 'AdFind.exe'  OriginalFileName:  'AdFind.exe'  23 - Hashes|contains: 23 - Hashes|contains:  Hashes|contains:  24 -"
+    },
+    {
+     "url": "https://research.splunk.com/endpoint/bd3b0187-189b-46c0-be45-f52da2bae67f",
+     "role": "corroboration",
+     "via": "search",
+     "retrieved_at": "2026-10-27T12:52:19Z",
+     "chars": 786,
+     "sha256": "21d411195b9e109552e6b0b8f5f8c9b5314348fb2c74c3a3ab4556256713df0e",
+     "status": "included",
+     "reasons": [],
+     "content": "The following analytic identifies the execution of `adfind.exe` standalone or with specific command-line arguments related to Active Directory queries. It leverages data from Endpoint Detection and Response (EDR) agents, focusing on process names, command-line arguments, and parent Processes. This activity is significant because `adfind.exe` is a powerful tool often used by threat actors like Wizard Spider and FIN6 to gather sensitive AD information. If confirmed malicious, this activity could [...] Source: GitHub |\n\nVersion: 14\n\nDetection: Windows AD Suspicious Attribute Modification\n\nDetection: Windows Admin Permission Discovery [...] this activity could allow attackers to map the AD environment, facilitating further attacks such as privilege escalation or lateral movement."
+    },
+    {
+     "url": "https://rocketreach.co/pua-forums-profile_b428d464c1f980f2",
+     "role": "corroboration",
+     "via": "search",
+     "retrieved_at": "2026-10-27T12:52:19Z",
+     "chars": 950,
+     "sha256": "d2116611a2e24fc38df09eddc49c817c637141f0e29bfbf1859de0baf393ddf3",
+     "status": "included",
+     "reasons": [],
+     "content": "| SIC | SIC Code 7812 Companies, SIC Code 78 Companies, SIC Code 48 Companies, SIC Code 781 Companies |\n| NAICS | NAICS Code 512 Companies, NAICS Code 51 Companies |\n|  |  | [...] | Keywords | Seduction, Social Dynamics, Dating, Community Forum, Dating Strategies, Dating Advice, Relationships, Dating Tips, Interaction Skills, Social Skills, Online Forum, Relationship Advice, Communication Skills, Confidence Building, Love, Men's Issues, Self Improvement, Personal Development |\n| Competitors | Attraction Institute, Real Social Dynamics, The Art of Charm, Inc, DatingAdvice.com, Love Systems, HAPPN LTD, OkCupid, Match Co, Tinder Inc., eharmony  +24 more (view full list) | [...] stars 1\nstars 2\nstars 3\n\n ## Company Information\n ## Email Format\n ## Technology Stack\n ## Competitors\n\nPUA Forums\n\n# PUA Forums Information\n\nView Top Employees from PUA Forums\n\nPUA Forums Is The Official Pick Up Artist Forum.\nVisit us at \nFollow us on Social Media:"
+    },
+    {
+     "url": "https://www.mapquest.com/us/hawaii/the-pua-bar-431019139",
+     "role": "corroboration",
+     "via": "search",
+     "retrieved_at": "2026-10-27T12:52:19Z",
+     "chars": 1434,
+     "sha256": "3718072b07ce2a73b6e06c060fb2cc3063aeff043e45ed94f082243395c89fc5",
+     "status": "included",
+     "reasons": [],
+     "content": "Your printable directions will be ready after this ad experience...\n\n___\n\nDirectionsSee map\n\n   \n\nHello, stranger\n\nLog in or sign up\n\n   Image 1 Plans\n\n   Image 2 Get directions\n\n   Image 3 My saved places\n\n   MapQuest Travel\n   Route Planner\n   Get help\n   Search the web\n   Send feedback\n\nLearn more about our mobile apps.\n\n   Image 4: Android app Google Play\n   Image 5: Download on the App Store\n\n   Merch\n\n   Claim your business\n   Developer resources\n\n   Jobs\n   Advertise with us [...] Advertisement\n\nAdvertisement\n\n## Photos\n\nImage 18: The flower bar where you can choose your own stems for a personalized bouquetYelp\n\nThe flower bar where you can choose your own stems for a personalized bouquet\n\nImage 19: Our bouquet!Yelp\n\nOur bouquet!\n\nImage 20: Cute and curated beautifully!Yelp\n\nCute and curated beautifully!\n\nImage 21Yelp\n\nImage 22Yelp\n\nImage 23Yelp\n\nImage 24Yelp\n\nImage 25Yelp\n\nImage 26Yelp\n\nImage 27Yelp\n\nImage 28\nTop review [...] Terms of use\n   Privacy policy\n   Data and licenses\n   About our ads\n   Do not sell\n\nAdvertisement\n\nAdvertisement\n\n\u00a9 2026 MapQuestLegal\n\nImage 6CoffeeImage 7FoodImage 8GasImage 9GroceryImage 10ShoppingImage 11Hotels\n\nImage 12Live Radio\n\n500 ft\n\n- [x] Traffic slowdowns - [x] Traffic incidents \n\nThe Pua Bar\n\n\n\nLog in\n\nSearch places or paste a link \n\n# The Pua Bar\n\nPermanently closed\n\nImage 13: yelp logo\n(28)\n\nImage 14SaveImage 15CallImage 16WebImage 17Share\n\nDirections\n\nAdvertisement"
+    },
+    {
+     "url": "https://www.mapquest.com/us/hawaii/pua-maoli-788294891",
+     "role": "corroboration",
+     "via": "search",
+     "retrieved_at": "2026-10-27T12:52:19Z",
+     "chars": 1147,
+     "sha256": "fb9aa095c7eba98a95517ec83686c564528c5df08a465bc718599f43fc1d2b96",
+     "status": "not_used",
+     "reasons": [],
+     "content": "___\n\nYour printable directions will be ready after this ad experience...\n\nDirectionsSee map\n\n   \n\nHello, stranger\n\nLog in or sign up\n\n   Image 1 Plans\n\n   Image 2 Get directions\n\n   Image 3 My saved places\n\n   MapQuest Travel\n   Route Planner\n   Get help\n   Search the web\n   Send feedback\n\nLearn more about our mobile apps.\n\n   Image 4: Android app Google Play\n   Image 5: Download on the App Store\n\n   Merch\n\n   Claim your business\n   Developer resources\n\n   Jobs\n   Advertise with us [...] Terms of use\n   Privacy policy\n   Data and licenses\n   About our ads\n   Do not sell\n\nAdvertisement\n\nAdvertisement\n\n###### WebGL not available\n\nImage 6: WebGL not available\nWe can't display the map because WebGL is not available in your browser.\n\nPlease make sure \"Use graphics acceleration when available\" is enabled in your browser settings,\n\notherwise try a different browser or device.\n\nPua Maoli\n\n\n\nLog in\n\nSearch places or paste a link \n\n# Pua Maoli\n\nClosed [...] Advertisement\n\nAdvertisement\n\nOwn this business?\n\nClaim it\n\nSee a problem?Let us know\n\nUnited States\u203aHawaii\u203aHonolulu County, HI\u203aWaianae, HI\u203a96792\u203aPua Maoli\n\nSee more\n\nImage 26\n\nImage 27"
+    }
+   ]
+  }
+ },
+ "spec": {
+  "behavior": "",
+  "logsource_category": "process_creation",
+  "observables": [
+   {
+    "field": "Image",
+    "match": "equals",
+    "value": "adfind.exe",
+    "quote": "`adfind.exe`"
+   },
+   {
+    "field": "CommandLine",
+    "match": "contains",
+    "value": "-showdel",
+    "quote": "The -showdel option will require permissions to see into the cn=Deleted Objects container."
+   },
+   {
+    "field": "CommandLine",
+    "match": "contains",
+    "value": "-sdna",
+    "quote": "The -sdna (Security Descriptor Non-Admin) or -nosacl options can be used to tell LDAP to not return the SACL portion of the ACL."
+   },
+   {
+    "field": "CommandLine",
+    "match": "contains",
+    "value": "-nosacl",
+    "quote": "The -sdna (Security Descriptor Non-Admin) or -nosacl options can be used to tell LDAP to not return the SACL portion of the ACL."
+   },
+   {
+    "field": "CommandLine",
+    "match": "contains",
+    "value": "-sddl",
+    "quote": "If you attempt to use -sddl,-sddc,-owner\\* options and you don't get the information returned, add the -sdna option to see if that helps."
+   },
+   {
+    "field": "CommandLine",
+    "match": "contains",
+    "value": "-sddc",
+    "quote": "If you attempt to use -sddl,-sddc,-owner\\* options and you don't get the information returned, add the -sdna option to see if that helps."
+   },
+   {
+    "field": "CommandLine",
+    "match": "contains",
+    "value": "-owner\\*",
+    "quote": "If you attempt to use -sddl,-sddc,-owner\\* options and you don't get the information returned, add the -sdna option to see if that helps."
+   },
+   {
+    "field": "CommandLine",
+    "match": "contains",
+    "value": "parentrdn",
+    "quote": "parentrdn and objrdn \u2014 new computed attributes"
+   },
+   {
+    "field": "CommandLine",
+    "match": "contains",
+    "value": "objrdn",
+    "quote": "parentrdn and objrdn \u2014 new computed attributes"
+   }
+  ],
+  "techniques": []
+ },
+ "spec_dropped": [
+  {
+   "kind": "observable",
+   "item": {
+    "field": "CommandLine",
+    "match": "contains",
+    "value": "stats",
+    "quote": "The STATS control options (stats, stats+, statsonly, stats+only, etc.) require the user to have DEBUG_PRIVILEGE on the server being queried."
+   },
+   "reason": "quote not found verbatim in report"
+  },
+  {
+   "kind": "observable",
+   "item": {
+    "field": "CommandLine",
+    "match": "contains",
+    "value": "stats+",
+    "quote": "The STATS control options (stats, stats+, statsonly, stats+only, etc.) require the user to have DEBUG_PRIVILEGE on the server being queried."
+   },
+   "reason": "quote not found verbatim in report"
+  },
+  {
+   "kind": "observable",
+   "item": {
+    "field": "CommandLine",
+    "match": "contains",
+    "value": "statsonly",
+    "quote": "The STATS control options (stats, stats+, statsonly, stats+only, etc.) require the user to have DEBUG_PRIVILEGE on the server being queried."
+   },
+   "reason": "quote not found verbatim in report"
+  },
+  {
+   "kind": "observable",
+   "item": {
+    "field": "CommandLine",
+    "match": "contains",
+    "value": "stats+only",
+    "quote": "The STATS control options (stats, stats+, statsonly, stats+only, etc.) require the user to have DEBUG_PRIVILEGE on the server being queried."
+   },
+   "reason": "quote not found verbatim in report"
+  },
+  {
+   "kind": "observable",
+   "item": {
+    "field": "CommandLine",
+    "match": "contains",
+    "value": "- kdsrootkeys",
+    "quote": "- kdsrootkeys \u2014 query KDS root keys"
+   },
+   "reason": "quote not found verbatim in report"
+  },
+  {
+   "kind": "observable",
+   "item": {
+    "field": "CommandLine",
+    "match": "contains",
+    "value": "- csvbreakcount",
+    "quote": "- csvbreakcount \u2014 break CSV output at a row count"
+   },
+   "reason": "quote not found verbatim in report"
+  },
+  {
+   "kind": "observable",
+   "item": {
+    "field": "CommandLine",
+    "match": "contains",
+    "value": "- onlygroup",
+    "quote": "- onlygroup \u2014 new filter switch"
+   },
+   "reason": "quote not found verbatim in report"
+  },
+  {
+   "kind": "observable",
+   "item": {
+    "field": "CommandLine",
+    "match": "contains",
+    "value": "- whoami",
+    "quote": "- whoami \u2014 promoted from -sc whoami to a first-class switch"
+   },
+   "reason": "quote not found verbatim in report"
+  },
+  {
+   "kind": "observable",
+   "item": {
+    "field": "CommandLine",
+    "match": "contains",
+    "value": "- decattid",
+    "quote": "- decattid \u2014 ATTID decoding (decode attribute IDs)"
+   },
+   "reason": "quote not found verbatim in report"
+  },
+  {
+   "kind": "observable",
+   "item": {
+    "field": "CommandLine",
+    "match": "contains",
+    "value": "- enccurrentutcgt",
+    "quote": "- enccurrentutcgt \u2014 current-time UTC generalized-time encode options"
+   },
+   "reason": "quote not found verbatim in report"
+  },
+  {
+   "kind": "observable",
+   "item": {
+    "field": "CommandLine",
+    "match": "contains",
+    "value": "- encutcgt",
+    "quote": "- encutcgt \u2014 current-time UTC generalized-time encode options"
+   },
+   "reason": "quote not found verbatim in report"
+  },
+  {
+   "kind": "observable",
+   "item": {
+    "field": "CommandLine",
+    "match": "contains",
+    "value": "- outputcurrentint8",
+    "quote": "- outputcurrentint8 / -outputcurrentgt \u2014 output current time as Int8 / generalized time"
+   },
+   "reason": "quote not found verbatim in report"
+  },
+  {
+   "kind": "observable",
+   "item": {
+    "field": "CommandLine",
+    "match": "contains",
+    "value": "- outputcurrentgt",
+    "quote": "- outputcurrentint8 / -outputcurrentgt \u2014 output current time as Int8 / generalized time"
+   },
+   "reason": "quote not found verbatim in report"
+  },
+  {
+   "kind": "observable",
+   "item": {
+    "field": "CommandLine",
+    "match": "contains",
+    "value": "- jwdsinit",
+    "quote": "- jwdsinit, -jwdsstd, -jwdsstdro \u2014 DirSync convenience modes, with aliases dirsync_init, dirsync_std, dirsyncro_std"
+   },
+   "reason": "quote not found verbatim in report"
+  },
+  {
+   "kind": "observable",
+   "item": {
+    "field": "CommandLine",
+    "match": "contains",
+    "value": "- jwdsstd",
+    "quote": "- jwdsinit, -jwdsstd, -jwdsstdro \u2014 DirSync convenience modes, with aliases dirsync_init, dirsync_std, dirsyncro_std"
+   },
+   "reason": "quote not found verbatim in report"
+  },
+  {
+   "kind": "observable",
+   "item": {
+    "field": "CommandLine",
+    "match": "contains",
+    "value": "- jwdsstdro",
+    "quote": "- jwdsinit, -jwdsstd, -jwdsstdro \u2014 DirSync convenience modes, with aliases dirsync_init, dirsync_std, dirsyncro_std"
+   },
+   "reason": "quote not found verbatim in report"
+  }
+ ],
+ "iterations": [
+  {
+   "index": 0,
+   "action": "generate",
+   "resamples": 3,
+   "thinking_fallback": true,
+   "rule_text": "title: Potential AdFind Execution\nid: d234d10e-868c-4126-85da-ef0909f282d1\nstatus: experimental\ndescription: Detects execution of adfind.exe with suspicious command-line arguments commonly used for Active Directory reconnaissance.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.discovery\n- attack.t1087\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  base_image:\n    Image: adfind.exe\n  cmd_showdel:\n    CommandLine|contains: -showdel\n  cmd_sdna_nosacl:\n    CommandLine|contains:\n    - -sdna\n    - -nosacl\n  cmd_security_desc:\n    CommandLine|contains:\n    - -sddl\n    - -sddc\n    - -owner*\n  cmd_computed_attrs:\n    CommandLine|contains:\n    - parentrdn\n    - objrdn\n  condition: (base_image and (cmd_showdel or cmd_sdna_nosacl or cmd_security_desc or cmd_computed_attrs))\nfalsepositives:\n- Legitimate administrators using AdFind for authorized Active Directory queries.\nlevel: high\n",
+   "sha256": "8c6055b40117631b2d9b82006fe6baf8d71bce03c1f907b91adb4208358ced62",
+   "validation": {
+    "ok": true,
+    "errors": [],
+    "sigma_output": "\n=== Summary ===\nFound 0 errors, 0 condition errors and 0 issues.\nNo rule errors found.\nNo condition errors found.\nNo validation issues found.\nParsing Sigma rules\nChecking Sigma rules\n"
+   },
+   "evaluator_error": null,
+   "tokens": 22164,
+   "latency_s": 32.23,
+   "evaluation": {
+    "attack_total": 1,
+    "attack_detected": 0,
+    "attack_missed": [
+     "455b9d50-15a1-4b99-853f-8d37655a4c1b.evtx"
+    ],
+    "attack_events_hit": 0,
+    "benign": {
+     "benign_dev_win7": {
+      "files_total": 129,
+      "files_with_hits": 0,
+      "hits": 0,
+      "examples": []
+     }
+    },
+    "attack_events": [
+     {
+      "EventID": 1,
+      "Channel": "Microsoft-Windows-Sysmon/Operational",
+      "RuleName": "-",
+      "UtcTime": "2025-10-23 09:37:40.972",
+      "ProcessGuid": "{14207d89-f764-68f9-2410-000000003f02}",
+      "ProcessId": "4316",
+      "Image": "C:\\Users\\SwachchhandaP\\Downloads\\AdFind\\AdFind.exe",
+      "FileVersion": "1.62.0.6172",
+      "Description": "-",
+      "Product": "AdFind",
+      "Company": "www.joeware.net",
+      "OriginalFileName": "AdFind.exe",
+      "CommandLine": "AdFind.exe   -default -s base lockoutduration lockoutthreshold lockoutobservationwindow maxpwdage minpwdage minpwdlength pwdhistorylength pwdproperties",
+      "CurrentDirectory": "C:\\Users\\SwachchhandaP\\Downloads\\AdFind\\",
+      "User": "MIDGARDNET\\SwachchhandaP",
+      "LogonGuid": "{14207d89-91e6-68f9-0f94-460000000000}",
+      "LogonId": "0x000000000046940f",
+      "TerminalSessionId": "2",
+      "IntegrityLevel": "Medium",
+      "Hashes": "MD5=B0C4A9C1D8C4641A161B3DBF111454DF,SHA256=484DD00E85C033FBFD506B956AC0ACD29B30F239755ED753A2788A842425B384,IMPHASH=680DAD9E300346E05A85023965867201",
+      "ParentProcessGuid": "{14207d89-f57c-68f9-d70f-000000003f02}",
+      "ParentProcessId": "6488",
+      "ParentImage": "C:\\Windows\\System32\\cmd.exe",
+      "ParentCommandLine": "\"C:\\Windows\\System32\\cmd.exe\" ",
+      "ParentUser": "MIDGARDNET\\SwachchhandaP"
+     }
+    ],
+    "seconds": 18.77
+   }
+  },
+  {
+   "index": 1,
+   "action": "repair",
+   "resamples": 1,
+   "thinking_fallback": false,
+   "rule_text": "{\n \"title\": \"Potential AdFind Execution\",\n \"description\": \"Detects execution of adfind.exe with suspicious command-line arguments commonly used for Active Directory reconnaissance.\",\n \"tags\": [\n  \"attack.discovery\",\n  \"attack.t1087\"\n ],\n \"logsource_category\": \"process_creation\",\n \"groups\": [\n  {\n   \"name\": \"base_image\",\n   \"fields\": [\n    {\n     \"field\": \"Image\",\n     \"modifier\": \"contains\",\n     \"values\": [\n      \"adfind.exe\"\n     ]\n    }\n   ]\n  },\n  {\n   \"name\": \"cmd_showdel\",\n   \"fields\": [\n    {\n     \"field\": \"CommandLine\",\n     \"modifier\": \"contains\",\n     \"values\": [\n      \"-showdel\"\n     ]\n    }\n   ]\n  },\n  {\n   \"name\": \"cmd_sdna_nosacl\",\n   \"fields\": [\n    {\n     \"field\": \"CommandLine\",\n     \"modifier\": \"contains\",\n     \"values\": [\n      \"-sdna\",\n      \"-nosacl\"\n     ]\n    }\n   ]\n  },\n  {\n   \"name\": \"cmd_security_desc\",\n   \"fields\": [\n    {\n     \"field\": \"CommandLine\",\n     \"modifier\": \"contains\",\n     \"values\": [\n      \"-sddl\",\n      \"-sddc\",\n      \"-owner*\"\n     ]\n    }\n   ]\n  },\n  {\n   \"name\": \"cmd_computed_attrs\",\n   \"fields\": [\n    {\n     \"field\": \"CommandLine\",\n     \"modifier\": \"contains\",\n     \"values\": [\n      \"parentrdn\",\n      \"objrdn\"\n     ]\n    }\n   ]\n  },\n  {\n   \"name\": \"cmd_default_attrs\",\n   \"fields\": [\n    {\n     \"field\": \"CommandLine\",\n     \"modifier\": \"contains\",\n     \"values\": [\n      \"-default\"\n     ]\n    },\n    {\n     \"field\": \"CommandLine\",\n     \"modifier\": \"contains\",\n     \"values\": [\n      \"lockoutduration\",\n      \"lockoutthreshold\",\n      \"lockoutobservationwindow\",\n      \"maxpwdage\",\n      \"minpwdage\",\n      \"minpwdlength\",\n      \"pwdhistorylength\",\n      \"pwdproperties\"\n     ]\n    }\n   ]\n  }\n ],\n \"condition\": \"base_image and (cmd_showdel or cmd_sdna_nosacl or cmd_security_desc or cmd_computed_attrs or cmd_default_attrs)\",\n \"falsepositives\": [\n  \"Legitimate administrators using AdFind for authorized Active Directory queries.\"\n ],\n \"level\": \"high\"\n}",
+   "sha256": "58d4e7317211d1a90bfe8cb7faff161c091c3a8f20759b1f9c9f43cffcc59cd0",
+   "validation": {
+    "ok": false,
+    "errors": [
+     "rule could not be built: group 'cmd_default_attrs': duplicate field/modifier 'CommandLine|contains'; put all its values in one entry"
+    ],
+    "sigma_output": ""
+   },
+   "evaluator_error": null,
+   "tokens": 5872,
+   "latency_s": 26.95,
+   "evaluation": null
+  },
+  {
+   "index": 2,
+   "action": "repair",
+   "resamples": 0,
+   "thinking_fallback": false,
+   "rule_text": "title: Potential AdFind Execution\nid: d234d10e-868c-4126-85da-ef0909f282d1\nstatus: experimental\ndescription: Detects execution of adfind.exe with suspicious command-line arguments commonly used for Active Directory reconnaissance.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.discovery\n- attack.t1087\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  base_image:\n    Image|contains: adfind.exe\n  cmd_showdel:\n    CommandLine|contains: -showdel\n  cmd_sdna_nosacl:\n    CommandLine|contains:\n    - -sdna\n    - -nosacl\n  cmd_security_desc:\n    CommandLine|contains:\n    - -sddl\n    - -sddc\n    - -owner*\n  cmd_computed_attrs:\n    CommandLine|contains:\n    - parentrdn\n    - objrdn\n  cmd_default_attrs:\n    CommandLine|contains:\n    - -default\n    - lockoutduration\n    - lockoutthreshold\n    - lockoutobservationwindow\n    - maxpwdage\n    - minpwdage\n    - minpwdlength\n    - pwdhistorylength\n    - pwdproperties\n  condition: base_image and (cmd_showdel or cmd_sdna_nosacl or cmd_security_desc or cmd_computed_attrs or cmd_default_attrs)\nfalsepositives:\n- Legitimate administrators using AdFind for authorized Active Directory queries.\nlevel: high\n",
+   "sha256": "f82530c1d236e444a0885f9cab3d605c57daa31584129748568ed239cf459c2c",
+   "validation": {
+    "ok": true,
+    "errors": [],
+    "sigma_output": "\n=== Summary ===\nFound 0 errors, 0 condition errors and 0 issues.\nNo rule errors found.\nNo condition errors found.\nNo validation issues found.\nParsing Sigma rules\nChecking Sigma rules\n"
+   },
+   "evaluator_error": null,
+   "tokens": 1502,
+   "latency_s": 4.42,
+   "evaluation": {
+    "attack_total": 1,
+    "attack_detected": 1,
+    "attack_missed": [],
+    "attack_events_hit": 1,
+    "benign": {
+     "benign_dev_win7": {
+      "files_total": 129,
+      "files_with_hits": 0,
+      "hits": 0,
+      "examples": []
+     }
+    },
+    "attack_events": [],
+    "seconds": 26.26
+   }
+  }
+ ],
+ "best_index": 2,
+ "success": true,
+ "stop_reason": "acceptance criteria passed",
+ "heldout": {
+  "benign_heldout_win10": {
+   "files_total": 352,
+   "files_with_hits": 0,
+   "hits": 0,
+   "examples": []
+  }
+ },
+ "expert": {
+  "dev": {
+   "attack_total": 1,
+   "attack_detected": 1,
+   "attack_missed": [],
+   "attack_events_hit": 1,
+   "benign": {
+    "benign_dev_win7": {
+     "files_total": 129,
+     "files_with_hits": 0,
+     "hits": 0,
+     "examples": []
+    }
+   },
+   "attack_events": [],
+   "seconds": 36.59
+  },
+  "heldout": {
+   "benign_heldout_win10": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   }
+  },
+  "rule_text": "title: PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE\nid: 455b9d50-15a1-4b99-853f-8d37655a4c1b\nrelated:\n    - id: 9a132afa-654e-11eb-ae93-0242ac130002\n      type: similar\n    - id: 514e7e3e-b3b4-4a67-af60-be20f139198b\n      type: similar\nstatus: test\ndescription: Detects active directory enumeration activity using known AdFind CLI flags\nreferences:\n    - https://www.joeware.net/freetools/tools/adfind/\n    - https://social.technet.microsoft.com/wiki/contents/articles/7535.adfind-command-examples.aspx\n    - https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1087.002/T1087.002.md\nauthor: frack113\ndate: 2021-12-13\nmodified: 2023-03-05\ntags:\n    - attack.discovery\n    - attack.t1087.002\nlogsource:\n    product: windows\n    category: process_creation\ndetection:\n    selection_password: # Listing password policy\n        CommandLine|contains:\n            - lockoutduration\n            - lockoutthreshold\n            - lockoutobservationwindow\n            - maxpwdage\n            - minpwdage\n            - minpwdlength\n            - pwdhistorylength\n            - pwdproperties\n    selection_enum_ad: # Enumerate Active Directory Admins\n        CommandLine|contains: '-sc admincountdmp'\n    selection_enum_exchange: # Enumerate Active Directory Exchange AD Objects\n        CommandLine|contains: '-sc exchaddresses'\n    condition: 1 of selection_*\nfalsepositives:\n    - Authorized administrative activity\nlevel: high\nregression_tests_path: regression_data/rules/windows/process_creation/proc_creation_win_pua_adfind_enumeration/info.yml\n"
+ },
+ "totals": {
+  "tokens": 29538,
+  "seconds": 255.9
+ },
+ "events": [
+  {
+   "type": "start",
+   "t": 0.0,
+   "data": {
+    "scenario": "455b9d50-15a1-4b99-853f-8d37655a4c1b",
+    "title": "PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE",
+    "model": "nvidia/nemotron-3-super-120b-a12b"
+   }
+  },
+  {
+   "type": "research",
+   "t": 2.0,
+   "data": {
+    "primary": {
+     "url": "https://www.joeware.net/freetools/tools/adfind/",
+     "title": "https://www.joeware.net/freetools/tools/adfind/",
+     "retrieved_at": "2026-10-27T12:52:18Z",
+     "via": "extract",
+     "score": null,
+     "chars": 29903
+    },
+    "corroboration": [
+     {
+      "url": "https://research.splunk.com/endpoint/bd3b0187-189b-46c0-be45-f52da2bae67f",
+      "title": "Detection: Windows AdFind Exe | Splunk Security Content",
+      "retrieved_at": "2026-10-27T12:52:19Z",
+      "via": "search",
+      "score": 0.61307496,
+      "chars": 786
+     },
+     {
+      "url": "https://rocketreach.co/pua-forums-profile_b428d464c1f980f2",
+      "title": "PUA Forums Information",
+      "retrieved_at": "2026-10-27T12:52:19Z",
+      "via": "search",
+      "score": 0.12755504,
+      "chars": 950
+     },
+     {
+      "url": "https://www.mapquest.com/us/hawaii/the-pua-bar-431019139",
+      "title": "The Pua Bar",
+      "retrieved_at": "2026-10-27T12:52:19Z",
+      "via": "search",
+      "score": 0.11055777,
+      "chars": 1434
+     }
+    ],
+    "error": null,
+    "screening": {
+     "policy": "exclude",
+     "target": {
+      "id": "455b9d50-15a1-4b99-853f-8d37655a4c1b",
+      "title": "PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE"
+     },
+     "sources": [
+      {
+       "url": "https://www.joeware.net/freetools/tools/adfind/",
+       "role": "primary",
+       "via": "extract",
+       "retrieved_at": "2026-10-27T12:52:18Z",
+       "chars": 29903,
+       "sha256": "5bfe8b83a51741487685b5c785d90fe9d0782093791b21bdbb325226ed18c27e",
+       "status": "included",
+       "reasons": []
+      },
+      {
+       "url": "https://sigma.nasbench.dev/rules/455b9d50-15a1-4b99-853f-8d37655a4c1b",
+       "role": "corroboration",
+       "via": "search",
+       "retrieved_at": "2026-10-27T12:52:19Z",
+       "chars": 1421,
+       "sha256": "39c6968ff331c094d34fae0b67ef7cd549519a97ed43499201eb31e819bcc750",
+       "status": "excluded",
+       "reasons": [
+        "sigma_mirror",
+        "target_rule_id",
+        "target_rule_title"
+       ],
+       "content": "Sigma IntelligenceBeta\n\nSearch Rules\n\nBack to Rules\n\nDetectionhightest\n\n# PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE\n\nDetects active directory enumeration activity using known AdFind CLI flags\n\nConvert In Phoenix Studio\n\nOpen this Sigma rule in the converter with the YAML preloaded and ready for backend selection.\n\nLaunch\n\nFran\u00e7ois HubautCreated Mon Dec 13Updated Sun Mar 05455b9d50-15a1-4b99-853f-8d37655a4c1bwindows\n\nLog Source\n\nWindowsProcess Creation [...] PUA - AdFind.EXE Execution\n\nDetects execution of Adfind.exe utility, which can be used for reconnaissance in an Active Directory environment\n\nDetects similar activity. Both rules may fire on overlapping events.\n\nRule Metadata\n\nRule ID\n\n455b9d50-15a1-4b99-853f-8d37655a4c1b\n\nStatus\n\ntest\n\nLevel\n\nhigh\n\nType\n\nDetection\n\nCreated\n\nMon Dec 13\n\nModified\n\nSun Mar 05\n\nAuthor\n\nFran\u00e7ois Hubaut\n\nPath\n\nRaw Tags\n\nattack.discoveryattack.t1087.002\n\nView on GitHub [...] ```\ndetection selection_password # Listing password policy CommandLine|contains | contains selection_enum_ad # Enumerate Active Directory Admins CommandLine|contains | contains'-sc admincountdmp' selection_enum_exchange # Enumerate Active Directory Exchange AD Objects CommandLine|contains | contains'-sc exchaddresses' condition 1\n```\n\nFalse Positives\n\nAuthorized administrative activity\n\nReferences\n\n1\n\nResolving title\u2026\n\njoeware.net2\n\nResolving title\u2026\n\nsocial.technet.microsoft.com3"
+      },
+      {
+       "url": "https://detection.fyi/sigmahq/sigma/windows/process_creation/proc_creation_win_pua_adfind_enumeration",
+       "role": "corroboration",
+       "via": "search",
+       "retrieved_at": "2026-10-27T12:52:19Z",
+       "chars": 1198,
+       "sha256": "e34493b9b8e73bf02e42eaa84f847056c0679a183a2cba25691ec45bc53aa7d5",
+       "status": "excluded",
+       "reasons": [
+        "sigma_mirror",
+        "sigma_rule_text",
+        "target_rule_id",
+        "target_rule_title"
+       ],
+       "content": "# PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE\n\nNov 26, 2025 \u00b7 attack.discovery attack.t1087.002    \u00b7\n\nShare on:\n\nDetects active directory enumeration activity using known AdFind CLI flags\n\n## Sigma rule (View on GitHub) [...] using known AdFind CLI flags  description:  Detects active directory enumeration activity using known AdFind CLI flags  10references: 10references:  references:  11 -  11 -     12 -  12 -     13 -  13 -     14author: frack113 14author: frack113  author:  frack113  15date: 2021-12-13 15date: 2021-12-13  date:  2021-12-13  16modified: 2023-03-05 16modified: 2023-03-05  modified:  2023-03-05  17tags: 17tags:  tags:  18 - attack.discovery 18 - attack.discovery  attack.discovery  19 - [...] 1title: PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE  1title: PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE title:  PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE   2id: 455b9d50-15a1-4b99-853f-8d37655a4c1b  2id: 455b9d50-15a1-4b99-853f-8d37655a4c1b  id:  455b9d50-15a1-4b99-853f-8d37655a4c1b   3related:  3related:  related:   4 - id: 9a132afa-654e-11eb-ae93-0242ac130002  4 - id: 9a132afa-654e-11eb-ae93-0242ac130002  id:"
+      },
+      {
+       "url": "https://www.manageengine.com/log-management/detection-rules/pua-suspicious-activedirectory-enumeration-via-adfind-exe.html",
+       "role": "corroboration",
+       "via": "search",
+       "retrieved_at": "2026-10-27T12:52:19Z",
+       "chars": 1334,
+       "sha256": "34710104520a7577afd0690a29bbb8e97eb8c8665e3291887c1449f329a15ec7",
+       "status": "excluded",
+       "reasons": [
+        "target_rule_title"
+       ],
+       "content": "Detects use of the AdFind tool performing Active Directory enumeration with CLI flags targeting sensitive domain attributes and account policies, potentially indicating reconnaissance activity by attackers.\n\n### Severity\n\nTrouble\n\n## Rule journey\n\n### Attack chain scenario\n\nDiscovery: Account Discovery - Domain Account (T1087.002)\n\n### Impact [...] ## Detection\n\n### Execution Mode\n\nrealtime\n\n### Log Sources\n\nActive Directory\n\n### MITRE ATT&CK\n\nT1087.002: Account Discovery - Domain Account\n\n### Security Standards\n\n Configure Operating System to prevent enumeration of administrator accounts during elevation (disable registry key HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\CredUI\\EnumerateAdministrators).\n Implement Group Policy to disable enumeration of admin accounts on elevation.\n\n### Author\n\n## Future actions [...] 1. Open GPMC (gpmc.msc).\n2. Edit/Create GPO > Go to:  \n   Computer Configuration > Policies > Windows Settings > Security Settings > Advanced Audit Policy Configuration > Audit Policies > Detailed Tracking\n3. Enable:\n    Audit Process Creation \u2192 Success\n    Audit Process Termination \u2192 Success\n4. For command-line tracking:  \n   Computer Configuration > Administrative Templates > System > Audit Process Creation  \n   Enable Include command line in process creation events.\n5. Add registry key:"
+      },
+      {
+       "url": "https://detection.fyi/sigmahq/sigma/windows/process_creation/proc_creation_win_pua_adfind_execution",
+       "role": "corroboration",
+       "via": "search",
+       "retrieved_at": "2026-10-27T12:52:19Z",
+       "chars": 1285,
+       "sha256": "174f7866fe533f5e545c1d4cacd56da8516ad2f3e7e6a07de4328d26e8f6d0a7",
+       "status": "excluded",
+       "reasons": [
+        "sigma_mirror"
+       ],
+       "content": "## References\n\n ### \n\n  \n\n  Read More\n ### \n\n  \n\n  Read More\n\n## Related rules\n\n PUA - AdFind Suspicious Execution\n PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE\n Renamed AdFind Execution\n ADExplorer Writing Complete AD Snapshot Into .dat File\n Active Directory Database Snapshot Via ADExplorer [...] 6status: experimental  status:  experimental   7description: Detects execution of Adfind.exe utility, which can be used for reconnaissance in an Active Directory environment  7description: Detects execution of Adfind.exe utility, which can be used for reconnaissance in an Active Directory environment  description:  Detects execution of Adfind.exe utility, which can be used for reconnaissance in an Active Directory environment   8references:  8references:  references:   9 -   9 -     10 -  10 - [...] product:  windows  18 category: process_creation 18 category: process_creation  category:  process_creation  19detection: 19detection:  detection:  20 selection: 20 selection:  selection:  21 - Image|endswith: '\\AdFind.exe' 21 - Image|endswith: '\\AdFind.exe'  Image|endswith:  '\\AdFind.exe'  22 - OriginalFileName: 'AdFind.exe' 22 - OriginalFileName: 'AdFind.exe'  OriginalFileName:  'AdFind.exe'  23 - Hashes|contains: 23 - Hashes|contains:  Hashes|contains:  24 -"
+      },
+      {
+       "url": "https://research.splunk.com/endpoint/bd3b0187-189b-46c0-be45-f52da2bae67f",
+       "role": "corroboration",
+       "via": "search",
+       "retrieved_at": "2026-10-27T12:52:19Z",
+       "chars": 786,
+       "sha256": "21d411195b9e109552e6b0b8f5f8c9b5314348fb2c74c3a3ab4556256713df0e",
+       "status": "included",
+       "reasons": [],
+       "content": "The following analytic identifies the execution of `adfind.exe` standalone or with specific command-line arguments related to Active Directory queries. It leverages data from Endpoint Detection and Response (EDR) agents, focusing on process names, command-line arguments, and parent Processes. This activity is significant because `adfind.exe` is a powerful tool often used by threat actors like Wizard Spider and FIN6 to gather sensitive AD information. If confirmed malicious, this activity could [...] Source: GitHub |\n\nVersion: 14\n\nDetection: Windows AD Suspicious Attribute Modification\n\nDetection: Windows Admin Permission Discovery [...] this activity could allow attackers to map the AD environment, facilitating further attacks such as privilege escalation or lateral movement."
+      },
+      {
+       "url": "https://rocketreach.co/pua-forums-profile_b428d464c1f980f2",
+       "role": "corroboration",
+       "via": "search",
+       "retrieved_at": "2026-10-27T12:52:19Z",
+       "chars": 950,
+       "sha256": "d2116611a2e24fc38df09eddc49c817c637141f0e29bfbf1859de0baf393ddf3",
+       "status": "included",
+       "reasons": [],
+       "content": "| SIC | SIC Code 7812 Companies, SIC Code 78 Companies, SIC Code 48 Companies, SIC Code 781 Companies |\n| NAICS | NAICS Code 512 Companies, NAICS Code 51 Companies |\n|  |  | [...] | Keywords | Seduction, Social Dynamics, Dating, Community Forum, Dating Strategies, Dating Advice, Relationships, Dating Tips, Interaction Skills, Social Skills, Online Forum, Relationship Advice, Communication Skills, Confidence Building, Love, Men's Issues, Self Improvement, Personal Development |\n| Competitors | Attraction Institute, Real Social Dynamics, The Art of Charm, Inc, DatingAdvice.com, Love Systems, HAPPN LTD, OkCupid, Match Co, Tinder Inc., eharmony  +24 more (view full list) | [...] stars 1\nstars 2\nstars 3\n\n ## Company Information\n ## Email Format\n ## Technology Stack\n ## Competitors\n\nPUA Forums\n\n# PUA Forums Information\n\nView Top Employees from PUA Forums\n\nPUA Forums Is The Official Pick Up Artist Forum.\nVisit us at \nFollow us on Social Media:"
+      },
+      {
+       "url": "https://www.mapquest.com/us/hawaii/the-pua-bar-431019139",
+       "role": "corroboration",
+       "via": "search",
+       "retrieved_at": "2026-10-27T12:52:19Z",
+       "chars": 1434,
+       "sha256": "3718072b07ce2a73b6e06c060fb2cc3063aeff043e45ed94f082243395c89fc5",
+       "status": "included",
+       "reasons": [],
+       "content": "Your printable directions will be ready after this ad experience...\n\n___\n\nDirectionsSee map\n\n   \n\nHello, stranger\n\nLog in or sign up\n\n   Image 1 Plans\n\n   Image 2 Get directions\n\n   Image 3 My saved places\n\n   MapQuest Travel\n   Route Planner\n   Get help\n   Search the web\n   Send feedback\n\nLearn more about our mobile apps.\n\n   Image 4: Android app Google Play\n   Image 5: Download on the App Store\n\n   Merch\n\n   Claim your business\n   Developer resources\n\n   Jobs\n   Advertise with us [...] Advertisement\n\nAdvertisement\n\n## Photos\n\nImage 18: The flower bar where you can choose your own stems for a personalized bouquetYelp\n\nThe flower bar where you can choose your own stems for a personalized bouquet\n\nImage 19: Our bouquet!Yelp\n\nOur bouquet!\n\nImage 20: Cute and curated beautifully!Yelp\n\nCute and curated beautifully!\n\nImage 21Yelp\n\nImage 22Yelp\n\nImage 23Yelp\n\nImage 24Yelp\n\nImage 25Yelp\n\nImage 26Yelp\n\nImage 27Yelp\n\nImage 28\nTop review [...] Terms of use\n   Privacy policy\n   Data and licenses\n   About our ads\n   Do not sell\n\nAdvertisement\n\nAdvertisement\n\n\u00a9 2026 MapQuestLegal\n\nImage 6CoffeeImage 7FoodImage 8GasImage 9GroceryImage 10ShoppingImage 11Hotels\n\nImage 12Live Radio\n\n500 ft\n\n- [x] Traffic slowdowns - [x] Traffic incidents \n\nThe Pua Bar\n\n\n\nLog in\n\nSearch places or paste a link \n\n# The Pua Bar\n\nPermanently closed\n\nImage 13: yelp logo\n(28)\n\nImage 14SaveImage 15CallImage 16WebImage 17Share\n\nDirections\n\nAdvertisement"
+      },
+      {
+       "url": "https://www.mapquest.com/us/hawaii/pua-maoli-788294891",
+       "role": "corroboration",
+       "via": "search",
+       "retrieved_at": "2026-10-27T12:52:19Z",
+       "chars": 1147,
+       "sha256": "fb9aa095c7eba98a95517ec83686c564528c5df08a465bc718599f43fc1d2b96",
+       "status": "not_used",
+       "reasons": [],
+       "content": "___\n\nYour printable directions will be ready after this ad experience...\n\nDirectionsSee map\n\n   \n\nHello, stranger\n\nLog in or sign up\n\n   Image 1 Plans\n\n   Image 2 Get directions\n\n   Image 3 My saved places\n\n   MapQuest Travel\n   Route Planner\n   Get help\n   Search the web\n   Send feedback\n\nLearn more about our mobile apps.\n\n   Image 4: Android app Google Play\n   Image 5: Download on the App Store\n\n   Merch\n\n   Claim your business\n   Developer resources\n\n   Jobs\n   Advertise with us [...] Terms of use\n   Privacy policy\n   Data and licenses\n   About our ads\n   Do not sell\n\nAdvertisement\n\nAdvertisement\n\n###### WebGL not available\n\nImage 6: WebGL not available\nWe can't display the map because WebGL is not available in your browser.\n\nPlease make sure \"Use graphics acceleration when available\" is enabled in your browser settings,\n\notherwise try a different browser or device.\n\nPua Maoli\n\n\n\nLog in\n\nSearch places or paste a link \n\n# Pua Maoli\n\nClosed [...] Advertisement\n\nAdvertisement\n\nOwn this business?\n\nClaim it\n\nSee a problem?Let us know\n\nUnited States\u203aHawaii\u203aHonolulu County, HI\u203aWaianae, HI\u203a96792\u203aPua Maoli\n\nSee more\n\nImage 26\n\nImage 27"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "type": "spec",
+   "t": 18.2,
+   "data": {
+    "behavior": "",
+    "logsource_category": "process_creation",
+    "observables": [
+     {
+      "field": "Image",
+      "match": "equals",
+      "value": "adfind.exe",
+      "quote": "`adfind.exe`"
+     },
+     {
+      "field": "CommandLine",
+      "match": "contains",
+      "value": "-showdel",
+      "quote": "The -showdel option will require permissions to see into the cn=Deleted Objects container."
+     },
+     {
+      "field": "CommandLine",
+      "match": "contains",
+      "value": "-sdna",
+      "quote": "The -sdna (Security Descriptor Non-Admin) or -nosacl options can be used to tell LDAP to not return the SACL portion of the ACL."
+     },
+     {
+      "field": "CommandLine",
+      "match": "contains",
+      "value": "-nosacl",
+      "quote": "The -sdna (Security Descriptor Non-Admin) or -nosacl options can be used to tell LDAP to not return the SACL portion of the ACL."
+     },
+     {
+      "field": "CommandLine",
+      "match": "contains",
+      "value": "-sddl",
+      "quote": "If you attempt to use -sddl,-sddc,-owner\\* options and you don't get the information returned, add the -sdna option to see if that helps."
+     },
+     {
+      "field": "CommandLine",
+      "match": "contains",
+      "value": "-sddc",
+      "quote": "If you attempt to use -sddl,-sddc,-owner\\* options and you don't get the information returned, add the -sdna option to see if that helps."
+     },
+     {
+      "field": "CommandLine",
+      "match": "contains",
+      "value": "-owner\\*",
+      "quote": "If you attempt to use -sddl,-sddc,-owner\\* options and you don't get the information returned, add the -sdna option to see if that helps."
+     },
+     {
+      "field": "CommandLine",
+      "match": "contains",
+      "value": "parentrdn",
+      "quote": "parentrdn and objrdn \u2014 new computed attributes"
+     },
+     {
+      "field": "CommandLine",
+      "match": "contains",
+      "value": "objrdn",
+      "quote": "parentrdn and objrdn \u2014 new computed attributes"
+     }
+    ],
+    "techniques": [],
+    "dropped": [
+     {
+      "kind": "observable",
+      "item": {
+       "field": "CommandLine",
+       "match": "contains",
+       "value": "stats",
+       "quote": "The STATS control options (stats, stats+, statsonly, stats+only, etc.) require the user to have DEBUG_PRIVILEGE on the server being queried."
+      },
+      "reason": "quote not found verbatim in report"
+     },
+     {
+      "kind": "observable",
+      "item": {
+       "field": "CommandLine",
+       "match": "contains",
+       "value": "stats+",
+       "quote": "The STATS control options (stats, stats+, statsonly, stats+only, etc.) require the user to have DEBUG_PRIVILEGE on the server being queried."
+      },
+      "reason": "quote not found verbatim in report"
+     },
+     {
+      "kind": "observable",
+      "item": {
+       "field": "CommandLine",
+       "match": "contains",
+       "value": "statsonly",
+       "quote": "The STATS control options (stats, stats+, statsonly, stats+only, etc.) require the user to have DEBUG_PRIVILEGE on the server being queried."
+      },
+      "reason": "quote not found verbatim in report"
+     },
+     {
+      "kind": "observable",
+      "item": {
+       "field": "CommandLine",
+       "match": "contains",
+       "value": "stats+only",
+       "quote": "The STATS control options (stats, stats+, statsonly, stats+only, etc.) require the user to have DEBUG_PRIVILEGE on the server being queried."
+      },
+      "reason": "quote not found verbatim in report"
+     },
+     {
+      "kind": "observable",
+      "item": {
+       "field": "CommandLine",
+       "match": "contains",
+       "value": "- kdsrootkeys",
+       "quote": "- kdsrootkeys \u2014 query KDS root keys"
+      },
+      "reason": "quote not found verbatim in report"
+     },
+     {
+      "kind": "observable",
+      "item": {
+       "field": "CommandLine",
+       "match": "contains",
+       "value": "- csvbreakcount",
+       "quote": "- csvbreakcount \u2014 break CSV output at a row count"
+      },
+      "reason": "quote not found verbatim in report"
+     },
+     {
+      "kind": "observable",
+      "item": {
+       "field": "CommandLine",
+       "match": "contains",
+       "value": "- onlygroup",
+       "quote": "- onlygroup \u2014 new filter switch"
+      },
+      "reason": "quote not found verbatim in report"
+     },
+     {
+      "kind": "observable",
+      "item": {
+       "field": "CommandLine",
+       "match": "contains",
+       "value": "- whoami",
+       "quote": "- whoami \u2014 promoted from -sc whoami to a first-class switch"
+      },
+      "reason": "quote not found verbatim in report"
+     },
+     {
+      "kind": "observable",
+      "item": {
+       "field": "CommandLine",
+       "match": "contains",
+       "value": "- decattid",
+       "quote": "- decattid \u2014 ATTID decoding (decode attribute IDs)"
+      },
+      "reason": "quote not found verbatim in report"
+     },
+     {
+      "kind": "observable",
+      "item": {
+       "field": "CommandLine",
+       "match": "contains",
+       "value": "- enccurrentutcgt",
+       "quote": "- enccurrentutcgt \u2014 current-time UTC generalized-time encode options"
+      },
+      "reason": "quote not found verbatim in report"
+     },
+     {
+      "kind": "observable",
+      "item": {
+       "field": "CommandLine",
+       "match": "contains",
+       "value": "- encutcgt",
+       "quote": "- encutcgt \u2014 current-time UTC generalized-time encode options"
+      },
+      "reason": "quote not found verbatim in report"
+     },
+     {
+      "kind": "observable",
+      "item": {
+       "field": "CommandLine",
+       "match": "contains",
+       "value": "- outputcurrentint8",
+       "quote": "- outputcurrentint8 / -outputcurrentgt \u2014 output current time as Int8 / generalized time"
+      },
+      "reason": "quote not found verbatim in report"
+     },
+     {
+      "kind": "observable",
+      "item": {
+       "field": "CommandLine",
+       "match": "contains",
+       "value": "- outputcurrentgt",
+       "quote": "- outputcurrentint8 / -outputcurrentgt \u2014 output current time as Int8 / generalized time"
+      },
+      "reason": "quote not found verbatim in report"
+     },
+     {
+      "kind": "observable",
+      "item": {
+       "field": "CommandLine",
+       "match": "contains",
+       "value": "- jwdsinit",
+       "quote": "- jwdsinit, -jwdsstd, -jwdsstdro \u2014 DirSync convenience modes, with aliases dirsync_init, dirsync_std, dirsyncro_std"
+      },
+      "reason": "quote not found verbatim in report"
+     },
+     {
+      "kind": "observable",
+      "item": {
+       "field": "CommandLine",
+       "match": "contains",
+       "value": "- jwdsstd",
+       "quote": "- jwdsinit, -jwdsstd, -jwdsstdro \u2014 DirSync convenience modes, with aliases dirsync_init, dirsync_std, dirsyncro_std"
+      },
+      "reason": "quote not found verbatim in report"
+     },
+     {
+      "kind": "observable",
+      "item": {
+       "field": "CommandLine",
+       "match": "contains",
+       "value": "- jwdsstdro",
+       "quote": "- jwdsinit, -jwdsstd, -jwdsstdro \u2014 DirSync convenience modes, with aliases dirsync_init, dirsync_std, dirsyncro_std"
+      },
+      "reason": "quote not found verbatim in report"
+     }
+    ]
+   }
+  },
+  {
+   "type": "iteration",
+   "t": 69.97,
+   "data": {
+    "index": 0,
+    "action": "generate",
+    "resamples": 3,
+    "thinking_fallback": true,
+    "rule_text": "title: Potential AdFind Execution\nid: d234d10e-868c-4126-85da-ef0909f282d1\nstatus: experimental\ndescription: Detects execution of adfind.exe with suspicious command-line arguments commonly used for Active Directory reconnaissance.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.discovery\n- attack.t1087\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  base_image:\n    Image: adfind.exe\n  cmd_showdel:\n    CommandLine|contains: -showdel\n  cmd_sdna_nosacl:\n    CommandLine|contains:\n    - -sdna\n    - -nosacl\n  cmd_security_desc:\n    CommandLine|contains:\n    - -sddl\n    - -sddc\n    - -owner*\n  cmd_computed_attrs:\n    CommandLine|contains:\n    - parentrdn\n    - objrdn\n  condition: (base_image and (cmd_showdel or cmd_sdna_nosacl or cmd_security_desc or cmd_computed_attrs))\nfalsepositives:\n- Legitimate administrators using AdFind for authorized Active Directory queries.\nlevel: high\n",
+    "sha256": "8c6055b40117631b2d9b82006fe6baf8d71bce03c1f907b91adb4208358ced62",
+    "validation": {
+     "ok": true,
+     "errors": [],
+     "sigma_output": "\n=== Summary ===\nFound 0 errors, 0 condition errors and 0 issues.\nNo rule errors found.\nNo condition errors found.\nNo validation issues found.\nParsing Sigma rules\nChecking Sigma rules\n"
+    },
+    "evaluator_error": null,
+    "tokens": 22164,
+    "latency_s": 32.23,
+    "evaluation": {
+     "attack_total": 1,
+     "attack_detected": 0,
+     "attack_missed": [
+      "455b9d50-15a1-4b99-853f-8d37655a4c1b.evtx"
+     ],
+     "attack_events_hit": 0,
+     "benign": {
+      "benign_dev_win7": {
+       "files_total": 129,
+       "files_with_hits": 0,
+       "hits": 0,
+       "examples": []
+      }
+     },
+     "attack_events": [
+      {
+       "EventID": 1,
+       "Channel": "Microsoft-Windows-Sysmon/Operational",
+       "RuleName": "-",
+       "UtcTime": "2025-10-23 09:37:40.972",
+       "ProcessGuid": "{14207d89-f764-68f9-2410-000000003f02}",
+       "ProcessId": "4316",
+       "Image": "C:\\Users\\SwachchhandaP\\Downloads\\AdFind\\AdFind.exe",
+       "FileVersion": "1.62.0.6172",
+       "Description": "-",
+       "Product": "AdFind",
+       "Company": "www.joeware.net",
+       "OriginalFileName": "AdFind.exe",
+       "CommandLine": "AdFind.exe   -default -s base lockoutduration lockoutthreshold lockoutobservationwindow maxpwdage minpwdage minpwdlength pwdhistorylength pwdproperties",
+       "CurrentDirectory": "C:\\Users\\SwachchhandaP\\Downloads\\AdFind\\",
+       "User": "MIDGARDNET\\SwachchhandaP",
+       "LogonGuid": "{14207d89-91e6-68f9-0f94-460000000000}",
+       "LogonId": "0x000000000046940f",
+       "TerminalSessionId": "2",
+       "IntegrityLevel": "Medium",
+       "Hashes": "MD5=B0C4A9C1D8C4641A161B3DBF111454DF,SHA256=484DD00E85C033FBFD506B956AC0ACD29B30F239755ED753A2788A842425B384,IMPHASH=680DAD9E300346E05A85023965867201",
+       "ParentProcessGuid": "{14207d89-f57c-68f9-d70f-000000003f02}",
+       "ParentProcessId": "6488",
+       "ParentImage": "C:\\Windows\\System32\\cmd.exe",
+       "ParentCommandLine": "\"C:\\Windows\\System32\\cmd.exe\" ",
+       "ParentUser": "MIDGARDNET\\SwachchhandaP"
+      }
+     ],
+     "seconds": 18.77
+    }
+   }
+  },
+  {
+   "type": "iteration",
+   "t": 96.92,
+   "data": {
+    "index": 1,
+    "action": "repair",
+    "resamples": 1,
+    "thinking_fallback": false,
+    "rule_text": "{\n \"title\": \"Potential AdFind Execution\",\n \"description\": \"Detects execution of adfind.exe with suspicious command-line arguments commonly used for Active Directory reconnaissance.\",\n \"tags\": [\n  \"attack.discovery\",\n  \"attack.t1087\"\n ],\n \"logsource_category\": \"process_creation\",\n \"groups\": [\n  {\n   \"name\": \"base_image\",\n   \"fields\": [\n    {\n     \"field\": \"Image\",\n     \"modifier\": \"contains\",\n     \"values\": [\n      \"adfind.exe\"\n     ]\n    }\n   ]\n  },\n  {\n   \"name\": \"cmd_showdel\",\n   \"fields\": [\n    {\n     \"field\": \"CommandLine\",\n     \"modifier\": \"contains\",\n     \"values\": [\n      \"-showdel\"\n     ]\n    }\n   ]\n  },\n  {\n   \"name\": \"cmd_sdna_nosacl\",\n   \"fields\": [\n    {\n     \"field\": \"CommandLine\",\n     \"modifier\": \"contains\",\n     \"values\": [\n      \"-sdna\",\n      \"-nosacl\"\n     ]\n    }\n   ]\n  },\n  {\n   \"name\": \"cmd_security_desc\",\n   \"fields\": [\n    {\n     \"field\": \"CommandLine\",\n     \"modifier\": \"contains\",\n     \"values\": [\n      \"-sddl\",\n      \"-sddc\",\n      \"-owner*\"\n     ]\n    }\n   ]\n  },\n  {\n   \"name\": \"cmd_computed_attrs\",\n   \"fields\": [\n    {\n     \"field\": \"CommandLine\",\n     \"modifier\": \"contains\",\n     \"values\": [\n      \"parentrdn\",\n      \"objrdn\"\n     ]\n    }\n   ]\n  },\n  {\n   \"name\": \"cmd_default_attrs\",\n   \"fields\": [\n    {\n     \"field\": \"CommandLine\",\n     \"modifier\": \"contains\",\n     \"values\": [\n      \"-default\"\n     ]\n    },\n    {\n     \"field\": \"CommandLine\",\n     \"modifier\": \"contains\",\n     \"values\": [\n      \"lockoutduration\",\n      \"lockoutthreshold\",\n      \"lockoutobservationwindow\",\n      \"maxpwdage\",\n      \"minpwdage\",\n      \"minpwdlength\",\n      \"pwdhistorylength\",\n      \"pwdproperties\"\n     ]\n    }\n   ]\n  }\n ],\n \"condition\": \"base_image and (cmd_showdel or cmd_sdna_nosacl or cmd_security_desc or cmd_computed_attrs or cmd_default_attrs)\",\n \"falsepositives\": [\n  \"Legitimate administrators using AdFind for authorized Active Directory queries.\"\n ],\n \"level\": \"high\"\n}",
+    "sha256": "58d4e7317211d1a90bfe8cb7faff161c091c3a8f20759b1f9c9f43cffcc59cd0",
+    "validation": {
+     "ok": false,
+     "errors": [
+      "rule could not be built: group 'cmd_default_attrs': duplicate field/modifier 'CommandLine|contains'; put all its values in one entry"
+     ],
+     "sigma_output": ""
+    },
+    "evaluator_error": null,
+    "tokens": 5872,
+    "latency_s": 26.95,
+    "evaluation": null
+   }
+  },
+  {
+   "type": "iteration",
+   "t": 128.36,
+   "data": {
+    "index": 2,
+    "action": "repair",
+    "resamples": 0,
+    "thinking_fallback": false,
+    "rule_text": "title: Potential AdFind Execution\nid: d234d10e-868c-4126-85da-ef0909f282d1\nstatus: experimental\ndescription: Detects execution of adfind.exe with suspicious command-line arguments commonly used for Active Directory reconnaissance.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.discovery\n- attack.t1087\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  base_image:\n    Image|contains: adfind.exe\n  cmd_showdel:\n    CommandLine|contains: -showdel\n  cmd_sdna_nosacl:\n    CommandLine|contains:\n    - -sdna\n    - -nosacl\n  cmd_security_desc:\n    CommandLine|contains:\n    - -sddl\n    - -sddc\n    - -owner*\n  cmd_computed_attrs:\n    CommandLine|contains:\n    - parentrdn\n    - objrdn\n  cmd_default_attrs:\n    CommandLine|contains:\n    - -default\n    - lockoutduration\n    - lockoutthreshold\n    - lockoutobservationwindow\n    - maxpwdage\n    - minpwdage\n    - minpwdlength\n    - pwdhistorylength\n    - pwdproperties\n  condition: base_image and (cmd_showdel or cmd_sdna_nosacl or cmd_security_desc or cmd_computed_attrs or cmd_default_attrs)\nfalsepositives:\n- Legitimate administrators using AdFind for authorized Active Directory queries.\nlevel: high\n",
+    "sha256": "f82530c1d236e444a0885f9cab3d605c57daa31584129748568ed239cf459c2c",
+    "validation": {
+     "ok": true,
+     "errors": [],
+     "sigma_output": "\n=== Summary ===\nFound 0 errors, 0 condition errors and 0 issues.\nNo rule errors found.\nNo condition errors found.\nNo validation issues found.\nParsing Sigma rules\nChecking Sigma rules\n"
+    },
+    "evaluator_error": null,
+    "tokens": 1502,
+    "latency_s": 4.42,
+    "evaluation": {
+     "attack_total": 1,
+     "attack_detected": 1,
+     "attack_missed": [],
+     "attack_events_hit": 1,
+     "benign": {
+      "benign_dev_win7": {
+       "files_total": 129,
+       "files_with_hits": 0,
+       "hits": 0,
+       "examples": []
+      }
+     },
+     "attack_events": [],
+     "seconds": 26.26
+    }
+   }
+  },
+  {
+   "type": "heldout",
+   "t": 176.41,
+   "data": {
+    "benign_heldout_win10": {
+     "files_total": 352,
+     "files_with_hits": 0,
+     "hits": 0,
+     "examples": []
+    }
+   }
+  },
+  {
+   "type": "expert",
+   "t": 255.91,
+   "data": {
+    "detected": 1,
+    "total": 1
+   }
+  },
+  {
+   "type": "done",
+   "t": 255.91,
+   "data": {
+    "success": true,
+    "stop_reason": "acceptance criteria passed"
+   }
+  }
+ ]
+}

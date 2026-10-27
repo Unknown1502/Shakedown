@@ -1,0 +1,10 @@
+.venv
+.git
+.aqg
+.env
+.env.*
+data
+__pycache__
+.pytest_cache
+demo/recorded_local
+data/shots

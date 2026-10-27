@@ -1,0 +1,31 @@
+# Bring Your Own Logs: an example manifest. Paths are relative to this file and must stay inside its folder.
+# Every file is evidence only because you say what it is and why. Nothing is assumed benign.
+name: "T1087.002 AdFind, lab detonation 2026-10-27"
+
+# What the rule is about and where the events came from. category must be one of:
+# process_creation, ps_script, registry_set, file_event, network_connection, image_load
+logsource:
+  category: process_creation
+  product: windows
+schema:
+  source: Sysmon
+  channel: Microsoft-Windows-Sysmon/Operational
+
+# Required: who collected the evidence and how. Recorded verbatim in the packet; not verified.
+provenance:
+  collected_by: "J. Analyst, detection engineering"
+  method: "AdFind.exe 1.57 run from a command prompt on lab host WIN10-LAB-03 at 10:02 UTC; Sysmon 15 default config"
+
+attack:
+  - file: attack/adfind_run.evtx
+    expect: detect          # the rule should fire on this file
+    label_basis: "AdFind.exe was executed on purpose at 10:02 UTC; this export covers 10:00 to 10:05"
+  - file: attack/admin_dsquery.evtx
+    expect: no_detect       # a negative control: legitimate admin activity the rule should NOT match
+    label_basis: "an administrator ran dsquery during the same session; known legitimate"
+
+benign:
+  - path: benign/
+    label_basis: production_sample   # known_clean | production_sample | assumed_clean (assumed_clean is weak evidence)
+    description: "one week of Sysmon process creation from 40 workstations, exported 2026-10-20"
+    attested_by: "J. Analyst"

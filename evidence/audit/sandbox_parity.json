@@ -1,0 +1,945 @@
+{
+ "sample": 30,
+ "seed": 2026,
+ "agree": 30,
+ "disagree": [],
+ "sandbox_image": {
+  "kind": "token-factory-sandbox",
+  "image_tag": "shakedown-eval:v1",
+  "image_uuid": "ed2169ef-219f-4c57-a9a1-3ca6f4a1f9fb",
+  "network": "disabled (networking.enabled=false)",
+  "isolation": "Contree microVM, disposable"
+ },
+ "results": [
+  {
+   "rule_id": "d4a11f63-2390-411c-9adf-d791fd152830",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_capture_screenshots.yml",
+   "local": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "d4a11f63-2390-411c-9adf-d791fd152830.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 15.3
+   },
+   "sandbox": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "d4a11f63-2390-411c-9adf-d791fd152830.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 13.1
+   },
+   "agree": true
+  },
+  {
+   "rule_id": "056c7317-9a09-4bd4-9067-d051312752ea",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_conhost_headless_powershell.yml",
+   "local": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "056c7317-9a09-4bd4-9067-d051312752ea.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 15.2
+   },
+   "sandbox": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "056c7317-9a09-4bd4-9067-d051312752ea.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 13.5
+   },
+   "agree": true
+  },
+  {
+   "rule_id": "e312efd0-35a1-407f-8439-b8d434b438a6",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_powershell_obfuscation_via_utf8.yml",
+   "local": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "e312efd0-35a1-407f-8439-b8d434b438a6.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 15.1
+   },
+   "sandbox": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "e312efd0-35a1-407f-8439-b8d434b438a6.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 11.8
+   },
+   "agree": true
+  },
+  {
+   "rule_id": "87e3c4e8-a6a8-4ad9-bb4f-46e7ff99a180",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_powershell_set_policies_to_unsecure_level.yml",
+   "local": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "87e3c4e8-a6a8-4ad9-bb4f-46e7ff99a180.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 14.7
+   },
+   "sandbox": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "87e3c4e8-a6a8-4ad9-bb4f-46e7ff99a180.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 13.7
+   },
+   "agree": true
+  },
+  {
+   "rule_id": "7d1aaf3d-4304-425c-b7c3-162055e0b3ab",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_susp_data_exfiltration_via_cli.yml",
+   "local": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "7d1aaf3d-4304-425c-b7c3-162055e0b3ab.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 14.3
+   },
+   "sandbox": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "7d1aaf3d-4304-425c-b7c3-162055e0b3ab.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 14.9
+   },
+   "agree": true
+  },
+  {
+   "rule_id": "0eb46774-f1ab-4a74-8238-1155855f2263",
+   "rule_path": "rules/windows/registry/registry_set/registry_set_windows_defender_tamper.yml",
+   "local": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "0eb46774-f1ab-4a74-8238-1155855f2263.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 14.8
+   },
+   "sandbox": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "0eb46774-f1ab-4a74-8238-1155855f2263.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 13.7
+   },
+   "agree": true
+  },
+  {
+   "rule_id": "08249dc0-a28d-4555-8ba5-9255a198e08c",
+   "rule_path": "rules/windows/network_connection/net_connection_win_wscript_cscript_local_connection.yml",
+   "local": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "08249dc0-a28d-4555-8ba5-9255a198e08c.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 15.0
+   },
+   "sandbox": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "08249dc0-a28d-4555-8ba5-9255a198e08c.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 12.6
+   },
+   "agree": true
+  },
+  {
+   "rule_id": "5299fadf-f228-4526-8274-251db1960be9",
+   "rule_path": "rules-emerging-threats/2025/Malware/Shai-Hulud/proc_creation_win_mal_shai_hulud_malicious_node_bun_execution.yml",
+   "local": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "5299fadf-f228-4526-8274-251db1960be9.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 14.8
+   },
+   "sandbox": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "5299fadf-f228-4526-8274-251db1960be9.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 13.4
+   },
+   "agree": true
+  },
+  {
+   "rule_id": "b7a3c9a3-09ea-4934-8864-6a32cacd98d9",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_susp_zip_compress.yml",
+   "local": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "b7a3c9a3-09ea-4934-8864-6a32cacd98d9.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 15.6
+   },
+   "sandbox": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "b7a3c9a3-09ea-4934-8864-6a32cacd98d9.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 11.2
+   },
+   "agree": true
+  },
+  {
+   "rule_id": "caf02a0a-1e1c-4552-9b48-5e070bd88d11",
+   "rule_path": "rules-threat-hunting/windows/file/file_event/file_event_win_susp_desktop_txt.yml",
+   "local": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "caf02a0a-1e1c-4552-9b48-5e070bd88d11.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 15.3
+   },
+   "sandbox": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "caf02a0a-1e1c-4552-9b48-5e070bd88d11.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 14.1
+   },
+   "agree": true
+  },
+  {
+   "rule_id": "bd1c6866-65fc-44b2-be51-5588fcff82b9",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_renamed_msdt.yml",
+   "local": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "bd1c6866-65fc-44b2-be51-5588fcff82b9.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 15.5
+   },
+   "sandbox": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "bd1c6866-65fc-44b2-be51-5588fcff82b9.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 12.6
+   },
+   "agree": true
+  },
+  {
+   "rule_id": "dbc1f800-0fe0-4bc0-9c66-292c2abe3f78",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_schtasks_delete.yml",
+   "local": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "dbc1f800-0fe0-4bc0-9c66-292c2abe3f78.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 15.2
+   },
+   "sandbox": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "dbc1f800-0fe0-4bc0-9c66-292c2abe3f78.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 13.7
+   },
+   "agree": true
+  },
+  {
+   "rule_id": "0e0255bf-2548-47b8-9582-c0955c9283f5",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_reg_bitlocker.yml",
+   "local": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "0e0255bf-2548-47b8-9582-c0955c9283f5.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 15.6
+   },
+   "sandbox": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "0e0255bf-2548-47b8-9582-c0955c9283f5.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 13.2
+   },
+   "agree": true
+  },
+  {
+   "rule_id": "ce7cf472-6fcc-490a-9481-3786840b5d9b",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_infdefaultinstall_execute_sct_scripts.yml",
+   "local": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "ce7cf472-6fcc-490a-9481-3786840b5d9b.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 16.5
+   },
+   "sandbox": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "ce7cf472-6fcc-490a-9481-3786840b5d9b.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 11.9
+   },
+   "agree": true
+  },
+  {
+   "rule_id": "c69fc6a2-607d-4530-b7d1-75823af1bde4",
+   "rule_path": "rules/windows/registry/registry_set/registry_set_allow_defender_firewall_exceptions.yml",
+   "local": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "c69fc6a2-607d-4530-b7d1-75823af1bde4.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 16.2
+   },
+   "sandbox": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "c69fc6a2-607d-4530-b7d1-75823af1bde4.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 13.4
+   },
+   "agree": true
+  },
+  {
+   "rule_id": "21d856f9-9281-4ded-9377-51a1a6e2a432",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_registry_logon_script.yml",
+   "local": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "21d856f9-9281-4ded-9377-51a1a6e2a432.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 16.4
+   },
+   "sandbox": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "21d856f9-9281-4ded-9377-51a1a6e2a432.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 12.4
+   },
+   "agree": true
+  },
+  {
+   "rule_id": "50a0aa3d-ab16-4594-a8aa-5145a6e6792b",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_python_base64_encoded_execution.yml",
+   "local": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "50a0aa3d-ab16-4594-a8aa-5145a6e6792b.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 14.3
+   },
+   "sandbox": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "50a0aa3d-ab16-4594-a8aa-5145a6e6792b.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 14.8
+   },
+   "agree": true
+  },
+  {
+   "rule_id": "f50f3c09-557d-492d-81db-9064a8d4e211",
+   "rule_path": "rules/windows/registry/registry_set/registry_set_pua_sysinternals_renamed_execution_via_eula.yml",
+   "local": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "f50f3c09-557d-492d-81db-9064a8d4e211.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 14.9
+   },
+   "sandbox": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "f50f3c09-557d-492d-81db-9064a8d4e211.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 13.5
+   },
+   "agree": true
+  },
+  {
+   "rule_id": "221b251a-357a-49a9-920a-271802777cc0",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_wmic_recon_process.yml",
+   "local": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "221b251a-357a-49a9-920a-271802777cc0.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 14.7
+   },
+   "sandbox": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "221b251a-357a-49a9-920a-271802777cc0.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 12.6
+   },
+   "agree": true
+  },
+  {
+   "rule_id": "acd74772-5f88-45c7-956b-6a7b36c294d2",
+   "rule_path": "rules/windows/registry/registry_delete/registry_delete_schtasks_hide_task_via_sd_value_removal.yml",
+   "local": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "acd74772-5f88-45c7-956b-6a7b36c294d2.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 14.4
+   },
+   "sandbox": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "acd74772-5f88-45c7-956b-6a7b36c294d2.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 12.5
+   },
+   "agree": true
+  },
+  {
+   "rule_id": "d645ef86-2396-48a1-a2b6-b629ca3f57ff",
+   "rule_path": "rules/windows/registry/registry_delete/registry_delete_disable_credential_guard.yml",
+   "local": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "d645ef86-2396-48a1-a2b6-b629ca3f57ff.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 14.9
+   },
+   "sandbox": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "d645ef86-2396-48a1-a2b6-b629ca3f57ff.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 15.8
+   },
+   "agree": true
+  },
+  {
+   "rule_id": "e32d4572-9826-4738-b651-95fa63747e8a",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_powershell_frombase64string.yml",
+   "local": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "e32d4572-9826-4738-b651-95fa63747e8a.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 15.8
+   },
+   "sandbox": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "e32d4572-9826-4738-b651-95fa63747e8a.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 13.1
+   },
+   "agree": true
+  },
+  {
+   "rule_id": "c453ab7a-1f5c-4716-a3b4-dea8135fb43a",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_wmic_stdregprov_reg_modification.yml",
+   "local": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "c453ab7a-1f5c-4716-a3b4-dea8135fb43a.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 15.4
+   },
+   "sandbox": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "c453ab7a-1f5c-4716-a3b4-dea8135fb43a.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 13.8
+   },
+   "agree": true
+  },
+  {
+   "rule_id": "3a9b8c1e-5b2e-4f7a-9d1c-2a7f3b6e1c55",
+   "rule_path": "rules/windows/registry/registry_delete/registry_delete_runmru.yml",
+   "local": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "3a9b8c1e-5b2e-4f7a-9d1c-2a7f3b6e1c55.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 15.1
+   },
+   "sandbox": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "3a9b8c1e-5b2e-4f7a-9d1c-2a7f3b6e1c55.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 13.7
+   },
+   "agree": true
+  },
+  {
+   "rule_id": "df55196f-f105-44d3-a675-e9dfb6cc2f2b",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_renamed_adfind.yml",
+   "local": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "df55196f-f105-44d3-a675-e9dfb6cc2f2b.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 15.6
+   },
+   "sandbox": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "df55196f-f105-44d3-a675-e9dfb6cc2f2b.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 13.7
+   },
+   "agree": true
+  },
+  {
+   "rule_id": "b98d0db6-511d-45de-ad02-e82a98729620",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_mshta_http.yml",
+   "local": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "b98d0db6-511d-45de-ad02-e82a98729620.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 16.0
+   },
+   "sandbox": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "b98d0db6-511d-45de-ad02-e82a98729620.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 12.9
+   },
+   "agree": true
+  },
+  {
+   "rule_id": "9f5c1d59-33be-4e60-bcab-85d2f566effd",
+   "rule_path": "rules/windows/process_access/proc_access_win_susp_dbgcore_dbghelp_load.yml",
+   "local": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "9f5c1d59-33be-4e60-bcab-85d2f566effd.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 15.6
+   },
+   "sandbox": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "9f5c1d59-33be-4e60-bcab-85d2f566effd.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 14.5
+   },
+   "agree": true
+  },
+  {
+   "rule_id": "e54279c7-4910-4e2c-902c-c56a25b549f6",
+   "rule_path": "rules/windows/builtin/appxdeployment_server/win_appxdeployment_server_full_trust_package_installation.yml",
+   "local": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "e54279c7-4910-4e2c-902c-c56a25b549f6.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 15.5
+   },
+   "sandbox": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "e54279c7-4910-4e2c-902c-c56a25b549f6.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 13.6
+   },
+   "agree": true
+  },
+  {
+   "rule_id": "c3a99af4-35a9-4668-879e-c09aeb4f2bdf",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_rundll32_uncommon_dll_extension.yml",
+   "local": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "c3a99af4-35a9-4668-879e-c09aeb4f2bdf.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 10.5
+   },
+   "sandbox": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "c3a99af4-35a9-4668-879e-c09aeb4f2bdf.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 12.9
+   },
+   "agree": true
+  },
+  {
+   "rule_id": "a7f3c891-2e4d-4b6a-9f8c-d5e2a1b04c73",
+   "rule_path": "rules/windows/file/file_event/file_event_win_susp_registry_hive_file_creation.yml",
+   "local": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "a7f3c891-2e4d-4b6a-9f8c-d5e2a1b04c73.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 10.5
+   },
+   "sandbox": {
+    "attack": {
+     "events": 1,
+     "files": [
+      "a7f3c891-2e4d-4b6a-9f8c-d5e2a1b04c73.evtx"
+     ]
+    },
+    "benign_dev": {
+     "events": 0,
+     "files": []
+    },
+    "seconds": 14.6
+   },
+   "agree": true
+  }
+ ]
+}

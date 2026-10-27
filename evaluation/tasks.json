@@ -1,0 +1,211 @@
+{
+ "seed": 20261027,
+ "strata": {
+  "process_creation": 14,
+  "ps_script": 3,
+  "registry_set": 3
+ },
+ "frozen_at": "2026-10-26T19:42:52.714161+00:00",
+ "tasks": [
+  {
+   "rule_id": "514e7e3e-b3b4-4a67-af60-be20f139198b",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_pua_adfind_execution.yml",
+   "title": "PUA - AdFind.EXE Execution",
+   "category": "process_creation",
+   "date": "2025-02-26",
+   "year_2026": false,
+   "sample": "regression_data/rules/windows/process_creation/proc_creation_win_pua_adfind_execution/514e7e3e-b3b4-4a67-af60-be20f139198b.evtx",
+   "sample_sha256": "5175ff0f3f0c18f493dd1ae4189185ec4f26b9852ce764bc728ab7e0ae276ec4"
+  },
+  {
+   "rule_id": "1af57a4b-460a-4738-9034-db68b880c665",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_powershell_sam_access.yml",
+   "title": "PowerShell SAM Copy",
+   "category": "process_creation",
+   "date": "2021-07-29",
+   "year_2026": false,
+   "sample": "regression_data/rules/windows/process_creation/proc_creation_win_powershell_sam_access/1af57a4b-460a-4738-9034-db68b880c665.evtx",
+   "sample_sha256": "3eaf8abff49190087b465ae76b6f62eb9343a45f6535267f185a38ecc2ef1c06"
+  },
+  {
+   "rule_id": "455b9d50-15a1-4b99-853f-8d37655a4c1b",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_pua_adfind_enumeration.yml",
+   "title": "PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE",
+   "category": "process_creation",
+   "date": "2021-12-13",
+   "year_2026": false,
+   "sample": "regression_data/rules/windows/process_creation/proc_creation_win_pua_adfind_enumeration/455b9d50-15a1-4b99-853f-8d37655a4c1b.evtx",
+   "sample_sha256": "bff1d6e5f1d050d414582f9fb96dc3420947ddacd0eacea4b7cb515dcc897e34"
+  },
+  {
+   "rule_id": "5b80a791-ad9b-4b75-bcc1-ad4e1e89c200",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_bitsadmin_download_susp_extensions.yml",
+   "title": "File With Suspicious Extension Downloaded Via Bitsadmin",
+   "category": "process_creation",
+   "date": "2022-06-28",
+   "year_2026": false,
+   "sample": "regression_data/rules/windows/process_creation/proc_creation_win_bitsadmin_download_susp_extensions/5b80a791-ad9b-4b75-bcc1-ad4e1e89c200.evtx",
+   "sample_sha256": "fd158896a51a4f217ab55896cc965dc6b43c60cdd13d204518efb5fb4a71d783"
+  },
+  {
+   "rule_id": "5b768e71-86f2-4879-b448-81061cbae951",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_net_user_default_accounts_manipulation.yml",
+   "title": "Suspicious Manipulation Of Default Accounts Via Net.EXE",
+   "category": "process_creation",
+   "date": "2022-09-01",
+   "year_2026": false,
+   "sample": "regression_data/rules/windows/process_creation/proc_creation_win_net_user_default_accounts_manipulation/5b768e71-86f2-4879-b448-81061cbae951.evtx",
+   "sample_sha256": "0e862a09633c9a07eca52fb3c9d164e5b41d072ad7b53865c570e8cc6cc1a753"
+  },
+  {
+   "rule_id": "c3a99af4-35a9-4668-879e-c09aeb4f2bdf",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_rundll32_uncommon_dll_extension.yml",
+   "title": "Rundll32 Execution With Uncommon DLL Extension",
+   "category": "process_creation",
+   "date": "2022-01-13",
+   "year_2026": false,
+   "sample": "regression_data/rules/windows/process_creation/proc_creation_win_rundll32_uncommon_dll_extension/c3a99af4-35a9-4668-879e-c09aeb4f2bdf.evtx",
+   "sample_sha256": "25d77c09eaac64a09e9b0e3f93a2f897b9f0a5296c269c0c7a3203798b5227b2"
+  },
+  {
+   "rule_id": "39b31e81-5f5f-4898-9c0e-2160cfc0f9bf",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_hktl_hashcat.yml",
+   "title": "HackTool - Hashcat Password Cracker Execution",
+   "category": "process_creation",
+   "date": "2021-12-27",
+   "year_2026": false,
+   "sample": "regression_data/rules/windows/process_creation/proc_creation_win_hktl_hashcat/39b31e81-5f5f-4898-9c0e-2160cfc0f9bf.evtx",
+   "sample_sha256": "88fd399fb90ed6f0c10e788e63b6e8c2b5ca6bb049cd86ea182c2f519f8ceaf4"
+  },
+  {
+   "rule_id": "7124aebe-4cd7-4ccb-8df0-6d6b93c96795",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_dtrace_kernel_dump.yml",
+   "title": "Suspicious Kernel Dump Using Dtrace",
+   "category": "process_creation",
+   "date": "2021-12-28",
+   "year_2026": false,
+   "sample": "regression_data/rules/windows/process_creation/proc_creation_win_dtrace_kernel_dump/7124aebe-4cd7-4ccb-8df0-6d6b93c96795.evtx",
+   "sample_sha256": "18bac286b246c2bbb2c3f4ebdf80dae43de05e5f811712c37bbbeacf8ff31d66"
+  },
+  {
+   "rule_id": "0e0255bf-2548-47b8-9582-c0955c9283f5",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_reg_bitlocker.yml",
+   "title": "Suspicious Reg Add BitLocker",
+   "category": "process_creation",
+   "date": "2021-11-15",
+   "year_2026": false,
+   "sample": "regression_data/rules/windows/process_creation/proc_creation_win_reg_bitlocker/0e0255bf-2548-47b8-9582-c0955c9283f5.evtx",
+   "sample_sha256": "ce3f055305ff3833042826665084dcd5de048821691b66a0e5b009aca83705b2"
+  },
+  {
+   "rule_id": "0e8cfe08-02c9-4815-a2f8-0d157b7ed33e",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_browsers_chromium_headless_file_download.yml",
+   "title": "File Download with Headless Browser",
+   "category": "process_creation",
+   "date": "2022-01-04",
+   "year_2026": false,
+   "sample": "regression_data/rules/windows/process_creation/proc_creation_win_browsers_chromium_headless_file_download/0e8cfe08-02c9-4815-a2f8-0d157b7ed33e.evtx",
+   "sample_sha256": "547396199bb9121759db060f27396fe1e40b5529f6cf25cc676ac02bb7b0ab7f"
+  },
+  {
+   "rule_id": "e4b6d2a7-d8a4-4f19-acbd-943c16d90647",
+   "rule_path": "rules-threat-hunting/windows/process_creation/proc_creation_win_powershell_susp_child_processes.yml",
+   "title": "Potentially Suspicious PowerShell Child Processes",
+   "category": "process_creation",
+   "date": "2022-04-26",
+   "year_2026": false,
+   "sample": "regression_data/rules-threat-hunting/windows/process_creation/proc_creation_win_powershell_susp_child_processes/e4b6d2a7-d8a4-4f19-acbd-943c16d90647.evtx",
+   "sample_sha256": "8145631984ad4793aa4414f02d09cc61ee137191d2622a89b9882926988c0ac2"
+  },
+  {
+   "rule_id": "c73124a7-3e89-44a3-bdc1-25fe4df754b1",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_cmd_shadowcopy_access.yml",
+   "title": "Copy From VolumeShadowCopy Via Cmd.EXE",
+   "category": "process_creation",
+   "date": "2021-08-09",
+   "year_2026": false,
+   "sample": "regression_data/rules/windows/process_creation/proc_creation_win_cmd_shadowcopy_access/c73124a7-3e89-44a3-bdc1-25fe4df754b1.evtx",
+   "sample_sha256": "918d0c5827964f30dcbd69a2b817d7b283f4fdefde590c8941df5443a2fb86b4"
+  },
+  {
+   "rule_id": "164eda96-11b2-430b-85ff-6a265c15bf32",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_wmic_recon_group.yml",
+   "title": "Local Groups Reconnaissance Via Wmic.EXE",
+   "category": "process_creation",
+   "date": "2021-12-12",
+   "year_2026": false,
+   "sample": "regression_data/rules/windows/process_creation/proc_creation_win_wmic_recon_group/164eda96-11b2-430b-85ff-6a265c15bf32.evtx",
+   "sample_sha256": "f60106ef423e9564f571164b9da54d99b3478eb41e788baec854bf8d5a0e6479"
+  },
+  {
+   "rule_id": "28ac00d6-22d9-4a3c-927f-bbd770104573",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_reg_lsa_disable_restricted_admin.yml",
+   "title": "RestrictedAdminMode Registry Value Tampering - ProcCreation",
+   "category": "process_creation",
+   "date": "2023-01-13",
+   "year_2026": false,
+   "sample": "regression_data/rules/windows/process_creation/proc_creation_win_reg_lsa_disable_restricted_admin/28ac00d6-22d9-4a3c-927f-bbd770104573.evtx",
+   "sample_sha256": "fe2f419f7884e3abe98aa265c767bf264552eaf520384e58a45d2bad6492d35e"
+  },
+  {
+   "rule_id": "c6438007-e081-42ce-9483-b067fbef33c3",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_timestomp.yml",
+   "title": "Powershell Timestomp",
+   "category": "ps_script",
+   "date": "2021-08-03",
+   "year_2026": false,
+   "sample": "regression_data/rules/windows/powershell/powershell_script/posh_ps_timestomp/c6438007-e081-42ce-9483-b067fbef33c3.evtx",
+   "sample_sha256": "bb458788aa93a8b71fbda7ccad3670e4b3863065572a7c7581e167cbfffbaafb"
+  },
+  {
+   "rule_id": "89819aa4-bbd6-46bc-88ec-c7f7fe30efa6",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_malicious_commandlets.yml",
+   "title": "Malicious PowerShell Commandlets - ScriptBlock",
+   "category": "ps_script",
+   "date": "2017-03-05",
+   "year_2026": false,
+   "sample": "regression_data/rules/windows/powershell/powershell_script/posh_ps_malicious_commandlets/89819aa4-bbd6-46bc-88ec-c7f7fe30efa6.evtx",
+   "sample_sha256": "c9bd674267659259255e9f500365ba93a721b64753aa8ce00642139ca40130d2"
+  },
+  {
+   "rule_id": "ddcd88cb-7f62-4ce5-86f9-1704190feb0a",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_dotnet_assembly_from_file.yml",
+   "title": "Potential In-Memory Execution Using Reflection.Assembly",
+   "category": "ps_script",
+   "date": "2022-12-25",
+   "year_2026": false,
+   "sample": "regression_data/rules/windows/powershell/powershell_script/posh_ps_dotnet_assembly_from_file/ddcd88cb-7f62-4ce5-86f9-1704190feb0a.evtx",
+   "sample_sha256": "d59146e5ef2e75d68a8c15b2e125fb0cd0eb7119f97ca4c050ce1f4fb29aa838"
+  },
+  {
+   "rule_id": "5de03871-5d46-4539-a82d-3aa992a69a83",
+   "rule_path": "rules/windows/registry/registry_set/registry_set_disable_system_restore.yml",
+   "title": "Registry Disable System Restore",
+   "category": "registry_set",
+   "date": "2022-04-04",
+   "year_2026": false,
+   "sample": "regression_data/rules/windows/registry/registry_set/registry_set_disable_system_restore/5de03871-5d46-4539-a82d-3aa992a69a83.evtx",
+   "sample_sha256": "82d4f8390f5fdac364b325c1bb7ce6a4b454eec6ecacccc2e41ac76f62393f8e"
+  },
+  {
+   "rule_id": "724ea201-6514-4f38-9739-e5973c34f49a",
+   "rule_path": "rules/windows/registry/registry_set/registry_set_bypass_uac_using_silentcleanup_task.yml",
+   "title": "Bypass UAC Using SilentCleanup Task",
+   "category": "registry_set",
+   "date": "2022-01-06",
+   "year_2026": false,
+   "sample": "regression_data/rules/windows/registry/registry_set/registry_set_bypass_uac_using_silentcleanup_task/724ea201-6514-4f38-9739-e5973c34f49a.evtx",
+   "sample_sha256": "b0a9a65356fdb567afcd9c0cb5956acf84577c03064e2a3358d0c230f0a87388"
+  },
+  {
+   "rule_id": "974515da-6cc5-4c95-ae65-f97f9150ec7f",
+   "rule_path": "rules/windows/registry/registry_set/registry_set_disable_defender_firewall.yml",
+   "title": "Disable Microsoft Defender Firewall via Registry",
+   "category": "registry_set",
+   "date": "2022-01-09",
+   "year_2026": false,
+   "sample": "regression_data/rules/windows/registry/registry_set/registry_set_disable_defender_firewall/974515da-6cc5-4c95-ae65-f97f9150ec7f.evtx",
+   "sample_sha256": "c82c63c50692659325ab1e12410c945350c3e9cd0871f61e06a9273932d97b28"
+  }
+ ]
+}

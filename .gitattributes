@@ -1,0 +1,11 @@
+# Source and docs: store with LF in the repository, check out with the platform's line endings.
+* text=auto
+
+# Frozen benchmark artefacts, recorded runs and evidence are stored and checked out BYTE FOR BYTE (no line-ending conversion),
+# so the sha256 values quoted in the documentation stay valid on every platform.
+evaluation/*.json -text
+evidence/** -text
+demo/** -text
+docs/RESULTS_TABLE.md -text
+
+*.png binary

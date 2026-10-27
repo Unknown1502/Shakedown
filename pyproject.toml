@@ -1,0 +1,29 @@
+[project]
+name = "shakedown"
+version = "0.1.0"
+description = "Evidence-driven Sigma detection engineering agent: generate, test against labelled Windows logs, repair, retest."
+requires-python = ">=3.11"
+license = "Apache-2.0"
+dependencies = [
+    "pyyaml==6.0.*",
+    "sigma-cli==3.1.*",
+    "contree-sdk==0.3.6",
+    "python-evtx>=0.8.1",
+    "fastapi>=0.162.0",
+    "uvicorn[standard]>=0.54.0",
+    "pysigma-backend-splunk>=2.1.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8,<9",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+markers = [
+    "docker: needs a running Docker daemon",
+    "live: calls a paid external API (Nebius, Tavily); never run by default",
+]
+addopts = "-m 'not live'"

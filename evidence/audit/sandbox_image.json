@@ -1,0 +1,16 @@
+{
+ "built_at": "2026-10-27T09:04:22.485056+00:00",
+ "image_tag": "shakedown-eval:v1",
+ "image_uuid": "ed2169ef-219f-4c57-a9a1-3ca6f4a1f9fb",
+ "base": "docker://docker.io/library/debian:bookworm-slim",
+ "evtx_counts": {
+  "win7-x86": "129",
+  "Logs_Client": "352"
+ },
+ "inputs": {
+  "evtx-sigma-checker": "d672e07a516f3f72eaae8244f99fa2c5b133885a4401eb05a272903857d767e2",
+  "win7-x86.tgz": "e755f3cd48f8a3dc8877c46622339cd44fa0929981fcfd79ada63c2bafb62b9f",
+  "win10-client.tgz": "d48f1b328d48db6c6dfaa9b6e232dbb454d93e833c6e1248efc0faf690b6808e",
+  "thor.yml": "8e72d9223e2c3c1d2d647b08e10118a3a067975ce7eba37dc1623f9d79604120"
+ }
+}

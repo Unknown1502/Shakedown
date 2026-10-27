@@ -1,0 +1,210 @@
+{
+ "seed": 20261028,
+ "pools": {
+  "dated_2026": 31,
+  "older": 345
+ },
+ "frozen_at": "2026-10-27T09:35:02.367171+00:00",
+ "tasks": [
+  {
+   "rule_id": "916eb839-895e-47f8-99ee-3008bf377a3e",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_curl_ntlm_hash_leak_attempt.yml",
+   "title": "NTLM Hash Leak Via Curl NTLM Authentication",
+   "category": "process_creation",
+   "date": "2026-06-04",
+   "year_2026": true,
+   "sample": "regression_data/rules/windows/process_creation/proc_creation_win_curl_ntlm_hash_leak_attempt/916eb839-895e-47f8-99ee-3008bf377a3e.evtx",
+   "sample_sha256": "0998893b04b5995174942f9744d555975439cd2b8aa1020596b5288cb36a2408"
+  },
+  {
+   "rule_id": "8a1b2c3d-4e5f-6789-abcd-ef1234567890",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_pua_memprocfs.yml",
+   "title": "PUA - Memory Dump Mount Via MemProcFS",
+   "category": "process_creation",
+   "date": "2026-04-27",
+   "year_2026": true,
+   "sample": "regression_data/rules/windows/process_creation/proc_creation_win_pua_memprocfs/8a1b2c3d-4e5f-6789-abcd-ef1234567890.evtx",
+   "sample_sha256": "3a6f4dfddc3e9608dce802d8d5fbfaf9bc55661596334546adb931665cecce4a"
+  },
+  {
+   "rule_id": "c43a5405-e8e1-4221-9ac9-dbe3fa14e886",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_reg_system_language_discovery.yml",
+   "title": "System Language Discovery via Reg.Exe",
+   "category": "process_creation",
+   "date": "2026-01-09",
+   "year_2026": true,
+   "sample": "regression_data/rules/windows/process_creation/proc_creation_win_reg_system_language_discovery/c43a5405-e8e1-4221-9ac9-dbe3fa14e886.evtx",
+   "sample_sha256": "5ea996bbb82c2c3267c3ef59c03dc0ab0af9abf2ee9b618dca0af9555e1ca898"
+  },
+  {
+   "rule_id": "c69fc6a2-607d-4530-b7d1-75823af1bde4",
+   "rule_path": "rules/windows/registry/registry_set/registry_set_allow_defender_firewall_exceptions.yml",
+   "title": "Allow Exceptions in Microsoft Defender Firewall via Registry",
+   "category": "registry_set",
+   "date": "2026-10-13",
+   "year_2026": true,
+   "sample": "regression_data/rules/windows/registry/registry_set/registry_set_allow_defender_firewall_exceptions/c69fc6a2-607d-4530-b7d1-75823af1bde4.evtx",
+   "sample_sha256": "6105626eab0212840185127a8f44a1015bdacec4773baa49c041171658eaeccb"
+  },
+  {
+   "rule_id": "8f3ab69a-aa22-4943-aa58-e0a52fdf6818",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_user_shell_folders_registry_modification.yml",
+   "title": "User Shell Folders Registry Modification via CommandLine",
+   "category": "process_creation",
+   "date": "2026-01-05",
+   "year_2026": true,
+   "sample": "regression_data/rules/windows/process_creation/proc_creation_win_user_shell_folders_registry_modification/8f3ab69a-aa22-4943-aa58-e0a52fdf6818.evtx",
+   "sample_sha256": "8a5b152bbea0cdd756a844be22a29089432b0210754f0e77e9f282841e363fb6"
+  },
+  {
+   "rule_id": "22154f0e-5132-4a54-aa78-cc62f6def531",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_vulnerable_driver_blocklist_registry_tampering.yml",
+   "title": "Vulnerable Driver Blocklist Registry Tampering Via CommandLine",
+   "category": "process_creation",
+   "date": "2026-01-26",
+   "year_2026": true,
+   "sample": "regression_data/rules/windows/process_creation/proc_creation_win_vulnerable_driver_blocklist_registry_tampering/22154f0e-5132-4a54-aa78-cc62f6def531.evtx",
+   "sample_sha256": "e542a674ae61ee5730fed8f831635f7f33a2dd68df2000168f36135909cd4a59"
+  },
+  {
+   "rule_id": "d526c60a-e236-4011-b165-831ffa52ab70",
+   "rule_path": "rules/windows/registry/registry_set/registry_set_vulnerable_driver_blocklist_disable.yml",
+   "title": "Windows Vulnerable Driver Blocklist Disabled",
+   "category": "registry_set",
+   "date": "2026-01-26",
+   "year_2026": true,
+   "sample": "regression_data/rules/windows/registry/registry_set/registry_set_vulnerable_driver_blocklist_disable/d526c60a-e236-4011-b165-831ffa52ab70.evtx",
+   "sample_sha256": "642e73a7e138e70ff10ca0876a85966acd2b023d746cae19a32d117a1eb2d536"
+  },
+  {
+   "rule_id": "c0514f28-fdae-42df-b886-06e2b2bc5b37",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_wmic_service_startup_change.yml",
+   "title": "Service Startup Type Change Via Wmic.EXE",
+   "category": "process_creation",
+   "date": "2026-04-27",
+   "year_2026": true,
+   "sample": "regression_data/rules/windows/process_creation/proc_creation_win_wmic_service_startup_change/c0514f28-fdae-42df-b886-06e2b2bc5b37.evtx",
+   "sample_sha256": "412d952dba70825e74b8db6f4ce11ce365060f95ddb91b8486f02fb9686c80b1"
+  },
+  {
+   "rule_id": "5a6b7c8d-9e0f-1a2b-3c4d-5e6f7a8b9c0d",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_cmd_launched_with_hidden_start_flag.yml",
+   "title": "Cmd Launched with Hidden Start Flags to Suspicious Targets",
+   "category": "process_creation",
+   "date": "2026-01-24",
+   "year_2026": true,
+   "sample": "regression_data/rules/windows/process_creation/proc_creation_win_cmd_launched_with_hidden_start_flag/5a6b7c8d-9e0f-1a2b-3c4d-5e6f7a8b9c0d.evtx",
+   "sample_sha256": "7e0ea0990dbf0d35d14ea2379159e95a2a651de4a19d69df7c6c2bffc82dbd22"
+  },
+  {
+   "rule_id": "d2b7a134-9c3e-4f8a-b56d-e0c1f8a29b47",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_susp_cross_user_process_spawn.yml",
+   "title": "Suspicious Cross-User Process Spawn",
+   "category": "process_creation",
+   "date": "2026-07-23",
+   "year_2026": true,
+   "sample": "regression_data/rules/windows/process_creation/proc_creation_win_susp_cross_user_process_spawn/d2b7a134-9c3e-4f8a-b56d-e0c1f8a29b47.evtx",
+   "sample_sha256": "85be9684d3684aa25ed0b928605c6e7d76117496c229355d54d5821020b1ffc9"
+  },
+  {
+   "rule_id": "c1337eb8-921a-4b59-855b-4ba188ddcc42",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_susp_win32_shadowcopy_deletion.yml",
+   "title": "Deletion of Volume Shadow Copies via WMI with PowerShell - PS Script",
+   "category": "ps_script",
+   "date": "2022-09-20",
+   "year_2026": false,
+   "sample": "regression_data/rules/windows/powershell/powershell_script/posh_ps_susp_win32_shadowcopy_deletion/c1337eb8-921a-4b59-855b-4ba188ddcc42.evtx",
+   "sample_sha256": "4a21659357a1cd3ca015eae74e10e666b770a68151bad292f334940ff3d56064"
+  },
+  {
+   "rule_id": "d059842b-6b9d-4ed1-b5c3-5b89143c6ede",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_bitsadmin_download.yml",
+   "title": "File Download Via Bitsadmin",
+   "category": "process_creation",
+   "date": "2017-03-09",
+   "year_2026": false,
+   "sample": "regression_data/rules/windows/process_creation/proc_creation_win_bitsadmin_download/d059842b-6b9d-4ed1-b5c3-5b89143c6ede.evtx",
+   "sample_sha256": "19aa7975c2c3215b058b8a1ed89bf3cb0959bb710c2a9af9fa9688611ec5f797"
+  },
+  {
+   "rule_id": "3e3ceccd-6c06-48b8-b5ff-ab1d25db8c1d",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_wmic_recon_csproduct.yml",
+   "title": "Hardware Model Reconnaissance Via Wmic.EXE",
+   "category": "process_creation",
+   "date": "2023-02-14",
+   "year_2026": false,
+   "sample": "regression_data/rules/windows/process_creation/proc_creation_win_wmic_recon_csproduct/3e3ceccd-6c06-48b8-b5ff-ab1d25db8c1d.evtx",
+   "sample_sha256": "90e27715cf028b22dbc5768c66ef2b446434d54fef50af8a13d857bb05ca1f70"
+  },
+  {
+   "rule_id": "70ad982f-67c8-40e0-a955-b920c2fa05cb",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_susp_iofilestream.yml",
+   "title": "Suspicious IO.FileStream",
+   "category": "ps_script",
+   "date": "2022-01-09",
+   "year_2026": false,
+   "sample": "regression_data/rules/windows/powershell/powershell_script/posh_ps_susp_iofilestream/70ad982f-67c8-40e0-a955-b920c2fa05cb.evtx",
+   "sample_sha256": "71baa4a2f6dfcc37fa6c4793e5a6b8f80d46c8eca9fdd56253810fc7794a5939"
+  },
+  {
+   "rule_id": "03d83090-8cba-44a0-b02f-0b756a050306",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_win_api_susp_access.yml",
+   "title": "Potential WinAPI Calls Via PowerShell Scripts",
+   "category": "ps_script",
+   "date": "2020-10-06",
+   "year_2026": false,
+   "sample": "regression_data/rules/windows/powershell/powershell_script/posh_ps_win_api_susp_access/03d83090-8cba-44a0-b02f-0b756a050306.evtx",
+   "sample_sha256": "4f86d280effd35e4ec2d90b3845b1cc84d662b27f6e373570ae4a8a1498be411"
+  },
+  {
+   "rule_id": "b53317a0-8acf-4fd1-8de8-a5401e776b96",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_wmic_uninstall_application.yml",
+   "title": "Application Removed Via Wmic.EXE",
+   "category": "process_creation",
+   "date": "2022-01-28",
+   "year_2026": false,
+   "sample": "regression_data/rules/windows/process_creation/proc_creation_win_wmic_uninstall_application/b53317a0-8acf-4fd1-8de8-a5401e776b96.evtx",
+   "sample_sha256": "0aa6381013b6e03d5a4ac5cd2a314c719fef0e2e9bcb7f00ac4f4f6b7aadfd1e"
+  },
+  {
+   "rule_id": "61d0475c-173f-4844-86f7-f3eebae1c66b",
+   "rule_path": "rules/windows/powershell/powershell_script/posh_ps_set_policies_to_unsecure_level.yml",
+   "title": "Change PowerShell Policies to an Insecure Level - PowerShell",
+   "category": "ps_script",
+   "date": "2021-10-20",
+   "year_2026": false,
+   "sample": "regression_data/rules/windows/powershell/powershell_script/posh_ps_set_policies_to_unsecure_level/61d0475c-173f-4844-86f7-f3eebae1c66b.evtx",
+   "sample_sha256": "b9aaee74e6ed1dd2de5fb07fae1059b7f2bfd9253cf1d3de61f21e74e6c3a292"
+  },
+  {
+   "rule_id": "e312efd0-35a1-407f-8439-b8d434b438a6",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_powershell_obfuscation_via_utf8.yml",
+   "title": "Potential PowerShell Obfuscation Via WCHAR/CHAR",
+   "category": "process_creation",
+   "date": "2020-07-09",
+   "year_2026": false,
+   "sample": "regression_data/rules/windows/process_creation/proc_creation_win_powershell_obfuscation_via_utf8/e312efd0-35a1-407f-8439-b8d434b438a6.evtx",
+   "sample_sha256": "271f2518aa3999df7c8a8b7048edae35ac9aa2c5ce3162d970ef4acfca9760a4"
+  },
+  {
+   "rule_id": "589ac73f-8e12-409c-964e-31a2f5775ae2",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_hktl_wsass.yml",
+   "title": "HackTool - WSASS Execution",
+   "category": "process_creation",
+   "date": "2025-11-23",
+   "year_2026": false,
+   "sample": "regression_data/rules/windows/process_creation/proc_creation_win_hktl_wsass/589ac73f-8e12-409c-964e-31a2f5775ae2.evtx",
+   "sample_sha256": "fad99b9183de84fc567f009440f8130e899fc45795af7902e3aa74fbe053e59b"
+  },
+  {
+   "rule_id": "deb9b646-a508-44ee-b7c9-d8965921c6b6",
+   "rule_path": "rules/windows/process_creation/proc_creation_win_powershell_token_obfuscation.yml",
+   "title": "Powershell Token Obfuscation - Process Creation",
+   "category": "process_creation",
+   "date": "2022-12-27",
+   "year_2026": false,
+   "sample": "regression_data/rules/windows/process_creation/proc_creation_win_powershell_token_obfuscation/deb9b646-a508-44ee-b7c9-d8965921c6b6.evtx",
+   "sample_sha256": "ceb33fe1956ee5c200fcdc51bc23b9c355177240e71691acd4865071c4e067ab"
+  }
+ ]
+}

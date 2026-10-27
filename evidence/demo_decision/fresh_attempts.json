@@ -1,0 +1,198 @@
+[
+ {
+  "file": "demo/fresh_attempts/adfind-enumeration/run1/pua-suspicious-activedirectory-enumeration-via-adfind-exe.json",
+  "scenario": "PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE",
+  "run": "run1",
+  "attempt_outcomes": [
+   "missed attack",
+   "missed attack",
+   "350 benign dev events",
+   "invalid rule"
+  ],
+  "passed": false,
+  "attempts": 4,
+  "tokens": 34339,
+  "seconds": 311.0,
+  "heldout_hits": 858,
+  "rule_values": 14,
+  "reference_values": 10,
+  "rule_values_also_in_reference": 0,
+  "primary": "https://www.joeware.net/freetools/tools/adfind/",
+  "research_error": null,
+  "source_mode": {
+   "policy": "exclude",
+   "mode": "leakage-controlled",
+   "verdict": "controlled",
+   "excluded": 4,
+   "flagged_shown": 0
+  },
+  "sources_excluded": 4,
+  "sources_shown": [
+   "research.splunk.com",
+   "rocketreach.co",
+   "www.mapquest.com"
+  ]
+ },
+ {
+  "file": "demo/fresh_attempts/adfind-enumeration/run2/pua-suspicious-activedirectory-enumeration-via-adfind-exe.json",
+  "scenario": "PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE",
+  "run": "run2",
+  "attempt_outcomes": [
+   "missed attack",
+   "invalid rule",
+   "pass"
+  ],
+  "passed": true,
+  "attempts": 3,
+  "tokens": 29538,
+  "seconds": 255.9,
+  "heldout_hits": 0,
+  "rule_values": 18,
+  "reference_values": 10,
+  "rule_values_also_in_reference": 8,
+  "primary": "https://www.joeware.net/freetools/tools/adfind/",
+  "research_error": null,
+  "source_mode": {
+   "policy": "exclude",
+   "mode": "leakage-controlled",
+   "verdict": "controlled",
+   "excluded": 4,
+   "flagged_shown": 0
+  },
+  "sources_excluded": 4,
+  "sources_shown": [
+   "research.splunk.com",
+   "rocketreach.co",
+   "www.mapquest.com"
+  ]
+ },
+ {
+  "file": "demo/fresh_attempts/adfind-enumeration/run3/pua-suspicious-activedirectory-enumeration-via-adfind-exe.json",
+  "scenario": "PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE",
+  "run": "run3",
+  "attempt_outcomes": [
+   "invalid rule",
+   "missed attack",
+   "pass"
+  ],
+  "passed": true,
+  "attempts": 3,
+  "tokens": 23545,
+  "seconds": 180.3,
+  "heldout_hits": 0,
+  "rule_values": 49,
+  "reference_values": 10,
+  "rule_values_also_in_reference": 0,
+  "primary": "https://www.joeware.net/freetools/tools/adfind/",
+  "research_error": null,
+  "source_mode": {
+   "policy": "exclude",
+   "mode": "leakage-controlled",
+   "verdict": "controlled",
+   "excluded": 4,
+   "flagged_shown": 0
+  },
+  "sources_excluded": 4,
+  "sources_shown": [
+   "research.splunk.com",
+   "rocketreach.co",
+   "www.mapquest.com"
+  ]
+ },
+ {
+  "file": "demo/fresh_attempts/adfind-execution/run1/pua-adfind-exe-execution.json",
+  "scenario": "PUA - AdFind.EXE Execution",
+  "run": "run1",
+  "attempt_outcomes": [
+   "missed attack",
+   "pass"
+  ],
+  "passed": true,
+  "attempts": 2,
+  "tokens": 26077,
+  "seconds": 253.9,
+  "heldout_hits": 0,
+  "rule_values": 9,
+  "reference_values": 9,
+  "rule_values_also_in_reference": 1,
+  "primary": "https://www.joeware.net/freetools/tools/adfind/",
+  "research_error": null,
+  "source_mode": {
+   "policy": "exclude",
+   "mode": "leakage-controlled",
+   "verdict": "controlled",
+   "excluded": 5,
+   "flagged_shown": 0
+  },
+  "sources_excluded": 5,
+  "sources_shown": [
+   "research.splunk.com",
+   "filestore.fortinet.com",
+   "www.manageengine.com"
+  ]
+ },
+ {
+  "file": "demo/fresh_attempts/adfind-execution/run2/pua-adfind-exe-execution.json",
+  "scenario": "PUA - AdFind.EXE Execution",
+  "run": "run2",
+  "attempt_outcomes": [
+   "pass"
+  ],
+  "passed": true,
+  "attempts": 1,
+  "tokens": 8660,
+  "seconds": 148.7,
+  "heldout_hits": 0,
+  "rule_values": 18,
+  "reference_values": 9,
+  "rule_values_also_in_reference": 1,
+  "primary": "https://www.joeware.net/freetools/tools/adfind/",
+  "research_error": null,
+  "source_mode": {
+   "policy": "exclude",
+   "mode": "leakage-controlled",
+   "verdict": "controlled",
+   "excluded": 5,
+   "flagged_shown": 0
+  },
+  "sources_excluded": 5,
+  "sources_shown": [
+   "research.splunk.com",
+   "filestore.fortinet.com",
+   "www.manageengine.com"
+  ]
+ },
+ {
+  "file": "demo/fresh_attempts/adfind-execution/run3/pua-adfind-exe-execution.json",
+  "scenario": "PUA - AdFind.EXE Execution",
+  "run": "run3",
+  "attempt_outcomes": [
+   "missed attack",
+   "invalid rule",
+   "pass"
+  ],
+  "passed": true,
+  "attempts": 3,
+  "tokens": 31253,
+  "seconds": 292.6,
+  "heldout_hits": 0,
+  "rule_values": 18,
+  "reference_values": 9,
+  "rule_values_also_in_reference": 1,
+  "primary": "https://www.joeware.net/freetools/tools/adfind/",
+  "research_error": null,
+  "source_mode": {
+   "policy": "exclude",
+   "mode": "leakage-controlled",
+   "verdict": "controlled",
+   "excluded": 5,
+   "flagged_shown": 0
+  },
+  "sources_excluded": 5,
+  "sources_shown": [
+   "research.splunk.com",
+   "filestore.fortinet.com",
+   "www.manageengine.com"
+  ]
+ }
+]
