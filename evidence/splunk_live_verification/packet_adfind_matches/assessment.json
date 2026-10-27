@@ -1,0 +1,156 @@
+{
+ "schema": "shakedown-assessment/1",
+ "created_at": "2026-10-27T16:58:55.122032+00:00",
+ "rule": {
+  "id": "856f2711-3c41-4fb0-8236-1487b30a905e",
+  "title": "Potential AdFind Usage",
+  "sha256": "5c114954f3a30d9c9383c1eab8b63410317191b5066cc3bfc781814ab26bcf5b",
+  "falsepositives": [
+   "Legitimate administrative use of AdFind for authorized Active Directory queries."
+  ],
+  "logsource": {
+   "category": "process_creation",
+   "product": "windows"
+  }
+ },
+ "statuses": {
+  "rule_validity": {
+   "state": "valid",
+   "label": "Valid Sigma rule",
+   "origin": "sigma_validator",
+   "detail": "the Sigma validator accepted the rule",
+   "output": "\n=== Summary ===\nFound 0 errors, 0 condition errors and 0 issues.\nNo rule errors found.\nNo condition errors found.\nNo validation issues found.\nParsing Sigma rules\nChecking Sigma rules\n"
+  },
+  "attack_validation": {
+   "state": "not_run",
+   "label": "Not run",
+   "origin": null,
+   "detail": "no attack evidence was supplied and no lab record was given"
+  },
+  "environment_preflight": {
+   "state": "potential_matches_found",
+   "label": "Potential environment matches found",
+   "origin": "splunk_read_only_search",
+   "detail": "These are potential matches: review each event to decide whether it is the behaviour the rule is meant to find.",
+   "completed": true,
+   "scope": {
+    "indexes": [
+     "shakedown_test"
+    ],
+    "earliest": "2026-10-27T10:58:47.253259+00:00",
+    "latest": "2026-10-27T16:58:47.253259+00:00",
+    "logsource_category": "process_creation",
+    "logsource_scope": "source=\"XmlWinEventLog:Microsoft-Windows-Sysmon/Operational\" EventCode=1",
+    "logsource_note": "Sysmon process creation. Windows Security 4688 uses different field names (NewProcessName, CommandLine) and is not supported: a rule written with Sigma's Sysmon-style fields would not match it."
+   },
+   "coverage": {
+    "events_in_scope": 4,
+    "first_event": "1793113051.000",
+    "last_event": "1793114131.000"
+   },
+   "fields": {
+    "rule_fields": [
+     "CommandLine",
+     "OriginalFileName"
+    ],
+    "observed": [
+     "CommandLine",
+     "EventCode",
+     "Image",
+     "OriginalFileName",
+     "User",
+     "date_hour",
+     "date_mday",
+     "date_minute",
+     "date_month",
+     "date_second",
+     "date_wday",
+     "date_year",
+     "date_zone",
+     "eventtype",
+     "host",
+     "index",
+     "linecount",
+     "objectcategory",
+     "punct",
+     "source",
+     "sourcetype",
+     "splunk_server",
+     "splunk_server_group",
+     "timeendpos",
+     "timestartpos"
+    ],
+    "missing": [],
+    "sampled_events": 4
+   },
+   "matches": {
+    "count": 2,
+    "examples": [
+     {
+      "_time": "2026-10-27T15:15:31.000+00:00",
+      "host": "LAB-W10-02",
+      "source": "XmlWinEventLog:Microsoft-Windows-Sysmon/Operational",
+      "EventCode": "1",
+      "User": "LAB\\svc",
+      "CommandLine": "adfind.exe -sc trustdmp -nosacl",
+      "OriginalFileName": "AdFind.exe"
+     },
+     {
+      "_time": "2026-10-27T15:07:31.000+00:00",
+      "host": "LAB-W10-01",
+      "source": "XmlWinEventLog:Microsoft-Windows-Sysmon/Operational",
+      "EventCode": "1",
+      "User": "LAB\\analyst",
+      "CommandLine": "AdFind.exe -f (objectcategory=person) -dechextosid",
+      "OriginalFileName": "AdFind.exe"
+     }
+    ],
+    "examples_shown": 2,
+    "examples_limit": 5
+   },
+   "queries": {
+    "coverage": "search (index=\"shakedown_test\") source=\"XmlWinEventLog:Microsoft-Windows-Sysmon/Operational\" EventCode=1 | stats count min(_time) as first max(_time) as last",
+    "fields": "search (index=\"shakedown_test\") source=\"XmlWinEventLog:Microsoft-Windows-Sysmon/Operational\" EventCode=1 | head 1000 | fieldsummary maxvals=1 | fields field",
+    "detection": "search (index=\"shakedown_test\") source=\"XmlWinEventLog:Microsoft-Windows-Sysmon/Operational\" EventCode=1 (OriginalFileName=\"AdFind.exe\" CommandLine IN (\"*parentrdn*\", \"*objrdn*\", \"*-dechextosid*\", \"*-encguidtoiid*\", \"*-showdel*\", \"*-sdna*\", \"*-nosacl*\", \"*-f*\")) | stats count",
+    "sample": "search (index=\"shakedown_test\") source=\"XmlWinEventLog:Microsoft-Windows-Sysmon/Operational\" EventCode=1 (OriginalFileName=\"AdFind.exe\" CommandLine IN (\"*parentrdn*\", \"*objrdn*\", \"*-dechextosid*\", \"*-encguidtoiid*\", \"*-showdel*\", \"*-sdna*\", \"*-nosacl*\", \"*-f*\")) | head 5 | table _time, host, source, EventCode, User, ParentImage, CommandLine, OriginalFileName"
+   },
+   "identity": {
+    "username": "shakedown_svc",
+    "roles": [
+     "shakedown_preflight"
+    ],
+    "capabilities": [
+     "search"
+    ],
+    "warnings": [],
+    "capabilities_known": true
+   },
+   "connector_label": "live-verified on a loopback test instance",
+   "elapsed_s": 5.61,
+   "searched_at": "2026-10-27T16:58:49.552040+00:00"
+  }
+ },
+ "benign_baseline": null,
+ "lab_evidence": null,
+ "report": null,
+ "target_query": {
+  "language": "SPL",
+  "detection": "search (index=\"shakedown_test\") source=\"XmlWinEventLog:Microsoft-Windows-Sysmon/Operational\" EventCode=1 (OriginalFileName=\"AdFind.exe\" CommandLine IN (\"*parentrdn*\", \"*objrdn*\", \"*-dechextosid*\", \"*-encguidtoiid*\", \"*-showdel*\", \"*-sdna*\", \"*-nosacl*\", \"*-f*\"))",
+  "scope": {
+   "logsource_scope": "source=\"XmlWinEventLog:Microsoft-Windows-Sysmon/Operational\" EventCode=1",
+   "logsource_note": "Sysmon process creation. Windows Security 4688 uses different field names (NewProcessName, CommandLine) and is not supported: a rule written with Sigma's Sysmon-style fields would not match it."
+  }
+ },
+ "recommendation": {
+  "level": "needs_more_evidence",
+  "text": "More evidence is needed before this rule can be recommended: at least one of the three questions is unanswered or could not be answered reliably. Nothing was deployed or changed.",
+  "automatic_deployment": false
+ },
+ "limitations": [
+  "The three statuses answer different questions and are not added together. There is no overall pass.",
+  "A lab or supplied-attack match does not show the organisation collects the telemetry the rule needs.",
+  "Nothing was deployed, scheduled or changed in any SIEM. Deployment is a decision for an analyst.",
+  "A historical search shows what the rule would have matched in this window. It does not show that the rule can detect an attack that did not occur in the window.",
+  "Field names depend on the add-ons that parse your events; the log-source scope above is an assumption you should check."
+ ]
+}

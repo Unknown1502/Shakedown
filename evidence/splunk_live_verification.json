@@ -1,0 +1,17 @@
+{
+ "verified_at": "2026-10-27T15:37:41.893527+00:00",
+ "target_host_sha256": "12ca17b49af22894",
+ "target_is_loopback": true,
+ "tls_verified": false,
+ "credential_type": "token",
+ "account_capabilities_known": true,
+ "account_warnings": [],
+ "checks": [
+  "authenticated",
+  "capabilities read",
+  "bounded coverage search completed",
+  "search job deleted"
+ ],
+ "server_version": "10.6.1.1",
+ "server_version_source": "operator-supplied; the read-only connector does not query the server version"
+}

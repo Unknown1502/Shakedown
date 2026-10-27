@@ -17,7 +17,7 @@ Audited 2026-10-26. Every number below comes from running `tools/dataset_audit.p
 - `info.yml` files: **472**.
 - Pairs with problems: **2**.
   - `rules/cisco/aaa/cisco_cli_dot1x_disabled`: the rule lies outside this sparse checkout (Windows only).
-  - `CVE-2025-55182 …nodejs_server_child_process`: the EVTX file named in `info.yml` is missing upstream.
+  - `CVE-2025-55182 …nodejs_server_child_process`: the EVTX file named in `info.yml` is missing from this checkout. It exists upstream: a fresh checkout on a shorter path contains it, and git reports four files (this EVTX and three JSON samples) as deleted in the original checkout. The likely cause is the Windows path-length limit. None of the four is used by a task.
 - **Usable Windows rule ↔ EVTX pairs: 470.**
   - With an explicit `match_count`: **441**. The rest default to "at least 1", the same rule SigmaHQ's runner applies.
   - Also with a JSON sample: 3.

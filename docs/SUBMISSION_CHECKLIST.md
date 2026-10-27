@@ -44,7 +44,7 @@ Checked = verified on 2026-10-27 with the evidence named. Unchecked = not done.
 - [x] Attack and benign results are calculated by SigmaHQ's checker and code; nothing is model-judged.
 - [x] Failure handling is tested (invalid rules, evaluator errors, empty or JSON-less model answers, budget exhaustion, a failed run is never shown as a pass).
 - [x] Repair is shown only from genuine traces (`demo/replay/pua-adfind-exe-execution.json`: miss, then repair, then pass).
-- [x] Tests: **244 passed** in the project; **238 passed, 6 skipped** (dataset or Docker) in a fresh copy without datasets (103 at the start of the leakage audit, 145 before the real-world preflight slice).
+- [x] Tests: **251 passed** in the project (11 opt-in live Splunk tests deselected); **245 passed, 6 skipped** (dataset or Docker) in a clean export of the staged tree without datasets (103 at the start of the leakage audit, 145 before the real-world preflight slice, 244 before the live Splunk run). See `RELEASE_CHECKLIST.md`.
 
 **Gate D: product experience**
 - [x] The workflow is understandable from the first screen (checked by me through screenshots; no outside person has tried it).

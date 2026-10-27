@@ -1,0 +1,113 @@
+{
+ "seeded_at": "2026-10-27T15:27:31.539368+00:00",
+ "events": {
+  "match_1": {
+   "index": "shakedown_test",
+   "source": "XmlWinEventLog:Microsoft-Windows-Sysmon/Operational",
+   "host": "LAB-W10-01",
+   "timestamp": "2026-10-27T15:07:31.000+0000",
+   "expectation": "MUST match the AdFind rule",
+   "fields": {
+    "EventCode": 1,
+    "Image": "C:\\Tools\\AdFind.exe",
+    "OriginalFileName": "AdFind.exe",
+    "CommandLine": "AdFind.exe -f (objectcategory=person) -dechextosid",
+    "User": "LAB\\analyst"
+   }
+  },
+  "match_2": {
+   "index": "shakedown_test",
+   "source": "XmlWinEventLog:Microsoft-Windows-Sysmon/Operational",
+   "host": "LAB-W10-02",
+   "timestamp": "2026-10-27T15:15:31.000+0000",
+   "expectation": "MUST match the AdFind rule",
+   "fields": {
+    "EventCode": 1,
+    "Image": "D:\\x\\adfind.exe",
+    "OriginalFileName": "AdFind.exe",
+    "CommandLine": "adfind.exe -sc trustdmp -nosacl",
+    "User": "LAB\\svc"
+   }
+  },
+  "unrelated_1": {
+   "index": "shakedown_test",
+   "source": "XmlWinEventLog:Microsoft-Windows-Sysmon/Operational",
+   "host": "LAB-W10-01",
+   "timestamp": "2026-10-27T14:57:31.000+0000",
+   "expectation": "in scope, must NOT match",
+   "fields": {
+    "EventCode": 1,
+    "Image": "C:\\Windows\\System32\\notepad.exe",
+    "OriginalFileName": "NOTEPAD.EXE",
+    "CommandLine": "notepad.exe C:\\notes.txt",
+    "User": "LAB\\analyst"
+   }
+  },
+  "unrelated_2": {
+   "index": "shakedown_test",
+   "source": "XmlWinEventLog:Microsoft-Windows-Sysmon/Operational",
+   "host": "LAB-W10-03",
+   "timestamp": "2026-10-27T15:02:31.000+0000",
+   "expectation": "in scope, must NOT match",
+   "fields": {
+    "EventCode": 1,
+    "Image": "C:\\Windows\\System32\\cmd.exe",
+    "OriginalFileName": "Cmd.Exe",
+    "CommandLine": "cmd.exe /c dir",
+    "User": "LAB\\svc"
+   }
+  },
+  "decoy_wrong_eventcode": {
+   "index": "shakedown_test",
+   "source": "XmlWinEventLog:Microsoft-Windows-Sysmon/Operational",
+   "host": "LAB-W10-01",
+   "timestamp": "2026-10-27T15:12:31.000+0000",
+   "expectation": "right content, EventCode 3: excluded by the EventCode scope",
+   "fields": {
+    "EventCode": 3,
+    "Image": "C:\\Tools\\AdFind.exe",
+    "OriginalFileName": "AdFind.exe",
+    "CommandLine": "AdFind.exe -f (objectcategory=person)"
+   }
+  },
+  "decoy_wrong_source": {
+   "index": "shakedown_test",
+   "source": "XmlWinEventLog:Security",
+   "host": "LAB-W10-01",
+   "timestamp": "2026-10-27T15:13:31.000+0000",
+   "expectation": "right content and EventCode, other source: excluded by the source scope",
+   "fields": {
+    "EventCode": 1,
+    "Image": "C:\\Tools\\AdFind.exe",
+    "OriginalFileName": "AdFind.exe",
+    "CommandLine": "AdFind.exe -f (objectcategory=person)"
+   }
+  },
+  "decoy_outside_window": {
+   "index": "shakedown_test",
+   "source": "XmlWinEventLog:Microsoft-Windows-Sysmon/Operational",
+   "host": "LAB-W10-01",
+   "timestamp": "2026-10-24T15:27:31.000+0000",
+   "expectation": "right content, 3 days old: excluded by a 1 hour window",
+   "fields": {
+    "EventCode": 1,
+    "Image": "C:\\Tools\\AdFind.exe",
+    "OriginalFileName": "AdFind.exe",
+    "CommandLine": "AdFind.exe -f (objectcategory=person)"
+   }
+  },
+  "decoy_other_index": {
+   "index": "shakedown_other",
+   "source": "XmlWinEventLog:Microsoft-Windows-Sysmon/Operational",
+   "host": "LAB-W10-09",
+   "timestamp": "2026-10-27T15:17:31.000+0000",
+   "expectation": "right content, an index the account must not reach",
+   "fields": {
+    "EventCode": 1,
+    "Image": "C:\\Tools\\AdFind.exe",
+    "OriginalFileName": "AdFind.exe",
+    "CommandLine": "AdFind.exe -f (objectcategory=person)"
+   }
+  }
+ }
+}

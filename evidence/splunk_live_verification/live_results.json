@@ -1,0 +1,182 @@
+{
+ "account": {
+  "username": "shakedown_svc",
+  "roles": [
+   "shakedown_preflight"
+  ],
+  "capabilities": [
+   "search"
+  ],
+  "warnings": []
+ },
+ "adfind_end_to_end": {
+  "expected": {
+   "events_in_scope": 4,
+   "matches": 2,
+   "hosts": [
+    "LAB-W10-01",
+    "LAB-W10-02"
+   ]
+  },
+  "observed": {
+   "events_in_scope": 4,
+   "matches": 2,
+   "hosts": [
+    "LAB-W10-01",
+    "LAB-W10-02"
+   ]
+  },
+  "queries": {
+   "coverage": "search (index=\"shakedown_test\") source=\"XmlWinEventLog:Microsoft-Windows-Sysmon/Operational\" EventCode=1 | stats count min(_time) as first max(_time) as last",
+   "fields": "search (index=\"shakedown_test\") source=\"XmlWinEventLog:Microsoft-Windows-Sysmon/Operational\" EventCode=1 | head 1000 | fieldsummary maxvals=1 | fields field",
+   "detection": "search (index=\"shakedown_test\") source=\"XmlWinEventLog:Microsoft-Windows-Sysmon/Operational\" EventCode=1 (OriginalFileName=\"AdFind.exe\" CommandLine IN (\"*parentrdn*\", \"*objrdn*\", \"*-dechextosid*\", \"*-encguidtoiid*\", \"*-showdel*\", \"*-sdna*\", \"*-nosacl*\", \"*-f*\")) | stats count",
+   "sample": "search (index=\"shakedown_test\") source=\"XmlWinEventLog:Microsoft-Windows-Sysmon/Operational\" EventCode=1 (OriginalFileName=\"AdFind.exe\" CommandLine IN (\"*parentrdn*\", \"*objrdn*\", \"*-dechextosid*\", \"*-encguidtoiid*\", \"*-showdel*\", \"*-sdna*\", \"*-nosacl*\", \"*-f*\")) | head 5 | table _time, host, source, EventCode, User, ParentImage, CommandLine, OriginalFileName"
+  },
+  "converted_detection": "OriginalFileName=\"AdFind.exe\" CommandLine IN (\"*parentrdn*\", \"*objrdn*\", \"*-dechextosid*\", \"*-encguidtoiid*\", \"*-showdel*\", \"*-sdna*\", \"*-nosacl*\", \"*-f*\")",
+  "scope": {
+   "indexes": [
+    "shakedown_test"
+   ],
+   "earliest": "2026-10-27T10:58:15.376255+00:00",
+   "latest": "2026-10-27T16:58:15.376255+00:00",
+   "logsource_category": "process_creation",
+   "logsource_scope": "source=\"XmlWinEventLog:Microsoft-Windows-Sysmon/Operational\" EventCode=1",
+   "logsource_note": "Sysmon process creation. Windows Security 4688 uses different field names (NewProcessName, CommandLine) and is not supported: a rule written with Sigma's Sysmon-style fields would not match it."
+  },
+  "fields": {
+   "rule_fields": [
+    "CommandLine",
+    "OriginalFileName"
+   ],
+   "observed": [
+    "CommandLine",
+    "EventCode",
+    "Image",
+    "OriginalFileName",
+    "User",
+    "date_hour",
+    "date_mday",
+    "date_minute",
+    "date_month",
+    "date_second",
+    "date_wday",
+    "date_year",
+    "date_zone",
+    "eventtype",
+    "host",
+    "index",
+    "linecount",
+    "objectcategory",
+    "punct",
+    "source",
+    "sourcetype",
+    "splunk_server",
+    "splunk_server_group",
+    "timeendpos",
+    "timestartpos"
+   ],
+   "missing": [],
+   "sampled_events": 4
+  },
+  "elapsed_s": 2.41,
+  "tls_verified": false
+ },
+ "unrelated": {
+  "notepad_rule": {
+   "expected_matches": 1,
+   "observed": 1,
+   "detection": "Image=\"*\\\\notepad.exe\""
+  },
+  "absent_rule": {
+   "expected_matches": 0,
+   "observed": 0,
+   "events_in_scope": 4
+  }
+ },
+ "scoping": {
+  "rule_equivalent_without_scope_6h": 4,
+  "with_source_and_eventcode_scope_6h": 2,
+  "without_scope_7d": 5,
+  "with_scope_7d": 3,
+  "other_index_events_that_exist_for_admin": 1,
+  "other_index_events_visible_to_the_account": 0,
+  "client_allowlist_refusal": "scope"
+ },
+ "empty_and_unsupported": {
+  "registry_set_rule": {
+   "status": "telemetry_missing_or_unsupported",
+   "detail": "no_events_in_scope",
+   "events_in_scope": 0
+  },
+  "unknown_field_rule": {
+   "status": "telemetry_missing_or_unsupported",
+   "detail": "fields_not_observed",
+   "missing": [
+    "NoSuchField"
+   ],
+   "events_in_scope": 4
+  }
+ },
+ "failures": {
+  "wrong_token": {
+   "kind": "auth",
+   "message": "Splunk rejected the credentials (HTTP 401)"
+  },
+  "wrong_password": {
+   "kind": "auth",
+   "message": "Splunk rejected the credentials (HTTP 401)"
+  },
+  "no_search_permission": {
+   "kind": "permission",
+   "message": "the account lacks permission for this call (HTTP 403)"
+  },
+  "admin_class_account": {
+   "kind": "privileged_account",
+   "message": "the account has admin-class capabilities (admin_all_objects); use a dedicated search-only role, or set SPLUNK_ALLOW_PRIVILEGED=true to accept the risk"
+  },
+  "malformed_query": {
+   "kind": "query",
+   "message": "Error in 'where' command: The expression is malformed. Expected ).; Error in 'where' command: The expression is malformed. Expected )."
+  },
+  "write_command_refused_locally": {
+   "kind": "unsafe_query",
+   "message": "the command 'outputlookup' is not allowed in a read-only preflight"
+  }
+ },
+ "tls": {
+  "verified_attempt_with_default_cert": {
+   "kind": "tls",
+   "message": "TLS certificate verification failed (IP address mismatch, certificate is not valid for '127.0.0.1'.). Point SPLUNK_CA_BUNDLE at the CA that signed Splunk's certificate (the certificate must also name the host you connect"
+  },
+  "verification_off_is_recorded": true
+ },
+ "timeout": {
+  "search_natural_duration_s": 3.6,
+  "timeout_s": 1.0,
+  "reported_kind": "timeout",
+  "returned_after_s": 1.1,
+  "jobs_left_on_server": 0,
+  "rows_if_it_had_finished": [
+   {
+    "count": "0"
+   }
+  ]
+ },
+ "cancel": {
+  "cancel_requested_after_s": 1.0,
+  "reported_kind": "cancelled",
+  "returned_after_s": 1.2,
+  "jobs_left_on_server": 0
+ },
+ "basic_auth": {
+  "matches": 2,
+  "events_in_scope": 4
+ },
+ "assess_cli": {
+  "environment_state": "potential_matches_found",
+  "matches": 2,
+  "rule_validity": "valid",
+  "attack_validation": "not_run",
+  "recommendation": "needs_more_evidence"
+ }
+}

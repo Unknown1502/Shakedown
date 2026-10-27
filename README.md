@@ -96,10 +96,10 @@ A local, command-line workflow, separate from the benchmark and from the hosted 
 uv run python -m shakedown.assess --rule rule.yml --manifest case/manifest.yml --splunk --splunk-index win_sysmon --last-hours 24 --out packet/
 ```
 
-It reports **three independent statuses, never one pass**: (A) does the Sigma validator accept the rule, (B) does it detect the attack evidence you supplied, (C) what did a bounded, read-only Splunk search find in your environment and window (the Splunk connector is implemented but not live-verified; see below). It writes a review packet (rule, Splunk query, validation, attack evidence with denominators, environment findings, telemetry coverage, possible false positives, limits). It recommends; it deploys nothing.
+It reports **three independent statuses, never one pass**: (A) does the Sigma validator accept the rule, (B) does it detect the attack evidence you supplied, (C) what did a bounded, read-only Splunk search find in your environment and window (the Splunk connector is live-verified only on a throwaway local test instance; see below). It writes a review packet (rule, Splunk query, validation, attack evidence with denominators, environment findings, telemetry coverage, possible false positives, limits). It recommends; it deploys nothing.
 
 - **Bring your own logs** ([docs/BRING_YOUR_OWN_LOGS.md](docs/BRING_YOUR_OWN_LOGS.md)): EVTX only, every file labelled and hashed, logs never assumed benign, evaluated locally unless you explicitly allow an upload. Run end to end on real EVTX files.
-- **Splunk preflight** ([docs/SPLUNK_PREFLIGHT.md](docs/SPLUNK_PREFLIGHT.md)): **implemented but not live-verified.** Tested against a mock server only; it becomes live-verified when `tools/splunk_smoke.py` succeeds against an instance you are authorised to search.
+- **Splunk preflight** ([docs/SPLUNK_PREFLIGHT.md](docs/SPLUNK_PREFLIGHT.md)): **live-verified on a throwaway local Splunk Enterprise 10.6.1.1 instance (controlled, simulated Sysmon events); not verified against a production Splunk or a real Sysmon add-on.** A real Splunk executed the connector's actual converted query and every count matched the labelled expectations ([report](evidence/splunk_live_verification/REPORT.md)). The 11 live tests are separate from the mocked ones and opt-in. Production Splunk, a real Sysmon add-on and certificate-verified connections have not been tested.
 - Customer events and SIEM results are never sent to the model, Tavily or any other service, and there is no repair step on them.
 
 ## Reproducibility

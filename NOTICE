@@ -10,6 +10,7 @@ Third-party material used at run time (not redistributed in this repository, exc
 - SigmaHQ regression data (EVTX samples), tests/thor.yml, and evtx-sigma-checker v0.8.5 from
   https://github.com/NextronSystems/evtx-baseline (Apache-2.0 repository). Fetched at run time; not
   committed. The status of the sample and checker-binary licences is described in docs/DATASET_AUDIT.md.
+- Splunk Enterprise (trial, Docker image splunk/splunk) was used only as a local, throwaway test fixture for the Splunk connector. It is not included in or redistributed by this repository; use is subject to Splunk's own terms, which the person running it accepts.
 - Rule texts shown in recorded runs keep their `author` fields. SigmaHQ rules: Detection Rule License 1.1, https://github.com/SigmaHQ/Detection-Rule-License . Recorded run evidence also contains short excerpts (a few hundred characters each) of events from the SigmaHQ regression samples and the evtx-baseline logs; the data files themselves are not in this repository.
 - evtx-baseline benign Windows logs, release v0.8.5 (Apache-2.0). Fetched at run time; not committed.
 - sigma-cli (LGPL-2.1-or-later), pySigma and pysigma-backend-splunk (LGPL-2.1-only), contree-sdk and python-evtx (Apache-2.0),

@@ -2,11 +2,13 @@
 
 Run a Sigma rule as a bounded historical search in your Splunk and see what it would have matched.
 
-## Status: **implemented but not live-verified**
+## Status: **live-verified on a throwaway local test instance. Not verified against a production Splunk.**
 
-The connector is covered by 47 tests, **all against a mock server** (`tests/fake_splunk.py`) that speaks the REST shapes over real HTTP. That tests request building, authentication headers, JSON handling, polling, cancellation, error classes and the read-only guarantees. It is not proof that the connector works against a real Splunk. No Splunk instance or credentials were available when this was built.
+On 2026-10-27 the project's own smoke test and an 11-test live suite passed against a real **Splunk Enterprise 10.6.1.1** container (single node, trial licence, loopback only). A real Splunk executed the connector's actual Sigma-converted query against 8 labelled events, and every count matched the expectation, including a hand-written SPL cross-check. The full result, the exact queries, the negative tests and the limits are in [`evidence/splunk_live_verification/REPORT.md`](../evidence/splunk_live_verification/REPORT.md).
 
-It becomes "live-verified" only when `tools/splunk_smoke.py` succeeds against an instance you are authorised to search. That run writes `evidence/splunk_live_verification.json`; until it exists every packet says "implemented but not live-verified".
+What that does **not** cover: a production, clustered or Splunk Cloud deployment; a real Splunk Add-on for Windows or Sysmon (the test events are `key="value"` text with an assigned `source`, which only *simulates* Sysmon field extraction, and real field names and parsing may differ); a connection where TLS verification succeeds (Splunk's default certificate does not name `127.0.0.1`, so the main run used `SPLUNK_VERIFY_TLS=false`, which is recorded; the failure path was tested live); scale and concurrency.
+
+Two kinds of tests, kept separate: `tests/test_splunk*.py` run against a **mock** server (`tests/fake_splunk.py`) and are not proof of a live integration; `tests/live/test_splunk_live.py` runs against a real Splunk, only when `SPLUNK_LIVE_TEST=1`. The product reads `evidence/splunk_live_verification.json`; if that file is absent every packet says "implemented but not live-verified", and once present it says "live-verified on a loopback test instance". Run `tools/splunk_smoke.py` against your own instance to establish your own result.
 
 ## What you need
 
@@ -22,7 +24,7 @@ It becomes "live-verified" only when `tools/splunk_smoke.py` succeeds against an
    srchJobsQuota = 2
    srchDiskQuota = 100
    ```
-   with only the `search` capability.
+   with only the `search` capability. **Check what the account really holds.** Splunk Enterprise 10.6.1.1 adds `edit_own_objects`, `list_all_objects`, `run_collect`, `run_mcollect` and `schedule_rtsearch` to every new role, even one meant to hold only `search`. Updating the role with `capabilities=search` replaces the list. `tools/splunk_smoke.py` prints what the account holds, and the connector warns when write-capable extras are present.
 3. The variables in [`.env.example`](../.env.example). `SPLUNK_ALLOWED_INDEXES` is a second, client-side allowlist: the tool refuses an index that is not on it, and refuses `*`.
 4. Windows events indexed from Sysmon with Sysmon-style field names (`Image`, `CommandLine`, ...). Windows Security 4688 uses different field names and is reported as unsupported, not mis-queried.
 
@@ -56,13 +58,16 @@ Results are shown to the analyst in the packet. They are never sent to the model
 
 ## Verify it yourself against a local Splunk (your decision)
 
-You can check the connector without touching production by running a throwaway Splunk Enterprise container. Starting it means **you** accept Splunk's licence terms, which is why I did not do it for you:
+You can check the connector without touching production by running a throwaway Splunk Enterprise container. Starting it means **you** accept Splunk's licence terms. This is the procedure that produced the report above:
 
 ```bash
-docker run -d --name splunk-test -p 8000:8000 -p 8089:8089 -e SPLUNK_GENERAL_TERMS=--accept-sgt-current-at-splunk-com \
-  -e SPLUNK_START_ARGS=--accept-license -e SPLUNK_PASSWORD='<choose a password>' splunk/splunk:latest
-# create an index named win_sysmon and a token, put SPLUNK_BASE_URL=http://127.0.0.1:8089 SPLUNK_TOKEN=... in .env
-python tools/splunk_smoke.py --index win_sysmon
+# the password file is yours; never commit it. Bind to loopback only.
+docker run -d --name shakedown-splunk-test --env-file <file with SPLUNK_GENERAL_TERMS=--accept-sgt-current-at-splunk-com, SPLUNK_START_ARGS=--accept-license, SPLUNK_PASSWORD=...> \
+  -p 127.0.0.1:18000:8000 -p 127.0.0.1:18089:8089 splunk/splunk:latest
+python tools/splunk_live_setup.py --admin-password-file <password file> --bulk 300000   # indexes, search-only role and user, a token, labelled events
+set -a; . data/splunk_live/splunk.env; . data/splunk_live/accounts.env; set +a
+python tools/splunk_smoke.py --index shakedown_test --minutes 360 --server-version <version>   # records proof only on success
+SPLUNK_LIVE_TEST=1 uv run pytest tests/live -m live -q
 ```
 
-An empty index is enough for the smoke test: it proves authentication, the capability read, the job lifecycle and cleanup. To exercise matching you would also ingest some Sysmon-style events with the right `source` and `EventCode`. A pass on a loopback test instance is recorded as such (`target_is_loopback`), and is real evidence about the connector, not about your production environment.
+`tools/splunk_live_setup.py` uses the admin account only to create things; the connector never uses it. An empty index is enough for the smoke test alone; the labelled events are what let the end-to-end tests compare expected and observed counts. A pass on a loopback instance is recorded as such (`target_is_loopback`), and is evidence about the connector, not about your production environment.
