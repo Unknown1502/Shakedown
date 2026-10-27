@@ -41,6 +41,9 @@ READ_ONLY_COMMANDS = {"search", "where", "regex", "rex", "eval", "fields", "tabl
 ENDPOINTS = re.compile(r"^/services/(authentication/current-context|search/jobs(/[A-Za-z0-9_.\-]+(/(results|control))?)?)$")
 PRIVILEGED_CAPABILITIES = {"admin_all_objects", "edit_user", "edit_roles", "edit_roles_grantable", "delete_by_keyword",
                            "edit_tcp", "edit_monitor", "edit_scripted", "edit_forwarders", "edit_httpauths"}
+# Not refused, but flagged: Splunk adds some of these to every new role (seen on Splunk Enterprise 10.6.1.1). The connector never uses them.
+WRITE_CAPABLE_WARN = {"edit_own_objects", "run_collect", "run_mcollect", "schedule_search", "schedule_rtsearch", "edit_search_schedule_window",
+                      "edit_search_schedule_priority", "accelerate_search", "accelerate_datamodel"}
 FIELD_SAMPLE_EVENTS = 1000
 VALUE_LIMIT = 300
 EXTRA_DISPLAY_FIELDS = ["_time", "host", "source", "EventCode", "User", "ParentImage"]
@@ -64,7 +67,7 @@ NOTES = [
 
 class SplunkError(RuntimeError):
     """`kind` is one of: config, auth, permission, query, timeout, cancelled, unavailable, scope, unsafe_query,
-    forbidden_endpoint, privileged_account, unsupported_logsource, conversion."""
+    forbidden_endpoint, privileged_account, unsupported_logsource, conversion, tls."""
 
     def __init__(self, kind: str, message: str):
         super().__init__(message)
@@ -123,7 +126,9 @@ def live_verification(path: Path | None = None) -> dict:
         doc = json.loads(path.read_text(encoding="utf-8"))
     except (OSError, ValueError):
         return {"live_verified": False, "label": "implemented but not live-verified"}
-    return {"live_verified": True, "label": "live-verified", "verified_at": doc.get("verified_at"), "server_version": doc.get("server_version")}
+    loopback = bool(doc.get("target_is_loopback"))
+    return {"live_verified": True, "label": "live-verified on a loopback test instance" if loopback else "live-verified",
+            "target_is_loopback": loopback, "verified_at": doc.get("verified_at"), "server_version": doc.get("server_version")}
 
 
 # --- query safety ---------------------------------------------------------------------------------------------------
@@ -164,10 +169,14 @@ def check_read_only(spl: str) -> None:
 
 def convert_to_spl(rule_text: str) -> str:
     """Convert with the Sigma CLI and the Splunk Windows pipeline. The result has NO log-source scope; `preflight` adds it."""
+    try:
+        sigma = _sigma_exe()
+    except RuntimeError as exc:
+        raise SplunkError("conversion", f"the Sigma CLI is not available, so the rule cannot be converted to SPL: {exc}") from None
     with tempfile.TemporaryDirectory(prefix="shakedown-splunk-") as tmp:
         path = Path(tmp) / STAGED_NAME
         path.write_text(rule_text, encoding="utf-8")
-        proc = subprocess.run([_sigma_exe(), "convert", "-t", "splunk", "-p", "splunk_windows", str(path)],
+        proc = subprocess.run([sigma, "convert", "-t", "splunk", "-p", "splunk_windows", str(path)],
                               capture_output=True, text=True, encoding="utf-8", timeout=60)
     lines = [l for l in proc.stdout.splitlines() if l.strip() and not l.startswith("Parsing Sigma rules")]
     if proc.returncode != 0 or not lines:
@@ -251,6 +260,11 @@ class SplunkConnector:
                 raise SplunkError("query", detail or "Splunk rejected the search (HTTP 400)") from None
             raise SplunkError("unavailable", f"Splunk answered HTTP {exc.code}") from None
         except (urllib.error.URLError, OSError, TimeoutError) as exc:
+            reason = getattr(exc, "reason", exc)
+            if isinstance(reason, ssl.SSLCertVerificationError):
+                raise SplunkError("tls", f"TLS certificate verification failed ({getattr(reason, 'verify_message', None) or 'certificate not trusted'}). "
+                                         "Point SPLUNK_CA_BUNDLE at the CA that signed Splunk's certificate (the certificate must also name the host you connect to); "
+                                         "turning verification off with SPLUNK_VERIFY_TLS=false is recorded in the packet.") from None
             raise SplunkError("unavailable", f"cannot reach Splunk: {type(exc).__name__}") from None
         try:
             return json.loads(body) if body else {}
@@ -276,6 +290,10 @@ class SplunkConnector:
                                                     "search-only role, or set SPLUNK_ALLOW_PRIVILEGED=true to accept the risk")
         if risky:
             identity["warnings"].append(f"admin-class capabilities present: {', '.join(risky)}")
+        extras = sorted(set(caps) & WRITE_CAPABLE_WARN)
+        if extras:
+            identity["warnings"].append(f"the account also holds {', '.join(extras)}. The connector never uses them, but a search-only account should not "
+                                        "have them: edit the role so its capabilities are exactly `search`")
         if not caps:
             identity["warnings"].append("the server did not report capabilities, so the account's privileges are unknown")
         return identity

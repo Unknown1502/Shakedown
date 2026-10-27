@@ -29,6 +29,7 @@ def main(argv=None, env=None) -> int:
     parser.add_argument("--index", required=True, help="an index from SPLUNK_ALLOWED_INDEXES")
     parser.add_argument("--minutes", type=int, default=15)
     parser.add_argument("--proof-path", type=Path, default=splunk.VERIFICATION_FILE)
+    parser.add_argument("--server-version", help="the Splunk version as your admin reports it; recorded as operator-supplied (the read-only connector does not query it)")
     parser.add_argument("--no-record", action="store_true", help="run the checks but do not write the verification file")
     args = parser.parse_args(argv)
     if env is None:
@@ -57,7 +58,7 @@ def main(argv=None, env=None) -> int:
              "target_is_loopback": host in ("127.0.0.1", "localhost", "::1"), "tls_verified": config.verify_tls, "credential_type": "token" if config.token else "basic",
              "account_capabilities_known": identity["capabilities_known"], "account_warnings": identity["warnings"],
              "checks": ["authenticated", "capabilities read", "bounded coverage search completed", "search job deleted"],
-             "server_version": None}
+             "server_version": args.server_version, "server_version_source": "operator-supplied; the read-only connector does not query the server version"}
     if args.no_record:
         print("OK (not recorded)")
         return 0

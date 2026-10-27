@@ -47,3 +47,11 @@ def test_no_record_runs_the_checks_but_writes_nothing(tmp_path):
     with FakeSplunk(make_handler()) as fake:
         assert splunk_smoke.main(["--index", "win", "--proof-path", str(proof), "--no-record"], env=env(fake)) == 0
     assert not proof.exists()
+
+
+def test_the_operator_supplied_server_version_is_recorded_as_such(tmp_path):
+    proof = tmp_path / "proof.json"
+    with FakeSplunk(make_handler()) as fake:
+        assert splunk_smoke.main(["--index", "win", "--proof-path", str(proof), "--server-version", "10.6.1.1"], env=env(fake)) == 0
+    saved = json.loads(proof.read_text(encoding="utf-8"))
+    assert saved["server_version"] == "10.6.1.1" and "operator" in saved["server_version_source"]
