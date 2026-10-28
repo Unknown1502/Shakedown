@@ -34,6 +34,26 @@ When a new attack is reported, defenders have to turn the report into a detectio
 6. If the attack was missed or a benign event matched, the exact evidence goes back to the model for a repair, at most three.
 7. The best attempt is tested once more on benign logs the model never saw and compared with SigmaHQ's expert rule for the same behaviour.
 
+How a run flows:
+
+```mermaid
+flowchart TD
+    A["Threat report URL or text"] --> B["Tavily reads the page and searches for corroboration<br/>web text is labelled untrusted"]
+    B --> C["Nemotron extracts a typed spec<br/>each observable needs a verbatim quote or it is dropped"]
+    C --> D["Nemotron writes the rule as JSON<br/>code renders the Sigma YAML and pins the rule id"]
+    D --> E{"sigma check<br/>valid?"}
+    E -- "no" --> R["Diagnosis goes back to the model<br/>repair, at most 3 times"]
+    E -- "yes" --> F["Token Factory Sandbox, no network<br/>SigmaHQ evtx-sigma-checker"]
+    F --> G{"Attack log detected<br/>and 0 benign matches<br/>on development logs?"}
+    G -- "no" --> R
+    R --> D
+    G -- "yes" --> H["Held-out benign logs the model never saw"]
+    H --> I["Compare with the SigmaHQ expert rule<br/>never shown to the model"]
+    I --> J["Run record: every attempt, evidence, sources, tokens"]
+    G -. "repairs used up" .-> K["Best attempt is shown as not passing"]
+    K --> J
+```
+
 The page shows every attempt, the diff between attempts, the evidence, which model or tool did what, whether the run is live or a replay, and how web sources were handled.
 
 ## Where each piece runs
@@ -106,6 +126,39 @@ It reports **three independent statuses, never one pass**: (A) does the Sigma va
 - **SIEM Integrations workspace** ([docs/INTEGRATIONS.md](docs/INTEGRATIONS.md)): start with `uv run python -m shakedown.serve --integrations` (local only). Connect Splunk, Elastic or Microsoft Sentinel, test access, see the exact native query before anything runs, run a bounded read-only preflight and export a review packet. **Splunk Enterprise and Elastic are verified only on throwaway local test instances with simulated events; Splunk Cloud and Sentinel are implemented but not live-verified** (Sentinel was tested against a mock Microsoft only). Disabled on a hosted server.
 - **Splunk preflight** ([docs/SPLUNK_PREFLIGHT.md](docs/SPLUNK_PREFLIGHT.md)): **live-verified on a throwaway local Splunk Enterprise 10.6.1.1 instance (controlled, simulated Sysmon events); not verified against a production Splunk or a real Sysmon add-on.** A real Splunk executed the connector's actual converted query and every count matched the labelled expectations ([report](evidence/splunk_live_verification/REPORT.md)). The 11 live tests are separate from the mocked ones and opt-in. Production Splunk, a real Sysmon add-on and certificate-verified connections have not been tested.
 - Customer events and SIEM results are never sent to the model, Tavily or any other service, and there is no repair step on them.
+
+The three answers a rule gets, and how the Integrations workspace reaches your SIEM (local only):
+
+```mermaid
+flowchart LR
+    RULE["A Sigma rule"] --> V1["1. Rule validity<br/>does sigma check accept it?"]
+    RULE --> V2["2. Attack validation<br/>does it detect the labelled attack evidence<br/>and stay quiet on benign logs?"]
+    RULE --> V3["3. Environment preflight<br/>what did a bounded, read-only search<br/>of your own SIEM find?"]
+    V1 --> OUT["Review packet<br/>three separate answers, never one pass"]
+    V2 --> OUT
+    V3 --> OUT
+    OUT --> REC["A recommendation for an analyst<br/>nothing is deployed"]
+```
+
+```mermaid
+flowchart LR
+    subgraph Browser["Browser, same machine"]
+        UI["Integrations UI<br/>web/integrations.js"]
+    end
+    subgraph Local["Shakedown server, loopback only"]
+        GUARD["Local API guard<br/>Host, Sec-Fetch-Site, Origin, CSRF token"]
+        SVC["Integration service<br/>tests, plans, preflights, history, export"]
+        VAULT[("Secret store<br/>memory, OS keyring,<br/>or env-var names")]
+        POL["Destination policy<br/>resolve, classify, pin IP, no redirects"]
+        AD["Provider adapters<br/>Splunk, Elastic, Sentinel"]
+    end
+    UI -->|"JSON"| GUARD --> SVC
+    SVC --> AD
+    SVC <--> VAULT
+    AD --> POL
+    POL -->|"HTTPS, certificate verified by default"| SIEM[("Your SIEM<br/>read-only searches")]
+    POL -->|"HTTPS"| IDP["Microsoft Entra ID<br/>Sentinel sign-in only"]
+```
 
 ## Reproducibility
 

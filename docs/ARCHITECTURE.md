@@ -4,26 +4,60 @@ Shakedown turns a threat report into a Sigma detection rule and shows evidence t
 
 ## The loop
 
-```
-threat report URL or text
-      │  Tavily extract (+ search for corroboration)            ← runtime web research
-      ▼
- spec extraction ── Nemotron 3 Super (Token Factory) ── observables must be quoted verbatim from the report
-      ▼
- rule generation ── Nemotron 3 Super ── JSON fields; code renders the Sigma YAML and pins the rule id
-      ▼
- sigma check ─────── invalid? ──► error text back to the model (a repair attempt)
-      ▼
- Token Factory Sandbox (microVM, no network) ── SigmaHQ evtx-sigma-checker
-      │      attack EVTX  → detected?
-      │      benign EVTX  → how many events match? (development logs)
-      ▼
- passed? ── yes ──► held-out benign logs (never shown to the model), evidence export
-      │ no
-      └─► diagnosis (missed events / false-positive events) ──► repair, at most 3 times
+```mermaid
+flowchart TD
+    A["Threat report URL or text"] --> B["Tavily reads the page and searches for corroboration<br/>web text is labelled untrusted"]
+    B --> C["Nemotron extracts a typed spec<br/>each observable needs a verbatim quote or it is dropped"]
+    C --> D["Nemotron writes the rule as JSON<br/>code renders the Sigma YAML and pins the rule id"]
+    D --> E{"sigma check<br/>valid?"}
+    E -- "no" --> R["Diagnosis goes back to the model<br/>repair, at most 3 times"]
+    E -- "yes" --> F["Token Factory Sandbox, no network<br/>SigmaHQ evtx-sigma-checker"]
+    F --> G{"Attack log detected<br/>and 0 benign matches<br/>on development logs?"}
+    G -- "no" --> R
+    R --> D
+    G -- "yes" --> H["Held-out benign logs the model never saw"]
+    H --> I["Compare with the SigmaHQ expert rule<br/>never shown to the model"]
+    I --> J["Run record: every attempt, evidence, sources, tokens"]
+    G -. "repairs used up" .-> K["Best attempt is shown as not passing"]
+    K --> J
 ```
 
 Acceptance is deterministic code, not a model opinion: the attack file is detected **and** the development benign logs produce zero matches.
+
+## SIEM Integrations (local only)
+
+A rule gets three separate answers. The third needs your own SIEM, which the Integrations workspace reaches through a guarded local API, a destination policy and a provider adapter. Details and limits: [INTEGRATIONS.md](INTEGRATIONS.md).
+
+```mermaid
+flowchart LR
+    RULE["A Sigma rule"] --> V1["1. Rule validity<br/>does sigma check accept it?"]
+    RULE --> V2["2. Attack validation<br/>does it detect the labelled attack evidence<br/>and stay quiet on benign logs?"]
+    RULE --> V3["3. Environment preflight<br/>what did a bounded, read-only search<br/>of your own SIEM find?"]
+    V1 --> OUT["Review packet<br/>three separate answers, never one pass"]
+    V2 --> OUT
+    V3 --> OUT
+    OUT --> REC["A recommendation for an analyst<br/>nothing is deployed"]
+```
+
+```mermaid
+flowchart LR
+    subgraph Browser["Browser, same machine"]
+        UI["Integrations UI<br/>web/integrations.js"]
+    end
+    subgraph Local["Shakedown server, loopback only"]
+        GUARD["Local API guard<br/>Host, Sec-Fetch-Site, Origin, CSRF token"]
+        SVC["Integration service<br/>tests, plans, preflights, history, export"]
+        VAULT[("Secret store<br/>memory, OS keyring,<br/>or env-var names")]
+        POL["Destination policy<br/>resolve, classify, pin IP, no redirects"]
+        AD["Provider adapters<br/>Splunk, Elastic, Sentinel"]
+    end
+    UI -->|"JSON"| GUARD --> SVC
+    SVC --> AD
+    SVC <--> VAULT
+    AD --> POL
+    POL -->|"HTTPS, certificate verified by default"| SIEM[("Your SIEM<br/>read-only searches")]
+    POL -->|"HTTPS"| IDP["Microsoft Entra ID<br/>Sentinel sign-in only"]
+```
 
 ## Where each piece runs
 

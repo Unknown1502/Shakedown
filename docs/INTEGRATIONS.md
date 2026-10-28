@@ -26,6 +26,28 @@ The command line keeps working and does not use saved connections: `python -m sh
 
 Mocked tests are labelled as mocks in their module docstrings and are never counted as live verification. Live tests live in `tests/live/` and are opt-in (`SPLUNK_LIVE_TEST=1`, `ELASTIC_LIVE_TEST=1`, `-m live`).
 
+## How it fits together
+
+```mermaid
+flowchart LR
+    subgraph Browser["Browser, same machine"]
+        UI["Integrations UI<br/>web/integrations.js"]
+    end
+    subgraph Local["Shakedown server, loopback only"]
+        GUARD["Local API guard<br/>Host, Sec-Fetch-Site, Origin, CSRF token"]
+        SVC["Integration service<br/>tests, plans, preflights, history, export"]
+        VAULT[("Secret store<br/>memory, OS keyring,<br/>or env-var names")]
+        POL["Destination policy<br/>resolve, classify, pin IP, no redirects"]
+        AD["Provider adapters<br/>Splunk, Elastic, Sentinel"]
+    end
+    UI -->|"JSON"| GUARD --> SVC
+    SVC --> AD
+    SVC <--> VAULT
+    AD --> POL
+    POL -->|"HTTPS, certificate verified by default"| SIEM[("Your SIEM<br/>read-only searches")]
+    POL -->|"HTTPS"| IDP["Microsoft Entra ID<br/>Sentinel sign-in only"]
+```
+
 ## The flow
 
 1. **Details.** Provider-specific fields. Credentials are pasted once (checked now, stored per the secret-store rules below) or named as an environment variable on the server.
@@ -38,6 +60,62 @@ Mocked tests are labelled as mocks in their module docstrings and are never coun
 8. **Export.** `review_packet.md`, `assessment.json`, `rule.yml`, `query.<ext>` and `integration.json`. No credential is ever in an export; event excerpts, if any, come from your SIEM.
 9. **Manage.** Re-test, update (blank fields keep saved values; nothing changes unless the new settings pass a test), re-authorize, disconnect. Disconnect deletes Shakedown's saved credential and says plainly that it cannot revoke the credential at the provider.
 
+A saved connection moves between these states. "Connected" is only ever the result of a real check that passed within the last hour.
+
+```mermaid
+stateDiagram-v2
+    [*] --> Tested: connection test passes
+    Tested --> [*]: expires after 10 minutes, nothing saved
+    Tested --> Connected: Save, credential stored
+    Connected --> Stale: last check older than 1 hour
+    Stale --> Connected: Test connection passes
+    Connected --> CheckFailed: Test connection fails
+    Stale --> CheckFailed: Test connection fails
+    CheckFailed --> Connected: Update or Test passes
+    Connected --> NeedsCredentials: credential lost or env var unset
+    Stale --> NeedsCredentials: credential lost or env var unset
+    NeedsCredentials --> Connected: Update connection, new test passes
+    Connected --> [*]: Disconnect deletes the saved credential
+    Stale --> [*]: Disconnect
+    CheckFailed --> [*]: Disconnect
+    NeedsCredentials --> [*]: Disconnect
+```
+
+What happens between previewing and a result. The queries that run are the stored plan, so they are the queries that were shown:
+
+```mermaid
+sequenceDiagram
+    actor Analyst
+    participant UI as Integrations UI
+    participant API as Service
+    participant AD as Provider adapter
+    participant SIEM as Your SIEM
+    Analyst->>UI: choose rule, scope, explicit window
+    UI->>API: plan
+    API->>API: validate the Sigma rule
+    API->>AD: build native queries, no network
+    AD-->>API: coverage, fields, detection, sample
+    API-->>UI: the exact queries and a plan id
+    Note over Analyst,UI: nothing has been sent to the SIEM yet
+    Analyst->>UI: confirm
+    UI->>API: run this plan id
+    API->>AD: run the stored plan
+    AD->>SIEM: 1. coverage: events of the log source in scope
+    alt no events
+        AD-->>API: telemetry missing or no access
+    else events exist
+        AD->>SIEM: 2. fields: are the rule fields populated
+        alt fields empty
+            AD-->>API: telemetry missing, fields not observed
+        else fields present
+            AD->>SIEM: 3. detection count, 4. bounded sample
+            AD-->>API: potential matches, or no matches in the window
+        end
+    end
+    API-->>UI: three separate verdicts, queries that ran, limits
+    Analyst->>UI: export review packet
+```
+
 ## Authentication per provider
 
 * **Splunk:** authentication token (recommended) or user name and password for a search-only role. Accounts holding admin-class capabilities are refused.
@@ -45,6 +123,29 @@ Mocked tests are labelled as mocks in their module docstrings and are never coun
 * **Microsoft Sentinel:**
   * *Sign in with Microsoft (recommended)*: OAuth 2.0 authorization code flow with **PKCE** as a public client. No client secret exists anywhere. The browser goes to Microsoft; the code returns by `form_post` (never in a URL or history). Only a refresh token is kept (in the secret store) and is rotated and re-saved when Microsoft issues a new one. Register the redirect URI shown in the wizard (`http://localhost:<port>/api/integrations/oauth/callback`) under *Mobile and desktop applications* with public client flows allowed, and grant delegated **Log Analytics API → Data.Read** (plus Azure Service Management `user_impersonation` only if you want workspace listing).
   * *App registration with a client secret*: client-credentials flow for unattended use; the secret is a stored credential like any other.
+  * The sign-in, step by step:
+
+```mermaid
+sequenceDiagram
+    actor Analyst
+    participant UI as Integrations UI
+    participant API as Shakedown API
+    participant MS as Microsoft Entra ID
+    UI->>API: start sign-in (session token, same-origin)
+    API->>API: make state and PKCE verifier, keep both in memory
+    API-->>UI: authorize URL with state and S256 challenge
+    UI->>MS: opens the sign-in window
+    Analyst->>MS: signs in and consents
+    MS-->>API: POST code and state to the redirect URI (form_post, cross-site)
+    API->>API: right Host? same address as the start? state waiting, unexpired, unused?
+    API->>MS: exchange code with the PKCE verifier
+    MS-->>API: refresh token, held in memory until the connection is saved
+    API->>API: erase state and verifier, run the connection test
+    UI->>API: poll the sign-in
+    API-->>UI: test result, no tokens
+    Note over API,MS: a replayed, expired, mismatched or wrong-address callback is refused and nothing is exchanged
+```
+
   * The Microsoft hosts (`login.microsoftonline.com`, `api.loganalytics.azure.com`, `management.azure.com`) are fixed; there is no endpoint field.
 
 ## Query generation
