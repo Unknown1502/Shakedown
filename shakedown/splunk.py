@@ -39,6 +39,8 @@ VERIFICATION_FILE = ROOT / "evidence/splunk_live_verification.json"
 READ_ONLY_COMMANDS = {"search", "where", "regex", "rex", "eval", "fields", "table", "head", "dedup", "stats", "fieldsummary",
                       "rename", "sort"}
 ENDPOINTS = re.compile(r"^/services/(authentication/current-context|search/jobs(/[A-Za-z0-9_.\-]+(/(results|control))?)?)$")
+# Read-only discovery for the connection wizard: the server version and the list of indexes. GET only, and only through `_request`.
+DISCOVERY = re.compile(r"^/services/(server/info|data/indexes)$")
 PRIVILEGED_CAPABILITIES = {"admin_all_objects", "edit_user", "edit_roles", "edit_roles_grantable", "delete_by_keyword",
                            "edit_tcp", "edit_monitor", "edit_scripted", "edit_forwarders", "edit_httpauths"}
 # Not refused, but flagged: Splunk adds some of these to every new role (seen on Splunk Enterprise 10.6.1.1). The connector never uses them.
@@ -67,7 +69,8 @@ NOTES = [
 
 class SplunkError(RuntimeError):
     """`kind` is one of: config, auth, permission, query, timeout, cancelled, unavailable, scope, unsafe_query,
-    forbidden_endpoint, privileged_account, unsupported_logsource, conversion, tls."""
+    forbidden_endpoint, privileged_account, unsupported_logsource, conversion, tls; through a policy transport also
+    destination, unreachable, redirect, too_large."""
 
     def __init__(self, kind: str, message: str):
         super().__init__(message)
@@ -224,8 +227,10 @@ def _trim(value) -> str:
 
 # --- the connector -------------------------------------------------------------------------------------------------
 class SplunkConnector:
-    def __init__(self, config: SplunkConfig, poll_interval_s: float = 1.0):
-        self.config, self.poll_interval_s = config, poll_interval_s
+    def __init__(self, config: SplunkConfig, poll_interval_s: float = 1.0, transport=None):
+        """`transport` (optional) replaces urllib: the web integrations pass a policy transport that pins the checked address and refuses
+        redirects. Without one the connector behaves exactly as the command line always has."""
+        self.config, self.poll_interval_s, self._transport = config, poll_interval_s, transport
         self._cancel = threading.Event()
         if urllib.parse.urlsplit(config.base_url).scheme == "https":
             self._ssl = ssl.create_default_context(cafile=config.ca_bundle) if config.verify_tls else ssl._create_unverified_context()
@@ -242,23 +247,28 @@ class SplunkConnector:
         return {"Authorization": "Basic " + base64.b64encode(raw).decode()}
 
     def _request(self, method: str, path: str, form: dict | None = None, params: dict | None = None) -> dict:
-        if not ENDPOINTS.match(path):
+        if not (ENDPOINTS.match(path) or (method == "GET" and DISCOVERY.match(path))):
             raise SplunkError("forbidden_endpoint", f"{method} {path} is not a read-only preflight endpoint")
         url = self.config.base_url.rstrip("/") + path + "?" + urllib.parse.urlencode({"output_mode": "json", **(params or {})})
         data = urllib.parse.urlencode({"output_mode": "json", **form}).encode() if form is not None else None
+        if self._transport is not None:
+            headers = {**self._headers(), **({"Content-Type": "application/x-www-form-urlencoded"} if data is not None else {})}
+            try:
+                status, body = self._transport.send(method, url, headers, data)
+            except RuntimeError as exc:  # IntegrationError from the transport: it has a kind and an already-redacted message
+                raise SplunkError(getattr(exc, "kind", "unavailable"), str(exc)) from None
+            if status >= 400:
+                raise self._status_error(status, body)
+            try:
+                return json.loads(body) if body else {}
+            except ValueError:
+                raise SplunkError("unavailable", "Splunk returned a response that is not JSON") from None
         request = urllib.request.Request(url, data=data, method=method, headers=self._headers())
         try:
             with urllib.request.urlopen(request, timeout=30, context=self._ssl) as resp:
                 body = resp.read()
         except urllib.error.HTTPError as exc:
-            detail = self._messages(exc.read())
-            if exc.code == 401:
-                raise SplunkError("auth", "Splunk rejected the credentials (HTTP 401)") from None
-            if exc.code == 403:
-                raise SplunkError("permission", "the account lacks permission for this call (HTTP 403)") from None
-            if exc.code == 400:
-                raise SplunkError("query", detail or "Splunk rejected the search (HTTP 400)") from None
-            raise SplunkError("unavailable", f"Splunk answered HTTP {exc.code}") from None
+            raise self._status_error(exc.code, exc.read()) from None
         except (urllib.error.URLError, OSError, TimeoutError) as exc:
             reason = getattr(exc, "reason", exc)
             if isinstance(reason, ssl.SSLCertVerificationError):
@@ -270,6 +280,16 @@ class SplunkConnector:
             return json.loads(body) if body else {}
         except ValueError:
             raise SplunkError("unavailable", "Splunk returned a response that is not JSON") from None
+
+    def _status_error(self, code: int, body: bytes) -> SplunkError:
+        detail = self._messages(body)
+        if code == 401:
+            return SplunkError("auth", "Splunk rejected the credentials (HTTP 401)")
+        if code == 403:
+            return SplunkError("permission", "the account lacks permission for this call (HTTP 403)")
+        if code == 400:
+            return SplunkError("query", detail or "Splunk rejected the search (HTTP 400)")
+        return SplunkError("unavailable", f"Splunk answered HTTP {code}")
 
     @staticmethod
     def _messages(body: bytes) -> str:
@@ -297,6 +317,53 @@ class SplunkConnector:
         if not caps:
             identity["warnings"].append("the server did not report capabilities, so the account's privileges are unknown")
         return identity
+
+    def server_info(self) -> dict:
+        """Read-only: the version and product of the endpoint. A role without the right to read it gets a permission error, which the caller may tolerate."""
+        content = ((self._request("GET", "/services/server/info").get("entry") or [{}])[0]).get("content", {})
+        return {"version": content.get("version"), "build": content.get("build"), "product": content.get("product_type"),
+                "server_name": content.get("serverName")}
+
+    def list_indexes(self) -> list:
+        """Read-only: indexes this account can see. Internal (underscore) and disabled indexes are left out."""
+        rows = []
+        for entry in self._request("GET", "/services/data/indexes", params={"count": "0", "datatype": "all"}).get("entry") or []:
+            content = entry.get("content") or {}
+            name = str(entry.get("name", ""))
+            if not name or name.startswith("_") or content.get("disabled") in (True, "1", 1, "true"):
+                continue
+            try:
+                events = int(content.get("totalEventCount") or 0)
+            except (TypeError, ValueError):
+                events = 0
+            rows.append({"name": name, "events": events, "datatype": content.get("datatype") or "event"})
+        return sorted(rows, key=lambda r: r["name"])
+
+    def _build_queries(self, indexes: list, scope: dict, detect: str, fields: list) -> dict:
+        index_clause = "(" + " OR ".join(f'index="{i}"' for i in indexes) + ")"
+        base = f"search {index_clause} {scope['clause']}"
+        queries = {"coverage": f"{base} | stats count min(_time) as first max(_time) as last",
+                   "fields": f"{base} | head {FIELD_SAMPLE_EVENTS} | fieldsummary maxvals=1 | fields field",
+                   "detection": f"{base} {_wrap(detect)} | stats count",
+                   "sample": f"{base} {_wrap(detect)} | head {self.config.max_results} | table "
+                             + ", ".join(dict.fromkeys(EXTRA_DISPLAY_FIELDS + fields))}
+        for query in queries.values():  # refuse anything unsafe before the first request, not when its turn comes
+            check_read_only(query)
+        return queries
+
+    def plan(self, rule_text: str, *, indexes: list) -> dict:
+        """Convert the rule and build the four read-only searches WITHOUT contacting Splunk, so an analyst can read them first."""
+        if not indexes or any(not i or "*" in i for i in indexes):
+            raise SplunkError("scope", "name one or more specific indexes; empty and wildcard indexes are refused")
+        outside = [i for i in indexes if i not in self.config.allowed_indexes]
+        if outside:
+            raise SplunkError("scope", f"index(es) {outside} are not in the operator's allowed list {list(self.config.allowed_indexes)}")
+        category = ((yaml.safe_load(rule_text) or {}).get("logsource") or {}).get("category", "")
+        scope = logsource_scope(category)
+        detect = convert_to_spl(rule_text)
+        fields = rule_fields(rule_text)
+        return {"language": "SPL", "category": category, "scope": scope, "converted_detection": detect, "fields": fields,
+                "queries": self._build_queries(list(indexes), scope, detect, fields)}
 
     def _search(self, spl: str, earliest: datetime, latest: datetime, count: int) -> dict:
         check_read_only(spl)
@@ -364,16 +431,9 @@ class SplunkConnector:
         detect = convert_to_spl(rule_text)
         fields = rule_fields(rule_text)
 
-        index_clause = "(" + " OR ".join(f'index="{i}"' for i in indexes) + ")"
-        base = f"search {index_clause} {scope['clause']}"
-        queries = {"coverage": f"{base} | stats count min(_time) as first max(_time) as last",
-                   "fields": f"{base} | head {FIELD_SAMPLE_EVENTS} | fieldsummary maxvals=1 | fields field",
-                   "detection": f"{base} {_wrap(detect)} | stats count",
-                   "sample": f"{base} {_wrap(detect)} | head {self.config.max_results} | table "
-                             + ", ".join(dict.fromkeys(EXTRA_DISPLAY_FIELDS + fields))}
-        for query in queries.values():  # refuse anything unsafe before the first request, not when its turn comes
-            check_read_only(query)
+        queries = self._build_queries(list(indexes), scope, detect, fields)
         result = {
+            "provider": "splunk", "language": "SPL",
             "connector": {"name": "splunk-rest-read-only", "live_verified": False,  # a connector run is never live-verified by itself
                           "verification": live_verification(), "credential_type": "token" if self.config.token else "basic",
                           "tls_verified": self.config.verify_tls if self.config.base_url.startswith("https") else None},

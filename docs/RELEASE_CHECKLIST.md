@@ -1,4 +1,4 @@
-# Release checklist (feature freeze, updated after the live Splunk verification, 2026-10-27)
+# Release checklist (feature freeze, updated after the live Splunk verification, 2026-10-27; SIEM Integrations checkpoint added 2026-10-28)
 
 Every line is **PASS**, **FAIL** or **NOT VERIFIED**, with the file or command behind it. PASS means I ran the check on the final tree and saw the result. FAIL means a required item is missing or broken. NOT VERIFIED means it cannot be checked from here or was not run. Nothing was pushed, published, deployed, sent or submitted; the repository has no remote.
 
@@ -14,7 +14,7 @@ Not verified: a production, clustered or Splunk Cloud deployment; a real Splunk 
 
 | Item | Status | Evidence |
 |---|---|---|
-| No new integrations or features after the preflight slice | PASS | Since the first checkpoint the code changes are the four fixes the live run found in `shakedown/splunk.py` (capability warnings, `tls` error, `conversion` error, loopback label), `tools/splunk_smoke.py` (`--server-version`), `tools/splunk_live_setup.py` and the opt-in live tests. No new connector or feature |
+| No new integrations or features after the preflight slice | SUPERSEDED | The scope was frozen after the Splunk preflight slice. On 2026-10-28 the owner asked for the SIEM Integrations workspace (Splunk, Elastic, Microsoft Sentinel); it is a deliberate, documented expansion, summarised in section 8. The benchmark, evaluation history and release tags were not touched |
 | Frozen benchmark untouched | PASS | `sha256sum evaluation/tasks.json evaluation/tasks_confirmatory.json` begins `ec9443c87f48e62f` and `84e00aa8c4fffb52`; `python tools/results_table.py` regenerates `docs/RESULTS_TABLE.md` **byte-identical**; `git diff -- evaluation evidence/runs evidence/audit docs/RESULTS_TABLE.md docs/EVALUATION_METHODOLOGY.md` is empty |
 
 ## 2. Checks on the final tree
@@ -26,16 +26,16 @@ Not verified: a production, clustered or Splunk Cloud deployment; a real Splunk 
 | Secret scan, working tree | PASS | `python tools/secret_scan.py`: 179 files against 3 credential values, clean |
 | Secret scan, the exact staged tree | PASS | `git checkout-index` export, `python tools/secret_scan.py --root <export>`: 178 files, clean |
 | Splunk secrets in the new evidence | PASS | The token, 3 account passwords, the admin password and the 3 `.env` values were compared with all 8 files in `evidence/splunk_live_verification*` plus token-shaped patterns (JWT, Bearer, `Splunk <token>`, private keys, `password=`): no findings |
-| Default test suite | PASS | `uv run pytest -q`: **251 passed**, 11 live tests deselected |
-| Clean tree from the staged index, lockfile install | PASS | `uv sync --frozen` then `uv run pytest -q`: **245 passed, 6 skipped** (the 6 need datasets or Docker) = 251; the 11 live tests are inert without the opt-in |
-| Live suite against the real Splunk | PASS | `SPLUNK_LIVE_TEST=1 uv run pytest tests/live -m live -q`: **11 passed**, endpoint `https://127.0.0.1:18089`, no reference to the mock in `tests/live`. Splunk's own access log grew by 301 request lines during the run: `shakedown_svc` created 41 search jobs and deleted 41, polled 104 times, read 38 result sets, made 2 cancel calls (the timeout and cancel tests), and read `authentication/current-context` 13 times; no other endpoint was called by the connector |
+| Default test suite | PASS | `uv run pytest -q` on the working tree: **491 passed**, 22 live tests deselected (2026-10-28; earlier checkpoint: 251) |
+| Clean tree from the staged index, lockfile install | PASS | `git checkout-index` export of the staged tree to a short path, `uv sync --frozen`, `uv run pytest -q`: **485 passed, 6 skipped** (the 6 need datasets or Docker) = 491; the 22 live tests are inert without the opt-in; `python tools/secret_scan.py --root <export>`: 206 files, clean |
+| Live suites against the throwaway local Splunk and Elastic | PASS | Both containers were restarted and Splunk was reprovisioned and reseeded with fresh timestamps (`tools/splunk_live_setup.py`, because the original suite uses a 6 hour window). `SPLUNK_LIVE_TEST=1 ELASTIC_LIVE_TEST=1 uv run pytest tests/live -m live -q` with `data/splunk_live/*.env` loaded: **22 passed** (11 original Splunk connector tests; 5 Splunk and 6 Elastic through the integration service). Loopback instances with simulated Sysmon events only |
 | Excluded from Git | PASS | `.env`, `data/` (including `data/splunk_live/` and the nested SigmaHQ checkout) and `.vscode/` are ignored (`git check-ignore -v`); 0 staged paths under them; 0 nested-repo links; 0 EVTX, archive, key or executable files staged; `.env.example` is the only `.env*` file tracked |
-| Repository hygiene | PASS | 180 tracked files after this checkpoint; two PNG screenshots are the only binaries |
+| Repository hygiene | PASS | The staged tree adds 3 integrations screenshots and replaces 2 replay screenshots; the five PNGs in `docs/images/` are the only binaries. Screenshots were taken from the running app and reviewed: no credential, no private data, connection state is a genuine passed check against the local test instance |
 | Relative links in committed docs | PASS | 50 relative links across 26 markdown files, 0 broken |
 | Frozen artefacts byte-for-byte in git | PASS | `.gitattributes` stores `evaluation/*.json`, `evidence/**`, `demo/**` and `docs/RESULTS_TABLE.md` without line-ending conversion (`git ls-files --eol` shows `attr/-text`) |
 | Existing release tag preserved | PASS | `release-candidate-1` still points at `9f10553` |
 | Container image reflects the final code | NOT VERIFIED | `shakedown:audit` was built before the preflight slice and was not rebuilt. Rebuild and rerun `tools/smoke_hosted.py --run` before deploying |
-| External cross-model audit of the preflight and Splunk slice | NOT VERIFIED | The AQG policy rates credentials, SPL execution and customer-log handling as high-sensitivity. I ran adversarial tests, an import-isolation check and the live suite, but **did not run the external `/audit`** |
+| External cross-model audit of the preflight, Splunk, Elastic and Sentinel/OAuth slices | NOT VERIFIED | The AQG policy rates credentials, SPL execution and customer-log handling as high-sensitivity. I ran adversarial tests, an import-isolation check and the live suite, but **did not run the external `/audit`** | The OAuth callback, secret store, SSRF policy and read-only query guards got an in-session OWASP/CWE review and targeted regression tests instead (section 8); the owner's permission boundary forbids sending code to an external service
 
 ## 3. Documentation and submission copy
 
@@ -57,7 +57,7 @@ Not verified: a production, clustered or Splunk Cloud deployment; a real Splunk 
 | Item | Status | Evidence |
 |---|---|---|
 | Project licence | PASS | `LICENSE` (Apache-2.0), `pyproject.toml` |
-| Third-party licences listed | PASS | `NOTICE`: SigmaHQ rules (DRL 1.1, with the licence link), regression data and baselines (fetched, not redistributed), sigma-cli, pySigma and pysigma-backend-splunk (LGPL, unmodified), the other dependencies, and Splunk Enterprise as a local test fixture only |
+| Third-party licences listed | PASS | `NOTICE`: SigmaHQ rules (DRL 1.1, with the licence link), regression data and baselines (fetched, not redistributed), sigma-cli, pySigma and pysigma-backend-splunk, -elasticsearch and -kusto (LGPL, unmodified), the other dependencies, and Splunk Enterprise as a local test fixture only |
 | Evaluator binary licence | PASS, residual risk documented | Unclear and unresolvable from here (`docs/DATASET_AUDIT.md`); used as is, fetched at run time with a pinned hash, never redistributed |
 | Dataset sample labels | PASS | `docs/DATASET_AUDIT.md` "Label provenance"; supplied-evidence labels recorded by `shakedown/byo.py` |
 | Historical recording warnings | PASS | `demo/README.md`, the `answer_screen_legacy` label in the UI (`tests/test_server_legacy_screen.py`), README, `evidence/leakage_audit/REPORT.md` |
@@ -85,6 +85,10 @@ Not verified: a production, clustered or Splunk Cloud deployment; a real Splunk 
 | Public repository | FAIL (not created; local commits only, no remote) |
 | Splunk connector on a loopback test instance with simulated Sysmon events | PASS (11 live tests and the project's smoke test, Splunk Enterprise 10.6.1.1) |
 | Splunk connector on a production Splunk, a real Sysmon add-on, or with TLS verification succeeding | NOT VERIFIED |
+| Elastic connector on a loopback test instance (Elasticsearch 9.1.0, CA-verified TLS, API key, simulated events) | PASS (6 live tests; `evidence/elastic_live_verification.json`) |
+| Elastic connector on Elastic Cloud, a production cluster or a real Winlogbeat/Agent mapping | NOT VERIFIED |
+| Splunk Cloud connector | NOT VERIFIED (implemented, mock-tested only) |
+| Microsoft Sentinel connector (Entra sign-in, Log Analytics) | NOT VERIFIED (mock-tested only; no real Azure tenant was used) |
 | First-time judge has used the UI unaided | NOT VERIFIED |
 | Sandbox pricing in December | NOT VERIFIED |
 | "What was built during the hackathon" confirmed by you | NOT VERIFIED (placeholder in the Devpost draft) |
@@ -95,11 +99,24 @@ Not verified: a production, clustered or Splunk Cloud deployment; a real Splunk 
 ```bash
 git status --short && git diff --check && git diff --cached --check
 python tools/secret_scan.py
-uv run pytest -q                                   # 251 passed, 11 deselected
+uv run pytest -q                                   # 491 passed, 22 deselected
 # live (needs the throwaway container from docs/SPLUNK_PREFLIGHT.md):
 set -a; . data/splunk_live/splunk.env; . data/splunk_live/accounts.env; set +a
-SPLUNK_LIVE_TEST=1 uv run pytest tests/live -m live -q   # 11 passed
+SPLUNK_LIVE_TEST=1 ELASTIC_LIVE_TEST=1 uv run pytest tests/live -m live -q   # 22 passed (needs both throwaway containers)
 git checkout-index -a -f --prefix=/tmp/staged/ && (cd /tmp/staged && uv sync --frozen && uv run pytest -q) && python tools/secret_scan.py --root /tmp/staged
 sha256sum evaluation/tasks.json evaluation/tasks_confirmatory.json
 python tools/results_table.py && git diff --stat docs/RESULTS_TABLE.md
 ```
+
+## 8. SIEM Integrations checkpoint (2026-10-28)
+
+| Item | Status | Evidence |
+|---|---|---|
+| Provider status stated the same way everywhere | PASS | Splunk Enterprise and Elastic: live-verified on a throwaway local test instance. Splunk Cloud: implemented, not live-verified. Microsoft Sentinel: mock-tested, not live-verified. QRadar: planned, no wizard. Source of truth `shakedown/integrations/adapters/*.py` (spec status and label); `tests/test_integrations_sentinel.py::test_provider_status_labels_never_overstate_what_was_verified`; README, `docs/INTEGRATIONS.md`, `docs/LIMITATIONS.md`, `docs/ARCHITECTURE.md` and the UI agree |
+| Sentinel OAuth reviewed | PASS | PKCE S256 with a server-held verifier; unpredictable, single-use, 10 minute state; callback must arrive at the exact address the sign-in started from; replayed, expired, mismatched and wrong-address callbacks refused; verifier and state erased on every exit path; nothing secret in logs or responses. Two defects found and fixed with regression tests: a non-ASCII `state` or CSRF header caused a 500 (`hmac.compare_digest` on `str`), and the callback did not check its own address |
+| Hosted multi-user connections | PASS (disabled) | No accounts, tenant isolation or secret vault exist, so a hosted server keeps connecting disabled with the reason shown |
+| Sentinel or Splunk Cloud claimed live-verified anywhere | PASS (none) | Searched code, UI and docs |
+| UI accessibility and responsive checks | PASS | axe: 0 violations and no horizontal overflow on 9 Integrations views at 1440/1280/1024/768/390; the earlier 76-check redesign suite passes; Sentinel flow in a real browser against a mock Microsoft: 22 checks; real Splunk flow in a real browser: 23 checks |
+| Frozen benchmark intact | PASS | `evaluation/tasks.json` `ec9443c87f48e62f`, `tasks_confirmatory.json` `84e00aa8c4fffb52`; `git diff` over `evaluation`, `evidence/runs`, `evidence/audit`, `demo`, `docs/RESULTS_TABLE.md` is empty; `release-candidate-1` and `release-candidate-2` unchanged; `d283a96` unchanged |
+| External cross-model audit | NOT RUN | Not permitted by the owner's boundary; see section 2 |
+| Container image reflects the final code | NOT VERIFIED | Not rebuilt; it predates the Integrations workspace |

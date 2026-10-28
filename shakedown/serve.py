@@ -5,17 +5,21 @@ datasets when they are present locally, otherwise from demo/scenarios.json.
 """
 import argparse
 import json
+import os
 from pathlib import Path
 
 import uvicorn
 
 from shakedown.budget import Budget
 from shakedown.config import load_dotenv
+from shakedown.integrations.api import HOSTED_REASON, IntegrationsConfig
 from shakedown.scenarios import load_scenarios
 from shakedown.server import create_app
 
 ROOT = Path(__file__).resolve().parents[1]
 INDEX = ROOT / "demo/scenarios.json"
+LOOPBACK_HOSTS = ("127.0.0.1", "localhost", "::1")
+OFF_REASON = "SIEM integrations are off. Start this server with --integrations (on this machine only) to connect a SIEM."
 
 
 def write_index(scenarios: list[dict]) -> None:
@@ -59,7 +63,14 @@ def main() -> None:
                         help="read the client address from X-Forwarded-For (only behind a proxy that sets it)")
     parser.add_argument("--recorded-dir", type=Path, default=None,
                         help="folder of recorded runs to play back (default: demo/replay, the approved set)")
+    parser.add_argument("--integrations", action="store_true",
+                        help="enable the SIEM Integrations workspace. Local use only: needs a loopback --host, because this server has no accounts or secret vault")
+    parser.add_argument("--secret-store", choices=["auto", "memory", "keyring"], default="auto",
+                        help="where saved SIEM credentials live: the OS credential store when `keyring` is installed, otherwise memory only")
+    parser.add_argument("--allowed-host", action="append", default=[], help="an extra Host header value (host:port) the integrations API accepts")
     args = parser.parse_args()
+    if args.integrations and args.host not in LOOPBACK_HOSTS:
+        parser.error("--integrations is refused on a non-loopback --host: this server has no user accounts, tenant isolation or secret vault, so it must not hold SIEM credentials")
 
     load_dotenv()
     live = None
@@ -68,9 +79,15 @@ def main() -> None:
         live = LiveRunner(ROOT, args.runner, args.answer_policy)
     recorded = args.recorded_dir or (ROOT / "demo/replay" if (ROOT / "demo/replay").exists() else None)
     budget = Budget(daily_cap=args.daily_cap, cooldown_s=args.cooldown, max_concurrent=args.max_concurrent, total_cap=args.total_cap, state_path=args.budget_file)
+    if args.integrations:
+        hosts = {f"127.0.0.1:{args.port}", f"localhost:{args.port}", f"[::1]:{args.port}", *args.allowed_host}
+        integrations = IntegrationsConfig(enabled=True, reason="", data_dir=ROOT / "data/integrations", secret_store=args.secret_store, mode="local",
+                                          allowed_hosts=hosts, environ=os.environ)
+    else:
+        integrations = IntegrationsConfig.disabled(OFF_REASON if args.host in LOOPBACK_HOSTS else HOSTED_REASON)
     app = create_app(ROOT, scenarios_for(ROOT), live_runner=live, budget=budget, recorded_dir=recorded,
                      allow_custom_url=args.allow_custom_url, trust_proxy=args.trust_proxy,
-                     live_info=live.info() if live else None)
+                     live_info=live.info() if live else None, integrations=integrations)
     uvicorn.run(app, host=args.host, port=args.port, log_level="info")
 
 

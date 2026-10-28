@@ -13,10 +13,14 @@ TOKEN = "test-token-not-a-real-credential"
 
 class FakeSplunk:
     def __init__(self, handler=None, token: str = TOKEN, capabilities=("search",), username: str = "svc_preflight",
-                 poll_delay_s: float = 0.0, context_status: int = 200):
+                 poll_delay_s: float = 0.0, context_status: int = 200, server_info=None, indexes=None, info_status: int = 200, indexes_status: int = 200):
         self.handler = handler or (lambda spl, earliest, latest: {"count": 0, "results": []})
         self.token, self.capabilities, self.username = token, list(capabilities), username
         self.poll_delay_s, self.context_status = poll_delay_s, context_status
+        self.server_info = server_info if server_info is not None else {"version": "9.9.9-mock", "product_type": "enterprise", "serverName": "fake", "build": "0"}
+        self.indexes = indexes if indexes is not None else {"win": {"totalEventCount": "120", "datatype": "event"}, "other": {"totalEventCount": "5"},
+                                                           "_internal": {"totalEventCount": "999"}, "off": {"disabled": True}}
+        self.info_status, self.indexes_status = info_status, indexes_status
         self.requests: list[tuple[str, str]] = []   # (method, path)
         self.searches: list[dict] = []              # the form fields of every job created
         self.jobs: dict[str, dict] = {}
@@ -57,6 +61,14 @@ class FakeSplunk:
                         return self._send(owner.context_status, {"messages": [{"type": "ERROR", "text": "forbidden"}]})
                     return self._send(200, {"entry": [{"content": {"username": owner.username, "roles": ["preflight"],
                                                                    "capabilities": owner.capabilities}}]})
+                if path == "/services/server/info":
+                    if owner.info_status != 200:
+                        return self._send(owner.info_status, {"messages": [{"type": "ERROR", "text": "forbidden"}]})
+                    return self._send(200, {"entry": [{"content": owner.server_info}]})
+                if path == "/services/data/indexes":
+                    if owner.indexes_status != 200:
+                        return self._send(owner.indexes_status, {"messages": [{"type": "ERROR", "text": "forbidden"}]})
+                    return self._send(200, {"entry": [{"name": n, "content": c} for n, c in owner.indexes.items()]})
                 parts = path.strip("/").split("/")
                 if parts[:3] == ["services", "search", "jobs"] and len(parts) in (4, 5):
                     job = owner.jobs.get(parts[3])

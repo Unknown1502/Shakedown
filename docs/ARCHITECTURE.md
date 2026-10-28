@@ -70,6 +70,7 @@ The same evaluator interface has a local Docker implementation ([shakedown/harne
 | `shakedown/research.py` | Tavily client, untrusted-content labelling and answer-source screening |
 | `shakedown/byo.py` | Bring your own logs: manifest validation, hashing, schema check and attack/benign verdicts over the existing evaluator (EVTX only, local by default) |
 | `shakedown/splunk.py` | Read-only Splunk preflight connector (search-job endpoints only; live-verified on a throwaway local test instance, see evidence/splunk_live_verification/REPORT.md) |
+| `shakedown/integrations/` | SIEM Integrations workspace: provider registry and adapters (Splunk Enterprise/Cloud, Elastic, Microsoft Sentinel), destination policy (SSRF), secret store, service (tests, plans, bounded preflights, history, export) and the guarded local API. See docs/INTEGRATIONS.md |
 | `shakedown/assess.py` | Three independent verdicts, the review packet and the `python -m shakedown.assess` command. Has no path to the model |
 | `shakedown/live.py` | Live wiring; picks the scenario's first readable reference as the report when none is typed |
 | `shakedown/budget.py` | Daily, total, cooldown and concurrency caps; counts persist across restarts |

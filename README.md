@@ -14,7 +14,11 @@ Built for the Nebius x NVIDIA Global AI Hackathon, Coding and Agentic Engineerin
 
 ![A recorded run: the first rule missed the attack, the repair detected it, results with denominators](docs/images/replay-adfind-execution.png)
 
-*A replay of a real run (the page says so, top right). Attempt 1 missed the attack; attempt 2, written after seeing the missed events, detects it with 0 benign matches on 129 development and 352 held-out log files. A failed run is shown just as plainly: [one that did not pass](docs/images/replay-adfind-enumeration-failure.png).*
+*A replay of a real run (the page says so: "Replay of a run recorded ... No model is running now"). Attempt 1 missed the attack; attempt 2, written after seeing the missed events, detects it with 0 benign matches on 129 development and 352 held-out log files. The three verdicts are separate, and the third (environment preflight) is "Not run" because no SIEM was searched. A failed run is shown just as plainly: [one that did not pass](docs/images/replay-adfind-enumeration-failure.png).*
+
+![The Integrations provider list: Splunk Enterprise and Elastic live-verified on a test instance, Splunk Cloud implemented but not live-verified, Microsoft Sentinel mock-tested but not live-verified, QRadar planned](docs/images/integrations-providers.png)
+
+*The Integrations workspace (`--integrations`, local only). Each provider states what was actually verified. Splunk Enterprise and Elastic were verified only on throwaway local test instances with simulated events; Splunk Cloud and Sentinel were never run against the real service.* A connection page and a preflight result from the local Splunk test instance (simulated Sysmon events, certificate checking off, as the page says): [connection](docs/images/integrations-connection.png), [result](docs/images/integrations-preflight-result.png).
 
 ## The problem
 
@@ -99,6 +103,7 @@ uv run python -m shakedown.assess --rule rule.yml --manifest case/manifest.yml -
 It reports **three independent statuses, never one pass**: (A) does the Sigma validator accept the rule, (B) does it detect the attack evidence you supplied, (C) what did a bounded, read-only Splunk search find in your environment and window (the Splunk connector is live-verified only on a throwaway local test instance; see below). It writes a review packet (rule, Splunk query, validation, attack evidence with denominators, environment findings, telemetry coverage, possible false positives, limits). It recommends; it deploys nothing.
 
 - **Bring your own logs** ([docs/BRING_YOUR_OWN_LOGS.md](docs/BRING_YOUR_OWN_LOGS.md)): EVTX only, every file labelled and hashed, logs never assumed benign, evaluated locally unless you explicitly allow an upload. Run end to end on real EVTX files.
+- **SIEM Integrations workspace** ([docs/INTEGRATIONS.md](docs/INTEGRATIONS.md)): start with `uv run python -m shakedown.serve --integrations` (local only). Connect Splunk, Elastic or Microsoft Sentinel, test access, see the exact native query before anything runs, run a bounded read-only preflight and export a review packet. **Splunk Enterprise and Elastic are verified only on throwaway local test instances with simulated events; Splunk Cloud and Sentinel are implemented but not live-verified** (Sentinel was tested against a mock Microsoft only). Disabled on a hosted server.
 - **Splunk preflight** ([docs/SPLUNK_PREFLIGHT.md](docs/SPLUNK_PREFLIGHT.md)): **live-verified on a throwaway local Splunk Enterprise 10.6.1.1 instance (controlled, simulated Sysmon events); not verified against a production Splunk or a real Sysmon add-on.** A real Splunk executed the connector's actual converted query and every count matched the labelled expectations ([report](evidence/splunk_live_verification/REPORT.md)). The 11 live tests are separate from the mocked ones and opt-in. Production Splunk, a real Sysmon add-on and certificate-verified connections have not been tested.
 - Customer events and SIEM results are never sent to the model, Tavily or any other service, and there is no repair step on them.
 

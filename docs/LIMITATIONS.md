@@ -32,6 +32,10 @@ What these results do and do not show. The numbers are in [RESULTS_TABLE.md](RES
 - **Sandboxes is a beta product.** The offline flag is sent through a small subclass of the SDK's request type because `contree-sdk` 0.3.6 does not expose it. The SDK is pinned, and a test checks the request. A later SDK may change this.
 - **No authentication on the demo.** The hosted app is protected by a daily cap, a per-client cooldown and a single concurrent run, not by user accounts.
 
+## About the SIEM Integrations workspace
+
+See [INTEGRATIONS.md](INTEGRATIONS.md) for the full list. In short: Splunk Enterprise and Elastic were verified only against throwaway loopback test instances with simulated events; **Splunk Cloud and Microsoft Sentinel were never run against the real service** (Sentinel only against a mock Microsoft); Elastic and Sentinel searches cannot be cancelled; field mappings and case sensitivity depend on your add-ons and indexing; saved credentials default to memory only; connecting is disabled on a hosted server; one local operator, no accounts.
+
 ## About the real-world preflight (assess, bring your own logs, Splunk)
 
 - **The Splunk connector is live-verified on a throwaway local Splunk Enterprise 10.6.1.1 instance (controlled, simulated Sysmon events); not verified against a production Splunk or a real Sysmon add-on.** The evidence is `evidence/splunk_live_verification/REPORT.md`: 11 live tests against one single-node trial instance, 8 labelled events and 300,000 filler events. Not tested: a production or clustered Splunk, Splunk Cloud, a real Windows or Sysmon add-on's field extraction (the main reason a rule can match nothing in a real environment), a connection with TLS verification succeeding, scale or concurrency. Its 47 mocked tests are not proof of a live integration.

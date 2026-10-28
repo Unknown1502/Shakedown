@@ -4,106 +4,47 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Shakedown</title>
-<meta name="description" content="Turn a threat report into a Sigma detection rule, then test it against real attack and benign Windows logs and repair it from the evidence.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta name="description" content="Turn a threat report into a Sigma detection rule, then test it against attack and benign Windows logs and repair it from the evidence.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'%3E%3Crect width='22' height='22' rx='3' fill='%231c4cb4'/%3E%3Cpath d='M5 7h12M5 11h8M5 15h10' stroke='%23fff' stroke-width='2'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-<a class="skip" href="#main">Skip to the run</a>
-<header class="top">
-  <div class="brand"><span class="brand-mark" aria-hidden="true"></span><h1>Shakedown</h1></div>
-  <p class="tagline">Detection rules that come with test results.</p>
-  <div id="mode-badge" class="mode" role="status" aria-live="polite"></div>
-</header>
+<a class="skip" href="#main">Skip to content</a>
+<div class="shell">
+  <header class="topbar">
+    <button id="nav-toggle" class="btn small" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <a class="brand" href="#/" aria-label="Shakedown, overview">
+      <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><rect x="1" y="1" width="20" height="20" rx="3" fill="#1c4cb4"/><path d="M5 7h12M5 11h8M5 15h10" stroke="#fff" stroke-width="2" stroke-linecap="square"/></svg>
+      Shakedown
+    </a>
+    <p id="crumb" class="crumb"></p>
+    <span class="spacer"></span>
+    <span id="capability" class="capability" role="status"><span class="cap-text"></span></span>
+    <a class="btn primary" id="new-btn" href="#/new">New assessment</a>
+  </header>
 
-<div class="layout">
-  <nav class="rail" aria-label="Runs and scenarios">
-    <section>
-      <h2>Recorded runs</h2>
-      <p class="hint">Real runs saved with their evidence. Playing one back does not call any model.</p>
-      <ul id="recorded-list" class="pick"></ul>
-    </section>
-    <section id="live-section">
-      <h2>Run it live</h2>
-      <form id="live-form">
-        <label for="scenario">Scenario</label>
-        <select id="scenario" required></select>
-        <label for="source-url" id="source-url-label">Threat report address <span class="opt">(optional)</span></label>
-        <input id="source-url" type="url" inputmode="url" placeholder="https://" autocomplete="off">
-        <button id="live-start" type="submit" class="primary">Run live</button>
-        <p id="live-note" class="hint" role="status" aria-live="polite"></p>
-      </form>
-    </section>
+  <nav id="nav" class="nav" aria-label="Main">
+    <h2>Workspace</h2>
+    <a href="#/" data-route="overview">Overview</a>
+    <a href="#/new" data-route="new">New assessment</a>
+    <a href="#/runs" data-route="runs">Run history</a>
+    <h2>Evidence</h2>
+    <a href="#/evidence" data-route="evidence">Benchmark and limits</a>
+    <h2>Your environment</h2>
+    <a href="#/integrations" data-route="integrations">Integrations</a>
+    <a href="#/assessments" data-route="assessments">Assessments</a>
+    <div class="nav-foot">
+      <p id="nav-cap" class="capability"></p>
+      <p>A generated rule is a candidate. This workbench shows what was tested and what happened.</p>
+    </div>
   </nav>
 
   <main id="main" tabindex="-1">
-    <div id="empty" class="empty">
-      <h2 id="empty-title">Pick a recorded run to see how a rule gets built and tested.</h2>
-      <p>Each run shows the first rule the model wrote, what the tests found, how the rule was repaired, and how the final rule compares with the expert rule published by SigmaHQ. Recorded runs are replays and say so on screen.</p>
-    </div>
-    <div id="run" hidden>
-      <section class="run-head">
-        <div>
-          <h2 id="run-title"></h2>
-          <p id="run-source" class="source"></p>
-          <p id="source-mode" class="source"></p>
-        </div>
-        <ul id="roles" class="roles"></ul>
-      </section>
-
-      <section aria-labelledby="strip-h">
-        <h3 id="strip-h" class="sr">Outcome of each attempt</h3>
-        <div id="strip" class="strip" role="list"></div>
-        <p id="verdict" class="verdict" role="status" aria-live="polite"></p>
-      </section>
-
-      <section class="work">
-        <div class="ledger-wrap">
-          <h3>Attempts</h3>
-          <ol id="ledger" class="ledger"></ol>
-        </div>
-        <div class="detail">
-          <div class="tabs" role="tablist" aria-label="Attempt details">
-            <button role="tab" id="tab-rule" aria-selected="true" aria-controls="panel-rule">Rule and changes</button>
-            <button role="tab" id="tab-evidence" aria-selected="false" aria-controls="panel-evidence" tabindex="-1">Test evidence</button>
-            <button role="tab" id="tab-spec" aria-selected="false" aria-controls="panel-spec" tabindex="-1">What was extracted</button>
-          </div>
-          <div id="panel-rule" role="tabpanel" aria-labelledby="tab-rule"></div>
-          <div id="panel-evidence" role="tabpanel" aria-labelledby="tab-evidence" hidden></div>
-          <div id="panel-spec" role="tabpanel" aria-labelledby="tab-spec" hidden></div>
-        </div>
-      </section>
-
-      <section id="results-section" aria-labelledby="results-h" hidden>
-        <h3 id="results-h">Results</h3>
-        <div class="table-wrap"><table id="results"></table></div>
-        <p class="fine" id="results-note"></p>
-      </section>
-
-      <section id="export-section" hidden>
-        <h3>Take the evidence with you</h3>
-        <div class="actions">
-          <button id="dl-rule" class="primary">Download final rule</button>
-          <button id="dl-json">Download evidence (JSON)</button>
-          <button id="dl-md">Download summary (Markdown)</button>
-        </div>
-      </section>
-
-      <details class="limits">
-        <summary>What this run does and does not show</summary>
-        <ul>
-          <li>The test uses one recorded attack file per scenario. After a repair, "detected" means the rule now matches a file whose missed events the model was shown. It does not show the rule catches other variants of the attack.</li>
-          <li>The benign logs come from a few lab machines. Zero benign matches here does not mean zero false positives on a production network.</li>
-          <li>The expert rule is the published SigmaHQ rule for the same behaviour, run through the same tests. SigmaHQ rules are used under the Detection Rule License 1.1; the rule's authors are named in the rule text inside the evidence download.</li>
-          <li>Web search for a scenario can return copies of the very rule being written. Newer runs leave those results out and list them; recordings that say they predate this check had that help.</li>
-          <li>Recorded runs were chosen after seeing earlier results. Aggregate numbers across two sets of twenty tasks are in the project's results table (docs/RESULTS_TABLE.md).</li>
-        </ul>
-      </details>
-    </div>
+    <div id="view" class="view"><p class="muted">Loading</p></div>
   </main>
 </div>
-<script src="/static/app.js"></script>
+<div id="announce" class="sr" role="status" aria-live="polite"></div>
+<script src="/static/app.js" defer></script>
+<script src="/static/integrations.js" defer></script>
 </body>
 </html>

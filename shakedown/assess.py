@@ -33,7 +33,16 @@ ATTACK_LABELS = {"validated_on_supplied_attack_evidence": "Validated on the atta
 ENV_LABELS = {"potential_matches_found": "Potential environment matches found", "no_matches_in_window": "No matches in the selected window",
               "telemetry_missing_or_unsupported": "Required telemetry missing or unsupported", "query_failed": "Search failed", "not_run": "Not run"}
 ORIGIN_LABELS = {"organisation_supplied": "organisation-supplied evidence", "controlled_lab_fixture": "controlled lab fixture",
-                 "splunk_read_only_search": "Splunk read-only search"}
+                 "splunk_read_only_search": "Splunk read-only search", "elastic_read_only_search": "Elasticsearch read-only search",
+                 "sentinel_read_only_search": "Azure Monitor Logs read-only query"}
+PROVIDERS = {"splunk": ("Splunk", "SPL", "spl"), "elastic": ("Elasticsearch", "Elasticsearch query (JSON)", "json"), "sentinel": ("Microsoft Sentinel", "KQL", "kql")}
+
+
+def provider_of(environment: dict | None) -> tuple:
+    """(family, label, language, file extension) for the SIEM an environment result came from. Defaults to Splunk, the original connector."""
+    family = (environment or {}).get("provider", "splunk")
+    label, language, ext = PROVIDERS.get(family, (family, (environment or {}).get("language", ""), "txt"))
+    return family, (environment or {}).get("provider_label", label), (environment or {}).get("language", language), ext
 STANDARD_LIMITATIONS = [
     "The three statuses answer different questions and are not added together. There is no overall pass.",
     "A lab or supplied-attack match does not show the organisation collects the telemetry the rule needs.",
@@ -134,9 +143,9 @@ def build_assessment(rule_text: str, *, validation: Validation | None, attack: d
         env = _status("not_run", ENV_LABELS, None, environment.get("reason", ""))
     elif environment["status"] == "query_failed":
         err = environment["error"]
-        env = _status("query_failed", ENV_LABELS, "splunk_read_only_search", f"{err['kind']}: {err['message']}", error=err, connector_label=connector_label)
+        env = _status("query_failed", ENV_LABELS, f"{provider_of(environment)[0]}_read_only_search", f"{err['kind']}: {err['message']}", error=err, connector_label=connector_label)
     else:
-        env = _status(environment["status"], ENV_LABELS, "splunk_read_only_search", environment.get("explanation", ""),
+        env = _status(environment["status"], ENV_LABELS, f"{provider_of(environment)[0]}_read_only_search", environment.get("explanation", ""),
                       completed=environment["status"] in ("potential_matches_found", "no_matches_in_window"),
                       scope=environment.get("scope"), coverage=environment.get("coverage"), fields=environment.get("fields"),
                       matches=environment.get("matches"), queries=environment.get("queries"), identity=environment.get("identity"),
@@ -148,7 +157,7 @@ def build_assessment(rule_text: str, *, validation: Validation | None, attack: d
     limitations += [c for c in att.get("caveats", []) if c not in limitations]
     if benign:
         limitations += [r for r in benign.get("reasons", []) if r not in limitations]
-    query = target_query or ({"language": "SPL", "detection": environment["queries"]["detection"], "scope": environment.get("scope")}
+    query = target_query or ({"language": provider_of(environment)[2], "detection": environment["queries"]["detection"], "scope": environment.get("scope")}
                              if environment and environment.get("queries") else None)
     return {
         "schema": "shakedown-assessment/1", "created_at": datetime.now(timezone.utc).isoformat(),
@@ -156,7 +165,8 @@ def build_assessment(rule_text: str, *, validation: Validation | None, attack: d
                  "falsepositives": doc.get("falsepositives") or [], "logsource": doc.get("logsource")},
         "statuses": {"rule_validity": rule, "attack_validation": att, "environment_preflight": env},
         "benign_baseline": benign, "lab_evidence": lab, "report": report, "target_query": query,
-        "recommendation": _recommend(rule, att, env, benign), "limitations": limitations}
+        "recommendation": _recommend(rule, att, env, benign), "limitations": limitations,
+        **({"environment_provider": {"id": provider_of(environment)[0], "label": provider_of(environment)[1], "language": provider_of(environment)[2]}} if environment else {})}
 
 
 # --- the review packet ---------------------------------------------------------------------------------------------
@@ -189,9 +199,11 @@ def render_packet(rule_text: str, a: dict) -> str:
         lines.append("No report was supplied with this assessment.")
     lines += ["", "## 3. Sigma rule", "", _fence(rule_text, "yaml"), ""]
     q = a.get("target_query")
-    lines += ["## 4. Splunk query (not deployed)", ""]
+    prov = a.get("environment_provider") or {"label": "Splunk", "language": "SPL"}
+    ext = provider_of({"provider": prov.get("id", "splunk")})[3]
+    lines += [f"## 4. {prov['label']} query (not deployed)", ""]
     if q:
-        lines += [_fence(q["detection"], "spl"), "", "The log-source scope in the query is an assumption about how your events are indexed; check it.", ""]
+        lines += [_fence(q["detection"], ext), "", "The log-source scope in the query is an assumption about how your events are indexed; check it.", ""]
     else:
         lines += ["No query was produced.", ""]
     lines += ["## 5. Validation", "", f"**Rule validity: {rv['label']}.** {rv['detail']}", ""]
@@ -235,8 +247,8 @@ def render_packet(rule_text: str, a: dict) -> str:
         lines.append(f"- {ev['matches']['count']} event(s) matched in the environment search; some may be legitimate activity.")
     lines += ["", "## 10. Limitations", "", *(f"- {x}" for x in a["limitations"]), "",
               "## 11. Handoff", "",
-              "Files in this folder: `rule.yml` (the rule), `query.spl` (the Splunk search), `assessment.json` (all of the above as data).",
-              "Nothing was deployed. Nothing was created or modified in Splunk. Converting, loading and tuning the rule is a manual step for an analyst.", ""]
+              f"Files in this folder: `rule.yml` (the rule), `query.{ext}` (the {prov['label']} query), `assessment.json` (all of the above as data).",
+              f"Nothing was deployed. Nothing was created or modified in {prov['label']}. Converting, loading and tuning the rule is a manual step for an analyst.", ""]
     return "\n".join(lines)
 
 
@@ -246,7 +258,8 @@ def write_packet(out_dir: Path, rule_text: str, assessment: dict, extra: dict | 
     (out / "assessment.json").write_text(json.dumps(assessment, indent=1, default=str), encoding="utf-8")
     (out / "rule.yml").write_text(rule_text, encoding="utf-8")
     q = assessment.get("target_query")
-    (out / "query.spl").write_text((q["detection"] if q else "") + "\n", encoding="utf-8")
+    ext = provider_of({"provider": (assessment.get("environment_provider") or {}).get("id", "splunk")})[3]
+    (out / f"query.{ext}").write_text((q["detection"] if q else "") + "\n", encoding="utf-8")
     (out / "review_packet.md").write_text(render_packet(rule_text, assessment), encoding="utf-8")
     for name, doc in (extra or {}).items():
         (out / name).write_text(json.dumps(doc, indent=1, default=str), encoding="utf-8")

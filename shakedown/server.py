@@ -15,6 +15,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from shakedown.budget import Budget
+from shakedown.integrations.api import IntegrationsConfig, ServerRules, mount_integrations
 from shakedown.research import Source, answer_reasons
 
 SLUG_RE = re.compile(r"^[a-z0-9-]{1,80}$")
@@ -53,9 +54,17 @@ def _client_id(request: Request, trust_proxy: bool) -> str:
     return request.client.host if request.client else "unknown"
 
 
+SECURITY_HEADERS = {
+    "Content-Security-Policy": ("default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; font-src 'self'; "
+                                "object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'"),
+    "X-Content-Type-Options": "nosniff", "Referrer-Policy": "no-referrer", "X-Frame-Options": "DENY", "Cross-Origin-Opener-Policy": "same-origin",
+    "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
+}
+
+
 def create_app(root: Path, scenarios: list[dict], live_runner=None, budget: Budget | None = None,
                web_dir: Path | None = None, recorded_dir: Path | None = None, allow_custom_url: bool = False,
-               trust_proxy: bool = False, live_info: dict | None = None) -> FastAPI:
+               trust_proxy: bool = False, live_info: dict | None = None, integrations: IntegrationsConfig | None = None) -> FastAPI:
     """`allow_custom_url`: when False (the hosted default) a live run may only read the scenario's own references,
     so visitors cannot point the paid research tool at arbitrary pages. `live_info` is shown by /api/health."""
     root = Path(root)
@@ -64,6 +73,13 @@ def create_app(root: Path, scenarios: list[dict], live_runner=None, budget: Budg
     runs: dict[str, dict] = {}
     runs_lock = threading.Lock()
     app = FastAPI(title="Shakedown", docs_url=None, redoc_url=None)
+
+    @app.middleware("http")
+    async def security_headers(request, call_next):
+        response = await call_next(request)
+        for k, v in SECURITY_HEADERS.items():
+            response.headers.setdefault(k, v)
+        return response
 
     def recorded_files() -> dict[str, Path]:
         return {p.stem: p for p in sorted(recorded_dir.glob("*.json"))} if recorded_dir.exists() else {}
@@ -146,6 +162,9 @@ def create_app(root: Path, scenarios: list[dict], live_runner=None, budget: Budg
         if state is None:
             raise HTTPException(404, "Unknown run.")
         return state
+
+    # SIEM integrations are off unless the operator started a local server with --integrations; the status route still explains why.
+    mount_integrations(app, integrations or IntegrationsConfig.disabled(), ServerRules(recorded_files, runs))
 
     web = Path(web_dir) if web_dir else Path(__file__).resolve().parents[1] / "web"
     if web.exists():

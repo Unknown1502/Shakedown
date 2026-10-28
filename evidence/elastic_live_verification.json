@@ -1,0 +1,18 @@
+{
+ "verified_at": "2026-10-27T21:16:17.419096+00:00",
+ "target_host_sha256": "49960de5880e8c68",
+ "target_is_loopback": true,
+ "tls_verified": true,
+ "credential_type": "api_key",
+ "checks": [
+  "connected with certificate verification on",
+  "authenticated",
+  "privileges checked",
+  "indices listed",
+  "rule converted with the ECS Windows pipeline",
+  "bounded coverage, field-presence and detection searches completed",
+  "no credential in the result"
+ ],
+ "server_version": "9.1.0",
+ "server_version_source": "operator-supplied"
+}

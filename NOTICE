@@ -13,7 +13,7 @@ Third-party material used at run time (not redistributed in this repository, exc
 - Splunk Enterprise (trial, Docker image splunk/splunk) was used only as a local, throwaway test fixture for the Splunk connector. It is not included in or redistributed by this repository; use is subject to Splunk's own terms, which the person running it accepts.
 - Rule texts shown in recorded runs keep their `author` fields. SigmaHQ rules: Detection Rule License 1.1, https://github.com/SigmaHQ/Detection-Rule-License . Recorded run evidence also contains short excerpts (a few hundred characters each) of events from the SigmaHQ regression samples and the evtx-baseline logs; the data files themselves are not in this repository.
 - evtx-baseline benign Windows logs, release v0.8.5 (Apache-2.0). Fetched at run time; not committed.
-- sigma-cli (LGPL-2.1-or-later), pySigma and pysigma-backend-splunk (LGPL-2.1-only), contree-sdk and python-evtx (Apache-2.0),
+- sigma-cli (LGPL-2.1-or-later), pySigma and pysigma-backend-splunk (LGPL-2.1-only), pysigma-backend-elasticsearch and pysigma-backend-kusto (LGPL-3.0-only), contree-sdk and python-evtx (Apache-2.0),
   FastAPI and PyYAML (MIT), uvicorn (BSD-3-Clause): used as installed dependencies, unmodified, not redistributed in this repository.
 
 - `evidence/leakage_audit/` and `demo/` hold short excerpts of public web pages returned by Tavily search (for example sigmaquery.com, detection.fyi, the SigmaHQ GitHub repository, research.splunk.com, manageengine.com) and SigmaHQ rule text, kept as audit evidence and attributed by the URL stored with each excerpt. SigmaHQ rule text is under the Detection Rule License 1.1.

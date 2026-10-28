@@ -1,5 +1,7 @@
 # Splunk read-only preflight
 
+> The same connector is now also available through the Integrations workspace (`--integrations`), with Elastic and Microsoft Sentinel adapters: see [INTEGRATIONS.md](INTEGRATIONS.md). This page documents the Splunk connector and the command line.
+
 Run a Sigma rule as a bounded historical search in your Splunk and see what it would have matched.
 
 ## Status: **live-verified on a throwaway local test instance. Not verified against a production Splunk.**
