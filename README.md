@@ -67,6 +67,13 @@ The page shows every attempt, the diff between attempts, the evidence, which mod
 
 More in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md); design decisions in [docs/DECISIONS.md](docs/DECISIONS.md).
 
+## How we used NVIDIA Nemotron and Nebius
+
+- **NVIDIA Nemotron 3 Super 120B** (`nvidia/nemotron-3-super-120b-a12b`, an NVIDIA open model) is the only model in the loop. It extracts the typed spec, writes the rule and repairs it, using structured JSON output ([shakedown/llm.py](shakedown/llm.py), [shakedown/loop.py](shakedown/loop.py)). The model picker is limited to NVIDIA models.
+- **Nebius Token Factory** serves it through an OpenAI-compatible API, as a runtime call on every run. Where it sped the work up: a structured answer comes back in about 5 to 11 seconds, so a write, test, repair cycle fits inside one run of roughly 2.5 to 5 minutes, and the two metered live runs we recorded cost about a cent each ([docs/RELEASE_CHECKLIST.md](docs/RELEASE_CHECKLIST.md)). That is what made nine full batch runs over twenty tasks each practical ([docs/RESULTS_TABLE.md](docs/RESULTS_TABLE.md)).
+- **Nebius Token Factory Sandboxes (beta)** run SigmaHQ's checker on every candidate in a disposable microVM with `networking.enabled=false`, from one immutable image. Runs 1 to 5 used a local Docker evaluator; from Run 6 on, evaluation moved to the Sandbox after thirty reference rules gave identical match counts in both. No other Nebius service is used.
+- Everything else (Tavily for research, `sigma check`, the scoring and the spend caps) is described in the table above.
+
 ## Results
 
 Measured on SigmaHQ regression data: one attack log per rule; benign lab logs (`win7-x86` for development, `win10-client` held out). **Twenty tasks frozen before any run on them** (10 dated 2026), evaluated in a Token Factory Sandbox. The benchmark gives the model a SigmaHQ rule's title, description, references and tags, and never used web research. Full tables, method and every change made after seeing results: [docs/RESULTS_TABLE.md](docs/RESULTS_TABLE.md), [docs/EVALUATION_METHODOLOGY.md](docs/EVALUATION_METHODOLOGY.md).
